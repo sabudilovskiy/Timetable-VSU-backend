@@ -1,0 +1,6 @@
+type: string
+enum:
+  - 'student'
+  - 'teacher'
+  - 'admin'
+  - 'root' #may be unused

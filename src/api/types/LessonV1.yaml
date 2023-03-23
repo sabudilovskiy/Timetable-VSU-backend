@@ -1,0 +1,30 @@
+properties:
+  room_id:
+    $ref: './Id.yaml'
+  room_name:
+    type: string
+    example: '405П'
+    description: Номер аудитории
+  teacher_id:
+    type: string
+    example: 'some_id'
+  teacher_fio:
+    type: string
+    example: 'Иванов Иван Иванович'
+  subject_id:
+    $ref: './Id.yaml'
+  subject_name:
+    type: string
+    example: 'Дифференциальные уравнения'
+  group:
+    $ref: './GroupV1.yaml'
+  group_id:
+    $ref: './Id.yaml'
+  week:
+    $ref: './TypeOfWeek.yaml'
+  subgroup:
+    $ref: './Subgroup.yaml'
+  start:
+    $ref: './Timestamp.yaml'
+  end:
+    $ref: './Timestamp.yaml'   

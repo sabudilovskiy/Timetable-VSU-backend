@@ -1,0 +1,7 @@
+properties:
+  machine_id:
+    type: string
+    example: 'SMALL_PASSWORD'
+  description:
+    type: string
+    example: 'Password must have at least 10 symbols'

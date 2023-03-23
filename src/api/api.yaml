@@ -1,0 +1,353 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/SABUDILOVSKIY_1/CourseWork/1.0.0
+info:
+  description: This is a simple timetable API
+  version: "1.0.0"
+  title: Simple Timetable API
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: admins
+    description: Доступно администраторам сервиса
+  - name: teachers
+    description: Доступны для преподавателей, которые ведут соответствующую группу и соответствующий предмет
+  - name: users
+    description: Доступно всем
+paths:
+  /register:
+    $ref: 'views/register/view.yaml'
+  /login:
+    $ref: 'views/login/view.yaml'
+  /get-timetable:
+    $ref: 'views/get-timetable/view.yaml'
+  /lesson/add:
+    $ref: 'views/lesson/add/view.yaml'         
+  /lesson/move:
+    $ref: 'views/lesson/move/view.yaml'   
+  /lesson/remove:
+    $ref: views/lesson/remove/view.yaml
+  /admin/group/add:
+    post:
+      description: Создать группу
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupAddRequestV1'
+      parameters:
+        - in: cookie
+          name: authToken
+          required: true
+          schema:
+            $ref: './types/AuthTokenV1.yaml'
+      responses:
+        '200':
+          description: Группа успешно создана
+          content:
+            application/json:
+              schema:
+                $ref: './types/GroupV1.yaml'
+        '401':
+          description: Отсутствует или истекший токен
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+        '403':
+          description: Нет прав на подобные изменения
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'  
+  /admin/group/remove:
+    post:
+      description: Удалить группу
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRemoveRequestV1'
+      parameters:
+        - in: cookie
+          name: authToken
+          required: true
+          schema:
+            $ref: './types/AuthTokenV1.yaml'
+      responses:
+        '200':
+          description: Группа успешно удалена
+          content:
+            application/json:
+              schema:
+                $ref: './types/GroupV1.yaml'
+        '401':
+          description: Отсутствует или истекший токен
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+        '403':
+          description: Нет прав на подобные изменения
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+  /admin/group/lesson/add:
+    post:
+      description: Добавить пару группе
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupAddLessonRequestV1'
+      parameters:
+        - in: cookie
+          name: authToken
+          required: true
+          schema:
+            $ref: './types/AuthTokenV1.yaml'
+      responses:
+        '200':
+          description: Предмет успешно добавлен в группу
+        '401':
+          description: Отсутствует или истекший токен
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+        '403':
+          description: Нет прав на подобные изменения
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'  
+  /admin/group/lesson/remove:
+    post:
+      description: Убрать пару у группы
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRemoveLessonRequestV1'
+      parameters:
+        - in: cookie
+          name: authToken
+          required: true
+          schema:
+            $ref: './types/AuthTokenV1.yaml'
+      responses:
+        '200':
+          description: Предмет успешно удален из группы
+        '401':
+          description: Отсутствует или истекший токен
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+        '403':
+          description: Нет прав на подобные изменения
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'  
+
+  /admin/group/teacher/add:
+    post:
+      description: Добавить преподавателя группе
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupAddTeacherRequestV1'
+      parameters:
+        - in: cookie
+          name: authToken
+          required: true
+          schema:
+            $ref: './types/AuthTokenV1.yaml'
+      responses:
+        '200':
+          description: Преподаватель успешно добавлен в группу
+        '401':
+          description: Отсутствует или истекший токен
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+        '403':
+          description: Нет прав на подобные изменения
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml' 
+  
+  /admin/group/teacher/remove:
+    post:
+      description: Убрать преподавателя из группы
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRemoveTeacherRequestV1'
+      parameters:
+        - in: cookie
+          name: authToken
+          required: true
+          schema:
+            $ref: './types/AuthTokenV1.yaml'
+      responses:
+        '200':
+          description: Преподаватель успешно удален из группы
+        '401':
+          description: Отсутствует или истекший токен
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+        '403':
+          description: Нет прав на подобные изменения
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+  
+  /admin/teacher/link:
+    post:
+      description: Связать преподавателя с его аккаунтом
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeacherLinkRequestV1'
+      parameters:
+        - in: cookie
+          name: authToken
+          required: true
+          schema:
+            $ref: './types/AuthTokenV1.yaml'
+      responses:
+        '200':
+          description: Преподаватель успешно удален из группы
+        '401':
+          description: Отсутствует или истекший токен
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+        '403':
+          description: Нет прав на подобные изменения
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+                
+  /admin/teacher/unlink:
+    post:
+      description: Отвязать аккаунт у преподавателя
+      tags:
+        - admins
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeacherLinkRequestV1'
+      parameters:
+        - in: cookie
+          name: authToken
+          required: true
+          schema:
+            $ref: './types/AuthTokenV1.yaml'
+      responses:
+        '200':
+          description: Аккаунт успешно отвязан от преподавателя
+        '401':
+          description: Отсутствует или истекший токен
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+        '403':
+          description: Нет прав на подобные изменения
+          content:
+            application/json:
+              schema:
+                $ref: './types/ErrorV1.yaml'
+
+components:
+  schemas:     
+    GroupAddRequestV1:
+      properties:
+        group_name:
+          type: string
+          example: '62'
+        group_course:
+          type: integer
+          example: 3
+        group_type:
+          $ref: 'types/EducationType.yaml'
+    GroupRemoveRequestV1:
+      properties:
+        group_id:
+          $ref: './types/Id.yaml'
+    GroupAddLessonRequestV1:
+      properties:
+        group_id:
+          $ref: './types/Id.yaml'
+        subject_id:
+          $ref: './types/Id.yaml'
+    GroupAddTeacherRequestV1:
+      properties:
+        group_id:
+          $ref: './types/Id.yaml'
+        subject_id:
+          $ref: './types/Id.yaml'
+        teacher_id:
+          $ref: './types/Id.yaml'
+    GroupRemoveTeacherRequestV1:
+      properties:
+        group_id:
+          $ref: './types/Id.yaml'
+        subject_id:
+          $ref: './types/Id.yaml'
+        teacher_id:
+          $ref: './types/Id.yaml'
+    GroupRemoveLessonRequestV1:
+      properties:
+        group_id:
+          $ref: './types/Id.yaml'
+        subject_id:
+          $ref: './types/Id.yaml'
+    TeacherLinkRequestV1:
+      properties:
+        user_id:
+          $ref: './types/Id.yaml'
+        teacher_id:
+          $ref: './types/Id.yaml'
+      
+

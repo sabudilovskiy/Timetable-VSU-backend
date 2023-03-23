@@ -1,0 +1,13 @@
+properties:
+  lesson_old_id: 
+    $ref: '../../../types/Id.yaml'
+  subject_id:
+    $ref: '../../../types/Id.yaml'
+  number_lesson:
+      $ref : '../../../types/NumberLesson.yaml'
+  room_id: 
+    $ref: '../../../types/Id.yaml'
+  start:
+    $ref: '../../../types/Timestamp.yaml'
+  end:
+    $ref: '../../../types/Timestamp.yaml'

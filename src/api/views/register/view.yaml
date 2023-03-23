@@ -1,0 +1,22 @@
+post:
+  tags:
+    - users
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref : './RequestV1.yaml'
+  responses:
+    '200':
+      description: Создан новый пользователь
+      content:
+        application/json:
+          schema:
+            $ref : '../../types/AuthTokenV1.yaml'
+    '400':
+      description: Логин уже занят или пароль не удолетворяет требованиям
+      content:
+        application/json:
+          schema:
+            $ref : '../../types/ErrorV1.yaml'
