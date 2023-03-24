@@ -75,8 +75,9 @@ format:
 	@find tests -name '*.py' -type f | xargs autopep8 -i
 
 # Internal hidden targets that are used only in docker environment
-.PHONY: --in-docker-start-debug --in-docker-start-release
 --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
+	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/Timetable-VSU-backend/static_config.yaml
+	@psql 'postgresql://user:password@service-postgres:5432/Timetable-VSU-backend_db-1' -f ./postgresql/data/initial_data.sql
 	@/home/user/.local/bin/Timetable-VSU-backend \
 		--config /home/user/.local/etc/Timetable-VSU-backend/static_config.yaml
 
@@ -85,12 +86,13 @@ format:
 docker-start-service-debug docker-start-service-release: docker-start-service-%:
 	@docker-compose run -p 8080:8080 --rm Timetable-VSU-backend-container $(MAKE) -- --in-docker-start-$*
 
-# Start specific target in docker environment
+# Start targets makefile in docker environment
 .PHONY: docker-cmake-debug docker-build-debug docker-test-debug docker-clean-debug docker-install-debug docker-cmake-release docker-build-release docker-test-release docker-clean-release docker-install-release
 docker-cmake-debug docker-build-debug docker-test-debug docker-clean-debug docker-install-debug docker-cmake-release docker-build-release docker-test-release docker-clean-release docker-install-release: docker-%:
 	docker-compose run --rm Timetable-VSU-backend-container $(MAKE) $*
 
-# Stop docker container and cleanup data
+# Stop docker container and remove PG data
 .PHONY: docker-clean-data
 docker-clean-data:
 	@docker-compose down -v
+	@rm -rf ./.pgdata
