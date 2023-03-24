@@ -1,0 +1,31 @@
+post:
+  description: Убрать пару у группы
+  tags:
+    - admins
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: Request.yaml
+  parameters:
+    - in: cookie
+      name: authToken
+      required: true
+      schema:
+        $ref: '../../../../../types/AuthTokenV1.yaml'
+  responses:
+    '200':
+      description: Предмет успешно удален из группы
+    '401':
+      description: Отсутствует или истекший токен
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../../types/ErrorV1.yaml'
+    '403':
+      description: Нет прав на подобные изменения
+      content:
+        application/json:
+          schema:
+            $ref: '../../../../../types/ErrorV1.yaml'  
