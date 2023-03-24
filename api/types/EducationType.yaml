@@ -1,0 +1,6 @@
+type: string
+enum:
+  - 'undergraduate'
+  - 'magistracy'
+  - 'magistracy'
+  - 'specialty'

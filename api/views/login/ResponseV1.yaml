@@ -1,0 +1,5 @@
+properties:
+  token:
+    $ref: '../../types/AuthTokenV1.yaml'
+  user_type:
+    $ref: ../../types/UserTypeV1.yaml

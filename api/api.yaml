@@ -1,0 +1,53 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/SABUDILOVSKIY_1/CourseWork/1.0.0
+info:
+  description: This is a simple timetable API
+  version: "1.0.0"
+  title: Simple Timetable API
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: admins
+    description: Доступно администраторам сервиса
+  - name: teachers
+    description: Доступны для преподавателей, которые ведут соответствующую группу и соответствующий предмет
+  - name: users
+    description: Доступно всем
+paths:
+  /register:
+    $ref: 'views/register/view.yaml'
+  /login:
+    $ref: 'views/login/view.yaml'
+  /get-timetable:
+    $ref: 'views/get-timetable/view.yaml'
+  /lesson/add:
+    $ref: 'views/lesson/add/view.yaml'         
+  /lesson/move:
+    $ref: 'views/lesson/move/view.yaml'   
+  /lesson/remove:
+    $ref: views/lesson/remove/view.yaml
+  /admin/group/add:
+    $ref: views/admin/group/add/view.yaml
+  /admin/group/remove:
+    $ref: views/admin/group/remove/view.yaml
+  /admin/group/lesson/add:
+    $ref: views/admin/group/lesson/add/view.yaml  
+  /admin/group/lesson/remove:
+    $ref: views/admin/group/lesson/remove/view.yaml
+  /admin/group/teacher/add:
+    $ref: views/admin/group/teacher/add/view.yaml
+  /admin/group/teacher/remove:
+    $ref: views/admin/group/teacher/remove/view.yaml
+  /admin/teacher/link:
+    $ref: views/admin/teacher/link/view.yaml               
+  /admin/teacher/unlink:
+    $ref: views/admin/teacher/unlink/view.yaml
+components:
+  schemas:
+    AuthTokenV1:
+      $ref: types/AuthTokenV1.yaml      
+

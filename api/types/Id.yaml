@@ -1,0 +1,3 @@
+description: 'UUID v4'
+type: string
+example: '6173575e-e86c-4c55-b43d-aa3ca6242181'

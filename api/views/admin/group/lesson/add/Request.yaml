@@ -1,0 +1,5 @@
+properties:
+  group_id:
+    $ref: '../../../../../types/Id.yaml'
+  subject_id:
+    $ref: '../../../../../types/Id.yaml'

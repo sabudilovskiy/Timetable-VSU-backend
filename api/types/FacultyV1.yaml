@@ -1,0 +1,10 @@
+properties:
+  name:
+    type: string
+    example: 'ПММ'
+  dean_name:
+    type: string
+    example: 'Медведев'
+  dean_id:
+    type: string
+    example: '132131'

@@ -1,0 +1,17 @@
+properties:
+  fio:
+    type: string
+    example: 'Иванов Иван Иванович'
+  faculty_name:
+    type: string
+    example: 'ПММ'
+  department_name:
+    type: string
+    example: 'МОЭВМ'
+  faculty_id:
+    $ref: './types/Id.yaml'
+  department_id:
+    $ref: './types/Id.yaml'
+  bio:
+    type: string
+    example: 'Работаю 100500 лет, люблю ВГУ'
