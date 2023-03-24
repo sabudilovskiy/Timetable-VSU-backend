@@ -1,5 +1,0 @@
-properties:
-  user_id:
-    $ref: '../../../../types/Id.yaml'
-  teacher_id:
-    $ref: '../../../../types/Id.yaml'

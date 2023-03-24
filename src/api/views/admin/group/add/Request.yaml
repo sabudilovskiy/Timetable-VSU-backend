@@ -1,9 +1,0 @@
-properties:
-  group_name:
-    type: string
-    example: '62'
-  group_course:
-    type: integer
-    example: 3
-  group_type:
-    $ref: '../../../../types/EducationType.yaml'

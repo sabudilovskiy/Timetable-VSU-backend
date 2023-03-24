@@ -1,7 +1,0 @@
-properties:
-  name:
-    type: string
-  course:
-    type: integer
-  type:
-    $ref: './EducationType.yaml'

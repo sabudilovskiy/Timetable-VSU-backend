@@ -1,5 +1,0 @@
-properties:
-  user_credential:
-    $ref: '../../types/UserCredentialV1.yaml'
-  user_type:
-    $ref: '../../types/UserTypeV1.yaml'

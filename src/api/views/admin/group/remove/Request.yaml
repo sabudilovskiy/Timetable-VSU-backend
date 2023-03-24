@@ -1,3 +1,0 @@
-properties:
-  group_id:
-    $ref: '../../../../types/Id.yaml'
