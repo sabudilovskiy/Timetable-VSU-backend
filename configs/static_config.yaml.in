@@ -53,6 +53,22 @@ components_manager:
             path: /tests/{action}
             method: POST
             task_processor: main-task-processor
+        handler-login: 
+            path: /login
+            method: POST
+            task_processor: main-task-processor
+        handler-register: 
+            path: /register
+            method: POST                
+            task_processor: main-task-processor  
+        postgres-db-1:
+            dbconnection: $dbconnection
+            blocking_task_processor: fs-task-processor                
+            dns_resolver: async
+            sync-start: true
+        user_controller: {}
+        token_controller: {}
+      
         handler-ping:
             path: /ping
             method: GET
