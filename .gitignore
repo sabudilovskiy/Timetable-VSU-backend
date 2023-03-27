@@ -6,6 +6,7 @@ compile_commands.json
 .vscode/
 .cores/
 .ccache/
+.pgdata/
 cmake-build-*
 Testing/
 configs/static_config.yaml
