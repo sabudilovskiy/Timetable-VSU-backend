@@ -1,4 +1,4 @@
-#include "hello.hpp"
+#include "../src/views/hello/view.hpp"
 
 #include <userver/utest/utest.hpp>
 
