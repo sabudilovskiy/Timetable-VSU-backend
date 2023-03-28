@@ -1,4 +1,4 @@
-# Timetable-VSU-backend
+# timetable_vsu_backend
 
 This C++ service use [userver framework](https://github.com/userver-framework/userver).
 

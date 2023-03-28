@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(Timetable-VSU-backend CXX)
+project(timetable_vsu_backend CXX)
 
 include(third_party/userver/cmake/SetupEnvironment.cmake)
 include(GNUInstallDirs)

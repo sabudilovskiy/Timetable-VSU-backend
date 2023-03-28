@@ -8,12 +8,12 @@ else()
 endif()
 
 userver_testsuite_add(
-  SERVICE_TARGET Timetable-VSU-backend
+  SERVICE_TARGET timetable_vsu_backend
   REQUIREMENTS ${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   PYTEST_ARGS
   --service-config=${CMAKE_SOURCE_DIR}/configs/static_config.yaml
-  --service-binary=${CMAKE_BINARY_DIR}/Timetable-VSU-backend
+  --service-binary=${CMAKE_BINARY_DIR}/timetable_vsu_backend
   --config-fallback=${CMAKE_SOURCE_DIR}/configs/dynamic_config_fallback.json
   ${PYTEST_ARGS_CONFIG_VARS}
 )
