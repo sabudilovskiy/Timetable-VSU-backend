@@ -1,0 +1,46 @@
+{
+    "folders": [
+        { 
+            "path": "../api",
+            
+        },
+        { 
+            "path": "../benchs",
+            "name" : "amazing/benchs"
+        },
+       { 
+        "path": "../src",
+        // "name": "src"
+       },
+       { 
+        "path": "../service"
+       },
+       { 
+        "path": "../tests"
+       },
+       { 
+        "path": "utests"
+       },
+       { 
+        "path": "configs"
+       },
+       { 
+        "path": "configs_testing"
+       },
+       { 
+        "path": "postgresql"
+       },
+    ],
+    "extensions":{
+        "recommendations":[
+            "llvm-vs-code-extensions.vscode-clangd",
+            "Redocly.openapi-vs-code",
+            "ms-vscode.makefile-tools",
+            "vadimcn.vscode-lldb",
+            "ms-vscode.cmake-tools",
+            "notskm.clang-tidy",
+            "ms-vscode.cpptools"
+        ]
+    },
+    "settings": {}
+}
