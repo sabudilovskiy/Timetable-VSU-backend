@@ -12,7 +12,7 @@ class TokenController : public userver::components::LoggableComponentBase {
   using userver::components::LoggableComponentBase::LoggableComponentBase;
   static constexpr inline std::string_view kName = "token_controller";
   std::optional<models::User> GetById(std::string_view id) const;
-  boost::uuids::uuid CreateNew(const models::User::Id& id, const std::chrono::system_clock::time_point& time) const;
+  std::optional<boost::uuids::uuid> CreateNew(const models::User::Id& id, const std::chrono::system_clock::time_point& time) const;
   TokenController(const userver::components::ComponentConfig& config,
                  const userver::components::ComponentContext& context);
 

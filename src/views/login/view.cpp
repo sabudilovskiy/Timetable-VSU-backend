@@ -31,12 +31,17 @@ class LoginHandler final : public http::HandlerParsed<Request, Response> {
       userver::server::http::HttpResponse& http_response) const override {
     auto user = user_controller.GetByLogin(request.login);
     if (!user) {
-      http_response.SetStatus(HttpStatus::kBadRequest);
+      http_response.SetStatus(HttpStatus::kUnauthorized);
       return {};
     }
     auto id = token_controller.CreateNew(
         user->id, userver::utils::datetime::Now() + std::chrono::hours(24));
-    return {id};
+    if (!id){
+      LOG_WARNING() << fmt::format("Failed to create token for user, id: {}", boost::uuids::to_string(user->id.GetUnderlying()));
+      http_response.SetStatus(HttpStatus::kInternalServerError);
+      return {};
+    }
+    return {*id};
   }
 
  private:

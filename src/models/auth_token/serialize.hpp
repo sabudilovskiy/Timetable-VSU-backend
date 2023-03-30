@@ -9,10 +9,8 @@
 
 namespace timetable_vsu_backend::models{
     inline userver::formats::json::Value Serialize(const AuthToken& token, userver::formats::serialize::To<userver::formats::json::Value>){
-        LOG_DEBUG() << "???";
         userver::formats::json::ValueBuilder json;
         json["token"] = boost::uuids::to_string(token.id);
-        LOG_DEBUG() << "!!!";
         return json.ExtractValue();
     }
 }

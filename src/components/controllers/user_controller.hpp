@@ -11,7 +11,7 @@ class UserController : public userver::components::LoggableComponentBase {
   using userver::components::LoggableComponentBase::LoggableComponentBase;
   static constexpr inline std::string_view kName = "user_controller";
   std::optional<models::User> GetByLogin(std::string_view login) const;
-  bool TryToAdd(const models::User& user) const;
+  std::optional<boost::uuids::uuid> TryToAdd(const models::User& user) const;
   UserController(const userver::components::ComponentConfig& config,
                  const userver::components::ComponentContext& context);
 

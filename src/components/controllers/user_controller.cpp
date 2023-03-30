@@ -1,7 +1,11 @@
 #include "user_controller.hpp"
+#include <fmt/core.h>
+#include <boost/uuid/uuid.hpp>
+#include <exception>
 #include <optional>
 #include <userver/storages/postgres/cluster.hpp>
 #include "userver/components/component_context.hpp"
+#include "userver/logging/log.hpp"
 #include "userver/storages/postgres/cluster_types.hpp"
 #include "userver/storages/postgres/component.hpp"
 #include "userver/storages/postgres/query.hpp"
@@ -13,7 +17,8 @@ namespace{
     select * from vsu_timetable."user" WHERE login = $1
     )"),
     qAddUser(R"(
-    insert into vsu_timetable."user"(login, password, user_type) values ($1, $2, $3) RETURNING id
+    insert into vsu_timetable."user"(login, password, user_type) values ($1, $2, $3) ON CONFLICT DO NOTHING 
+    RETURNING id
     )");
 }
 
@@ -31,10 +36,13 @@ namespace timetable_vsu_backend::components{
         if (result.IsEmpty()){
             return std::nullopt;
         }
-        return result.AsSingleRow<models::User>();
+        return result.AsSingleRow<models::User>(userver::storages::postgres::kRowTag);
     }
-    bool UserController::TryToAdd(const models::User& user) const {
+    std::optional<boost::uuids::uuid> UserController::TryToAdd(const models::User& user) const {
         auto result = pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster, qAddUser, user.login, user.password, user.user_type);
-        return result.IsEmpty();
+        if (result.IsEmpty()){
+            return {};
+        }
+        return result.AsSingleRow<boost::uuids::uuid>();    
     }
 }
