@@ -10,7 +10,7 @@ name: Docker build
 
 jobs:
     tests:
-        runs-on: Linux
+        runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v2
             with:

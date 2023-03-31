@@ -24,8 +24,7 @@ jobs:
                     info: g++-9 + test-release
 
         name: '${{matrix.os}}: ${{matrix.info}}'
-        # runs-on: ${{matrix.os}}
-        runs-on: Linux
+        runs-on: ${{matrix.os}}
 
         steps:
           - uses: actions/checkout@v2
