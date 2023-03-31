@@ -3,19 +3,8 @@
 #include <userver/utest/utest.hpp>
 
 
-struct A{
-  int a;
-  int b;
-}; 
-
-struct Any{
-  template<class U> operator U(){}
-};
-
-
 UTEST(SayHelloTo, Basic) {
-  EXPECT_EQ(service_template::SayHelloTo("Developer", service_template::UserType::kKnown), "Hi again, unknown user!\n");
-  EXPECT_EQ(service_template::SayHelloTo("", service_template::UserType::kKnown), "Hi again, unknown user\n");
-  std::vector<int> adsd;
-
+  EXPECT_EQ(service_template::SayHelloTo("Developer", service_template::UserType::kKnown), "Hi again, Developer!\n");
+  EXPECT_EQ(service_template::SayHelloTo("", service_template::UserType::kFirstTime), "Hello, unknown user!\n");
+  EXPECT_EQ(service_template::SayHelloTo("Developer", service_template::UserType::kFirstTime), "Hello, Developer!\n");
 }
