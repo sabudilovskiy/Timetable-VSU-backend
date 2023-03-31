@@ -4,5 +4,5 @@
 #include "userver/formats/json/value.hpp"
 
 namespace timetable_vsu_backend::utils {
-    std::string_view GetType(const userver::formats::json::Value& value);
-}   
+std::string_view GetType(const userver::formats::json::Value& value);
+}

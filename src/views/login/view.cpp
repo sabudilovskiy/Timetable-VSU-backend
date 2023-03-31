@@ -36,8 +36,10 @@ class LoginHandler final : public http::HandlerParsed<Request, Response> {
     }
     auto id = token_controller.CreateNew(
         user->id, userver::utils::datetime::Now() + std::chrono::hours(24));
-    if (!id){
-      LOG_WARNING() << fmt::format("Failed to create token for user, id: {}", boost::uuids::to_string(user->id.GetUnderlying()));
+    if (!id) {
+      LOG_WARNING() << fmt::format(
+          "Failed to create token for user, id: {}",
+          boost::uuids::to_string(user->id.GetUnderlying()));
       http_response.SetStatus(HttpStatus::kInternalServerError);
       return {};
     }

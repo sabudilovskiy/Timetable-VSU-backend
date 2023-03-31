@@ -3,7 +3,7 @@
 #include "userver/components/component_list.hpp"
 
 namespace timetable_vsu_backend::components {
-    void AppendUserController(userver::components::ComponentList& component_list){
-        component_list.Append<UserController>();
-    }
+void AppendUserController(userver::components::ComponentList& component_list) {
+  component_list.Append<UserController>();
 }
+}  // namespace timetable_vsu_backend::components

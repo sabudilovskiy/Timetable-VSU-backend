@@ -71,4 +71,4 @@ void AppendHello(userver::components::ComponentList& component_list) {
   component_list.Append<Hello>();
 }
 
-}  // namespace pg_service_template
+}  // namespace service_template
