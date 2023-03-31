@@ -1,35 +1,9 @@
 {
     "folders": [
         { 
-            "path": "../api",
-            
+            "path": "../",
+            "name" : "vsu_timetable"
         },
-        { 
-            "path": "../benchs",
-            "name" : "amazing/benchs"
-        },
-       { 
-        "path": "../src",
-        // "name": "src"
-       },
-       { 
-        "path": "../service"
-       },
-       { 
-        "path": "../tests"
-       },
-       { 
-        "path": "utests"
-       },
-       { 
-        "path": "configs"
-       },
-       { 
-        "path": "configs_testing"
-       },
-       { 
-        "path": "postgresql"
-       },
     ],
     "extensions":{
         "recommendations":[
@@ -42,5 +16,12 @@
             "ms-vscode.cpptools"
         ]
     },
-    "settings": {}
+    "settings": {
+        "files.exclude": { 
+            "third_party": true,
+            "build*": true,
+            ".*" : true
+        },
+        "clang-tidy.buildPath": "../build_debug"
+    }
 }

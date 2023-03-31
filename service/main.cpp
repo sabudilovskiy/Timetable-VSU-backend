@@ -7,6 +7,7 @@
 #include <userver/utils/daemon_run.hpp>
 
 #include "../src/views/hello/view.hpp"
+#include "userver/formats/json/value.hpp"
 #include "userver/logging/log.hpp"
 #include "userver/storages/postgres/component.hpp"
 #include "../src/views/login/view.hpp"
@@ -16,6 +17,8 @@
 #include <fstream>
 #include <filesystem>
 #include <sstream>
+#include <utility>
+
 namespace fs = std::filesystem;
 
 void LogAllFiles(fs::path path){
