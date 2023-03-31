@@ -20,7 +20,8 @@
         "files.exclude": { 
             "third_party": true,
             "build*": true,
-            ".*" : true
+            ".*" : true,
+            "dependencies" : true
         },
         "clang-tidy.buildPath": "../build_debug"
     }
