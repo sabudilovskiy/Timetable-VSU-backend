@@ -1,0 +1,28 @@
+{
+    "folders": [
+        { 
+            "path": "../",
+            "name" : "vsu_timetable"
+        },
+    ],
+    "extensions":{
+        "recommendations":[
+            "llvm-vs-code-extensions.vscode-clangd",
+            "Redocly.openapi-vs-code",
+            "ms-vscode.makefile-tools",
+            "vadimcn.vscode-lldb",
+            "ms-vscode.cmake-tools",
+            "notskm.clang-tidy",
+            "ms-vscode.cpptools"
+        ]
+    },
+    "settings": {
+        "files.exclude": { 
+            "third_party": true,
+            "build*": true,
+            ".*" : true,
+            "dependencies" : true
+        },
+        "clang-tidy.buildPath": "../build_debug"
+    }
+}

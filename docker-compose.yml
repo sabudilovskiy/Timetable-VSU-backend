@@ -1,14 +1,31 @@
 version: "2.3"
 
 services:
-    Timetable-VSU-backend-container:
+    postgres:
+        container_name: service-postgres
+        image: postgres:12
+        environment:
+          - POSTGRES_DB=timetable_vsu_backend_db-1
+          - POSTGRES_USER=user
+          - POSTGRES_PASSWORD=password
+        ports:
+          - 5432
+        volumes:
+          - ./postgresql/schemas:/docker-entrypoint-initdb.d
+          - ./.pgdata:/var/lib/postgresql/data
+        networks:
+          - postgres
+
+    timetable_vsu_backend-container:
         image: ghcr.io/userver-framework/docker-userver-build-base:v1a
         privileged: true
-        network_mode: bridge
         environment:
+          - POSTGRES_DB=timetable_vsu_backend_db-1
+          - POSTGRES_USER=user
+          - POSTGRES_PASSWORD=password
           - PREFIX=${PREFIX:-~/.local}
           - CC
-          - CCACHE_DIR=/Timetable-VSU-backend/.ccache
+          - CCACHE_DIR=/timetable_vsu_backend/.ccache
           - CCACHE_HASHDIR
           - CCACHE_NOHASHDIR
           - CCACHE_PREFIX
@@ -18,10 +35,19 @@ services:
           - CXX
           - MAKE_OPTS
         volumes:
-          - .:/Timetable-VSU-backend:rw
+          - .:/timetable_vsu_backend:rw
           - ./third_party/userver/tools/docker:/tools:ro
+          - ${TC_CORES_DIR:-./.cores}:/cores:rw
         ports:
           - 8080:8080
-        working_dir: /Timetable-VSU-backend
+        working_dir: /timetable_vsu_backend
         entrypoint:
           - /tools/run_as_user.sh
+        depends_on:
+          - postgres
+        networks:
+          - postgres
+
+networks:
+    postgres:
+        driver: bridge

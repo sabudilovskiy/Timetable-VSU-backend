@@ -3,9 +3,10 @@ build*
 compile_commands.json
 .cache/
 .idea/
-.vscode/
 .cores/
 .ccache/
+.pgdata/
 cmake-build-*
 Testing/
 configs/static_config.yaml
+Makefile.local
