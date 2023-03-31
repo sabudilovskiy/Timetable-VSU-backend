@@ -10,7 +10,7 @@ name: Docker build
 
 jobs:
     tests:
-        runs-on: self-hosted
+        runs-on: Linux
         steps:
           - uses: actions/checkout@v2
             with:

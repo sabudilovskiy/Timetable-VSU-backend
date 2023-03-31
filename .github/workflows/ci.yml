@@ -25,7 +25,7 @@ jobs:
 
         name: '${{matrix.os}}: ${{matrix.info}}'
         # runs-on: ${{matrix.os}}
-        runs-on: self-hosted
+        runs-on: Linux
 
         steps:
           - uses: actions/checkout@v2
