@@ -1,4 +1,4 @@
-# Timetable-VSU-backend
+# timetable_vsu_backend
 
 This C++ service use [userver framework](https://github.com/userver-framework/userver).
 
@@ -7,7 +7,7 @@ This C++ service use [userver framework](https://github.com/userver-framework/us
 
 Steps to use this service:
 1. Clone the service 
-2. Initialize submodules: `cd your-service-repo && git submodule update --init`
+2. Initialize submodules: `cd timetable_vsu_backend && git submodule update --init`
 3. Use one of make commands
 
 ## Makefile
