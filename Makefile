@@ -109,16 +109,16 @@ gen:
 	@mkdir -p .gen
 
 	@find benchs -name '*pp' > .gen/benchs.txt
-	@sort .gen/benchs.txt -o .gen/benchs.txt
+	@sort .gen/benchs.txt -r -o .gen/benchs.txt
 
 	@find src -name '*pp' > .gen/objs.txt
-	@sort .gen/objs.txt -o .gen/objs.txt
+	@sort .gen/objs.txt -r -o .gen/objs.txt
 
 	@find service -name '*pp' > .gen/service.txt
-	@sort .gen/service.txt -o .gen/service.txt
+	@sort .gen/service.txt -r -o .gen/service.txt
 
 	@find utests -name '*pp' > .gen/unittest.txt
-	@sort .gen/unittest.txt -o .gen/unittest.txt
+	@sort .gen/unittest.txt -r -o .gen/unittest.txt
 
 # Internal hidden targets that are used only in docker environment
 --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
