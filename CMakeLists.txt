@@ -9,7 +9,8 @@ include(GNUInstallDirs)
 
 add_subdirectory(third_party/userver)
 
-#make gen source lists are generated in the .gen folder
+#make gen 
+#source lists are generated in the .gen folder
 file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/benchs.txt benchs_src)
 file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/objs.txt objs_src)
 file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/service.txt service_src)
@@ -25,7 +26,6 @@ target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresq
 # The Service
 add_executable(${PROJECT_NAME} ${service_src})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs)
-
 
 
 # Unit Tests

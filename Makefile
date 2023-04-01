@@ -80,6 +80,10 @@ format-cpp:
 format: format-cpp
 	@find tests -name '*.py' -type f | xargs autopep8 -i
 
+# Check format the sources
+.PHONY: check-format
+check-format: check-format-cpp
+
 .PHONY: check-git-status
 check-git-status:
 	@echo "Checking if all files are committed to git..."
@@ -93,6 +97,12 @@ check-git-status:
 		echo "All files are committed to git."; \
 	fi
 
+.PHONY: check-format-cpp
+check-format-cpp:
+	@find benchs -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
+	@find service -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
+	@find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
+	@find utests -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
 .PHONY: gen
 gen:
 	@rm -rf .gen
