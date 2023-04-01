@@ -82,11 +82,11 @@ format: format-cpp
 
 .PHONY: check-git-status
 check-git-status:
- @if [ -n "`git status -s`" ]; then \
+	@if [ -n "`git status -s`" ]; then \
      echo "There are uncommitted files:" >&2; \
      git status -s >&2 ; \
      exit 1; \
- fi
+ 	fi
 
 .PHONY: gen
 gen:
