@@ -31,6 +31,13 @@ jobs:
             with:
                 submodules: true
 
+          - name: Check format sources
+            run: |
+              make check-format
+          - name: Gen list of source and check diffs with commit
+            run: |
+              make gen
+              make check-git-status
           - name: Reuse ccache directory
             uses: actions/cache@v2
             with:

@@ -15,7 +15,13 @@ jobs:
           - uses: actions/checkout@v2
             with:
                 submodules: true
-
+          - name: Check format sources
+            run: |
+              make check-format  
+          - name: Check git status
+            run: | 
+              make gen
+              make check-git-status    
           - name: Reuse ccache directory
             uses: actions/cache@v2
             with:
