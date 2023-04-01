@@ -27,7 +27,7 @@ build_release/Makefile:
 
 # Run cmake
 .PHONY: cmake-debug cmake-release
-cmake-debug cmake-release: cmake-%: build_%/Makefile
+cmake-debug cmake-release: cmake-%: build_%/Makefile:
 
 # Build using cmake
 .PHONY: build-debug build-release
@@ -68,11 +68,34 @@ install-debug install-release: install-%: build-%
 .PHONY: install
 install: install-release
 
-# Format the sources
-.PHONY: format
-format:
+.PHONY: format-cpp
+format-cpp:
+	@find benchs -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
+	@find service -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
 	@find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
+	@find utests -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
+
+# Format the sources
+.PHONY: format-all
+format: format-cpp
 	@find tests -name '*.py' -type f | xargs autopep8 -i
+
+.PHONY: check-git-status
+check-git-status:
+ @if [ -n "`git status -s`" ]; then \
+     echo "There are uncommitted files:" >&2; \
+     git status -s >&2 ; \
+     exit 1; \
+ fi
+
+.PHONY: gen
+gen:
+	@rm -rf .gen
+	@mkdir -p .gen
+	@find benchs -name '*pp' > .gen/benchs.txt
+	@find src -name '*pp' > .gen/objs.txt
+	@find service -name '*pp' > .gen/service.txt
+	@find utests -name '*pp' > .gen/unittest.txt
 
 # Internal hidden targets that are used only in docker environment
 --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
