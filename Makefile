@@ -27,7 +27,7 @@ build_release/Makefile:
 
 # Run cmake
 .PHONY: cmake-debug cmake-release
-cmake-debug cmake-release: cmake-%: build_%/Makefile:
+cmake-debug cmake-release: cmake-%: build_%/Makefile
 
 # Build using cmake
 .PHONY: build-debug build-release
