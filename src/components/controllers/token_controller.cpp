@@ -5,8 +5,8 @@
 #include <chrono>
 #include <optional>
 #include <userver/storages/postgres/cluster.hpp>
-#include "../../models/user/postgre.hpp"
-#include "../../models/user_type/postgre.hpp"
+#include "models/user/postgre.hpp"
+#include "models/user_type/postgre.hpp"
 #include "userver/components/component_context.hpp"
 #include "userver/logging/log.hpp"
 #include "userver/storages/postgres/cluster_types.hpp"

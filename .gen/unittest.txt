@@ -1,1 +1,2 @@
 utests/hello_test.cpp
+utests/convert_test.cpp

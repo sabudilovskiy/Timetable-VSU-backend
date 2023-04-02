@@ -3,7 +3,7 @@
 #include <optional>
 #include <userver/components/loggable_component_base.hpp>
 #include <userver/storages/postgres/postgres_fwd.hpp>
-#include "../../models/user/type.hpp"
+#include "models/user/type.hpp"
 
 namespace timetable_vsu_backend::components {
 

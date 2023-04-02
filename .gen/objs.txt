@@ -10,6 +10,9 @@ src/views/hello/view.hpp
 src/views/hello/view.cpp
 src/utils/json_type.hpp
 src/utils/json_type.cpp
+src/utils/convert/json.hpp
+src/utils/convert/base.hpp
+src/utils/constexpr_string.hpp
 src/utils/component_list_fwd.hpp
 src/models/user_type/type.hpp
 src/models/user_type/postgre.hpp

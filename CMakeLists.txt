@@ -20,11 +20,13 @@ file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/unittest.txt unittest_src)
 add_library(${PROJECT_NAME}_objs OBJECT
 	${objs_src}
 )
+target_include_directories(${PROJECT_NAME}_objs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql)
 
 
 # The Service
 add_executable(${PROJECT_NAME} ${service_src})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/service)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs)
 
 
@@ -32,6 +34,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs)
 add_executable(${PROJECT_NAME}_unittest
 	${unittest_src}
 )
+target_include_directories(${PROJECT_NAME}_unittest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/utests)
 target_link_libraries(${PROJECT_NAME}_unittest PRIVATE ${PROJECT_NAME}_objs userver-utest)
 add_google_tests(${PROJECT_NAME}_unittest)
 
@@ -40,6 +43,7 @@ add_google_tests(${PROJECT_NAME}_unittest)
 add_executable(${PROJECT_NAME}_benchmark
 	${benchs_src}
 )
+target_include_directories(${PROJECT_NAME}_benchmark PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/benchs)
 target_link_libraries(${PROJECT_NAME}_benchmark PRIVATE ${PROJECT_NAME}_objs userver-ubench)
 add_google_benchmark_tests(${PROJECT_NAME}_benchmark)
 
