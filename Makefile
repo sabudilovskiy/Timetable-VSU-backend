@@ -120,6 +120,10 @@ gen:
 	@find utests -name '*pp' > .gen/unittest.txt
 	@LC_COLLATE=C sort .gen/unittest.txt -r -o .gen/unittest.txt
 
+.PHONY: unite-api
+unite-api:
+	@python3 srcipts/merge_yaml.py api/api.yaml merged_api.yaml
+
 # Internal hidden targets that are used only in docker environment
 --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
 	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/timetable_vsu_backend/static_config.yaml
