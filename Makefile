@@ -77,7 +77,7 @@ format-cpp:
 
 # Format the sources
 .PHONY: format-all
-format: format-cpp
+format-all: format-cpp
 	@find tests -name '*.py' -type f | xargs autopep8 -i
 
 # Check format the sources

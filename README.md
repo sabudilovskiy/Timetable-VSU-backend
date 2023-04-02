@@ -21,7 +21,8 @@ Makefile contains typicaly useful targets for development:
 * `make service-start-debug` - builds the service in debug mode and starts it
 * `make service-start-release` - builds the service in release mode and starts it
 * `make` or `make all` - builds and runs all the tests in release and debug modes
-* `make format` - autoformat all the C++ and Python sources
+* `make format-all` - autoformat all the C++ and Python sources
+* `make format-cpp` - autoformat all the C++ sources
 * `make clean-` - cleans the object files
 * `make dist-clean` - clean all, including the CMake cached configurations
 * `make install` - does a `make build-release` and run install in directory set in environment `PREFIX`
