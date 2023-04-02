@@ -10,3 +10,4 @@ cmake-build-*
 Testing/
 configs/static_config.yaml
 Makefile.local
+merged_api.yaml

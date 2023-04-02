@@ -77,7 +77,7 @@ format-cpp:
 
 # Format the sources
 .PHONY: format-all
-format: format-cpp
+format-all: format-cpp
 	@find tests -name '*.py' -type f | xargs autopep8 -i
 
 # Check format the sources
@@ -119,6 +119,10 @@ gen:
 
 	@find utests -name '*pp' > .gen/unittest.txt
 	@LC_COLLATE=C sort .gen/unittest.txt -r -o .gen/unittest.txt
+
+.PHONY: unite-api
+unite-api:
+	@python3 srcipts/merge_yaml.py api/api.yaml merged_api.yaml
 
 # Internal hidden targets that are used only in docker environment
 --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%

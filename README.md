@@ -21,7 +21,8 @@ Makefile contains typicaly useful targets for development:
 * `make service-start-debug` - builds the service in debug mode and starts it
 * `make service-start-release` - builds the service in release mode and starts it
 * `make` or `make all` - builds and runs all the tests in release and debug modes
-* `make format` - autoformat all the C++ and Python sources
+* `make format-all` - autoformat all the C++ and Python sources
+* `make format-cpp` - autoformat all the C++ sources
 * `make clean-` - cleans the object files
 * `make dist-clean` - clean all, including the CMake cached configurations
 * `make install` - does a `make build-release` and run install in directory set in environment `PREFIX`
@@ -32,6 +33,11 @@ Makefile contains typicaly useful targets for development:
 * `make docker-start-service-release` - does a `make install-release` and runs service in docker environment
 * `make docker-start-service-debug` - does a `make install-debug` and runs service in docker environment
 * `make docker-clean-data` - stop docker containers
+* `make gen` - regenerate source lists for CMake in .gen
+* `make check-format-cpp` - сheck formatting in C++ sources, if something is not formatted, an error will be returned
+* `make check-format-all` - сheck formatting in all sources, if something is not formatted, an error will be returned
+* `make unite-api` - create united api file(merged_api.yaml)
+* `make check-git-status` - сheck if there are changes in files 
 
 Edit `Makefile.local` to change the default configuration and build options.
 
@@ -39,5 +45,4 @@ Edit `Makefile.local` to change the default configuration and build options.
 ## License
 
 The original template is distributed under the [Apache-2.0 License](https://github.com/userver-framework/userver/blob/develop/LICENSE)
-and [CLA](https://github.com/userver-framework/userver/blob/develop/CONTRIBUTING.md). Services based on the template may change
-the license and CLA.
+and [CLA](https://github.com/userver-framework/userver/blob/develop/CONTRIBUTING.md).
