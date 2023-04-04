@@ -6,20 +6,20 @@
 
 namespace timetable_vsu_backend::utils::convert {
 //В данный момент поддерживаются только конвертация всех полей
-enum struct PolicyFiels { ConvertAll };
+enum struct PolicyFields { ConvertAll };
 
 //влом больше поддерживать
 enum struct TypeOfBody { Empty, Json };
 
-template <PolicyFiels policy_fields>
+template <PolicyFields policy_fields>
 struct ConvertBase {
   constexpr auto static kPolicyFields = policy_fields;
 };
 
 template <typename T>
 concept IsConvertAll =
-    std::is_same_v<decltype(T::kPolicyFields), const PolicyFiels> &&
-    T::kPolicyFields == PolicyFiels::ConvertAll;
+    std::is_same_v<decltype(T::kPolicyFields), const PolicyFields> &&
+    T::kPolicyFields == PolicyFields::ConvertAll;
 
 template <typename T, ConstexprString name>
 struct Property {
@@ -31,6 +31,8 @@ struct Property {
     value = std::forward<Arg>(arg);
     return value;
   }
+  value_type& operator()() { return value; }
+  const value_type& operator()() const { return value; }
   value_type value;
 };
 
@@ -44,6 +46,8 @@ struct QueryProperty {
     value = std::forward<Arg>(arg);
     return value;
   }
+  value_type& operator()() { return value; }
+  const value_type& operator()() const { return value; }
   value_type value;
 };
 
@@ -57,6 +61,8 @@ struct HeaderProperty {
     value = std::forward<Arg>(arg);
     return value;
   }
+  value_type& operator()() { return value; }
+  const value_type& operator()() const { return value; }
   value_type value;
 };
 
@@ -70,6 +76,8 @@ struct CookieProperty {
     value = std::forward<Arg>(arg);
     return value;
   }
+  value_type& operator()() { return value; }
+  const value_type& operator()() const { return value; }
   value_type value;
 };
 

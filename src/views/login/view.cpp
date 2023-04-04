@@ -29,8 +29,8 @@ class LoginHandler final : public http::HandlerParsed<Request, Response> {
   Response Handle(
       Request&& request,
       userver::server::http::HttpResponse& http_response) const override {
-    auto user = user_controller.GetByLogin(request.login);
-    if (!user || user->password != request.password) {
+    auto user = user_controller.GetByLogin(request.login());
+    if (!user || user->password != request.password()) {
       http_response.SetStatus(HttpStatus::kUnauthorized);
       return {};
     }
