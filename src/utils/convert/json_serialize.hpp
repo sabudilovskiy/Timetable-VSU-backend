@@ -1,16 +1,21 @@
 #pragma once
 #include "detail/serialize/converter_json.hpp"
 
-namespace userver::formats::serialize {
-using timetable_vsu_backend::utils::convert::IsConvertAll;
-using timetable_vsu_backend::utils::convert::IsProperty;
+namespace timetable_vsu_backend::utils::convert {
+//данынй концепт лишь активирует перегрузки, но не проверяет все требования для
+//типа
+template <typename T>
+concept JsonSeriazable = IsConvertAll<T>;
+}  // namespace timetable_vsu_backend::utils::convert
 
-template <IsProperty T>
+namespace userver::formats::serialize {
+
+template <timetable_vsu_backend::utils::convert::IsProperty T>
 json::Value Serialize(const T& t, To<json::Value>) {
   return json::ValueBuilder(t.value).ExtractValue();
 }
 
-template <IsConvertAll T>
+template <timetable_vsu_backend::utils::convert::JsonSeriazable T>
 json::Value Serialize(const T& t, To<json::Value>) {
   json::ValueBuilder json;
   timetable_vsu_backend::utils::convert::detail::serialize::ConverterJson<

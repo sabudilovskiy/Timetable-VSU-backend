@@ -5,11 +5,11 @@
 #include <chrono>
 #include <exception>
 #include <userver/components/component_list.hpp>
-#include "../../components/controllers/token_controller.hpp"
-#include "../../components/controllers/user_controller.hpp"
-#include "../../http/handler_parsed.hpp"
-#include "../../models/auth_token/serialize.hpp"
+#include "components/controllers/token_controller.hpp"
+#include "components/controllers/user_controller.hpp"
+#include "http/legacy_handler_parsed.hpp"
 #include "Request.hpp"
+#include "models/auth_token/serialize.hpp"
 #include "userver/formats/parse/to.hpp"
 #include "userver/logging/log.hpp"
 #include "userver/storages/postgres/component.hpp"
@@ -21,13 +21,14 @@ namespace timetable_vsu_backend::views::register_ {
 
 namespace {
 using Response = models::AuthToken;
-class RegisterHandler final : public http::HandlerParsed<Request, Response> {
+class RegisterHandler final
+    : public http::LegacyHandlerParsed<Request, Response> {
  public:
   static constexpr std::string_view kName = "handler-register";
-  using http::HandlerParsed<Request, Response>::HandlerParsed;
+  using http::LegacyHandlerParsed<Request, Response>::LegacyHandlerParsed;
   RegisterHandler(const userver::components::ComponentConfig& config,
                   const userver::components::ComponentContext& context)
-      : HandlerParsed(config, context),
+      : LegacyHandlerParsed(config, context),
         user_controller(context.FindComponent<components::UserController>()),
         token_controller(context.FindComponent<components::TokenController>()) {
   }

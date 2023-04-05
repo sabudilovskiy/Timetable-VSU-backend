@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/pfr/core.hpp>
-#include "../../base.hpp"
 #include "userver/formats/json/value_builder.hpp"
+#include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::utils::convert::detail::serialize {
 template <typename T>

@@ -1,30 +1,31 @@
 #pragma once
+#include <concepts>
 #include <type_traits>
 #include <utility>
 // #include "utlis/convert/constexpr_string.hpp"
-#include "../constexpr_string.hpp"
+#include "utils/constexpr_string.hpp"
+#include "utils/meta.hpp"
 
 namespace timetable_vsu_backend::utils::convert {
 //В данный момент поддерживаются только конвертация всех полей
 enum struct PolicyFields { ConvertAll };
 
-//влом больше поддерживать
+//тип тела в запросе. Empty body = body игнорируеттся
 enum struct TypeOfBody { Empty, Json };
 
-template <PolicyFields policy_fields>
-struct ConvertBase {
-  constexpr auto static kPolicyFields = policy_fields;
+enum struct RequestParse {
+  Unspecified,  //данное поле в запросах будет парсится из body
+  Query,
+  Header,
+  Cookie
 };
 
-template <typename T>
-concept IsConvertAll =
-    std::is_same_v<decltype(T::kPolicyFields), const PolicyFields> &&
-    T::kPolicyFields == PolicyFields::ConvertAll;
-
-template <typename T, ConstexprString name>
-struct Property {
+template <typename T, ConstexprString name,
+          RequestParse request_parse = RequestParse::Unspecified>
+struct BaseProperty {
   using value_type = T;
   constexpr auto static kName = name;
+  constexpr auto static kRequestParse = request_parse;
 
   template <class Arg>
   value_type& operator=(Arg&& arg) {
@@ -37,49 +38,16 @@ struct Property {
 };
 
 template <typename T, ConstexprString name>
-struct QueryProperty {
-  using value_type = T;
-  constexpr auto static kName = name;
-
-  template <class Arg>
-  value_type& operator=(Arg&& arg) {
-    value = std::forward<Arg>(arg);
-    return value;
-  }
-  value_type& operator()() { return value; }
-  const value_type& operator()() const { return value; }
-  value_type value;
-};
+using Property = BaseProperty<T, name, RequestParse::Unspecified>;
 
 template <typename T, ConstexprString name>
-struct HeaderProperty {
-  using value_type = T;
-  constexpr auto static kName = name;
-
-  template <class Arg>
-  value_type& operator=(Arg&& arg) {
-    value = std::forward<Arg>(arg);
-    return value;
-  }
-  value_type& operator()() { return value; }
-  const value_type& operator()() const { return value; }
-  value_type value;
-};
+using QueryProperty = BaseProperty<T, name, RequestParse::Query>;
 
 template <typename T, ConstexprString name>
-struct CookieProperty {
-  using value_type = T;
-  constexpr auto static kName = name;
+using HeaderProperty = BaseProperty<T, name, RequestParse::Header>;
 
-  template <class Arg>
-  value_type& operator=(Arg&& arg) {
-    value = std::forward<Arg>(arg);
-    return value;
-  }
-  value_type& operator()() { return value; }
-  const value_type& operator()() const { return value; }
-  value_type value;
-};
+template <typename T, ConstexprString name>
+using CookieProperty = BaseProperty<T, name, RequestParse::Cookie>;
 
 template <typename T>
 concept IsProperty = std::is_class_v<T> &&
@@ -98,12 +66,17 @@ concept IsCookieProperty = std::is_class_v<T> &&
     std::is_same_v<CookieProperty<typename T::value_type, T::kName>, T>;
 
 template <typename T>
-concept IsAnyProperty = IsProperty<T> || IsQueryProperty<T> ||
-    IsHeaderProperty<T> || IsCookieProperty<T>;
+concept IsAnyProperty = std::is_class_v<T> && std::is_same_v<
+    BaseProperty<typename T::value_type, T::kName, T::kRequestParse>, T>;
 
 template <typename T>
 concept HasTypeOfBody = requires {
-  typename std::decay_t<decltype(T::kTypeOfBody)>;
-  std::same_as<std::decay_t<decltype(T::kTypeOfBody)>, const T>;
+  { T::kTypeOfBody } -> std::convertible_to<TypeOfBody>;
+  requires IsConstexpr<T::kTypeOfBody>;
+};
+
+template <typename T>
+concept IsConvertAll = requires {
+  requires T::kPolicyFields == PolicyFields::ConvertAll;
 };
 }  // namespace timetable_vsu_backend::utils::convert

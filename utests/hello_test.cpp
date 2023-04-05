@@ -1,6 +1,6 @@
 #include <userver/utest/utest.hpp>
 #include <vector>
-#include "../src/views/hello/view.hpp"
+#include "views/hello/view.hpp"
 
 UTEST(SayHelloTo, Basic) {
   EXPECT_EQ(service_template::SayHelloTo("Developer",

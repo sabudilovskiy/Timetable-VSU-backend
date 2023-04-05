@@ -1,4 +1,4 @@
-#include "../src/views/hello/view.hpp"
+#include "views/hello/view.hpp"
 
 #include <cstdint>   // for std::uint64_t
 #include <iterator>  // for std::size

@@ -10,14 +10,14 @@
 #include <fstream>
 #include <sstream>
 #include <utility>
-#include "../src/components/controllers/token_controller_fwd.hpp"
-#include "../src/components/controllers/user_controller_fwd.hpp"
-#include "../src/views/hello/view.hpp"
-#include "../src/views/login/view.hpp"
-#include "../src/views/register/view.hpp"
+#include "components/controllers/token_controller_fwd.hpp"
+#include "components/controllers/user_controller_fwd.hpp"
 #include "userver/formats/json/value.hpp"
 #include "userver/logging/log.hpp"
 #include "userver/storages/postgres/component.hpp"
+#include "views/hello/view.hpp"
+#include "views/login/view.hpp"
+#include "views/register/view.hpp"
 
 namespace fs = std::filesystem;
 
