@@ -12,14 +12,14 @@ namespace userver::formats::serialize {
 
 template <timetable_vsu_backend::utils::convert::IsProperty T>
 json::Value Serialize(const T& t, To<json::Value>) {
-  return json::ValueBuilder(t.value).ExtractValue();
+    return json::ValueBuilder(t.value).ExtractValue();
 }
 
 template <timetable_vsu_backend::utils::convert::JsonSeriazable T>
 json::Value Serialize(const T& t, To<json::Value>) {
-  json::ValueBuilder json;
-  timetable_vsu_backend::utils::convert::detail::serialize::ConverterJson<
-      T>::Serialize(t, json);
-  return json.ExtractValue();
+    json::ValueBuilder json;
+    timetable_vsu_backend::utils::convert::detail::serialize::ConverterJson<
+        T>::Serialize(t, json);
+    return json.ExtractValue();
 }
 }  // namespace userver::formats::serialize

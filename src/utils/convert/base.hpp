@@ -14,27 +14,31 @@ enum struct PolicyFields { ConvertAll };
 enum struct TypeOfBody { Empty, Json };
 
 enum struct RequestParse {
-  Unspecified,  //данное поле в запросах будет парсится из body
-  Query,
-  Header,
-  Cookie
+    Unspecified,  //данное поле в запросах будет парсится из body
+    Query,
+    Header,
+    Cookie
 };
 
 template <typename T, ConstexprString name,
           RequestParse request_parse = RequestParse::Unspecified>
 struct BaseProperty {
-  using value_type = T;
-  constexpr auto static kName = name;
-  constexpr auto static kRequestParse = request_parse;
+    using value_type = T;
+    constexpr auto static kName = name;
+    constexpr auto static kRequestParse = request_parse;
 
-  template <class Arg>
-  value_type& operator=(Arg&& arg) {
-    value = std::forward<Arg>(arg);
-    return value;
-  }
-  value_type& operator()() { return value; }
-  const value_type& operator()() const { return value; }
-  value_type value;
+    template <class Arg>
+    value_type& operator=(Arg&& arg) {
+        value = std::forward<Arg>(arg);
+        return value;
+    }
+    value_type& operator()() {
+        return value;
+    }
+    const value_type& operator()() const {
+        return value;
+    }
+    value_type value;
 };
 
 template <typename T, ConstexprString name>
@@ -71,12 +75,12 @@ concept IsAnyProperty = std::is_class_v<T> && std::is_same_v<
 
 template <typename T>
 concept HasTypeOfBody = requires {
-  { T::kTypeOfBody } -> std::convertible_to<TypeOfBody>;
-  requires IsConstexpr<T::kTypeOfBody>;
+    { T::kTypeOfBody } -> std::convertible_to<TypeOfBody>;
+    requires IsConstexpr<T::kTypeOfBody>;
 };
 
 template <typename T>
 concept IsConvertAll = requires {
-  requires T::kPolicyFields == PolicyFields::ConvertAll;
+    requires T::kPolicyFields == PolicyFields::ConvertAll;
 };
 }  // namespace timetable_vsu_backend::utils::convert

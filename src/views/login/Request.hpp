@@ -11,10 +11,10 @@
 namespace timetable_vsu_backend::views::login {
 using namespace utils::convert;
 struct Request {
-  Property<std::string, "login"> login;
-  Property<std::string, "password"> password;
-  static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
-  static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
+    Property<std::string, "login"> login;
+    Property<std::string, "password"> password;
+    static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
+    static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
 };
 static_assert(HasTypeOfBody<Request>);
 }  // namespace timetable_vsu_backend::views::login

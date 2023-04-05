@@ -1,3 +1,15 @@
-BasedOnStyle: google
+# Описание настроек форматирования для clang-format 14
+
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+BreakBeforeBraces: Attach
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+ColumnLimit: 80
+PointerAlignment: Left
+SpaceAfterCStyleCast: true
 DerivePointerAlignment: false
-IncludeBlocks: Preserve
+AlignTrailingComments: true

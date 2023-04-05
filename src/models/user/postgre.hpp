@@ -1,8 +1,8 @@
 #pragma once
-#include "type.hpp"
-
 #include <userver/storages/postgres/io/enum_types.hpp>
 #include <userver/storages/postgres/io/type_mapping.hpp>
+
+#include "type.hpp"
 #include "userver/utils/trivial_map.hpp"
 
 namespace userver::storages::postgres::io {
@@ -10,7 +10,7 @@ namespace userver::storages::postgres::io {
 using namespace timetable_vsu_backend::models;
 template <>
 struct CppToUserPg<User::Id> {
-  static constexpr userver::storages::postgres::DBTypeName postgres_name =
-      "uuid";
+    static constexpr userver::storages::postgres::DBTypeName postgres_name =
+        "uuid";
 };
 }  // namespace userver::storages::postgres::io
