@@ -37,6 +37,7 @@ jobs:
               sudo apt update
               sudo apt install --allow-downgrades -y pep8 $(cat third_party/userver/scripts/docs/en/deps/${{matrix.os}}.md | tr '\n' ' ')
               sudo apt install clang-format-11
+              sudo apt install g++-11 -y && sudo apt remove g++ -y && sudo update-alternatives
               sudo pip install $(cat dependencies/python.md) | tr  '\n' ' '
           - name: Check format sources
             run: |
