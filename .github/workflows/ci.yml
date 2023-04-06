@@ -27,8 +27,8 @@ jobs:
         runs-on: ${{matrix.os}}
 
         steps:
-          - name: Cancel Previous Workflow Runs
-            uses: n1hility/cancel-previous-runs@v3.0
+          - name: Cancel Previous Runs
+            uses: styfle/cancel-workflow-action
           - uses: actions/checkout@v2
             with:
                 submodules: true
