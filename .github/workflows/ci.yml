@@ -30,7 +30,12 @@ jobs:
           - uses: actions/checkout@v2
             with:
                 submodules: true
-
+          - name: Install packages
+            run: |
+              sudo apt update
+              sudo apt install --allow-downgrades -y pep8 $(cat third_party/userver/scripts/docs/en/deps/${{matrix.os}}.md | tr '\n' ' ')
+              sudo apt install clang-format-14
+              sudo pip install $(cat dependencies/python.md) | tr  '\n' ' '
           - name: Check format sources
             run: |
               make check-format
@@ -46,13 +51,6 @@ jobs:
                 restore-keys: |
                     ${{matrix.os}} ${{matrix.info}} ccache-dir ${{github.ref}} run-'
                     ${{matrix.os}} ${{matrix.info}} ccache-
-
-          - name: Install packages
-            run: |
-                sudo apt update
-                sudo apt install --allow-downgrades -y pep8 $(cat third_party/userver/scripts/docs/en/deps/${{matrix.os}}.md | tr '\n' ' ')
-                sudo apt install clang-format-14
-                sudo pip install $(cat dependencies/python.md) | tr  '\n' ' '
 
           - name: Setup ccache
             run: |
