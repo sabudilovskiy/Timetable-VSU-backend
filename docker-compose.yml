@@ -33,7 +33,6 @@ services:
           - CCACHE_SIZE
           - CMAKE_OPTS
           - CORES_DIR=/cores
-          - CXX=/usr/bin/g++-11
           - MAKE_OPTS
         volumes:
           - .:/timetable_vsu_backend:rw
