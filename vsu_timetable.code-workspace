@@ -20,7 +20,7 @@
         "files.exclude": { 
             "third_party": true,
             "build*": true,
-            // ".*" : true,
+            ".*" : true,
             "dependencies" : true, 
             "compile_commands.json" : true
         },
