@@ -18,6 +18,7 @@ services:
 
     timetable_vsu_backend-container:
         image: ghcr.io/userver-framework/docker-userver-build-base:v1a
+        commands: sudo apt install g++-11
         privileged: true
         environment:
           - POSTGRES_DB=timetable_vsu_backend_db-1
@@ -32,7 +33,7 @@ services:
           - CCACHE_SIZE
           - CMAKE_OPTS
           - CORES_DIR=/cores
-          - CXX
+          - CXX=/usr/bin/g++-11
           - MAKE_OPTS
         volumes:
           - .:/timetable_vsu_backend:rw
