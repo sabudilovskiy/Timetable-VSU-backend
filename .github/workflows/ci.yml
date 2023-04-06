@@ -35,7 +35,7 @@ jobs:
           - name: Install packages
             run: |
               sudo apt update
-              sudo apt install --allow-downgrades -y pep8 $(cat third_party/userver/scripts/docs/en/deps/${{matrix.os}}.md | tr '\n' ' ')
+              sudo apt install --allow-downgrades -y pep8 $(cat dependencies/${{matrix.os}}.md | tr '\n' ' ')
               sudo apt install clang-format-11
               sudo pip install $(cat dependencies/python.md) | tr  '\n' ' '
           - name: install g++11
