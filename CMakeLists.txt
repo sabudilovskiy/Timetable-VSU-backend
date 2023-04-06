@@ -1,14 +1,13 @@
 cmake_minimum_required(VERSION 3.12)
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
-
 project(timetable_vsu_backend CXX)
+message("Compiler version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 include(third_party/userver/cmake/SetupEnvironment.cmake)
 include(GNUInstallDirs)
 
 add_subdirectory(third_party/userver)
-
 #make gen 
 #source lists are generated in the .gen folder
 file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/benchs.txt benchs_src)
