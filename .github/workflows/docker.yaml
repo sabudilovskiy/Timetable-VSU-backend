@@ -12,6 +12,8 @@ jobs:
     tests:
         runs-on: ubuntu-latest
         steps:
+          - name: Cancel Previous Workflow Runs
+            uses: n1hility/cancel-previous-runs@v3.0
           - uses: actions/checkout@v2
             with:
                 submodules: true
