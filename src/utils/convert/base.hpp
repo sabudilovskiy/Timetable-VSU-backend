@@ -54,28 +54,29 @@ template <typename T, ConstexprString name>
 using CookieProperty = BaseProperty<T, name, RequestParse::Cookie>;
 
 template <typename T>
-concept IsProperty = std::is_class_v<T> &&
+concept IsProperty = std::is_class_v<T>&&
     std::is_same_v<Property<typename T::value_type, T::kName>, T>;
 
 template <typename T>
-concept IsQueryProperty = std::is_class_v<T> &&
+concept IsQueryProperty = std::is_class_v<T>&&
     std::is_same_v<QueryProperty<typename T::value_type, T::kName>, T>;
 
 template <typename T>
-concept IsHeaderProperty = std::is_class_v<T> &&
+concept IsHeaderProperty = std::is_class_v<T>&&
     std::is_same_v<HeaderProperty<typename T::value_type, T::kName>, T>;
 
 template <typename T>
-concept IsCookieProperty = std::is_class_v<T> &&
+concept IsCookieProperty = std::is_class_v<T>&&
     std::is_same_v<CookieProperty<typename T::value_type, T::kName>, T>;
 
 template <typename T>
-concept IsAnyProperty = std::is_class_v<T> && std::is_same_v<
+concept IsAnyProperty = std::is_class_v<T>&& std::is_same_v<
     BaseProperty<typename T::value_type, T::kName, T::kRequestParse>, T>;
 
 template <typename T>
 concept HasTypeOfBody = requires {
-    { T::kTypeOfBody } -> std::convertible_to<TypeOfBody>;
+    { T::kTypeOfBody }
+    ->std::convertible_to<TypeOfBody>;
     requires IsConstexpr<T::kTypeOfBody>;
 };
 

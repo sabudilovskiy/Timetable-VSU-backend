@@ -20,9 +20,8 @@ struct HttpResponse {
 };
 template <typename T>
 concept HasStatusCode = requires {
-    {
-        T::kStatusCode
-        } -> std::convertible_to<userver::server::http::HttpStatus>;
+    { T::kStatusCode }
+    ->std::convertible_to<userver::server::http::HttpStatus>;
     requires IsConstexpr<T::kStatusCode>;
 };
 }  // namespace timetable_vsu_backend::utils::convert

@@ -5,7 +5,7 @@ namespace timetable_vsu_backend::utils::convert {
 //данынй концепт лишь активирует перегрузки, но не проверяет все требования для
 //типа
 template <typename T>
-concept HttpRequestParsable = IsConvertAll<T> && HasTypeOfBody<T>;
+concept HttpRequestParsable = IsConvertAll<T>&& HasTypeOfBody<T>;
 }  // namespace timetable_vsu_backend::utils::convert
 
 namespace userver::formats::parse {

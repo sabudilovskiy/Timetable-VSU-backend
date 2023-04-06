@@ -6,7 +6,7 @@ namespace timetable_vsu_backend::utils::convert {
 //типа
 template <typename T>
 concept HttpResponseSeriazable =
-    IsConvertAll<T> && HasTypeOfBody<T> && HasStatusCode<T>;
+    IsConvertAll<T>&& HasTypeOfBody<T>&& HasStatusCode<T>;
 
 template <HttpResponseSeriazable T>
 void Serialize(const T& t, HttpResponse& response) {
