@@ -3,6 +3,6 @@
 
 namespace timetable_vsu_backend::models {
 struct AuthToken {
-  boost::uuids::uuid id;
+    boost::uuids::uuid id;
 };
 }  // namespace timetable_vsu_backend::models

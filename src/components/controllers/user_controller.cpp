@@ -1,11 +1,14 @@
 #include "user_controller.hpp"
+
 #include <fmt/core.h>
+
 #include <boost/uuid/uuid.hpp>
 #include <exception>
 #include <optional>
 #include <userver/storages/postgres/cluster.hpp>
-#include "../../models/user/postgre.hpp"
-#include "../../models/user_type/postgre.hpp"
+
+#include "models/user/postgre.hpp"
+#include "models/user_type/postgre.hpp"
 #include "userver/components/component_context.hpp"
 #include "userver/logging/log.hpp"
 #include "userver/storages/postgres/cluster_types.hpp"
@@ -28,26 +31,28 @@ UserController::UserController(
     : LoggableComponentBase(config, context),
       pg_cluster_(
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
-              .GetCluster()) {}
+              .GetCluster()) {
+}
 
 std::optional<models::User> UserController::GetByLogin(
     std::string_view login) const {
-  auto result = pg_cluster_->Execute(
-      userver::storages::postgres::ClusterHostType::kMaster, qGetUserByLogin,
-      login);
-  if (result.IsEmpty()) {
-    return std::nullopt;
-  }
-  return result.AsSingleRow<models::User>(userver::storages::postgres::kRowTag);
+    auto result = pg_cluster_->Execute(
+        userver::storages::postgres::ClusterHostType::kMaster, qGetUserByLogin,
+        login);
+    if (result.IsEmpty()) {
+        return std::nullopt;
+    }
+    return result.AsSingleRow<models::User>(
+        userver::storages::postgres::kRowTag);
 }
 std::optional<boost::uuids::uuid> UserController::TryToAdd(
     const models::User& user) const {
-  auto result = pg_cluster_->Execute(
-      userver::storages::postgres::ClusterHostType::kMaster, qAddUser,
-      user.login, user.password, user.user_type);
-  if (result.IsEmpty()) {
-    return {};
-  }
-  return result.AsSingleRow<boost::uuids::uuid>();
+    auto result = pg_cluster_->Execute(
+        userver::storages::postgres::ClusterHostType::kMaster, qAddUser,
+        user.login, user.password, user.user_type);
+    if (result.IsEmpty()) {
+        return {};
+    }
+    return result.AsSingleRow<boost::uuids::uuid>();
 }
 }  // namespace timetable_vsu_backend::components

@@ -21,8 +21,9 @@
             "third_party": true,
             "build*": true,
             ".*" : true,
-            "dependencies" : true
+            "dependencies" : true, 
+            "compile_commands.json" : true
         },
-        "clang-tidy.buildPath": "../build_debug"
+        "clang-tidy.buildPath": "build_debug"
     }
 }

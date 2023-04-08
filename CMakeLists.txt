@@ -1,14 +1,13 @@
 cmake_minimum_required(VERSION 3.12)
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
-
 project(timetable_vsu_backend CXX)
+message("Compiler version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 include(third_party/userver/cmake/SetupEnvironment.cmake)
 include(GNUInstallDirs)
 
 add_subdirectory(third_party/userver)
-
 #make gen 
 #source lists are generated in the .gen folder
 file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/benchs.txt benchs_src)
@@ -20,11 +19,13 @@ file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/unittest.txt unittest_src)
 add_library(${PROJECT_NAME}_objs OBJECT
 	${objs_src}
 )
+target_include_directories(${PROJECT_NAME}_objs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql)
 
 
 # The Service
 add_executable(${PROJECT_NAME} ${service_src})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/service)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs)
 
 
@@ -32,6 +33,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs)
 add_executable(${PROJECT_NAME}_unittest
 	${unittest_src}
 )
+target_include_directories(${PROJECT_NAME}_unittest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/utests)
 target_link_libraries(${PROJECT_NAME}_unittest PRIVATE ${PROJECT_NAME}_objs userver-utest)
 add_google_tests(${PROJECT_NAME}_unittest)
 
@@ -40,6 +42,7 @@ add_google_tests(${PROJECT_NAME}_unittest)
 add_executable(${PROJECT_NAME}_benchmark
 	${benchs_src}
 )
+target_include_directories(${PROJECT_NAME}_benchmark PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/benchs)
 target_link_libraries(${PROJECT_NAME}_benchmark PRIVATE ${PROJECT_NAME}_objs userver-ubench)
 add_google_benchmark_tests(${PROJECT_NAME}_benchmark)
 

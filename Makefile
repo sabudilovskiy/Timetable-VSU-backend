@@ -3,7 +3,7 @@ CMAKE_DEBUG_FLAGS ?= -DUSERVER_SANITIZE='addr ub'
 CMAKE_RELEASE_FLAGS ?=
 CMAKE_OS_FLAGS ?= -DUSERVER_FEATURE_CRYPTOPP_BLAKE2=0 -DUSERVER_FEATURE_REDIS_HI_MALLOC=1
 NPROCS ?= $(shell nproc)
-CLANG_FORMAT ?= clang-format
+CLANG_FORMAT ?= clang-format-11
 
 # NOTE: use Makefile.local for customization
 -include Makefile.local
@@ -99,6 +99,7 @@ check-git-status:
 
 .PHONY: check-format-cpp
 check-format-cpp:
+	@$(CLANG_FORMAT) --version
 	@find benchs -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
 	@find service -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
 	@find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror

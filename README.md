@@ -41,6 +41,10 @@ Makefile contains typicaly useful targets for development:
 
 Edit `Makefile.local` to change the default configuration and build options.
 
+## Known issues
+
+### Clangd doesn't working with project
+Use `ln -s build_debug/compile_commands.json compile_commands.json`
 
 ## License
 

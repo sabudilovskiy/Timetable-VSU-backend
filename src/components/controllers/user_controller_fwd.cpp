@@ -4,6 +4,6 @@
 
 namespace timetable_vsu_backend::components {
 void AppendUserController(userver::components::ComponentList& component_list) {
-  component_list.Append<UserController>();
+    component_list.Append<UserController>();
 }
 }  // namespace timetable_vsu_backend::components

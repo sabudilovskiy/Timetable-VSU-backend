@@ -1,12 +1,15 @@
 #include "token_controller.hpp"
+
 #include <fmt/core.h>
+
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <chrono>
 #include <optional>
 #include <userver/storages/postgres/cluster.hpp>
-#include "../../models/user/postgre.hpp"
-#include "../../models/user_type/postgre.hpp"
+
+#include "models/user/postgre.hpp"
+#include "models/user_type/postgre.hpp"
 #include "userver/components/component_context.hpp"
 #include "userver/logging/log.hpp"
 #include "userver/storages/postgres/cluster_types.hpp"
@@ -32,29 +35,31 @@ TokenController::TokenController(
     : LoggableComponentBase(config, context),
       pg_cluster_(
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
-              .GetCluster()) {}
+              .GetCluster()) {
+}
 std::optional<models::User> TokenController::GetById(
     std::string_view id) const {
-  auto result = pg_cluster_->Execute(
-      userver::storages::postgres::ClusterHostType::kMaster, qGetUserByTokenId,
-      id, userver::utils::datetime::Now());
-  if (result.IsEmpty()) {
-    return std::nullopt;
-  }
-  return result.AsSingleRow<models::User>(userver::storages::postgres::kRowTag);
+    auto result = pg_cluster_->Execute(
+        userver::storages::postgres::ClusterHostType::kMaster,
+        qGetUserByTokenId, id, userver::utils::datetime::Now());
+    if (result.IsEmpty()) {
+        return std::nullopt;
+    }
+    return result.AsSingleRow<models::User>(
+        userver::storages::postgres::kRowTag);
 }
 
 std::optional<boost::uuids::uuid> TokenController::CreateNew(
     const models::User::Id& id,
     const std::chrono::system_clock::time_point& time) const {
-  LOG_DEBUG() << fmt::format("Try to create new token, user_id: {}",
-                             boost::uuids::to_string(id.GetUnderlying()));
-  auto result = pg_cluster_->Execute(
-      userver::storages::postgres::ClusterHostType::kMaster, qAddToken, id,
-      time);
-  if (result.IsEmpty()) {
-    return {};
-  }
-  return result.AsSingleRow<boost::uuids::uuid>();
+    LOG_DEBUG() << fmt::format("Try to create new token, user_id: {}",
+                               boost::uuids::to_string(id.GetUnderlying()));
+    auto result = pg_cluster_->Execute(
+        userver::storages::postgres::ClusterHostType::kMaster, qAddToken, id,
+        time);
+    if (result.IsEmpty()) {
+        return {};
+    }
+    return result.AsSingleRow<boost::uuids::uuid>();
 }
 }  // namespace timetable_vsu_backend::components
