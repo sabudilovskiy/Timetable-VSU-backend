@@ -122,7 +122,7 @@ components:
       - password
     TypesUserTypeV1:
       enum:
-      - student
+      - user
       - teacher
       - admin
       - root
@@ -675,7 +675,7 @@ paths:
           description: Авторизация прозошла успешно
         '400':
           description: Не переданы необходимые параметры
-        '404':
+        '401':
           content:
             application/json:
               schema:
