@@ -24,7 +24,9 @@ properties:
     $ref: './TypeOfWeek.yaml'
   subgroup:
     $ref: './Subgroup.yaml'
-  start:
+  begin:
     $ref: './Timestamp.yaml'
   end:
-    $ref: './Timestamp.yaml'   
+    $ref: './Timestamp.yaml'
+  type_lesson:
+    $ref: './TypeOfLesson.yaml'

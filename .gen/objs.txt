@@ -24,11 +24,14 @@ src/utils/convert/base.hpp
 src/utils/constexpr_string.hpp
 src/utils/component_list_fwd.hpp
 src/models/user_type/type.hpp
+src/models/user_type/serialize.hpp
+src/models/user_type/serialize.cpp
 src/models/user_type/postgre.hpp
 src/models/user_type/parse.hpp
 src/models/user_type/parse.cpp
 src/models/user/type.hpp
 src/models/user/postgre.hpp
+src/models/lesson/type.hpp
 src/models/auth_token/type.hpp
 src/models/auth_token/serialize.hpp
 src/http/legacy_handler_parsed.hpp

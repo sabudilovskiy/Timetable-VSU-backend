@@ -123,7 +123,7 @@ gen:
 
 .PHONY: unite-api
 unite-api:
-	@python3 srcipts/merge_yaml.py api/api.yaml merged_api.yaml
+	@python3 scripts/merge_yaml.py api/api.yaml united_api.yaml
 
 # Internal hidden targets that are used only in docker environment
 --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%

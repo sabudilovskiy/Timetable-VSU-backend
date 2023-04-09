@@ -8,10 +8,10 @@
 #include <userver/server/handlers/http_handler_base.hpp>
 #include <utility>
 
+#include "../utils/convert/http_response_base.hpp"
 #include "userver/formats/json/value.hpp"
 #include "userver/formats/json/value_builder.hpp"
 #include "userver/server/http/http_status.hpp"
-#include "utils/convert/http_response_base.hpp"
 
 namespace timetable_vsu_backend::http {
 template <typename Request, typename... TResponse>
