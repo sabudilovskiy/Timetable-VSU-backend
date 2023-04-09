@@ -20,6 +20,13 @@ namespace {
 class LoginHandler final
     : public http::HandlerParsed<Request, Response200, Response401,
                                  Response500> {
+    static Response401 PerformInvalidCredentials() {
+        Response401 resp;
+        resp.description = "Account not founded: login or password invalid";
+        resp.machine_id = "INVALID_CREDENTIALS";
+        return resp;
+    }
+
    public:
     static constexpr std::string_view kName = "handler-login";
     LoginHandler(const userver::components::ComponentConfig& config,
@@ -33,7 +40,7 @@ class LoginHandler final
     Response Handle(Request&& request) const override {
         auto user = user_controller.GetByLogin(request.login());
         if (!user || user->password != request.password()) {
-            return Response401{};
+            return PerformInvalidCredentials();
         }
         auto id = token_controller.CreateNew(
             user->id, userver::utils::datetime::Now() + std::chrono::hours(24));
@@ -43,7 +50,7 @@ class LoginHandler final
                 boost::uuids::to_string(user->id.GetUnderlying()));
             return Response500{};
         }
-        return Response200{*id};
+        return Response200{{*id}, {user->user_type}};
     }
 
    private:

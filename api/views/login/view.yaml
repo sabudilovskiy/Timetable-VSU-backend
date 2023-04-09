@@ -14,7 +14,9 @@ post:
         application/json:
           schema:
             $ref : './ResponseV1.yaml'
-    '404':
+    '400':
+      description: Не переданы необходимые параметры
+    '401':
       description: Имя пользователя или пароль не верны
       content:
         application/json:

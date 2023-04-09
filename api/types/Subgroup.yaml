@@ -1,6 +1,6 @@
-description: 'Тип подгруппы: 0 - для обеих, 1 - только для левой, 2 - только для правой'
-type: integer
+description: 'Тип подгруппы: All - для обеих'
+type: string
 enum:
-  - 0
-  - 1
-  - 2
+  - All
+  - First
+  - Second

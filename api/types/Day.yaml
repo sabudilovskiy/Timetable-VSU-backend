@@ -1,8 +1,8 @@
-type: integer
+type: string
 enum:
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
+  - Monday
+  - Tuesday
+  - Wednesday
+  - Thursday
+  - Friday
+  - Saturday

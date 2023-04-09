@@ -46,8 +46,3 @@ paths:
     $ref: views/admin/teacher/link/view.yaml               
   /admin/teacher/unlink:
     $ref: views/admin/teacher/unlink/view.yaml
-components:
-  schemas:
-    AuthTokenV1:
-      $ref: types/AuthTokenV1.yaml      
-
