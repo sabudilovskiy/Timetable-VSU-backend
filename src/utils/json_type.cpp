@@ -1,8 +1,7 @@
 #include "json_type.hpp"
 
 #include <userver/formats/json.hpp>
-
-#include "userver/formats/json/impl/types.hpp"
+#include <userver/formats/json/impl/types.hpp>
 
 namespace timetable_vsu_backend::utils {
 std::string_view GetType(const userver::formats::json::Value& value) {

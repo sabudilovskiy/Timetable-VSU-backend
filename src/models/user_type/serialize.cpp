@@ -1,6 +1,6 @@
 #include "serialize.hpp"
 
-#include "userver/formats/json/value_builder.hpp"
+#include <userver/formats/json/value_builder.hpp>
 
 namespace timetable_vsu_backend::models {
 std::string Serialize(const UserType& value,

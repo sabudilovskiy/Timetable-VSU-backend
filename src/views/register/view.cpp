@@ -7,22 +7,24 @@
 #include <chrono>
 #include <exception>
 #include <userver/components/component_list.hpp>
+#include <userver/formats/parse/to.hpp>
+#include <userver/logging/log.hpp>
+#include <userver/storages/postgres/component.hpp>
+#include <userver/utils/boost_uuid4.hpp>
+#include <userver/utils/datetime.hpp>
+#include <userver/utils/uuid4.hpp>
 
 #include "Request.hpp"
-#include "components/controllers/token_controller.hpp"
-#include "components/controllers/user_controller.hpp"
+#include "components/controllers/postgres/token/controller.hpp"
+#include "components/controllers/postgres/user/controller.hpp"
 #include "http/legacy_handler_parsed.hpp"
 #include "models/auth_token/serialize.hpp"
-#include "userver/formats/parse/to.hpp"
-#include "userver/logging/log.hpp"
-#include "userver/storages/postgres/component.hpp"
-#include "userver/utils/boost_uuid4.hpp"
-#include "userver/utils/datetime.hpp"
-#include "userver/utils/uuid4.hpp"
 
 namespace timetable_vsu_backend::views::register_ {
 
 namespace {
+using components::controllers::postgres::TokenController;
+using components::controllers::postgres::UserController;
 using Response = models::AuthToken;
 class RegisterHandler final
     : public http::LegacyHandlerParsed<Request, Response> {
@@ -32,16 +34,14 @@ class RegisterHandler final
     RegisterHandler(const userver::components::ComponentConfig& config,
                     const userver::components::ComponentContext& context)
         : LegacyHandlerParsed(config, context),
-          user_controller(context.FindComponent<components::UserController>()),
-          token_controller(
-              context.FindComponent<components::TokenController>()) {
+          user_controller(context.FindComponent<UserController>()),
+          token_controller(context.FindComponent<TokenController>()) {
     }
 
     Response Handle(
         Request&& request,
         userver::server::http::HttpResponse& http_response) const override {
-        models::User user{models::User::Id{}, request.login, request.password,
-                          models::UserType::kUser};
+        models::User user{models::User::Id{}, request.login, request.password};
         auto user_id = user_controller.TryToAdd(user);
         if (!user_id) {
             LOG_DEBUG() << fmt::format("Cannot create user, login: {}",
@@ -63,8 +63,8 @@ class RegisterHandler final
     }
 
    private:
-    const components::UserController& user_controller;
-    const components::TokenController& token_controller;
+    const UserController& user_controller;
+    const TokenController& token_controller;
 };
 }  // namespace
 

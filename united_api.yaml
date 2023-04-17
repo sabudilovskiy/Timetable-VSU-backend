@@ -7,18 +7,18 @@ components:
         куки
     TypesDay:
       enum:
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
       type: string
     TypesEducationType:
       enum:
       - undergraduate
       - magistracy
-      - magistracy
+      - postgraduate
       - specialty
       type: string
     TypesErrorV1:
@@ -51,6 +51,8 @@ components:
           $ref: '#/components/schemas/TypesGroupV1'
         group_id:
           $ref: '#/components/schemas/TypesId'
+        number_lesson:
+          $ref: '#/components/schemas/TypesNumberLesson'
         room_id:
           $ref: '#/components/schemas/TypesId'
         room_name:
@@ -87,27 +89,27 @@ components:
     TypesSubgroup:
       description: 'Тип подгруппы: All - для обеих'
       enum:
-      - All
-      - First
-      - Second
+      - all
+      - first
+      - second
       type: string
     TypesTimestamp:
-      example: 2010-02-10-08.15.000Z
+      example: 2010-02-10T08.15.000Z
       type: string
     TypesTypeOfLesson:
       description: Тип пары
       enum:
-      - Labaratory
-      - Lection
-      - Practice
+      - labaratory
+      - lection
+      - practice
       type: string
     TypesTypeOfWeek:
       description: 'Тип недели: All - всегда, Even - только по числителю, Odd - только
         по знаменателю'
       enum:
-      - All
-      - Even
-      - Odd
+      - all
+      - even
+      - odd
       type: string
     TypesUserCredentialV1:
       properties:

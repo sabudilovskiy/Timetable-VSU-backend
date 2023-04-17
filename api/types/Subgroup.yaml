@@ -1,6 +1,6 @@
 description: 'Тип подгруппы: All - для обеих'
 type: string
 enum:
-  - All
-  - First
-  - Second
+  - all
+  - first
+  - second

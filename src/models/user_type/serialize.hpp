@@ -1,6 +1,7 @@
 #pragma once
+#include <userver/formats/json/value.hpp>
+
 #include "type.hpp"
-#include "userver/formats/json/value.hpp"
 
 namespace timetable_vsu_backend::models {
 userver::formats::json::Value Serialize(

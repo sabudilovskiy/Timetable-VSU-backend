@@ -3,20 +3,23 @@
 #include <chrono>
 #include <exception>
 #include <userver/components/component_list.hpp>
+#include <userver/formats/parse/to.hpp>
+#include <userver/storages/postgres/component.hpp>
+#include <userver/utils/datetime.hpp>
 
 #include "Request.hpp"
-#include "components/controllers/token_controller.hpp"
-#include "components/controllers/user_controller.hpp"
+#include "components/controllers/postgres/token/controller.hpp"
+#include "components/controllers/postgres/user/controller.hpp"
 #include "http/handler_parsed.hpp"
 #include "models/auth_token/serialize.hpp"
-#include "userver/formats/parse/to.hpp"
-#include "userver/storages/postgres/component.hpp"
-#include "userver/utils/datetime.hpp"
+#include "models/user_type/type.hpp"
 #include "views/login/Responses.hpp"
 
 namespace timetable_vsu_backend::views::login {
 
 namespace {
+using components::controllers::postgres::TokenController;
+using components::controllers::postgres::UserController;
 class LoginHandler final
     : public http::HandlerParsed<Request, Response200, Response401,
                                  Response500> {
@@ -32,9 +35,8 @@ class LoginHandler final
     LoginHandler(const userver::components::ComponentConfig& config,
                  const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
-          user_controller(context.FindComponent<components::UserController>()),
-          token_controller(
-              context.FindComponent<components::TokenController>()) {
+          user_controller(context.FindComponent<UserController>()),
+          token_controller(context.FindComponent<TokenController>()) {
     }
 
     Response Handle(Request&& request) const override {
@@ -50,12 +52,12 @@ class LoginHandler final
                 boost::uuids::to_string(user->id.GetUnderlying()));
             return Response500{};
         }
-        return Response200{{*id}, {user->user_type}};
+        return Response200{{*id}, {models::UserType::kUser}};
     }
 
    private:
-    const components::UserController& user_controller;
-    const components::TokenController& token_controller;
+    const UserController& user_controller;
+    const TokenController& token_controller;
 };
 }  // namespace
 

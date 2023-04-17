@@ -4,14 +4,14 @@
 
 #include <exception>
 #include <optional>
+#include <userver/formats/json/value.hpp>
+#include <userver/formats/json/value_builder.hpp>
 #include <userver/logging/log.hpp>
 #include <userver/server/handlers/http_handler_base.hpp>
+#include <userver/server/http/http_status.hpp>
 #include <utility>
 
 #include "../utils/convert/http_response_base.hpp"
-#include "userver/formats/json/value.hpp"
-#include "userver/formats/json/value_builder.hpp"
-#include "userver/server/http/http_status.hpp"
 
 namespace timetable_vsu_backend::http {
 template <typename Request, typename... TResponse>
@@ -24,6 +24,8 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase {
         : HttpHandlerBase(config, context) {
     }
     virtual Response Handle(Request&& request) const = 0;
+
+   private:
     static std::optional<Request> ParseUserRequest(
         const userver::server::http::HttpRequest& raw_request) {
         std::optional<Request> request;
@@ -38,7 +40,6 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase {
         }
     }
 
-   private:
     using HttpStatus = userver::server::http::HttpStatus;
 
     template <typename SomeResponse>
@@ -53,7 +54,8 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase {
     }
     std::string HandleRequestThrow(
         const userver::server::http::HttpRequest& raw_request,
-        userver::server::request::RequestContext& /*context*/) const override {
+        userver::server::request::RequestContext& /*context*/)
+        const override final {
         auto& http_response = raw_request.GetHttpResponse();
         auto request = ParseUserRequest(raw_request);
         if (!request) {

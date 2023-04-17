@@ -5,9 +5,9 @@
 
 #include "models/user/type.hpp"
 
-namespace timetable_vsu_backend::components {
+namespace timetable_vsu_backend::components::controllers::postgres {
 
-class UserController : public userver::components::LoggableComponentBase {
+class UserController final : public userver::components::LoggableComponentBase {
    public:
     using userver::components::LoggableComponentBase::LoggableComponentBase;
     static constexpr inline std::string_view kName = "user_controller";
@@ -19,4 +19,4 @@ class UserController : public userver::components::LoggableComponentBase {
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace timetable_vsu_backend::components
+}  // namespace timetable_vsu_backend::components::controllers::postgres

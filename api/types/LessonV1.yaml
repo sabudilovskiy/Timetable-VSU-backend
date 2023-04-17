@@ -30,3 +30,5 @@ properties:
     $ref: './Timestamp.yaml'
   type_lesson:
     $ref: './TypeOfLesson.yaml'
+  number_lesson:
+    $ref: './NumberLesson.yaml'

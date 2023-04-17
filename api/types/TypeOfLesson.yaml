@@ -1,6 +1,6 @@
 description: 'Тип пары'
 type: string
 enum:
-  - Labaratory
-  - Lection
-  - Practice
+  - labaratory
+  - lection
+  - practice
