@@ -13,8 +13,10 @@
 #include <userver/utils/daemon_run.hpp>
 #include <utility>
 
+#include "components/controllers/postgres/lesson/fwd.hpp"
 #include "components/controllers/postgres/token/fwd.hpp"
 #include "components/controllers/postgres/user/fwd.hpp"
+#include "views/get-timetable/view.hpp"
 #include "views/hello/view.hpp"
 #include "views/login/view.hpp"
 #include "views/register/view.hpp"
@@ -77,7 +79,10 @@ int main(int argc, char* argv[]) {
     service_template::AppendHello(component_list);
     views::login::Append(component_list);
     views::register_::Append(component_list);
+    views::get_timetable::Append(component_list);
     components::controllers::postgres::AppendUserController(component_list);
     components::controllers::postgres::AppendTokenController(component_list);
+    components::controllers::postgres::AppendLessonDetailsController(
+        component_list);
     return userver::utils::DaemonMain(argc, argv, component_list);
 }

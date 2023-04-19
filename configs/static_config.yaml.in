@@ -61,6 +61,10 @@ components_manager:
             path: /register
             method: POST                
             task_processor: main-task-processor  
+        handler-get-timetable: 
+            path: /get-timetable
+            method: POST                
+            task_processor: main-task-processor      
         postgres-db-1:
             dbconnection: $dbconnection
             blocking_task_processor: fs-task-processor                
@@ -68,7 +72,7 @@ components_manager:
             sync-start: true
         user_controller: {}
         token_controller: {}
-      
+        lesson_details_controller : {}
         handler-ping:
             path: /ping
             method: GET

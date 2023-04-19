@@ -2,10 +2,12 @@
 #include <boost/uuid/uuid.hpp>
 #include <chrono>
 
+#include "models/day/type.hpp"
 #include "models/education_type/type.hpp"
 #include "models/lesson_type/type.hpp"
 #include "models/lesson_week_type/type.hpp"
 #include "models/subgroup/type.hpp"
+#include "models/timestring/type.hpp"
 #include "utils/convert/base.hpp"
 
 namespace convert = timetable_vsu_backend::utils::convert;
@@ -15,13 +17,12 @@ namespace timetable_vsu_backend::models {
 struct LessonV1 {
     convert::Property<boost::uuids::uuid, "lesson_id"> lesson_id;
     convert::Property<boost::uuids::uuid, "lesson_begin"> lesson_begin;
-    convert::Property<std::chrono::system_clock::time_point, "lesson_end">
-        lesson_end;
-    convert::Property<std::chrono::system_clock::time_point, "lesson_number">
-        lesson_number;
+    convert::Property<TimeString, "lesson_end"> lesson_end;
+    convert::Property<TimeString, "lesson_number"> lesson_number;
     convert::Property<LessonType, "lesson_type"> lesson_type;
     convert::Property<LessonWeekType, "lesson_week_type"> lesson_week_type;
     convert::Property<Subgroup, "lesson_subgroup"> lesson_subgroup;
+    convert::Property<Day, "lesson_day"> lesson_day;
     convert::Property<boost::uuids::uuid, "room_id"> room_id;
     convert::Property<std::string, "room_name"> room_name;
     convert::Property<boost::uuids::uuid, "subject_id"> subject_id;
@@ -37,5 +38,7 @@ struct LessonV1 {
     convert::Property<boost::uuids::uuid, "teacher_id"> teacher_id;
     convert::Property<std::string, "teacher_fio"> teacher_fio;
     convert::Property<std::string, "teacher_bio"> teacher_bio;
+    static constexpr utils::convert::PolicyFields kPolicyFields =
+        utils::convert::PolicyFields::ConvertAll;
 };
 }  // namespace timetable_vsu_backend::models

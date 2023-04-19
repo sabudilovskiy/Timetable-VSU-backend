@@ -8,21 +8,20 @@
 #include <userver/utils/datetime.hpp>
 
 #include "Request.hpp"
+#include "Responses.hpp"
 #include "components/controllers/postgres/token/controller.hpp"
 #include "components/controllers/postgres/user/controller.hpp"
 #include "http/handler_parsed.hpp"
 #include "models/auth_token/serialize.hpp"
 #include "models/user_type/type.hpp"
-#include "views/login/Responses.hpp"
 
 namespace timetable_vsu_backend::views::login {
 
 namespace {
 using components::controllers::postgres::TokenController;
 using components::controllers::postgres::UserController;
-class LoginHandler final
-    : public http::HandlerParsed<Request, Response200, Response401,
-                                 Response500> {
+class Handler final : public http::HandlerParsed<Request, Response200,
+                                                 Response401, Response500> {
     static Response401 PerformInvalidCredentials() {
         Response401 resp;
         resp.description = "Account not founded: login or password invalid";
@@ -32,8 +31,8 @@ class LoginHandler final
 
    public:
     static constexpr std::string_view kName = "handler-login";
-    LoginHandler(const userver::components::ComponentConfig& config,
-                 const userver::components::ComponentContext& context)
+    Handler(const userver::components::ComponentConfig& config,
+            const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
           user_controller(context.FindComponent<UserController>()),
           token_controller(context.FindComponent<TokenController>()) {
@@ -62,7 +61,7 @@ class LoginHandler final
 }  // namespace
 
 void Append(userver::components::ComponentList& component_list) {
-    component_list.Append<LoginHandler>();
+    component_list.Append<Handler>();
 }
 
 }  // namespace timetable_vsu_backend::views::login

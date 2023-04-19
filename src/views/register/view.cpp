@@ -26,13 +26,12 @@ namespace {
 using components::controllers::postgres::TokenController;
 using components::controllers::postgres::UserController;
 using Response = models::AuthToken;
-class RegisterHandler final
-    : public http::LegacyHandlerParsed<Request, Response> {
+class Handler final : public http::LegacyHandlerParsed<Request, Response> {
    public:
     static constexpr std::string_view kName = "handler-register";
     using http::LegacyHandlerParsed<Request, Response>::LegacyHandlerParsed;
-    RegisterHandler(const userver::components::ComponentConfig& config,
-                    const userver::components::ComponentContext& context)
+    Handler(const userver::components::ComponentConfig& config,
+            const userver::components::ComponentContext& context)
         : LegacyHandlerParsed(config, context),
           user_controller(context.FindComponent<UserController>()),
           token_controller(context.FindComponent<TokenController>()) {
@@ -69,7 +68,7 @@ class RegisterHandler final
 }  // namespace
 
 void Append(userver::components::ComponentList& component_list) {
-    component_list.Append<RegisterHandler>();
+    component_list.Append<Handler>();
 }
 
 }  // namespace timetable_vsu_backend::views::register_

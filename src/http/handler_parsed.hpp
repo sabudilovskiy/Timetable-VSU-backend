@@ -30,14 +30,21 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase {
         const userver::server::http::HttpRequest& raw_request) {
         std::optional<Request> request;
         try {
+            static_assert(userver::formats::common::impl::kHasParse<
+                              userver::server::http::HttpRequest, Request>,
+                          "Request should be able to parse from "
+                          "userver::server::http::HttpRequest");
+            LOG_DEBUG() << "Start parse request";
             request =
                 Parse(raw_request, userver::formats::parse::To<Request>{});
+            LOG_DEBUG() << "End parse request";
             return request;
         } catch (std::exception& exc) {
             LOG_DEBUG() << fmt::format(
                 "Can't parse user request, return 400. Error: {}", exc.what());
-            return std::nullopt;
+            request = std::nullopt;
         }
+        return request;
     }
 
     using HttpStatus = userver::server::http::HttpStatus;
@@ -59,11 +66,15 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase {
         auto& http_response = raw_request.GetHttpResponse();
         auto request = ParseUserRequest(raw_request);
         if (!request) {
+            LOG_DEBUG() << "Fail parse";
             http_response.SetStatus(HttpStatus::kBadRequest);
             return {};
         }
         try {
-            auto response = Handle(std::move(*request));
+            LOG_DEBUG() << "Start handle parsed request";
+            Request&& parsed_request = std::move(*request);
+            auto response = Handle(std::move(parsed_request));
+            LOG_DEBUG() << "End handle parsed request";
             auto visiter = [&raw_request](auto& value) {
                 return SerializeResponse(value, raw_request);
             };

@@ -1,10 +1,16 @@
 #pragma once
+#include <fmt/core.h>
+
 #include <boost/pfr/core.hpp>
+#include <optional>
+#include <stdexcept>
 #include <userver/formats/json.hpp>
 #include <userver/formats/json/value.hpp>
+#include <userver/logging/log.hpp>
 #include <userver/server/http/http_request.hpp>
+#include <userver/utils/meta.hpp>
 
-#include "utils/convert/base.hpp"
+#include "../../base.hpp"
 
 namespace timetable_vsu_backend::utils::convert::detail::parse {
 template <typename T>
@@ -49,7 +55,24 @@ struct ConverterHttpRequest {
                            const userver::formats::json::Value& body,
                            Field& field) {
         static constexpr std::string_view kName = Field::kName;
-        field = body[kName].template As<Field>();
+        LOG_DEBUG() << kName;
+        using FieldValue = typename Field::value_type;
+        if (body.IsNull()) {
+            throw std::runtime_error(fmt::format(
+                "Unexpected null json get while parsing field: {}", kName));
+        } else if (body.IsMissing()) {
+            throw std::runtime_error(fmt::format(
+                "Unexpected missing json get while parsing field: {}", kName));
+        }
+        if (!body.HasMember(kName)) {
+            if constexpr (userver::meta::kIsOptional<FieldValue>) {
+                field = std::nullopt;
+            } else {
+                throw std::runtime_error(
+                    fmt::format("Missing field: {}", kName));
+            }
+        }
+        field = body[kName].template As<FieldValue>();
     }
     //парсим поле из query
     template <IsQueryProperty Field>
@@ -100,7 +123,8 @@ struct ConverterHttpRequest {
     template <TypeOfBody type_of_body>
     static auto GetBody(const userver::server::http::HttpRequest& value) {
         if constexpr (type_of_body == TypeOfBody::Json) {
-            return userver::formats::json::FromString(value.RequestBody());
+            auto json = userver::formats::json::FromString(value.RequestBody());
+            return json;
         } else {
             return EmptyBody{};
         }

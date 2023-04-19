@@ -24,5 +24,7 @@ struct LessonFilter {
     convert::OptionalProperty<std::string, "teacher_fio"> teacher_fio;
     convert::OptionalProperty<boost::uuids::uuid, "teacher_id"> teacher_id;
     convert::OptionalProperty<LessonWeekType, "week"> week;
+    static constexpr utils::convert::PolicyFields kPolicyFields =
+        utils::convert::PolicyFields::ConvertAll;
 };
 }  // namespace timetable_vsu_backend::models

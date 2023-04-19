@@ -3,21 +3,24 @@
 #include <chrono>
 #include <string>
 
+#include "models/day/type.hpp"
 #include "models/education_type/type.hpp"
 #include "models/lesson_type/type.hpp"
 #include "models/lesson_week_type/type.hpp"
 #include "models/subgroup/type.hpp"
+#include "models/timestring/type.hpp"
 
 namespace timetable_vsu_backend::models {
 // postgres type
 struct LessonWithDetails {
     boost::uuids::uuid lesson_id;
     boost::uuids::uuid lesson_begin;
-    std::chrono::system_clock::time_point lesson_end;
-    std::chrono::system_clock::time_point lesson_number;
+    TimeString lesson_end;
+    TimeString lesson_number;
     LessonType lesson_type;
     LessonWeekType lesson_week_type;
     Subgroup lesson_subgroup;
+    Day lesson_day;
     boost::uuids::uuid room_id;
     std::string room_name;
     boost::uuids::uuid subject_id;

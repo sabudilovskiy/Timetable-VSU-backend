@@ -1,5 +1,6 @@
 #pragma once
 #include "detail/parse/converter_http_request.hpp"
+#include "userver/compiler/demangle.hpp"
 
 namespace timetable_vsu_backend::utils::convert {
 //данынй концепт лишь активирует перегрузки, но не проверяет все требования для
@@ -13,9 +14,17 @@ namespace userver::formats::parse {
 template <timetable_vsu_backend::utils::convert::HttpRequestParsable T>
 T Parse(const userver::server::http::HttpRequest& value,
         formats::parse::To<T>) {
+    LOG_DEBUG() << fmt::format(
+        "start parse type: {} to {}",
+        userver::compiler::GetTypeName<decltype(value)>(),
+        userver::compiler::GetTypeName<T>());
     T t;
     timetable_vsu_backend::utils::convert::detail::parse::ConverterHttpRequest<
         T>::Parse(t, value);
+    LOG_DEBUG() << fmt::format(
+        "end parse type: {} to {}",
+        userver::compiler::GetTypeName<decltype(value)>(),
+        userver::compiler::GetTypeName<T>());
     return t;
 }
 }  // namespace userver::formats::parse
