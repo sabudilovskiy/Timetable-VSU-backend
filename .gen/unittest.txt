@@ -1,2 +1,3 @@
 utests/hello_test.cpp
+utests/dropper.cpp
 utests/convert_test.cpp

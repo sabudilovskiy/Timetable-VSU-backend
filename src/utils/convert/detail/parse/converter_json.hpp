@@ -2,7 +2,6 @@
 #include <boost/pfr/core.hpp>
 #include <userver/formats/json.hpp>
 
-#include "userver/logging/log.hpp"
 #include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::utils::convert::detail::parse {
@@ -31,7 +30,6 @@ struct ConverterJson {
     static void ParseField(const userver::formats::json::Value& value,
                            Field& field) {
         static constexpr std::string_view kName = Field::kName;
-        LOG_DEBUG() << kName;
         using FieldValue = typename Field::value_type;
         if (value.IsNull()) {
             throw std::runtime_error(fmt::format(

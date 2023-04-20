@@ -14,9 +14,9 @@ namespace timetable_vsu_backend::models {
 // postgres type
 struct LessonWithDetails {
     boost::uuids::uuid lesson_id;
-    boost::uuids::uuid lesson_begin;
+    TimeString lesson_begin;
     TimeString lesson_end;
-    TimeString lesson_number;
+    short lesson_number;
     LessonType lesson_type;
     LessonWeekType lesson_week_type;
     Subgroup lesson_subgroup;

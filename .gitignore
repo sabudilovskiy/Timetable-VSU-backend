@@ -11,4 +11,4 @@ Testing/
 configs/static_config.yaml
 Makefile.local
 merged_api.yaml
-tests/results/
+tests/results

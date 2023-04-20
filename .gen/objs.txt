@@ -20,10 +20,12 @@ src/utils/convert/json_parse.hpp
 src/utils/convert/http_response_serialize.hpp
 src/utils/convert/http_response_base.hpp
 src/utils/convert/http_request_parse.hpp
+src/utils/convert/drop_properties.hpp
 src/utils/convert/detail/serialize/converter_json.hpp
 src/utils/convert/detail/serialize/converter_http_response.hpp
 src/utils/convert/detail/parse/converter_json.hpp
 src/utils/convert/detail/parse/converter_http_request.hpp
+src/utils/convert/detail/drop_properties/dropper_to_ref.hpp
 src/utils/convert/base.hpp
 src/utils/convert/additional_properties.hpp
 src/utils/constexpr_string.hpp
@@ -73,6 +75,7 @@ src/models/lesson_type/parse.hpp
 src/models/lesson_type/parse.cpp
 src/models/lesson_type/all.hpp
 src/models/lesson_filter/type.hpp
+src/models/lesson_filter/postgre.hpp
 src/models/lesson_filter/fwd.hpp
 src/models/education_type/type.hpp
 src/models/education_type/serialize.hpp

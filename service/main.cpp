@@ -53,19 +53,17 @@ void LogFile(std::string_view path) {
     } else if (file.eof()) {
         LOG_ERROR() << fmt::format("{} is empty", path);
     }
-    while (std::getline(file, temp)) {
-        LOG_ERROR() << temp;
-    }
+    // while (std::getline(file, temp)) {
+    //     LOG_ERROR() << temp;
+    // }
     file.close();
 }
 
 int main(int argc, char* argv[]) {
     // LogAllFiles(fs::current_path());
     // LogAllFiles("/home/user/.local/etc/timetable_vsu_backend/");
-    // LogCommands(argc, argv);
-    // //кто это?
-    // LogFile("/usr/local/etc/timetable_vsu_backend/config_dev.yaml");
-    // LogFile("/home/user/.local/etc/timetable_vsu_backend/config_vars_docker.yaml");
+    LogCommands(argc, argv);
+    LogFile("/usr/local/etc/timetable_vsu_backend/config_dev.yaml");
     // LogFile("config_vars.docker.yaml");
     using namespace timetable_vsu_backend;
     auto component_list =

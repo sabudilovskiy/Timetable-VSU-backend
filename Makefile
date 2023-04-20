@@ -37,6 +37,7 @@ build-debug build-release: build-%: cmake-%
 # Test
 .PHONY: test-debug test-release
 test-debug test-release: test-%: build-%
+	@rm -rf tests/results
 	@cmake --build build_$* -j $(NPROCS) --target timetable_vsu_backend_unittest
 	@cmake --build build_$* -j $(NPROCS) --target timetable_vsu_backend_benchmark
 	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 PYTEST_ADDOPTS="--color=yes" ctest -V) || ctest -V)
@@ -64,9 +65,22 @@ dist-clean:
 install-debug install-release: install-%: build-%
 	@cd build_$* && \
 		cmake --install . -v --component timetable_vsu_backend
+	mv /usr/local/bin/timetable_vsu_backend /usr/local/bin/timetable_vsu_backend_$*
 
-.PHONY: install
-install: install-release
+.PHONY: nothing-debug nothing-release
+nothing-debug nothing-release:
+
+.PHONY: run-debug run-release
+run-debug run-release: run-%: nothing-%
+	@/usr/local/bin/timetable_vsu_backend_$* --config /usr/local/etc/timetable_vsu_backend/static_config.yaml
+
+.PHONY: install-run-debug install-run-release
+install-run-debug install-run-release: install-run-%: install-%
+	$(MAKE) run-$*
+
+.PHONY: drop-all-schemas
+drop-all-schemas:
+	@sudo -u postgres psql -c "DROP SCHEMA vsu_timetable CASCADE;"
 
 .PHONY: format-cpp
 format-cpp:

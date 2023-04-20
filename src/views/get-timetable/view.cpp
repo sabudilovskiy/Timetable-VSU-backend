@@ -46,20 +46,13 @@ class Handler final : public http::HandlerParsed<Request, Response200> {
     }
 
     Response Handle(Request&& request) const override {
-        LOG_DEBUG() << "some check";
-        LOG_DEBUG() << fmt::format("Filter has_value: {}",
-                                   request.filter().has_value());
-        LOG_DEBUG() << "Start search";
         auto founded = lesson_controller.Search(request.filter());
-        LOG_DEBUG() << "End search";
         Response200 resp;
         resp.lessons().reserve(founded.size());
-        LOG_DEBUG() << "Start convert";
         for (auto& lesson : founded) {
             resp.lessons().emplace_back(
                 helpers::ConvertLesson(std::move(lesson)));
         }
-        LOG_DEBUG() << "End convert";
         return resp;
     }
 

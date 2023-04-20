@@ -1,4 +1,49 @@
 properties:
+  id:
+    $ref: './Id.yaml'
+  begin:
+    $ref: './Timestamp.yaml'
+  end:
+    $ref: './Timestamp.yaml'
+  number:
+    $ref: './NumberLesson.yaml' 
+  type:
+    $ref: './TypeOfLesson.yaml'
+  week_type:
+    $ref: './TypeOfWeek.yaml'
+  subgroup:
+    $ref: './Subgroup.yaml'
+  subject_id:
+    $ref: './Id.yaml'
+  day:
+    $ref: './Day.yaml'
+  subject_name:
+    type: string
+    example: 'Дифференциальные уравнения'
+  group_id:
+    $ref: './Id.yaml'
+  group_course:
+    type: integer
+    minimum: 1
+    maximum: 6
+  group_name:
+    type: string
+    description: 'Название группы'
+    example: 'ФИИТ'
+  group_type:
+    $ref: './EducationType.yaml'
+  faculty_id:
+    $ref: './Id.yaml'
+  faculty_name:
+    type: string
+    example: 'ПММ'
+    description: 'Название факультета'
+  department_id:
+    $ref: './Id.yaml'
+  department_name:
+    type: string
+    example: 'ПММ'
+    description: 'Название факультета'
   room_id:
     $ref: './Id.yaml'
   room_name:
@@ -8,27 +53,9 @@ properties:
   teacher_id:
     type: string
     example: 'some_id'
+  teacher_bio:
+    type: string
+    example: 'Нереально работаю в ВГУ'
   teacher_fio:
     type: string
     example: 'Иванов Иван Иванович'
-  subject_id:
-    $ref: './Id.yaml'
-  subject_name:
-    type: string
-    example: 'Дифференциальные уравнения'
-  group:
-    $ref: './GroupV1.yaml'
-  group_id:
-    $ref: './Id.yaml'
-  week:
-    $ref: './TypeOfWeek.yaml'
-  subgroup:
-    $ref: './Subgroup.yaml'
-  begin:
-    $ref: './Timestamp.yaml'
-  end:
-    $ref: './Timestamp.yaml'
-  type_lesson:
-    $ref: './TypeOfLesson.yaml'
-  number_lesson:
-    $ref: './NumberLesson.yaml'

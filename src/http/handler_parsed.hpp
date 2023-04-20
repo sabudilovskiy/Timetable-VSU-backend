@@ -34,10 +34,8 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase {
                               userver::server::http::HttpRequest, Request>,
                           "Request should be able to parse from "
                           "userver::server::http::HttpRequest");
-            LOG_DEBUG() << "Start parse request";
             request =
                 Parse(raw_request, userver::formats::parse::To<Request>{});
-            LOG_DEBUG() << "End parse request";
             return request;
         } catch (std::exception& exc) {
             LOG_DEBUG() << fmt::format(
@@ -66,15 +64,12 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase {
         auto& http_response = raw_request.GetHttpResponse();
         auto request = ParseUserRequest(raw_request);
         if (!request) {
-            LOG_DEBUG() << "Fail parse";
             http_response.SetStatus(HttpStatus::kBadRequest);
             return {};
         }
         try {
-            LOG_DEBUG() << "Start handle parsed request";
             Request&& parsed_request = std::move(*request);
             auto response = Handle(std::move(parsed_request));
-            LOG_DEBUG() << "End handle parsed request";
             auto visiter = [&raw_request](auto& value) {
                 return SerializeResponse(value, raw_request);
             };

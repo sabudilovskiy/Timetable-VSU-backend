@@ -15,20 +15,20 @@ namespace convert = timetable_vsu_backend::utils::convert;
 namespace timetable_vsu_backend::models {
 // type for API
 struct LessonV1 {
-    convert::Property<boost::uuids::uuid, "lesson_id"> lesson_id;
-    convert::Property<boost::uuids::uuid, "lesson_begin"> lesson_begin;
-    convert::Property<TimeString, "lesson_end"> lesson_end;
-    convert::Property<TimeString, "lesson_number"> lesson_number;
-    convert::Property<LessonType, "lesson_type"> lesson_type;
-    convert::Property<LessonWeekType, "lesson_week_type"> lesson_week_type;
-    convert::Property<Subgroup, "lesson_subgroup"> lesson_subgroup;
-    convert::Property<Day, "lesson_day"> lesson_day;
+    convert::Property<boost::uuids::uuid, "id"> lesson_id;
+    convert::Property<TimeString, "begin"> lesson_begin;
+    convert::Property<TimeString, "end"> lesson_end;
+    convert::Property<short, "number"> lesson_number;
+    convert::Property<LessonType, "type"> lesson_type;
+    convert::Property<LessonWeekType, "week_type"> lesson_week_type;
+    convert::Property<Subgroup, "subgroup"> lesson_subgroup;
+    convert::Property<Day, "day"> lesson_day;
     convert::Property<boost::uuids::uuid, "room_id"> room_id;
     convert::Property<std::string, "room_name"> room_name;
     convert::Property<boost::uuids::uuid, "subject_id"> subject_id;
     convert::Property<std::string, "subject_name"> subject_name;
     convert::Property<boost::uuids::uuid, "group_id"> group_id;
-    convert::Property<short, "group_stage_course"> group_stage_course;
+    convert::Property<short, "group_course"> group_stage_course;
     convert::Property<std::string, "group_name"> group_name;
     convert::Property<EducationType, "group_type"> group_type;
     convert::Property<boost::uuids::uuid, "faculty_id"> faculty_id;

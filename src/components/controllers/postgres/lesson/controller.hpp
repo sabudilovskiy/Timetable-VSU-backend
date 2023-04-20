@@ -17,6 +17,9 @@ class LessonDetailsController final
         "lesson_details_controller";
     std::vector<models::LessonWithDetails> Search(
         const std::optional<models::LessonFilter>& filter) const;
+    LessonDetailsController(
+        const userver::components::ComponentConfig& config,
+        const userver::components::ComponentContext& context);
 
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;

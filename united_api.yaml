@@ -45,13 +45,37 @@ components:
       properties:
         begin:
           $ref: '#/components/schemas/TypesTimestamp'
+        day:
+          $ref: '#/components/schemas/TypesDay'
+        department_id:
+          $ref: '#/components/schemas/TypesId'
+        department_name:
+          description: Название факультета
+          example: ПММ
+          type: string
         end:
           $ref: '#/components/schemas/TypesTimestamp'
-        group:
-          $ref: '#/components/schemas/TypesGroupV1'
+        faculty_id:
+          $ref: '#/components/schemas/TypesId'
+        faculty_name:
+          description: Название факультета
+          example: ПММ
+          type: string
+        group_course:
+          maximum: 6
+          minimum: 1
+          type: integer
         group_id:
           $ref: '#/components/schemas/TypesId'
-        number_lesson:
+        group_name:
+          description: Название группы
+          example: ФИИТ
+          type: string
+        group_type:
+          $ref: '#/components/schemas/TypesEducationType'
+        id:
+          $ref: '#/components/schemas/TypesId'
+        number:
           $ref: '#/components/schemas/TypesNumberLesson'
         room_id:
           $ref: '#/components/schemas/TypesId'
@@ -66,15 +90,18 @@ components:
         subject_name:
           example: Дифференциальные уравнения
           type: string
+        teacher_bio:
+          example: Нереально работаю в ВГУ
+          type: string
         teacher_fio:
           example: Иванов Иван Иванович
           type: string
         teacher_id:
           example: some_id
           type: string
-        type_lesson:
+        type:
           $ref: '#/components/schemas/TypesTypeOfLesson'
-        week:
+        week_type:
           $ref: '#/components/schemas/TypesTypeOfWeek'
     TypesNumberLesson:
       enum:

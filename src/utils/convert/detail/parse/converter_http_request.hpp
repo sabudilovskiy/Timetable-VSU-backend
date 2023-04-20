@@ -55,7 +55,6 @@ struct ConverterHttpRequest {
                            const userver::formats::json::Value& body,
                            Field& field) {
         static constexpr std::string_view kName = Field::kName;
-        LOG_DEBUG() << kName;
         using FieldValue = typename Field::value_type;
         if (body.IsNull()) {
             throw std::runtime_error(fmt::format(
