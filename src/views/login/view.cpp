@@ -30,7 +30,7 @@ class Handler final : public http::HandlerParsed<Request, Response200,
     }
 
    public:
-    static constexpr std::string_view kName = "handler-login";
+    [[maybe_unused]] static constexpr std::string_view kName = "handler-login";
     Handler(const userver::components::ComponentConfig& config,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),

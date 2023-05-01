@@ -13,7 +13,7 @@
 namespace convert = timetable_vsu_backend::utils::convert;
 
 namespace timetable_vsu_backend::models {
-// type for API
+//Пара со всей дополнительной информацией
 struct LessonV1 {
     convert::Property<boost::uuids::uuid, "id"> lesson_id;
     convert::Property<TimeString, "begin"> lesson_begin;

@@ -63,7 +63,7 @@ components_manager:
             task_processor: main-task-processor  
         handler-get-timetable: 
             path: /get-timetable
-            method: POST                
+            method: GET,POST                
             task_processor: main-task-processor      
         postgres-db-1:
             dbconnection: $dbconnection

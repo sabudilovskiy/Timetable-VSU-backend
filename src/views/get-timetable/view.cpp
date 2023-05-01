@@ -46,13 +46,8 @@ class Handler final : public http::HandlerParsed<Request, Response200> {
     }
 
     Response Handle(Request&& request) const override {
-        auto founded = lesson_controller.Search(request.filter());
         Response200 resp;
-        resp.lessons().reserve(founded.size());
-        for (auto& lesson : founded) {
-            resp.lessons().emplace_back(
-                helpers::ConvertLesson(std::move(lesson)));
-        }
+        resp.lessons() = lesson_controller.Search(request.filter());
         return resp;
     }
 

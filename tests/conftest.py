@@ -7,9 +7,10 @@ from testsuite.databases.pgsql import discover
 from _pytest.assertion import truncate
 
 truncate.DEFAULT_MAX_LINES = 9999
-truncate.DEFAULT_MAX_CHARS = 9999  
+truncate.DEFAULT_MAX_CHARS = 9999
 
 pytest_plugins = ['pytest_userver.plugins.postgresql']
+
 
 @pytest.hookimpl
 def pytest_runtest_setup(item):
@@ -18,7 +19,9 @@ def pytest_runtest_setup(item):
     path = 'results'
     if item.cls is not None:
         path = os.path.join(path, item.cls.__name__)
-    logging_plugin.set_log_path(os.path.join(path, f'{item.name}_{timestamp}.log'))
+    logging_plugin.set_log_path(os.path.join(
+        path, f'{item.name}_{timestamp}.log'))
+
 
 @pytest.fixture(scope='session')
 def service_source_dir():

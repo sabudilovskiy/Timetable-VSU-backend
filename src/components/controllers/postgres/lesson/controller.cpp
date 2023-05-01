@@ -1,7 +1,12 @@
 #include "controller.hpp"
 
 #include <fmt/core.h>
+#include <fmt/format.h>
 
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <optional>
+#include <type_traits>
 #include <userver/components/component_context.hpp>
 #include <userver/logging/log.hpp>
 #include <userver/storages/postgres/cluster.hpp>
@@ -10,9 +15,13 @@
 #include <userver/storages/postgres/io/row_types.hpp>
 #include <userver/storages/postgres/query.hpp>
 
-#include "models/lesson_filter/type.hpp"
+#include "models/lesson_filter/postgre.hpp"
+#include "models/lesson_v1/postgre.hpp"
+#include "models/lesson_v1/type.hpp"
 #include "models/lesson_with_details/postgre.hpp"
-#include "models/lesson_with_details/type.hpp"
+#include "models/subgroup/serialize.hpp"
+#include "utils/convert/drop_properties_ref.hpp"
+
 namespace timetable_vsu_backend::components::controllers::postgres {
 namespace {
 const userver::storages::postgres::Query qGetLessonsByFilter(R"(
@@ -66,7 +75,7 @@ const userver::storages::postgres::Query qGetLessonsByFilter(R"(
         room_name,
         subject_id,
         subject_name,
-        group_id,
+        group_stage_id AS group_id,
         group_stage_course,
         group_name,
         group_type,
@@ -78,20 +87,39 @@ const userver::storages::postgres::Query qGetLessonsByFilter(R"(
         teacher_fio,
         teacher_bio
     FROM lesson_info
+    WHERE 
+    ($1.days IS null OR lesson_day = ANY($1.days)) and
+	($1.department_ids IS null OR department_id = ANY($1.department_ids)) and
+	($1.department_names IS null OR department_name = ANY($1.department_names)) and
+	($1.faculty_ids IS null OR faculty_id = ANY($1.faculty_ids)) and
+	($1.faculty_names IS null OR faculty_name = ANY($1.faculty_names)) and
+	($1.group_ids IS null OR group_id = ANY($1.group_ids)) and
+	($1.group_names IS null OR group_name = ANY($1.group_names)) and
+	($1.room_names IS null OR room_name = ANY($1.room_names)) and
+	($1.subject_names IS null OR subject_name = ANY($1.subject_names)) and
+	($1.teacher_fios IS null OR teacher_fio = ANY($1.teacher_fios)) and
+	($1.teacher_ids IS null OR teacher_id = ANY($1.teacher_ids)) and
+    ($1.subgroup IS null OR lesson_subgroup = $1.subgroup) and
+	($1.week IS null OR lesson_week_type = $1.week) and
+    ($1.lesson_type is null OR lesson_type = $1.lesson_type)
     ;
     )");
 }
-// filter временно не используется
-std::vector<models::LessonWithDetails> LessonDetailsController::Search(
+
+std::vector<models::LessonV1> LessonDetailsController::Search(
     const std::optional<models::LessonFilter>& filter) const {
+    std::optional<models::TupleLessonFilter> filter_tuple =
+        convert::DropPropertiesToConstRefs(filter);
     auto result = pg_cluster_->Execute(
         userver::storages::postgres::ClusterHostType::kMaster,
-        qGetLessonsByFilter);
-    std::vector<models::LessonWithDetails> lessons;
+        qGetLessonsByFilter, filter_tuple);
+    std::vector<models::LessonV1> lessons;
     lessons.reserve(result.Size());
+    auto it = result.begin();
     for (auto& row : result) {
-        lessons.emplace_back(row.As<models::LessonWithDetails>(
-            userver::storages::postgres::kRowTag));
+        auto& lesson = lessons.emplace_back();
+        auto tuple = convert::DropPropertiesToMutRefs(lesson);
+        row.To(tuple, userver::storages::postgres::kRowTag);
     }
     return lessons;
 }

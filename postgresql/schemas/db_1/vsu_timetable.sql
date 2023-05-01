@@ -19,7 +19,7 @@ CREATE TABLE vsu_timetable.token (
 	id_user uuid NOT NULL,
 	CONSTRAINT token_pk PRIMARY KEY (id)
 );
-
+ 
 
 ALTER TABLE vsu_timetable.token DROP CONSTRAINT IF EXISTS user_fk CASCADE;
 ALTER TABLE vsu_timetable.token ADD CONSTRAINT user_fk FOREIGN KEY (id_user) REFERENCES vsu_timetable."user" (id) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -253,4 +253,21 @@ ALTER TABLE vsu_timetable.teacher_link DROP CONSTRAINT IF EXISTS teacher_unique 
 ALTER TABLE vsu_timetable.teacher_link ADD CONSTRAINT teacher_unique UNIQUE (id_teacher);
 
 
-
+DROP TYPE IF EXISTS vsu_timetable.lesson_filter;
+CREATE TYPE vsu_timetable.lesson_filter AS
+(
+	days vsu_timetable.day[],
+	department_ids uuid[],
+	department_names text[],
+	faculty_ids uuid[],
+	faculty_names text[],
+	group_ids uuid[],
+	group_names text[],
+	room_names text[],
+	subgroup vsu_timetable.subgroup,
+	subject_names text[],
+	teacher_fios text[],
+	teacher_ids uuid[],
+	week vsu_timetable.type_of_week,
+	lesson_type vsu_timetable.type_lesson
+);

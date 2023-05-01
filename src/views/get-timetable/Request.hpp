@@ -17,5 +17,4 @@ struct Request {
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
 };
-
 }  // namespace timetable_vsu_backend::views::get_timetable

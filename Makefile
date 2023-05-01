@@ -34,7 +34,7 @@ cmake-debug cmake-release: cmake-%: build_%/Makefile
 build-debug build-release: build-%: cmake-%
 	@cmake --build build_$* -j $(NPROCS) --target timetable_vsu_backend
 
-# Test
+# Test All
 .PHONY: test-debug test-release
 test-debug test-release: test-%: build-%
 	@rm -rf tests/results
@@ -42,6 +42,13 @@ test-debug test-release: test-%: build-%
 	@cmake --build build_$* -j $(NPROCS) --target timetable_vsu_backend_benchmark
 	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 PYTEST_ADDOPTS="--color=yes" ctest -V) || ctest -V)
 	@pep8 tests
+
+#run only testsuite tests
+#use make testsuite-debug F="some regex" if you want filter tests by regex
+.PHONY: testsuite-debug testsuite-release
+testsuite-debug testsuite-release: testsuite-%: build-%
+	@rm -rf tests/results
+	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 PYTEST_ADDOPTS="--color=yes -k $(F)" ctest -V -R "testsuite"))
 
 # Start the service (via testsuite service runner)
 .PHONY: service-start-debug service-start-release
@@ -52,6 +59,10 @@ service-start-debug service-start-release: service-start-%: build-%
 .PHONY: clean-debug clean-release
 clean-debug clean-release: clean-%:
 	cd build_$* && $(MAKE) clean
+
+.PHONY: check-pep8
+check-pep8:
+	@pep8 tests
 
 .PHONY: dist-clean
 dist-clean:
