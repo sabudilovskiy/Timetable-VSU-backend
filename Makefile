@@ -98,10 +98,6 @@ run-debug run-release: run-%: nothing-%
 install-run-debug install-run-release: install-run-%: install-%
 	$(MAKE) run-$*
 
-.PHONY: drop-all-schemas
-drop-all-schemas:
-	@sudo -u postgres psql -c "DROP SCHEMA vsu_timetable CASCADE;"
-
 .PHONY: format-cpp
 format-cpp:
 	@find benchs -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
@@ -129,6 +125,7 @@ format-all: format-cpp
 # Check format the sources
 .PHONY: check-format
 check-format: check-format-cpp
+	$(MAKE) check-pep8
 
 .PHONY: check-git-status
 check-git-status:
@@ -172,25 +169,25 @@ gen:
 unite-api:
 	@python3 scripts/merge_yaml.py api/api.yaml united_api.yaml
 
-# Internal hidden targets that are used only in docker environment
---in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
-	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/timetable_vsu_backend/static_config.yaml
-	@psql 'postgresql://user:password@service-postgres:5432/timetable_vsu_backend_db-1' -f ./postgresql/data/initial_data.sql
-	@/home/user/.local/bin/timetable_vsu_backend \
-		--config /home/user/.local/etc/timetable_vsu_backend/static_config.yaml
+# # Internal hidden targets that are used only in docker environment
+# --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
+# 	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/timetable_vsu_backend/static_config.yaml
+# 	@psql 'postgresql://user:password@service-postgres:5432/timetable_vsu_backend_db-1' -f ./postgresql/data/initial_data.sql
+# 	@/home/user/.local/bin/timetable_vsu_backend \
+# 		--config /home/user/.local/etc/timetable_vsu_backend/static_config.yaml
 
-# Build and run service in docker environment
-.PHONY: docker-start-service-debug docker-start-service-release
-docker-start-service-debug docker-start-service-release: docker-start-service-%:
-	@docker-compose run -p 8080:8080 --rm timetable_vsu_backend-container $(MAKE) -- --in-docker-start-$*
+# # Build and run service in docker environment
+# .PHONY: docker-start-service-debug docker-start-service-release
+# docker-start-service-debug docker-start-service-release: docker-start-service-%:
+# 	@docker-compose run -p 8080:8080 --rm timetable_vsu_backend-container $(MAKE) -- --in-docker-start-$*
 
-# Start targets makefile in docker environment
-.PHONY: docker-cmake-debug docker-build-debug docker-test-debug docker-clean-debug docker-install-debug docker-cmake-release docker-build-release docker-test-release docker-clean-release docker-install-release
-docker-cmake-debug docker-build-debug docker-test-debug docker-clean-debug docker-install-debug docker-cmake-release docker-build-release docker-test-release docker-clean-release docker-install-release: docker-%:
-	docker-compose run --rm timetable_vsu_backend-container $(MAKE) $*
+# # Start targets makefile in docker environment
+# .PHONY: docker-cmake-debug docker-build-debug docker-test-debug docker-clean-debug docker-install-debug docker-cmake-release docker-build-release docker-test-release docker-clean-release docker-install-release
+# docker-cmake-debug docker-build-debug docker-test-debug docker-clean-debug docker-install-debug docker-cmake-release docker-build-release docker-test-release docker-clean-release docker-install-release: docker-%:
+# 	docker-compose run --rm timetable_vsu_backend-container $(MAKE) $*
 
-# Stop docker container and remove PG data
-.PHONY: docker-clean-data
-docker-clean-data:
-	@docker-compose down -v
-	@rm -rf ./.pgdata
+# # Stop docker container and remove PG data
+# .PHONY: docker-clean-data
+# docker-clean-data:
+# 	@docker-compose down -v
+# 	@rm -rf ./.pgdata

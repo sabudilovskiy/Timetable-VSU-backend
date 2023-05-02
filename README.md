@@ -20,6 +20,12 @@ Makefile contains typicaly useful targets for development:
 * `make test-release` - does a `make build-release` and runs all the tests on the result
 * `make service-start-debug` - builds the service in debug mode and starts it
 * `make service-start-release` - builds the service in release mode and starts it
+* `make install-debug` - builds the service in debug mode and install it
+* `make install-release` - builds the service in release mode and install it
+* `make run-debug` - runs installed debug service
+* `make run-release` - runs installed release service
+* `make install-run-debug` - builds the service in debug mode install and run it
+* `make install-run-release` - builds the service in release mode install and run it
 * `make` or `make all` - builds and runs all the tests in release and debug modes
 * `make format-all` - autoformat all the C++ and Python sources
 * `make format-cpp` - autoformat all the C++ sources
@@ -27,17 +33,14 @@ Makefile contains typicaly useful targets for development:
 * `make dist-clean` - clean all, including the CMake cached configurations
 * `make install` - does a `make build-release` and run install in directory set in environment `PREFIX`
 * `make install-debug` - does a `make build-debug` and runs install in directory set in environment `PREFIX`
-* `make docker-COMMAND` - run `make COMMAND` in docker environment
-* `make docker-build-debug` - debug build of the service with all the assertions and sanitizers enabled in docker environment
-* `make docker-test-debug` - does a `make build-debug` and runs all the tests on the result in docker environment
-* `make docker-start-service-release` - does a `make install-release` and runs service in docker environment
-* `make docker-start-service-debug` - does a `make install-debug` and runs service in docker environment
-* `make docker-clean-data` - stop docker containers
 * `make gen` - regenerate source lists for CMake in .gen
 * `make check-format-cpp` - сheck formatting in C++ sources, if something is not formatted, an error will be returned
+* `make check-pep8` - сheck formatting in Python sources, if something is not formatted, an error will be returned
 * `make check-format-all` - сheck formatting in all sources, if something is not formatted, an error will be returned
 * `make unite-api` - create united api file(merged_api.yaml)
 * `make check-git-status` - сheck if there are changes in files 
+* `make testsuite-debug F='somestring'` - does a `make build-debug` and runs all the python tests on the result which are filtred by 'somestring'
+* `make testsuite-release F='somestring'` - does a `make build-debug` and runs all the python tests on the result which are filtred by 'somestring'
 
 Edit `Makefile.local` to change the default configuration and build options.
 
