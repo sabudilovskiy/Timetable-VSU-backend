@@ -55,6 +55,15 @@ testsuite-debug testsuite-release: testsuite-%: build-%
 service-start-debug service-start-release: service-start-%: build-%
 	@cd ./build_$* && $(MAKE) start-timetable_vsu_backend
 
+.PHONY: add-eol
+add-eol:
+	@find $(P) -type f | while read file; do \
+        if ! tail -c1 "$$file" | grep -q "^$$"; then \
+            # echo "Adding EOL to $$file"; \
+            echo >> "$$file"; \
+        fi \
+    done
+
 # Cleanup data
 .PHONY: clean-debug clean-release
 clean-debug clean-release: clean-%:
@@ -99,11 +108,23 @@ format-cpp:
 	@find service -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
 	@find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
 	@find utests -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
+	$(MAKE) add-eol P=benchs
+	$(MAKE) add-eol P=service
+	$(MAKE) add-eol P=src
+	$(MAKE) add-eol P=utests
 
 # Format the sources
 .PHONY: format-all
 format-all: format-cpp
 	@find tests -name '*.py' -type f | xargs autopep8 -i
+	$(MAKE) add-eol P=tests
+	$(MAKE) add-eol P=scripts
+	$(MAKE) add-eol P=postgresql
+	$(MAKE) add-eol P=configs_testing
+	$(MAKE) add-eol P=configs
+	$(MAKE) add-eol P=CMakeLists.txt
+	$(MAKE) add-eol P=redocly.yaml
+	$(MAKE) add-eol P=united_api.yaml
 
 # Check format the sources
 .PHONY: check-format
@@ -145,6 +166,7 @@ gen:
 
 	@find utests -name '*pp' > .gen/unittest.txt
 	@LC_COLLATE=C sort .gen/unittest.txt -r -o .gen/unittest.txt
+	$(MAKE) add-eol P=.gen
 
 .PHONY: unite-api
 unite-api:

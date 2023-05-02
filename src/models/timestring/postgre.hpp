@@ -7,7 +7,6 @@
 namespace userver::storages::postgres::io {
 using timetable_vsu_backend::models::TimeString;
 template <>
-struct CppToUserPg<TimeString> {
-    static constexpr DBTypeName postgres_name = "timestamptz";
+struct CppToSystemPg<TimeString> : PredefinedOid<PredefinedOids::kTimestamptz> {
 };
 }  // namespace userver::storages::postgres::io

@@ -44,9 +44,18 @@ class Handler final : public http::HandlerParsed<Request, Response200> {
         : HandlerParsed(config, context),
           lesson_controller(context.FindComponent<LessonDetailsController>()) {
     }
-
+    static void ValidateBeginEnd(Request& request) {
+        if (request.filter() and request.filter()->begin() and
+            request.filter()->end() &&
+            request.filter()->begin().value() >
+                request.filter()->end().value()) {
+            std::swap(request.filter()->begin().value(),
+                      request.filter()->end().value());
+        }
+    }
     Response Handle(Request&& request) const override {
         Response200 resp;
+        ValidateBeginEnd(request);
         resp.lessons() = lesson_controller.Search(request.filter());
         return resp;
     }

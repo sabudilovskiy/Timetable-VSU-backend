@@ -32,6 +32,6 @@ VALUES ('ab5f0559-d2ee-4030-919e-5962f1ff2235', '241416c7-9654-4814-b36b-7d39c1d
 
 -- Insert test data into the lesson table
 INSERT INTO vsu_timetable.lesson (id, begin, "end", number_lesson, type_lesson, type_week, subgroup, day, id_room, id_shedule)
-VALUES ('3d04fc36-ab71-42db-9e38-efd792afa7ba', '2023-09-01 08:30:00', '2023-09-01 10:05:00', 1, 'lection', 'all', 'all', 'monday', 
+VALUES ('3d04fc36-ab71-42db-9e38-efd792afa7ba', '2023-04-01 08:30:00', '2023-05-01 10:05:00', 1, 'lection', 'all', 'all', 'monday', 
 'f245127f-a730-4d13-a15d-7648deb1d4d2', 
 'ab5f0559-d2ee-4030-919e-5962f1ff2235');

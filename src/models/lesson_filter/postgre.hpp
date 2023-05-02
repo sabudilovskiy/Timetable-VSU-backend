@@ -1,5 +1,6 @@
 #include <userver/storages/postgres/io/composite_types.hpp>
 
+#include "models/education_type/postgre.hpp"
 #include "models/lesson_filter/type.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
 namespace timetable_vsu_backend::models {
