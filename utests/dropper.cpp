@@ -81,8 +81,11 @@ UTEST(TestDropProperties, ConstRecursive) {
     test.auth().Login() = "1232";
     test.auth().Password() = "adad";
     auto tuple = magic::DropPropertiesToConstRefs(std::as_const(test));
-    static_assert(std::same_as<decltype(tuple), std::tuple<std::tuple<const
-    std::string&, const std::string&>, const std::string&>>); static_assert(
+    static_assert(std::same_as<
+                  decltype(tuple),
+                  std::tuple<std::tuple<const std::string&, const std::string&>,
+                             const std::string&>>);
+    static_assert(
         std::same_as<decltype(std::get<0>(tuple)),
                      std::tuple<const std::string&, const std::string&>&>);
     static_assert(
