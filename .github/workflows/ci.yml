@@ -76,17 +76,17 @@ jobs:
             if: matrix.make == 'test-release'
             run: |
                 make dist-clean
-                make install-release PREFIX=`pwd`/local_installation/
+                sudo make install-release
 
           - name: Test run after install
             if: matrix.make == 'test-release'
             run: |
-                ./local_installation/bin/timetable_vsu_backend_release --config=./local_installation/etc/timetable_vsu_backend/static_config.yaml &
+                make run-release
 
           - name: Check work run service
             if: matrix.make == 'test-release'
             run: |
-                ps aux | grep timetable_vsu_backend_release | grep config && curl http://localhost:8080/ping -v
+                ps aux | grep timetable_vsu_backend_release && curl http://localhost:8080/ping -v
 
           - name: Stop all
             if: matrix.make == 'test-release'
