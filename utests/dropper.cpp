@@ -76,23 +76,23 @@ UTEST(TestDropProperties, ConstBasic) {
     UASSERT(&std::get<1>(tuple) == &test.Password());
 }
 
-// UTEST(TestDropProperties, ConstRecursive) {
-//     TestStruct2 test;
-//     test.auth().Login() = "1232";
-//     test.auth().Password() = "adad";
-//     auto tuple = magic::DropPropertiesToConstRefs(std::as_const(test));
-//     static_assert(std::same_as<decltype(tuple), std::tuple<std::tuple<const
-//     std::string&, const std::string&>, const std::string&>>); static_assert(
-//         std::same_as<decltype(std::get<0>(tuple)),
-//                      std::tuple<const std::string&, const std::string&>&>);
-//     static_assert(
-//         std::same_as<decltype(std::get<1>(tuple)), const std::string&>);
-//     UASSERT(std::get<0>(std::get<0>(tuple)) == test.auth().Login());
-//     UASSERT(std::get<1>(std::get<0>(tuple)) == test.auth().Password());
-//     UASSERT(test.description().empty());
-//     UASSERT(std::get<1>(tuple).empty());
-//     UASSERT(std::get<1>(tuple) == test.description());
-//     UASSERT(&std::get<0>(std::get<0>(tuple)) == &test.auth().Login());
-//     UASSERT(&std::get<1>(std::get<0>(tuple)) == &test.auth().Password());
-//     UASSERT(&std::get<1>(tuple) == &test.description());
-// }
+UTEST(TestDropProperties, ConstRecursive) {
+    TestStruct2 test;
+    test.auth().Login() = "1232";
+    test.auth().Password() = "adad";
+    auto tuple = magic::DropPropertiesToConstRefs(std::as_const(test));
+    static_assert(std::same_as<decltype(tuple), std::tuple<std::tuple<const
+    std::string&, const std::string&>, const std::string&>>); static_assert(
+        std::same_as<decltype(std::get<0>(tuple)),
+                     std::tuple<const std::string&, const std::string&>&>);
+    static_assert(
+        std::same_as<decltype(std::get<1>(tuple)), const std::string&>);
+    UASSERT(std::get<0>(std::get<0>(tuple)) == test.auth().Login());
+    UASSERT(std::get<1>(std::get<0>(tuple)) == test.auth().Password());
+    UASSERT(test.description().empty());
+    UASSERT(std::get<1>(tuple).empty());
+    UASSERT(std::get<1>(tuple) == test.description());
+    UASSERT(&std::get<0>(std::get<0>(tuple)) == &test.auth().Login());
+    UASSERT(&std::get<1>(std::get<0>(tuple)) == &test.auth().Password());
+    UASSERT(&std::get<1>(tuple) == &test.description());
+}
