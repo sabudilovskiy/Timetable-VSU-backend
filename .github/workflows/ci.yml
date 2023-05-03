@@ -86,7 +86,7 @@ jobs:
           - name: Check work run service
             if: matrix.make == 'test-release'
             run: |
-                ps aux | grep timetable_vsu_backend_release && curl http://localhost:8080/ping -v
+                ps aux | grep timetable_vsu_backend_release && curl http://localhost:8080/ping -v &
 
           - name: Stop all
             if: matrix.make == 'test-release'
