@@ -15,6 +15,7 @@
 #include "utils/convert/additional_properties.hpp"
 #include "utils/type_holder.hpp"
 namespace timetable_vsu_backend::utils::convert::detail::drop_properties {
+
 template <typename T>
 struct ConstDropperToRef final {
     static auto Do(const T& t) {
@@ -117,6 +118,7 @@ struct ConstDropperToRef final {
         using RawType = typename Member::value_type;
         return ConstDropperToRef<RawType>::Do(member());
     }
+
     template <typename Tuple, std::size_t Index>
     static decltype(auto) HelpHandleMember(Tuple& tuple) {
         return HandleMember(std::get<Index>(tuple));

@@ -10,13 +10,12 @@ using timetable_vsu_backend::models::UserType;
 template <>
 struct CppToUserPg<UserType> : EnumMappingBase<UserType> {
     static constexpr userver::storages::postgres::DBTypeName postgres_name =
-        "vsu_timetable.usertype";
+        "vsu_timetable.user_type";
     static constexpr userver::utils::TrivialBiMap enumerators =
         [](auto selector) {
             return selector()
                 .Case("user", UserType::kUser)
                 .Case("admin", UserType::kAdmin)
-                .Case("root", UserType::kRoot)
                 .Case("teacher", UserType::kTeacher);
         };
 };

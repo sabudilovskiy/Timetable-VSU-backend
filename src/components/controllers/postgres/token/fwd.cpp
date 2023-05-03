@@ -6,6 +6,6 @@
 
 namespace timetable_vsu_backend::components::controllers::postgres {
 void AppendTokenController(userver::components::ComponentList& component_list) {
-    component_list.Append<TokenController>();
+    component_list.Append<token::Controller>();
 }
 }  // namespace timetable_vsu_backend::components::controllers::postgres

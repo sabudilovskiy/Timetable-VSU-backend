@@ -4,14 +4,32 @@ from testsuite.databases import pgsql
 
 
 @pytest.mark.pgsql('db_1', files=['initial_data_auth.sql'])
-async def test_login_successful(service_client):
-    credentials = {'login': 'some_nickname', 'password': 'some_password'}
+@pytest.mark.parametrize(
+    'type, user_id',
+    [('user', '111111c7-9654-4814-b36b-7d39c1ddded2'),
+     ('teacher', '222111c7-9654-4814-b36b-7d39c1ddded2'),
+     ('admin', '333111c7-9654-4814-b36b-7d39c1ddded2')],
+)
+async def test_login_successful(service_client, type, user_id):
+    credentials = {'login': 'some_' + type, 'password': type + '_password'}
     response = await service_client.post('/login', json=credentials)
 
     assert response.status_code == 200
     assert 'token' in response.json()
-    assert 'user_type' in response.json()
-    assert response.json()['user_type'] == 'user'
+    assert isinstance(response.json()['user'], dict)
+    assert response.json()['user']['id'] == user_id
+    assert response.json()['user']['type'] == type
+
+
+@pytest.mark.pgsql('db_1', files=['initial_data_auth.sql'])
+async def test_login_root_successful(service_client):
+    credentials = {'login': 'root', 'password': 'secret-password'}
+    response = await service_client.post('/login', json=credentials)
+    assert response.status_code == 200
+    assert 'token' in response.json()
+    assert isinstance(response.json()['user'], dict)
+    assert response.json()['user']['id']
+    assert response.json()['user']['type'] == 'root'
 
 
 @pytest.mark.pgsql('db_1', files=['initial_data_auth.sql'])
