@@ -13,3 +13,4 @@ PointerAlignment: Left
 SpaceAfterCStyleCast: true
 DerivePointerAlignment: false
 AlignTrailingComments: true
+SortIncludes: true

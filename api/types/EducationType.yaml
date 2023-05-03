@@ -2,5 +2,5 @@ type: string
 enum:
   - 'undergraduate'
   - 'magistracy'
-  - 'magistracy'
+  - 'postgraduate'
   - 'specialty'

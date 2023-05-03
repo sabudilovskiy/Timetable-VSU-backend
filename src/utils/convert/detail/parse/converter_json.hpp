@@ -30,6 +30,22 @@ struct ConverterJson {
     static void ParseField(const userver::formats::json::Value& value,
                            Field& field) {
         static constexpr std::string_view kName = Field::kName;
+        using FieldValue = typename Field::value_type;
+        if (value.IsNull()) {
+            throw std::runtime_error(fmt::format(
+                "Unexpected null json get while parsing field: {}", kName));
+        } else if (value.IsMissing()) {
+            throw std::runtime_error(fmt::format(
+                "Unexpected missing json get while parsing field: {}", kName));
+        }
+        if (!value.HasMember(kName)) {
+            if constexpr (userver::meta::kIsOptional<FieldValue>) {
+                field = std::nullopt;
+            } else {
+                throw std::runtime_error(
+                    fmt::format("Missing field: {}", kName));
+            }
+        }
         field = value[kName].template As<Field>();
     }
     //проверяем, что каждое поле кортежа является Property

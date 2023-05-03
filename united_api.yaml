@@ -7,18 +7,18 @@ components:
         куки
     TypesDay:
       enum:
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+      - saturday
       type: string
     TypesEducationType:
       enum:
       - undergraduate
       - magistracy
-      - magistracy
+      - postgraduate
       - specialty
       type: string
     TypesErrorV1:
@@ -45,12 +45,38 @@ components:
       properties:
         begin:
           $ref: '#/components/schemas/TypesTimestamp'
+        day:
+          $ref: '#/components/schemas/TypesDay'
+        department_id:
+          $ref: '#/components/schemas/TypesId'
+        department_name:
+          description: Название факультета
+          example: ПММ
+          type: string
         end:
           $ref: '#/components/schemas/TypesTimestamp'
-        group:
-          $ref: '#/components/schemas/TypesGroupV1'
+        faculty_id:
+          $ref: '#/components/schemas/TypesId'
+        faculty_name:
+          description: Название факультета
+          example: ПММ
+          type: string
+        group_course:
+          maximum: 6
+          minimum: 1
+          type: integer
         group_id:
           $ref: '#/components/schemas/TypesId'
+        group_name:
+          description: Название группы
+          example: ФИИТ
+          type: string
+        group_type:
+          $ref: '#/components/schemas/TypesEducationType'
+        id:
+          $ref: '#/components/schemas/TypesId'
+        number:
+          $ref: '#/components/schemas/TypesNumberLesson'
         room_id:
           $ref: '#/components/schemas/TypesId'
         room_name:
@@ -64,15 +90,18 @@ components:
         subject_name:
           example: Дифференциальные уравнения
           type: string
+        teacher_bio:
+          example: Нереально работаю в ВГУ
+          type: string
         teacher_fio:
           example: Иванов Иван Иванович
           type: string
         teacher_id:
           example: some_id
           type: string
-        type_lesson:
+        type:
           $ref: '#/components/schemas/TypesTypeOfLesson'
-        week:
+        week_type:
           $ref: '#/components/schemas/TypesTypeOfWeek'
     TypesNumberLesson:
       enum:
@@ -87,27 +116,27 @@ components:
     TypesSubgroup:
       description: 'Тип подгруппы: All - для обеих'
       enum:
-      - All
-      - First
-      - Second
+      - all
+      - first
+      - second
       type: string
     TypesTimestamp:
-      example: 2010-02-10-08.15.000Z
+      example: 2023-04-01T05:30:00+0000
       type: string
     TypesTypeOfLesson:
       description: Тип пары
       enum:
-      - Labaratory
-      - Lection
-      - Practice
+      - labaratory
+      - lection
+      - practice
       type: string
     TypesTypeOfWeek:
       description: 'Тип недели: All - всегда, Even - только по числителю, Odd - только
         по знаменателю'
       enum:
-      - All
-      - Even
-      - Odd
+      - all
+      - even
+      - odd
       type: string
     TypesUserCredentialV1:
       properties:
@@ -183,34 +212,86 @@ components:
           $ref: '#/components/schemas/TypesId'
     ViewsGetTimetableRequest:
       properties:
+        begin:
+          $ref: '#/components/schemas/TypesTimestamp'
         days:
           items:
             $ref: '#/components/schemas/TypesDay'
           type: array
-        department_id:
-          type: string
-        department_name:
-          type: string
-        faculty_id:
-          type: string
-        faculty_name:
-          type: string
-        group_course:
-          type: string
-        group_id:
-          type: string
-        group_name:
-          type: string
-        room_name:
-          type: string
+        department_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
+        department_names:
+          items:
+            type: string
+          type: array
+        end:
+          ref: ../../types/Timestamp.yaml
+        faculty_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
+        faculty_names:
+          items:
+            type: string
+          type: array
+        group_courses:
+          items:
+            type: integer
+          type: array
+        group_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
+        group_names:
+          items:
+            type: string
+          type: array
+        group_types:
+          items:
+            type: ../../types/EducationType.yaml
+          type: array
+        lesson_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
+        lesson_type:
+          $ref: '#/components/schemas/TypesTypeOfLesson'
+        numbers:
+          items:
+            type: integer
+          type: array
+        room_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
+        room_names:
+          items:
+            type: string
+          type: array
         subgroup:
           $ref: '#/components/schemas/TypesSubgroup'
-        subject_name:
-          type: string
-        teacher_fio:
-          type: string
-        teacher_id:
-          type: string
+        subject_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
+        subject_names:
+          items:
+            type: string
+          type: array
+        teacher_bios:
+          items:
+            type: string
+          type: array
+        teacher_fios:
+          items:
+            type: string
+          type: array
+        teacher_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
         week:
           $ref: '#/components/schemas/TypesTypeOfWeek'
     ViewsLessonAddRequest:

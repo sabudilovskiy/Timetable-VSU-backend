@@ -10,9 +10,13 @@ namespace timetable_vsu_backend::utils::convert {
 //В данный момент поддерживаются только конвертация всех полей
 enum struct PolicyFields { ConvertAll };
 
-//тип тела в запросе. Empty body = body игнорируеттся
-enum struct TypeOfBody { Empty, Json };
+//тип тела в запросе
+enum struct TypeOfBody {
+    Empty,  // Empty body = body игнорируеттся
+    Json
+};
 
+//указание откуда следует парсить в http запросе
 enum struct RequestParse {
     Unspecified,  //данное поле в запросах будет парсится из body
     Query,

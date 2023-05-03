@@ -1,6 +1,6 @@
 description: 'Тип недели: All - всегда, Even - только по числителю, Odd - только по знаменателю'
 type: string
 enum:
-  - All
-  - Even
-  - Odd
+  - all
+  - even
+  - odd

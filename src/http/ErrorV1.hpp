@@ -1,6 +1,7 @@
 #pragma once
+#include <userver/server/http/http_status.hpp>
+
 #include "../utils/convert/base.hpp"
-#include "userver/server/http/http_status.hpp"
 
 namespace timetable_vsu_backend::http {
 namespace convert = timetable_vsu_backend::utils::convert;
