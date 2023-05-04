@@ -111,10 +111,12 @@ src/components/controllers/postgres/user/fwd.cpp
 src/components/controllers/postgres/user/controller.hpp
 src/components/controllers/postgres/user/controller.cpp
 src/components/controllers/postgres/user/config_schema.hpp
+src/components/controllers/postgres/token/sql_queries.hpp
 src/components/controllers/postgres/token/fwd.hpp
 src/components/controllers/postgres/token/fwd.cpp
 src/components/controllers/postgres/token/controller.hpp
 src/components/controllers/postgres/token/controller.cpp
+src/components/controllers/postgres/lesson/sql_queries.hpp
 src/components/controllers/postgres/lesson/fwd.hpp
 src/components/controllers/postgres/lesson/fwd.cpp
 src/components/controllers/postgres/lesson/controller.hpp
