@@ -10,7 +10,7 @@ additionalProperties: false
 properties:
     root:
         type: object
-        description: Настройки суперпользователя. Он будет создан на время работы сервиса, а затем будет удален из БД. Если логин занят, то суперпользователь не будет создан.
+        description: Настройки суперпользователя. Он будет создан на время работы сервиса, а затем будет удален из БД. Логин и id будут освобождены для него.
         additionalProperties: false
         properties:
             login:
@@ -18,6 +18,9 @@ properties:
                 description: Логин для суперпользователя
             password:
                 type: string
-                description: Пароль для суперпользователя 
+                description: Пароль для суперпользователя
+            id: 
+                type: string
+                description: UUID суперпользователя 
 )";
 }

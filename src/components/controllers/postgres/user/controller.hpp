@@ -23,7 +23,7 @@ class Controller final : public userver::components::LoggableComponentBase {
     ~Controller();
 
    protected:
-    std::optional<boost::uuids::uuid> root_id;
+    boost::uuids::uuid root_id;
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
 }  // namespace timetable_vsu_backend::components::controllers::postgres::user

@@ -22,7 +22,12 @@ async def test_login_successful(service_client, type, user_id):
 
 
 @pytest.mark.pgsql('db_1', files=['initial_data_auth.sql'])
-async def test_login_root_successful(service_client):
+async def test_login_root_successful(service_client, vsu_timetable_db):
+    vsu_timetable_db.add_user(
+        'dddddddd-dddd-dddd-dddd-dddddddddddd',
+        'root',
+        'secret-password'
+    )
     credentials = {'login': 'root', 'password': 'secret-password'}
     response = await service_client.post('/login', json=credentials)
     assert response.status_code == 200

@@ -6,6 +6,7 @@ is_testing: true
 
 server-port: 8080
 
+root_id: 'dddddddd-dddd-dddd-dddd-dddddddddddd'
 root_login: 'root'
 root_password: 'secret-password'
 

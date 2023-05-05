@@ -26,6 +26,12 @@ const userver::storages::postgres::Query qGetUser(R"(
     insert into vsu_timetable."user"(login, password) values ($1.login, $1.password) ON CONFLICT DO NOTHING 
     RETURNING id
     )"),
+    qInternalAddUser(R"(
+    insert into vsu_timetable."user"(id, login, password) values ($1, $2.login, $2.password)
+    )"),
+    qDropUserByLogin(R"(
+        DELETE FROM vsu_timetable."user" WHERE login=$1;
+    )"),
     qDropUserById(R"(
         DELETE FROM vsu_timetable."user" WHERE id=$1;
     )");

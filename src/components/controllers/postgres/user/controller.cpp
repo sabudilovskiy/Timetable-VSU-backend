@@ -2,26 +2,27 @@
 
 #include <fmt/core.h>
 
+#include <boost/lexical_cast.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <exception>
 #include <optional>
+#include <userver/components/component_config.hpp>
 #include <userver/components/component_context.hpp>
 #include <userver/logging/log.hpp>
 #include <userver/storages/postgres/cluster.hpp>
 #include <userver/storages/postgres/cluster_types.hpp>
 #include <userver/storages/postgres/component.hpp>
 #include <userver/storages/postgres/query.hpp>
+#include <userver/yaml_config/merge_schemas.hpp>
+#include <userver/yaml_config/schema.hpp>
+#include <utils/convert/drop_properties_ref.hpp>
 
 #include "components/controllers/postgres/user/sql_queries.hpp"
 #include "config_schema.hpp"
 #include "models/user/postgre.hpp"
 #include "models/user/type.hpp"
 #include "models/user_credentials/postgre.hpp"
-#include "userver/components/component_config.hpp"
-#include "userver/yaml_config/merge_schemas.hpp"
-#include "userver/yaml_config/schema.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::user {
 Controller::Controller(const userver::components::ComponentConfig& config,
@@ -33,13 +34,15 @@ Controller::Controller(const userver::components::ComponentConfig& config,
     models::UserCredentials root;
     root.login() = config["root"]["login"].As<std::string>();
     root.password() = config["root"]["password"].As<std::string>();
-    root_id = TryToAdd(root);
-    if (!root_id) {
-        LOG_WARNING() << fmt::format("Create superuser was failed");
-    } else {
-        LOG_DEBUG() << fmt::format("Created superuser with login: {}",
-                                   root.login());
-    }
+    root_id = boost::lexical_cast<boost::uuids::uuid>(
+        config["root"]["id"].As<std::string>());
+    pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
+                         sql::qDropUserById, root_id);
+    pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
+                         sql::qDropUserByLogin, root.login());
+    pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
+                         sql::qInternalAddUser, root_id,
+                         utils::convert::DropPropertiesToConstRefs(root));
 }
 
 std::optional<models::User> Controller::GetByCredentials(
@@ -60,7 +63,7 @@ std::optional<models::User> Controller::GetByCredentials(
         LOG_WARNING() << fmt::format("Unexpected quantity from postgres: {}",
                                      result.Size());
     }
-    if (user && root_id && user->id() == root_id) {
+    if (user && user->id() == root_id) {
         user->type() = models::UserType::kRoot;
     }
     return user;

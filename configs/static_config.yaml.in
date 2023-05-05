@@ -74,6 +74,7 @@ components_manager:
             root:
                 login: $root_login
                 password: $root_password
+                id: $root_id
         token_controller: {}
         lesson_details_controller : {}
         handler-ping:
