@@ -23,7 +23,6 @@
 #include "userver/yaml_config/schema.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
 
-
 namespace timetable_vsu_backend::components::controllers::postgres::user {
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)

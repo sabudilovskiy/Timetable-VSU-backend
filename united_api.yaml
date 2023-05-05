@@ -156,6 +156,16 @@ components:
       - admin
       - root
       type: string
+    TypesUserV1:
+      properties:
+        id:
+          $ref: '#/components/schemas/TypesId'
+        type:
+          $ref: '#/components/schemas/TypesUserTypeV1'
+      required:
+      - id
+      - type
+      type: object
     ViewsAdminGroupAddRequest:
       properties:
         group_course:
@@ -332,8 +342,8 @@ components:
       properties:
         token:
           $ref: '#/components/schemas/TypesAuthTokenV1'
-        user_type:
-          $ref: '#/components/schemas/TypesUserTypeV1'
+        user:
+          $ref: '#/components/schemas/TypesUserV1'
     ViewsRegisterRequestV1:
       properties:
         user_credential:
