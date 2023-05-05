@@ -1,0 +1,6 @@
+BEGIN;
+
+ALTER TABLE vsu_timetable.token DROP CONSTRAINT IF EXISTS user_fk CASCADE;
+ALTER TABLE vsu_timetable.token ADD CONSTRAINT user_fk FOREIGN KEY (id_user) REFERENCES vsu_timetable."user" (id) MATCH FULL ON DELETE CASCADE ON UPDATE CASCADE;
+
+COMMIT;

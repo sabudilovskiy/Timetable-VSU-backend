@@ -14,6 +14,7 @@ rules:
   operation-operationId: off
   operation-summary: off
   security-defined: off
+  no-empty-servers: off
 
 theme:
   openapi:

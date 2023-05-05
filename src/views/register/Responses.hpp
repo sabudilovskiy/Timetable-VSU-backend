@@ -10,7 +10,7 @@
 #include "utils/convert/http_response_serialize.hpp"
 #include "utils/convert/json_parse.hpp"
 
-namespace timetable_vsu_backend::views::login {
+namespace timetable_vsu_backend::views::register_ {
 using namespace utils::convert;
 struct Response200 {
     Property<boost::uuids::uuid, "token"> id;
@@ -20,12 +20,12 @@ struct Response200 {
     static constexpr userver::server::http::HttpStatus kStatusCode =
         userver::server::http::HttpStatus::kOk;
 };
-using Response401 =
-    http::ErrorV1<userver::server::http::HttpStatus::kUnauthorized>;
+using Response400 =
+    http::ErrorV1<userver::server::http::HttpStatus::kBadRequest>;
 struct Response500 {
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Empty;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
     static constexpr userver::server::http::HttpStatus kStatusCode =
         userver::server::http::HttpStatus::kInternalServerError;
 };
-}  // namespace timetable_vsu_backend::views::login
+}  // namespace timetable_vsu_backend::views::register_

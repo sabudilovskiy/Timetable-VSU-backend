@@ -1,0 +1,9 @@
+type: object
+required:
+  - id
+  - type
+properties:
+  type:
+    $ref: 'UserTypeV1.yaml'
+  id:
+    $ref: 'Id.yaml'

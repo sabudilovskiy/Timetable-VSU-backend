@@ -9,20 +9,18 @@
 #include "models/lesson_v1/type.hpp"
 #include "models/lesson_with_details/type.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres {
-class LessonDetailsController final
-    : public userver::components::LoggableComponentBase {
+namespace timetable_vsu_backend::components::controllers::postgres::lesson {
+class Controller final : public userver::components::LoggableComponentBase {
    public:
     using userver::components::LoggableComponentBase::LoggableComponentBase;
     static constexpr inline std::string_view kName =
         "lesson_details_controller";
     std::vector<models::LessonV1> Search(
         const std::optional<models::LessonFilter>& filter) const;
-    LessonDetailsController(
-        const userver::components::ComponentConfig& config,
-        const userver::components::ComponentContext& context);
+    Controller(const userver::components::ComponentConfig& config,
+               const userver::components::ComponentContext& context);
 
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace timetable_vsu_backend::components::controllers::postgres
+}  // namespace timetable_vsu_backend::components::controllers::postgres::lesson

@@ -17,53 +17,53 @@
 #include "Request.hpp"
 #include "components/controllers/postgres/token/controller.hpp"
 #include "components/controllers/postgres/user/controller.hpp"
-#include "http/legacy_handler_parsed.hpp"
+#include "http/handler_parsed.hpp"
 #include "models/auth_token/serialize.hpp"
+#include "models/user/serialize.hpp"
+#include "views/register/Responses.hpp"
 
 namespace timetable_vsu_backend::views::register_ {
 
 namespace {
-using components::controllers::postgres::TokenController;
-using components::controllers::postgres::UserController;
+namespace pg = components::controllers::postgres;
 using Response = models::AuthToken;
-class Handler final : public http::LegacyHandlerParsed<Request, Response> {
+class Handler final : public http::HandlerParsed<Request, Response200,
+                                                 Response400, Response500> {
    public:
     static constexpr std::string_view kName = "handler-register";
-    using http::LegacyHandlerParsed<Request, Response>::LegacyHandlerParsed;
+    using http::HandlerParsed<Request, Response200, Response400,
+                              Response500>::HandlerParsed;
     Handler(const userver::components::ComponentConfig& config,
             const userver::components::ComponentContext& context)
-        : LegacyHandlerParsed(config, context),
-          user_controller(context.FindComponent<UserController>()),
-          token_controller(context.FindComponent<TokenController>()) {
+        : HandlerParsed(config, context),
+          user_controller(context.FindComponent<pg::user::Controller>()),
+          token_controller(context.FindComponent<pg::token::Controller>()) {
     }
 
-    Response Handle(
-        Request&& request,
-        userver::server::http::HttpResponse& http_response) const override {
-        models::User user{models::User::Id{}, request.login, request.password};
-        auto user_id = user_controller.TryToAdd(user);
+    Response Handle(Request&& request) const override {
+        auto user_id = user_controller.TryToAdd(request);
         if (!user_id) {
             LOG_DEBUG() << fmt::format("Cannot create user, login: {}",
-                                       user.login);
-            http_response.SetStatus(HttpStatus::kBadRequest);
-            return {};
+                                       request.login());
+            return Response400{};
         }
-        user.id = models::User::Id{std::move(*user_id)};
         auto id = token_controller.CreateNew(
-            user.id, userver::utils::datetime::Now() + std::chrono::hours(24));
+            *user_id, userver::utils::datetime::Now() + std::chrono::hours(24));
         if (!id) {
             LOG_WARNING() << fmt::format(
-                "Failed to create token for user, id: {}",
-                boost::uuids::to_string(user.id.GetUnderlying()));
-            http_response.SetStatus(HttpStatus::kInternalServerError);
-            return {};
+                "Failed to create token for user, id: {}", *user_id);
+            return Response500{};
         }
-        return {*id};
+        Response200 resp;
+        resp.id() = *id;
+        resp.user() =
+            models::User{.id = {*user_id}, .type = {models::UserType::kUser}};
+        return resp;
     }
 
    private:
-    const UserController& user_controller;
-    const TokenController& token_controller;
+    const pg::user::Controller& user_controller;
+    const pg::token::Controller& token_controller;
 };
 }  // namespace
 

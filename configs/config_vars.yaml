@@ -6,4 +6,8 @@ is_testing: false
 
 server-port: 8080
 
+root_id: 'dddddddd-dddd-dddd-dddd-dddddddddddd'
+root_login: 'root'
+root_password: 'secret-password'
+
 dbconnection: 'postgresql://timetable_vsu_backend_user:password@localhost:5432/timetable_vsu_backend_db_1'

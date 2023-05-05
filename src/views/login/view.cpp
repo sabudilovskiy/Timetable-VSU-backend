@@ -13,13 +13,16 @@
 #include "components/controllers/postgres/user/controller.hpp"
 #include "http/handler_parsed.hpp"
 #include "models/auth_token/serialize.hpp"
-#include "models/user_type/type.hpp"
+#include "models/user/serialize.hpp"
+#include "models/user_type/serialize.hpp"
 
 namespace timetable_vsu_backend::views::login {
 
+static_assert(
+    userver::formats::common::impl::kHasSerialize<
+        userver::formats::json::Value, timetable_vsu_backend::models::User>);
 namespace {
-using components::controllers::postgres::TokenController;
-using components::controllers::postgres::UserController;
+namespace pg = components::controllers::postgres;
 class Handler final : public http::HandlerParsed<Request, Response200,
                                                  Response401, Response500> {
     static Response401 PerformInvalidCredentials() {
@@ -34,29 +37,33 @@ class Handler final : public http::HandlerParsed<Request, Response200,
     Handler(const userver::components::ComponentConfig& config,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
-          user_controller(context.FindComponent<UserController>()),
-          token_controller(context.FindComponent<TokenController>()) {
+          user_controller(context.FindComponent<pg::user::Controller>()),
+          token_controller(context.FindComponent<pg::token::Controller>()) {
     }
 
     Response Handle(Request&& request) const override {
-        auto user = user_controller.GetByLogin(request.login());
-        if (!user || user->password != request.password()) {
+        auto user = user_controller.GetByCredentials(request);
+        if (!user) {
             return PerformInvalidCredentials();
         }
         auto id = token_controller.CreateNew(
-            user->id, userver::utils::datetime::Now() + std::chrono::hours(24));
+            user->id(),
+            userver::utils::datetime::Now() + std::chrono::hours(24));
         if (!id) {
             LOG_WARNING() << fmt::format(
                 "Failed to create token for user, id: {}",
-                boost::uuids::to_string(user->id.GetUnderlying()));
+                boost::uuids::to_string(user->id()));
             return Response500{};
         }
-        return Response200{{*id}, {models::UserType::kUser}};
+        Response200 resp;
+        resp.id() = *id;
+        resp.user() = *user;
+        return resp;
     }
 
    private:
-    const UserController& user_controller;
-    const TokenController& token_controller;
+    const pg::user::Controller& user_controller;
+    const pg::token::Controller& token_controller;
 };
 }  // namespace
 

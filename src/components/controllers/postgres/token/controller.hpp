@@ -6,21 +6,20 @@
 
 #include "models/user/type.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres {
+namespace timetable_vsu_backend::components::controllers::postgres::token {
 
-class TokenController final
-    : public userver::components::LoggableComponentBase {
+class Controller final : public userver::components::LoggableComponentBase {
    public:
     using userver::components::LoggableComponentBase::LoggableComponentBase;
     static constexpr inline std::string_view kName = "token_controller";
     std::optional<models::User> GetById(std::string_view id) const;
     std::optional<boost::uuids::uuid> CreateNew(
-        const models::User::Id& id,
+        const boost::uuids::uuid& user_id,
         const std::chrono::system_clock::time_point& time) const;
-    TokenController(const userver::components::ComponentConfig& config,
-                    const userver::components::ComponentContext& context);
+    Controller(const userver::components::ComponentConfig& config,
+               const userver::components::ComponentContext& context);
 
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace timetable_vsu_backend::components::controllers::postgres
+}  // namespace timetable_vsu_backend::components::controllers::postgres::token

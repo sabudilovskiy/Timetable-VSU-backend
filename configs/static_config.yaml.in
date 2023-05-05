@@ -70,7 +70,11 @@ components_manager:
             blocking_task_processor: fs-task-processor                
             dns_resolver: async
             sync-start: true
-        user_controller: {}
+        user-controller:
+            root:
+                login: $root_login
+                password: $root_password
+                id: $root_id
         token_controller: {}
         lesson_details_controller : {}
         handler-ping:

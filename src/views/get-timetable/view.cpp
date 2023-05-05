@@ -35,14 +35,14 @@ namespace timetable_vsu_backend::views::get_timetable {
 
 namespace {
 
-using components::controllers::postgres::LessonDetailsController;
+namespace pg = components::controllers::postgres;
 class Handler final : public http::HandlerParsed<Request, Response200> {
    public:
     static constexpr std::string_view kName = "handler-get-timetable";
     Handler(const userver::components::ComponentConfig& config,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
-          lesson_controller(context.FindComponent<LessonDetailsController>()) {
+          lesson_controller(context.FindComponent<pg::lesson::Controller>()) {
     }
     static void ValidateBeginEnd(Request& request) {
         if (request.filter() and request.filter()->begin() and
@@ -61,7 +61,7 @@ class Handler final : public http::HandlerParsed<Request, Response200> {
     }
 
    private:
-    const LessonDetailsController& lesson_controller;
+    const pg::lesson::Controller& lesson_controller;
 };
 }  // namespace
 
