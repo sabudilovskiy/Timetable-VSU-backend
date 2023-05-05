@@ -6,7 +6,7 @@ properties:
   begin:
     $ref: '../../types/Timestamp.yaml'
   end:
-    ref: '../../types/Timestamp.yaml'
+    $ref: '../../types/Timestamp.yaml'
   days:
     type: array
     items:
@@ -42,7 +42,7 @@ properties:
   group_types:
     type: array
     items:
-      type: '../../types/EducationType.yaml' 
+      $ref: '../../types/EducationType.yaml' 
   room_ids:
     type: array
     items:

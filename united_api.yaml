@@ -237,7 +237,7 @@ components:
             type: string
           type: array
         end:
-          ref: ../../types/Timestamp.yaml
+          $ref: '#/components/schemas/TypesTimestamp'
         faculty_ids:
           items:
             $ref: '#/components/schemas/TypesId'
@@ -260,7 +260,7 @@ components:
           type: array
         group_types:
           items:
-            type: ../../types/EducationType.yaml
+            $ref: '#/components/schemas/TypesEducationType'
           type: array
         lesson_ids:
           items:
@@ -797,9 +797,6 @@ paths:
           description: Логин уже занят или пароль не удолетворяет требованиям
       tags:
       - users
-servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/SABUDILOVSKIY_1/CourseWork/1.0.0
 tags:
 - description: Доступно администраторам сервиса
   name: admins
