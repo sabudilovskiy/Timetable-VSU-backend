@@ -13,6 +13,9 @@ class Controller final : public userver::components::LoggableComponentBase {
    public:
     using userver::components::LoggableComponentBase::LoggableComponentBase;
     static constexpr inline std::string_view kName = "user-controller";
+    void InternalForceCreateUser(
+        const boost::uuids::uuid&,
+        const models::UserCredentials& user_credentials);
     std::optional<models::User> GetByCredentials(
         const models::UserCredentials& user_credentials) const;
     std::optional<boost::uuids::uuid> TryToAdd(
@@ -23,7 +26,7 @@ class Controller final : public userver::components::LoggableComponentBase {
     ~Controller();
 
    protected:
-    boost::uuids::uuid root_id;
+    std::optional<boost::uuids::uuid> root_id;
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
 }  // namespace timetable_vsu_backend::components::controllers::postgres::user

@@ -36,13 +36,26 @@ Controller::Controller(const userver::components::ComponentConfig& config,
     root.password() = config["root"]["password"].As<std::string>();
     root_id = boost::lexical_cast<boost::uuids::uuid>(
         config["root"]["id"].As<std::string>());
+    try {
+        InternalForceCreateUser(root_id.value(), root);
+    } catch (std::exception& exc) {
+        LOG_WARNING() << fmt::format("Error while creating superuser : {}",
+                                     exc.what());
+        root_id = std::nullopt;
+    }
+}
+
+void Controller::InternalForceCreateUser(
+    const boost::uuids::uuid&,
+    const models::UserCredentials& user_credentials) {
     pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
                          sql::qDropUserById, root_id);
     pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
-                         sql::qDropUserByLogin, root.login());
-    pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
-                         sql::qInternalAddUser, root_id,
-                         utils::convert::DropPropertiesToConstRefs(root));
+                         sql::qDropUserByLogin, user_credentials.login());
+    pg_cluster_->Execute(
+        userver::storages::postgres::ClusterHostType::kMaster,
+        sql::qInternalAddUser, root_id,
+        utils::convert::DropPropertiesToConstRefs(user_credentials));
 }
 
 std::optional<models::User> Controller::GetByCredentials(
