@@ -71,8 +71,9 @@ components_manager:
             dns_resolver: async
             sync-start: true
         user-controller:
-            root_login: $root_login
-            root_password: $root_password
+            root:
+                login: $root_login
+                password: $root_password
         token_controller: {}
         lesson_details_controller : {}
         handler-ping:

@@ -3,6 +3,7 @@
 #include <fmt/core.h>
 
 #include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_io.hpp>
 #include <exception>
 #include <optional>
 #include <userver/components/component_context.hpp>
@@ -22,6 +23,7 @@
 #include "userver/yaml_config/schema.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
 
+
 namespace timetable_vsu_backend::components::controllers::postgres::user {
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)
@@ -30,8 +32,8 @@ Controller::Controller(const userver::components::ComponentConfig& config,
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
               .GetCluster()) {
     models::UserCredentials root;
-    root.login() = config["root_login"].As<std::string>();
-    root.password() = config["root_password"].As<std::string>();
+    root.login() = config["root"]["login"].As<std::string>();
+    root.password() = config["root"]["password"].As<std::string>();
     root_id = TryToAdd(root);
     if (!root_id) {
         LOG_WARNING() << fmt::format("Create superuser was failed");
