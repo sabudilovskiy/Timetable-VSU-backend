@@ -10,7 +10,7 @@
 namespace timetable_vsu_backend::utils::convert::detail::serialize {
 template <typename T>
 struct ConverterHttpResponse {
-    static void Serialize(const T& t, HttpResponse& response) {
+    static void Do(const T& t, HttpResponse& response) {
         auto tuple = GetTuple(t);
         static_assert(HasTypeOfBody<T>, "Type must have kTypeOfBody");
         static_assert(HasStatusCode<T>, "Type must have kStatusCode");

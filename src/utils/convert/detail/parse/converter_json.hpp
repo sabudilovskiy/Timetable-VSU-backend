@@ -7,7 +7,7 @@
 namespace timetable_vsu_backend::utils::convert::detail::parse {
 template <typename T>
 struct ConverterJson {
-    static void Parse(T& t, const userver::formats::json::Value& value) {
+    static void Do(T& t, const userver::formats::json::Value& value) {
         auto tuple = GetTuple(t);
         ParseTuple(value, std::move(tuple), IndexSequence{});
     }

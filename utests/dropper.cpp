@@ -1,8 +1,8 @@
 #include <concepts>
 #include <userver/utest/utest.hpp>
+#include <userver/utils/assert.hpp>
 #include <utility>
 
-#include "userver/utils/assert.hpp"
 #include "utils/convert/additional_properties.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
 

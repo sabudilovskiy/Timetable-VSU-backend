@@ -7,7 +7,6 @@
 
 #include "models/lesson_filter/fwd.hpp"
 #include "models/lesson_v1/type.hpp"
-#include "models/lesson_with_details/type.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::lesson {
 class Controller final : public userver::components::LoggableComponentBase {

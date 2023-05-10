@@ -64,12 +64,17 @@ components_manager:
         handler-get-timetable: 
             path: /get-timetable
             method: GET,POST                
+            task_processor: main-task-processor
+        handler-root-create-admin:
+            path: /root/create-admin
+            method: POST
             task_processor: main-task-processor      
         postgres-db-1:
             dbconnection: $dbconnection
             blocking_task_processor: fs-task-processor                
             dns_resolver: async
             sync-start: true
+        admin_controller: {}    
         user-controller:
             root:
                 login: $root_login

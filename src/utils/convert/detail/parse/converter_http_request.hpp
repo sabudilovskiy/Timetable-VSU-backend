@@ -2,6 +2,7 @@
 #include <fmt/core.h>
 
 #include <boost/pfr/core.hpp>
+#include <exception>
 #include <optional>
 #include <stdexcept>
 #include <userver/formats/json.hpp>
@@ -11,18 +12,19 @@
 #include <userver/utils/meta.hpp>
 
 #include "../../base.hpp"
+#include "userver/formats/common/meta.hpp"
 
 namespace timetable_vsu_backend::utils::convert::detail::parse {
 template <typename T>
 struct ConverterHttpRequest {
-    static void Parse(T& t, const userver::server::http::HttpRequest& value) {
+    static void Do(T& t, const userver::server::http::HttpRequest& value) {
         auto tuple = GetTuple(t);
         static_assert(HasTypeOfBody<T>, "Type must have kTypeOfBody");
         auto body = GetBody<T::kTypeOfBody>(value);
         ParseTuple(value, body, tuple, IndexSequence{});
     }
 
-   protected:
+    //    protected:
     //тип для обозначения пустого тела
     struct EmptyBody {};
     using ValueType = T;
@@ -81,11 +83,17 @@ struct ConverterHttpRequest {
         using FieldValue = typename Field::value_type;
         std::string temp{kName};
         auto& query_value = value.GetArg(temp);
-        if constexpr (std::is_same_v<FieldValue, std::string>) {
-            field = Field{query_value};
-        } else {
-            field =
-                Parse(query_value, userver::formats::parse::To<FieldValue>{});
+        try {
+            if constexpr (std::is_same_v<FieldValue, std::string>) {
+                field = Field{query_value};
+            } else {
+                field = Parse(query_value,
+                              userver::formats::parse::To<FieldValue>{});
+            }
+        } catch (std::exception& exc) {
+            throw std::runtime_error(fmt::format(
+                "Error while parsing field with name: {} and error: {}", kName,
+                exc.what()));
         }
     }
     //парсим поле из cookie
@@ -96,11 +104,17 @@ struct ConverterHttpRequest {
         using FieldValue = typename Field::value_type;
         std::string temp{kName};
         auto& cookie_value = value.GetCookie(temp);
-        if constexpr (std::is_same_v<FieldValue, std::string>) {
-            field = Field{cookie_value};
-        } else {
-            field =
-                Parse(cookie_value, userver::formats::parse::To<FieldValue>{});
+        try {
+            if constexpr (std::is_same_v<FieldValue, std::string>) {
+                field = Field{cookie_value};
+            } else {
+                field = Parse(cookie_value,
+                              userver::formats::parse::To<FieldValue>{});
+            }
+        } catch (std::exception& exc) {
+            throw std::runtime_error(fmt::format(
+                "Error while parsing field with name: {} and error: {}", kName,
+                exc.what()));
         }
     }
     //парсим поле из header
@@ -111,11 +125,17 @@ struct ConverterHttpRequest {
         using FieldValue = typename Field::value_type;
         std::string temp{kName};
         auto& header_value = value.GetHeader(temp);
-        if constexpr (std::is_same_v<FieldValue, std::string>) {
-            field = Field{header_value};
-        } else {
-            field =
-                Parse(header_value, userver::formats::parse::To<FieldValue>{});
+        try {
+            if constexpr (std::is_same_v<FieldValue, std::string>) {
+                field = Field{header_value};
+            } else {
+                field = Parse(header_value,
+                              userver::formats::parse::To<FieldValue>{});
+            }
+        } catch (std::exception& exc) {
+            throw std::runtime_error(fmt::format(
+                "Error while parsing field with name: {} and error: {}", kName,
+                exc.what()));
         }
     }
     //Паттерн-матчинг относительно типа поля

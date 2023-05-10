@@ -15,7 +15,7 @@ T Parse(const userver::server::http::HttpRequest& value,
         formats::parse::To<T>) {
     T t;
     timetable_vsu_backend::utils::convert::detail::parse::ConverterHttpRequest<
-        T>::Parse(t, value);
+        T>::Do(t, value);
     return t;
 }
 }  // namespace userver::formats::parse
