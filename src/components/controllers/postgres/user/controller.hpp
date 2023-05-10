@@ -6,6 +6,7 @@
 
 #include "models/user/type.hpp"
 #include "models/user_credentials/fwd.hpp"
+#include "models/user_type/type.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::user {
 
@@ -16,6 +17,7 @@ class Controller final : public userver::components::LoggableComponentBase {
     void InternalForceCreateUser(
         const boost::uuids::uuid&,
         const models::UserCredentials& user_credentials);
+    std::optional<models::User> GetByToken(const boost::uuids::uuid&) const;
     std::optional<models::User> GetByCredentials(
         const models::UserCredentials& user_credentials) const;
     std::optional<boost::uuids::uuid> TryToAdd(
@@ -26,6 +28,8 @@ class Controller final : public userver::components::LoggableComponentBase {
     ~Controller();
 
    protected:
+    std::optional<models::User> HandleUserFromPg(
+        userver::storages::postgres::ResultSet& result) const;
     std::optional<boost::uuids::uuid> root_id;
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };

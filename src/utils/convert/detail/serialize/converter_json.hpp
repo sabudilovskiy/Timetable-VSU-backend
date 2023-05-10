@@ -7,8 +7,7 @@
 namespace timetable_vsu_backend::utils::convert::detail::serialize {
 template <typename T>
 struct ConverterJson {
-    static void Serialize(const T& t,
-                          userver::formats::json::ValueBuilder& value) {
+    static void Do(const T& t, userver::formats::json::ValueBuilder& value) {
         auto tuple = GetTuple(t);
         SerializeTuple(value, std::move(tuple), IndexSequence{});
     }

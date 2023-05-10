@@ -1,3 +1,7 @@
+src/views/root/create-admin/view.hpp
+src/views/root/create-admin/view.cpp
+src/views/root/create-admin/Responses.hpp
+src/views/root/create-admin/Request.hpp
 src/views/register/view.hpp
 src/views/register/view.cpp
 src/views/register/Responses.hpp
@@ -13,6 +17,9 @@ src/views/get-timetable/view.cpp
 src/views/get-timetable/Responses.hpp
 src/views/get-timetable/Request.hpp
 src/utils/type_holder.hpp
+src/utils/shared_transaction.hpp
+src/utils/parse/uuid/string.hpp
+src/utils/parse/uuid/string.cpp
 src/utils/meta.hpp
 src/utils/json_type.hpp
 src/utils/json_type.cpp
@@ -60,10 +67,6 @@ src/models/subgroup/postgre.hpp
 src/models/subgroup/parse.hpp
 src/models/subgroup/parse.cpp
 src/models/subgroup/all.hpp
-src/models/lesson_with_details/type.hpp
-src/models/lesson_with_details/serialize.hpp
-src/models/lesson_with_details/postgre.hpp
-src/models/lesson_with_details/parse.hpp
 src/models/lesson_week_type/type.hpp
 src/models/lesson_week_type/serialize.hpp
 src/models/lesson_week_type/serialize.cpp
@@ -101,10 +104,11 @@ src/models/day/parse.cpp
 src/models/day/all.hpp
 src/models/auth_token/type.hpp
 src/models/auth_token/serialize.hpp
+src/models/admin_account/type.hpp
+src/models/admin_account/postgre.hpp
 src/http/legacy_handler_parsed.hpp
 src/http/handler_parsed.hpp
 src/http/ErrorV1.hpp
-src/helpers/lesson_converter.hpp
 src/components/controllers/postgres/user/sql_queries.hpp
 src/components/controllers/postgres/user/fwd.hpp
 src/components/controllers/postgres/user/fwd.cpp
@@ -121,3 +125,8 @@ src/components/controllers/postgres/lesson/fwd.hpp
 src/components/controllers/postgres/lesson/fwd.cpp
 src/components/controllers/postgres/lesson/controller.hpp
 src/components/controllers/postgres/lesson/controller.cpp
+src/components/controllers/postgres/admin/sql_queries.hpp
+src/components/controllers/postgres/admin/fwd.hpp
+src/components/controllers/postgres/admin/fwd.cpp
+src/components/controllers/postgres/admin/controller.hpp
+src/components/controllers/postgres/admin/controller.cpp

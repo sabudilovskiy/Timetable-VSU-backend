@@ -23,6 +23,7 @@
 #include "models/user/postgre.hpp"
 #include "models/user/type.hpp"
 #include "models/user_credentials/postgre.hpp"
+#include "userver/storages/postgres/result_set.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::user {
 Controller::Controller(const userver::components::ComponentConfig& config,
@@ -58,11 +59,8 @@ void Controller::InternalForceCreateUser(
         utils::convert::DropPropertiesToConstRefs(user_credentials));
 }
 
-std::optional<models::User> Controller::GetByCredentials(
-    const models::UserCredentials& user_credentials) const {
-    auto result = pg_cluster_->Execute(
-        userver::storages::postgres::ClusterHostType::kMaster, sql::qGetUser,
-        utils::convert::DropPropertiesToConstRefs(user_credentials));
+std::optional<models::User> Controller::HandleUserFromPg(
+    userver::storages::postgres::ResultSet& result) const {
     if (result.IsEmpty()) {
         return std::nullopt;
     }
@@ -80,6 +78,23 @@ std::optional<models::User> Controller::GetByCredentials(
         user->type() = models::UserType::kRoot;
     }
     return user;
+}
+
+std::optional<models::User> Controller::GetByCredentials(
+    const models::UserCredentials& user_credentials) const {
+    auto result = pg_cluster_->Execute(
+        userver::storages::postgres::ClusterHostType::kMaster,
+        sql::qGetUserByCredentials,
+        utils::convert::DropPropertiesToConstRefs(user_credentials));
+    return HandleUserFromPg(result);
+}
+
+std::optional<models::User> Controller::GetByToken(
+    const boost::uuids::uuid& token) const {
+    auto result = pg_cluster_->Execute(
+        userver::storages::postgres::ClusterHostType::kMaster,
+        sql::qGetUserByToken, token);
+    return HandleUserFromPg(result);
 }
 std::optional<boost::uuids::uuid> Controller::TryToAdd(
     const models::UserCredentials& user_credentials) const {

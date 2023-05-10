@@ -1,5 +1,6 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
+#include <userver/formats/json/value.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
 #include <userver/formats/serialize/common_containers.hpp>
 
@@ -7,7 +8,6 @@
 #include "models/lesson_v1/type.hpp"
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
-#include "userver/formats/json/value.hpp"
 #include "utils/convert/additional_properties.hpp"
 #include "utils/convert/base.hpp"
 #include "utils/convert/http_response_serialize.hpp"

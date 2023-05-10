@@ -18,7 +18,6 @@
 #include "models/lesson_filter/postgre.hpp"
 #include "models/lesson_v1/postgre.hpp"
 #include "models/lesson_v1/type.hpp"
-#include "models/lesson_with_details/postgre.hpp"
 #include "models/subgroup/serialize.hpp"
 #include "sql_queries.hpp"
 #include "utils/convert/drop_properties_ref.hpp"

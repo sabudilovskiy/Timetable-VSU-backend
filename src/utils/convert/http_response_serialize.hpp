@@ -10,6 +10,6 @@ concept HttpResponseSeriazable =
 
 template <HttpResponseSeriazable T>
 void Serialize(const T& t, HttpResponse& response) {
-    detail::serialize::ConverterHttpResponse<T>::Serialize(t, response);
+    detail::serialize::ConverterHttpResponse<T>::Do(t, response);
 }
 }  // namespace timetable_vsu_backend::utils::convert

@@ -19,7 +19,7 @@ template <timetable_vsu_backend::utils::convert::JsonSeriazable T>
 json::Value Serialize(const T& t, To<json::Value>) {
     json::ValueBuilder json;
     timetable_vsu_backend::utils::convert::detail::serialize::ConverterJson<
-        T>::Serialize(t, json);
+        T>::Do(t, json);
     return json.ExtractValue();
 }
 }  // namespace userver::formats::serialize
