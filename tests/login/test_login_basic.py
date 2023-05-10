@@ -15,7 +15,11 @@ def _assert_ok_response(response, type, user_id=None, token=None):
     assert response.json()['user']['type'] == type
 
 
-@pytest.mark.pgsql('db_1', files=['initial_data_auth_user.sql', 'initial_data_auth_admin.sql', 'initial_data_auth_teacher.sql'])
+@pytest.mark.pgsql('db_1',
+                   files=[
+                       'initial_data_auth_user.sql',
+                       'initial_data_auth_admin.sql',
+                       'initial_data_auth_teacher.sql'])
 @pytest.mark.parametrize(
     'type, user_id',
     [('user', '111111c7-9654-4814-b36b-7d39c1ddded2'),

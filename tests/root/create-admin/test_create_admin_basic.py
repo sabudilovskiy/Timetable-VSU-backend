@@ -13,7 +13,10 @@ def _assert_ok_response(response, login, password):
     assert response.json()['created_account']['password'] == password
 
 
-# костыль, так как если фильтровать тесты, то на самый первый тест не накатываются файлы для бд
+# костыль, так как
+# если фильтровать тесты,
+# то на самый первый тест
+# не накатываются файлы для бд
 async def test_root_create_nothing(service_client):
     pass
 
@@ -39,7 +42,8 @@ async def test_root_create_admin_ok(service_client, type):
         'credentials': credentials
     }
     headers = {'token': 'dddddddd-dddd-dddd-dddd-dddddddddddd'}
-    response = await service_client.post('/root/create-admin', json=body, headers=headers)
+    response = await service_client.post('/root/create-admin',
+                                         json=body, headers=headers)
     _assert_ok_response(response, login, password)
 
 
@@ -65,7 +69,8 @@ async def test_root_create_admin_fail_taken(service_client, type):
         'credentials': credentials
     }
     headers = {'token': 'dddddddd-dddd-dddd-dddd-dddddddddddd'}
-    response = await service_client.post('/root/create-admin', json=body, headers=headers)
+    response = await service_client.post('/root/create-admin',
+                                         json=body, headers=headers)
     assert response.status_code == 400
     assert 'description' in response.json()
     assert 'machine_id' in response.json()
@@ -95,7 +100,8 @@ async def test_root_create_admin_forbidden(service_client, type, token):
         'credentials': credentials
     }
     headers = {'token': token}
-    response = await service_client.post('/root/create-admin', json=body, headers=headers)
+    response = await service_client.post('/root/create-admin',
+                                         json=body, headers=headers)
     assert response.status_code == 403
     assert 'description' in response.json()
     assert 'machine_id' in response.json()
@@ -122,7 +128,8 @@ async def test_root_create_admin_bad_token(service_client, type, token):
         'credentials': credentials
     }
     headers = {'token': token}
-    response = await service_client.post('/root/create-admin', json=body, headers=headers)
+    response = await service_client.post('/root/create-admin',
+                                         json=body, headers=headers)
     assert response.status_code == 401
     assert 'description' in response.json()
     assert 'machine_id' in response.json()
