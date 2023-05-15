@@ -1,0 +1,83 @@
+properties:
+  lesson_ids:
+    type: array
+    items:
+      $ref: '../../../types/Id.yaml'
+  begin:
+    $ref: '../../../types/Timestamp.yaml'
+  end:
+    $ref: '../../../types/Timestamp.yaml'
+  days:
+    type: array
+    items:
+      $ref: '../../../types/Day.yaml'
+  department_ids:
+    type: array
+    items:
+      $ref: '../../../types/Id.yaml'
+  department_names:
+    type: array
+    items:
+      type: string
+  faculty_ids:
+    type: array
+    items:
+      $ref: '../../../types/Id.yaml'
+  faculty_names:
+    type: array
+    items:
+      type: string
+  group_ids:
+    type: array
+    items:
+      $ref: '../../../types/Id.yaml'
+  group_names:
+    type: array
+    items:
+      type: string
+  group_courses:
+    type: array
+    items:
+      type: integer
+  group_types:
+    type: array
+    items:
+      $ref: '../../../types/EducationType.yaml' 
+  room_ids:
+    type: array
+    items:
+      $ref: '../../../types/Id.yaml'
+  room_names:
+    type: array
+    items:
+      type: string     
+  subgroup:
+    $ref: '../../../types/Subgroup.yaml'
+  subject_ids:
+    type: array
+    items:
+      $ref: '../../../types/Id.yaml'
+  subject_names:
+    type: array
+    items:
+      type: string
+  teacher_ids:
+    type: array
+    items:
+      $ref: '../../../types/Id.yaml'
+  teacher_fios:
+    type: array
+    items:
+      type: string
+  teacher_bios:
+    type: array
+    items:
+      type: string     
+  week:
+    $ref: '../../../types/TypeOfWeek.yaml'
+  lesson_type:
+    $ref: '../../../types/TypeOfLesson.yaml'
+  numbers:
+    type: array
+    items:
+      type: integer

@@ -1,0 +1,18 @@
+post:
+  tags:
+    - users
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: './Request.yaml'
+  responses:
+    '200':
+      description: Найденные пары
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../../types/LessonV1.yaml'

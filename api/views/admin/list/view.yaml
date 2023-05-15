@@ -1,0 +1,37 @@
+post:
+  description: Получить список администраторов
+  tags:
+    - admins
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'Request.yaml'
+  parameters:
+    - in: header
+      name: authToken
+      required: true
+      schema:
+        $ref: '../../../types/AuthTokenV1.yaml'
+  responses:
+    '200':
+      description: Найденные аккаунты
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../../types/AdminAccount.yaml'
+    '401':
+      description: Отсутствует или истекший токен
+      content:
+        application/json:
+          schema:
+            $ref: '../../../types/ErrorV1.yaml'
+    '403':
+      description: Нет прав на подобные изменения
+      content:
+        application/json:
+          schema:
+            $ref: '../../../types/ErrorV1.yaml'
