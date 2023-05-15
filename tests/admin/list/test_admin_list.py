@@ -19,7 +19,10 @@ async def test_admin_list_nothing(service_client):
     pass
 
 
-@pytest.mark.pgsql('db_1', files=['initial_data_auth_admin.sql', 'initial_data_auth_root.sql', 'initial_data_auth_root_token.sql'])
+@pytest.mark.pgsql('db_1', files=[
+    'initial_data_auth_admin.sql',
+    'initial_data_auth_root.sql',
+    'initial_data_auth_root_token.sql'])
 @pytest.mark.parametrize(
     'field, value, found',
     K_FIELDS,
