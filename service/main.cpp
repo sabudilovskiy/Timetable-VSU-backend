@@ -14,11 +14,12 @@
 #include "components/controllers/postgres/lesson/fwd.hpp"
 #include "components/controllers/postgres/token/fwd.hpp"
 #include "components/controllers/postgres/user/fwd.hpp"
-#include "views/get-timetable/view.hpp"
+#include "views/admin/create/view.hpp"
+#include "views/admin/list/view.hpp"
 #include "views/hello/view.hpp"
 #include "views/login/view.hpp"
 #include "views/register/view.hpp"
-#include "views/root/create-admin/view.hpp"
+#include "views/timetable/get/view.hpp"
 
 int main(int argc, char* argv[]) {
     using namespace timetable_vsu_backend;
@@ -33,8 +34,9 @@ int main(int argc, char* argv[]) {
     service_template::AppendHello(component_list);
     views::login::Append(component_list);
     views::register_::Append(component_list);
-    views::get_timetable::Append(component_list);
-    views::root::create_admin::Append(component_list);
+    views::timetable::get::Append(component_list);
+    views::root::admin::create::Append(component_list);
+    views::root::admin::list::Append(component_list);
     components::controllers::postgres::AppendUserController(component_list);
     components::controllers::postgres::AppendTokenController(component_list);
     components::controllers::postgres::AppendLessonDetailsController(

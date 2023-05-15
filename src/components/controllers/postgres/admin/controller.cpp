@@ -3,6 +3,7 @@
 #include <fmt/core.h>
 #include <fmt/format.h>
 
+#include <algorithm>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <optional>
@@ -16,6 +17,7 @@
 #include <userver/storages/postgres/query.hpp>
 
 #include "models/admin_account/postgre.hpp"
+#include "models/admin_filter/postgre.hpp"
 #include "models/subgroup/serialize.hpp"
 #include "models/user_credentials/postgre.hpp"
 #include "sql_queries.hpp"
@@ -60,4 +62,23 @@ std::optional<models::AdminAccount> Controller::CreateAdmin(
     boost::uuids::uuid admin_id = result_id.AsSingleRow<boost::uuids::uuid>();
     return GetAccountByAdminId(admin_id, transaction);
 }
+
+std::vector<models::AdminAccount> Controller::GetByFilter(
+    std::optional<models::AdminFilter>& filter,
+    vsu_timetable::utils::SharedTransaction transaction) const {
+    vsu_timetable::utils::FillSharedTransaction(transaction, pg_cluster_);
+    auto tuple_filter = utils::convert::DropPropertiesToConstRefs(filter);
+    auto pg_result = transaction->transaction_.Execute(sql::qGetAdminsByFilter,
+                                                       tuple_filter);
+    std::vector<models::AdminAccount> result;
+    result.reserve(pg_result.Size());
+    for (auto& row : pg_result) {
+        models::AdminAccount account;
+        auto tuple_account = utils::convert::DropPropertiesToMutRefs(account);
+        row.To(tuple_account, userver::storages::postgres::kRowTag);
+        result.emplace_back(std::move(account));
+    }
+    return result;
+}
+
 }  // namespace timetable_vsu_backend::components::controllers::postgres::admin

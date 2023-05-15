@@ -1,10 +1,32 @@
 components:
   schemas:
+    TypesAdminAccount:
+      properties:
+        admin_id:
+          $ref: '#/components/schemas/TypesId'
+        login:
+          type: string
+        user_id:
+          $ref: '#/components/schemas/TypesId'
+    TypesAdminFilter:
+      properties:
+        admin_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
+        logins:
+          items:
+            type: string
+          type: array
+        user_ids:
+          items:
+            $ref: '#/components/schemas/TypesId'
+          type: array
     TypesAuthTokenV1:
       allOf:
       - $ref: '#/components/schemas/TypesId'
       description: Используется для аунтефикации пользователя. Передаем строго через
-        куки
+        хедер
     TypesDay:
       enum:
       - monday
@@ -29,14 +51,6 @@ components:
         machine_id:
           example: SMALL_PASSWORD
           type: string
-    TypesGroupV1:
-      properties:
-        course:
-          type: integer
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/TypesEducationType'
     TypesId:
       description: UUID v4
       example: 6173575e-e86c-4c55-b43d-aa3ca6242181
@@ -166,61 +180,27 @@ components:
       - id
       - type
       type: object
-    ViewsAdminGroupAddRequest:
+    ViewsAdminCreateRequest:
       properties:
-        group_course:
-          example: 3
-          type: integer
-        group_name:
-          example: '62'
-          type: string
-        group_type:
-          $ref: '#/components/schemas/TypesEducationType'
-    ViewsAdminGroupLessonAddRequest:
+        credentials:
+          $ref: '#/components/schemas/TypesUserCredentialV1'
+    ViewsAdminListRequest:
       properties:
-        group_id:
-          $ref: '#/components/schemas/TypesId'
-        subject_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsAdminGroupLessonRemoveRequest:
+        filter:
+          $ref: '#/components/schemas/TypesAdminFilter'
+    ViewsLoginResponseV1:
       properties:
-        group_id:
-          $ref: '#/components/schemas/TypesId'
-        subject_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsAdminGroupRemoveRequest:
+        token:
+          $ref: '#/components/schemas/TypesAuthTokenV1'
+        user:
+          $ref: '#/components/schemas/TypesUserV1'
+    ViewsRegisterRequestV1:
       properties:
-        group_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsAdminGroupTeacherAddRequest:
-      properties:
-        group_id:
-          $ref: '#/components/schemas/TypesId'
-        subject_id:
-          $ref: '#/components/schemas/TypesId'
-        teacher_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsAdminGroupTeacherRemoveRequest:
-      properties:
-        group_id:
-          $ref: '#/components/schemas/TypesId'
-        subject_id:
-          $ref: '#/components/schemas/TypesId'
-        teacher_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsAdminTeacherLinkRequest:
-      properties:
-        teacher_id:
-          $ref: '#/components/schemas/TypesId'
-        user_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsAdminTeacherUnlinkRequest:
-      properties:
-        teacher_id:
-          $ref: '#/components/schemas/TypesId'
-        user_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsGetTimetableRequest:
+        user_credential:
+          $ref: '#/components/schemas/TypesUserCredentialV1'
+        user_type:
+          $ref: '#/components/schemas/TypesUserTypeV1'
+    ViewsTimetableGetRequest:
       properties:
         begin:
           $ref: '#/components/schemas/TypesTimestamp'
@@ -304,52 +284,6 @@ components:
           type: array
         week:
           $ref: '#/components/schemas/TypesTypeOfWeek'
-    ViewsLessonAddRequest:
-      properties:
-        end:
-          $ref: '#/components/schemas/TypesTimestamp'
-        number_lesson:
-          $ref: '#/components/schemas/TypesNumberLesson'
-        room_id:
-          $ref: '#/components/schemas/TypesId'
-        start:
-          $ref: '#/components/schemas/TypesTimestamp'
-        subject_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsLessonMoveRequest:
-      properties:
-        end:
-          $ref: '#/components/schemas/TypesTimestamp'
-        lesson_old_id:
-          $ref: '#/components/schemas/TypesId'
-        number_lesson:
-          $ref: '#/components/schemas/TypesNumberLesson'
-        room_id:
-          $ref: '#/components/schemas/TypesId'
-        start:
-          $ref: '#/components/schemas/TypesTimestamp'
-        subject_id:
-          $ref: '#/components/schemas/TypesId'
-    ViewsLessonRemoveRequest:
-      properties:
-        end:
-          $ref: '#/components/schemas/TypesTimestamp'
-        lesson_id:
-          $ref: '#/components/schemas/TypesId'
-        start:
-          $ref: '#/components/schemas/TypesTimestamp'
-    ViewsLoginResponseV1:
-      properties:
-        token:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-        user:
-          $ref: '#/components/schemas/TypesUserV1'
-    ViewsRegisterRequestV1:
-      properties:
-        user_credential:
-          $ref: '#/components/schemas/TypesUserCredentialV1'
-        user_type:
-          $ref: '#/components/schemas/TypesUserTypeV1'
 info:
   description: This is a simple timetable API
   license:
@@ -359,11 +293,11 @@ info:
   version: 1.0.0
 openapi: 3.0.0
 paths:
-  /admin/group/add:
+  /admin/create:
     post:
-      description: Создать группу
+      description: Получить список администраторов
       parameters:
-      - in: cookie
+      - in: header
         name: authToken
         required: true
         schema:
@@ -372,15 +306,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ViewsAdminGroupAddRequest'
+              $ref: '#/components/schemas/ViewsAdminCreateRequest'
         required: true
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TypesGroupV1'
-          description: Группа успешно создана
+                $ref: '#/components/schemas/TypesAdminAccount'
+          description: Аккаунт успешно создан
         '401':
           content:
             application/json:
@@ -395,11 +329,11 @@ paths:
           description: Нет прав на подобные изменения
       tags:
       - admins
-  /admin/group/lesson/add:
+  /admin/list:
     post:
-      description: Добавить пару группе
+      description: Получить список администраторов
       parameters:
-      - in: cookie
+      - in: header
         name: authToken
         required: true
         schema:
@@ -408,228 +342,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ViewsAdminGroupLessonAddRequest'
-        required: true
-      responses:
-        '200':
-          description: Предмет успешно добавлен в группу
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - admins
-  /admin/group/lesson/remove:
-    post:
-      description: Убрать пару у группы
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsAdminGroupLessonRemoveRequest'
-        required: true
-      responses:
-        '200':
-          description: Предмет успешно удален из группы
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - admins
-  /admin/group/remove:
-    post:
-      description: Удалить группу
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsAdminGroupRemoveRequest'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesGroupV1'
-          description: Группа успешно удалена
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - admins
-  /admin/group/teacher/add:
-    post:
-      description: Добавить преподавателя группе
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsAdminGroupTeacherAddRequest'
-        required: true
-      responses:
-        '200':
-          description: Преподаватель успешно добавлен в группу
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - admins
-  /admin/group/teacher/remove:
-    post:
-      description: Убрать преподавателя из группы
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsAdminGroupTeacherRemoveRequest'
-        required: true
-      responses:
-        '200':
-          description: Преподаватель успешно удален из группы
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - admins
-  /admin/teacher/link:
-    post:
-      description: Связать преподавателя с его аккаунтом
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsAdminTeacherLinkRequest'
-        required: true
-      responses:
-        '200':
-          description: Преподаватель успешно удален из группы
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - admins
-  /admin/teacher/unlink:
-    post:
-      description: Отвязать аккаунт у преподавателя
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsAdminTeacherUnlinkRequest'
-        required: true
-      responses:
-        '200':
-          description: Аккаунт успешно отвязан от преподавателя
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - admins
-  /get-timetable:
-    post:
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsGetTimetableRequest'
+              $ref: '#/components/schemas/ViewsAdminListRequest'
         required: true
       responses:
         '200':
@@ -637,32 +350,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/TypesLessonV1'
+                  $ref: '#/components/schemas/TypesAdminAccount'
                 type: array
-          description: Найденные пары
-      tags:
-      - users
-  /lesson/add:
-    post:
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsLessonAddRequest'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesLessonV1'
-          description: Пара успешно создана
+          description: Найденные аккаунты
         '401':
           content:
             application/json:
@@ -676,79 +366,7 @@ paths:
                 $ref: '#/components/schemas/TypesErrorV1'
           description: Нет прав на подобные изменения
       tags:
-      - teachers
-  /lesson/move:
-    post:
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsLessonMoveRequest'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/TypesLessonV1'
-                type: array
-          description: Пара успешно перемещена
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - teachers
-  /lesson/remove:
-    post:
-      parameters:
-      - in: cookie
-        name: authToken
-        required: true
-        schema:
-          $ref: '#/components/schemas/TypesAuthTokenV1'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ViewsLessonRemoveRequest'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesLessonV1'
-          description: Пара успешно отменена
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Отсутствует или истекший токен
-        '403':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TypesErrorV1'
-          description: Нет прав на подобные изменения
-      tags:
-      - teachers
+      - admins
   /login:
     post:
       requestBody:
@@ -795,6 +413,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/TypesErrorV1'
           description: Логин уже занят или пароль не удолетворяет требованиям
+      tags:
+      - users
+  /timetable/get:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewsTimetableGetRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TypesLessonV1'
+                type: array
+          description: Найденные пары
       tags:
       - users
 tags:
