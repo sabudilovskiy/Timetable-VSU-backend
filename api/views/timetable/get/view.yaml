@@ -15,4 +15,4 @@ post:
           schema:
             type: array
             items:
-              $ref: '../../types/LessonV1.yaml'
+              $ref: '../../../types/LessonV1.yaml'

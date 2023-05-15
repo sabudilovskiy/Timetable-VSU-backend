@@ -28,14 +28,14 @@
 static_assert(userver::formats::common::impl::kHasSerialize<
               userver::formats::json::Value,
               timetable_vsu_backend::models::LessonType>);
-namespace timetable_vsu_backend::views::get_timetable {
+namespace timetable_vsu_backend::views::timetable::get {
 
 namespace {
 
 namespace pg = components::controllers::postgres;
 class Handler final : public http::HandlerParsed<Request, Response200> {
    public:
-    static constexpr std::string_view kName = "handler-get-timetable";
+    static constexpr std::string_view kName = "handler-timetable-get";
     Handler(const userver::components::ComponentConfig& config,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
@@ -66,4 +66,4 @@ void Append(userver::components::ComponentList& component_list) {
     component_list.Append<Handler>();
 }
 
-}  // namespace timetable_vsu_backend::views::get_timetable
+}  // namespace timetable_vsu_backend::views::timetable::get

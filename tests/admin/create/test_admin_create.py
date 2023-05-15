@@ -10,7 +10,6 @@ def _assert_ok_response(response, login, password):
     assert 'admin_id' in response.json()['created_account'].keys()
     assert 'user_id' in response.json()['created_account'].keys()
     assert response.json()['created_account']['login'] == login
-    assert response.json()['created_account']['password'] == password
 
 
 # костыль, так как
@@ -34,7 +33,7 @@ async def test_root_create_nothing(service_client):
         ('admin'),
     ],
 )
-async def test_root_create_admin_ok(service_client, type):
+async def test_root_admin_create_ok(service_client, type):
     login = 'some_' + type
     password = type + '_password'
     credentials = {'login': login, 'password': password}
@@ -42,7 +41,7 @@ async def test_root_create_admin_ok(service_client, type):
         'credentials': credentials
     }
     headers = {'token': 'dddddddd-dddd-dddd-dddd-dddddddddddd'}
-    response = await service_client.post('/root/create-admin',
+    response = await service_client.post('/admin/create',
                                          json=body, headers=headers)
     _assert_ok_response(response, login, password)
 
@@ -63,13 +62,13 @@ async def test_root_create_admin_ok(service_client, type):
         ('admin'),
     ],
 )
-async def test_root_create_admin_fail_taken(service_client, type):
+async def test_root_admin_create_fail_taken(service_client, type):
     credentials = {'login': 'some_' + type, 'password': type + '_password'}
     body = {
         'credentials': credentials
     }
     headers = {'token': 'dddddddd-dddd-dddd-dddd-dddddddddddd'}
-    response = await service_client.post('/root/create-admin',
+    response = await service_client.post('/admin/create',
                                          json=body, headers=headers)
     assert response.status_code == 400
     assert 'description' in response.json()
@@ -94,13 +93,13 @@ async def test_root_create_admin_fail_taken(service_client, type):
         ('admin', '333111c7-9654-4814-b36b-7d39c1ddded2'),
     ],
 )
-async def test_root_create_admin_forbidden(service_client, type, token):
+async def test_root_admin_create_forbidden(service_client, type, token):
     credentials = {'login': 'some_' + type, 'password': type + '_password'}
     body = {
         'credentials': credentials
     }
     headers = {'token': token}
-    response = await service_client.post('/root/create-admin',
+    response = await service_client.post('/admin/create',
                                          json=body, headers=headers)
     assert response.status_code == 403
     assert 'description' in response.json()
@@ -122,13 +121,13 @@ async def test_root_create_admin_forbidden(service_client, type, token):
         ('admin', '333111c7-9654-4814-b36b-7d39c1ddded2'),
     ],
 )
-async def test_root_create_admin_bad_token(service_client, type, token):
+async def test_root_admin_create_bad_token(service_client, type, token):
     credentials = {'login': 'some_' + type, 'password': type + '_password'}
     body = {
         'credentials': credentials
     }
     headers = {'token': token}
-    response = await service_client.post('/root/create-admin',
+    response = await service_client.post('/admin/create',
                                          json=body, headers=headers)
     assert response.status_code == 401
     assert 'description' in response.json()

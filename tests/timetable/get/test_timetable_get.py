@@ -1,9 +1,7 @@
 import pytest
-import logging
-from testsuite.databases import pgsql
-from get_timetable_data import K_IDS
-from get_timetable_data import K_FIELDS
-from get_timetable_data import K_LESSON
+from timetable_get_data import K_IDS
+from timetable_get_data import K_FIELDS
+from timetable_get_data import K_LESSON
 
 
 def _perform_filter(field, value):
@@ -18,9 +16,9 @@ def _perform_filter(field, value):
     K_FIELDS,
     ids=K_IDS
 )
-async def test_get_timetable_one_lesson(service_client, field, value, found):
+async def test_timetable_get_one_lesson(service_client, field, value, found):
 
-    response = await service_client.post('/get-timetable', json={
+    response = await service_client.post('/timetable/get', json={
         "filter": _perform_filter(field, value)
     })
     assert response.status_code == 200

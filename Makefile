@@ -48,7 +48,7 @@ test-debug test-release: test-%: build-%
 .PHONY: testsuite-debug testsuite-release
 testsuite-debug testsuite-release: testsuite-%: build-%
 	@rm -rf tests/results
-	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 PYTEST_ADDOPTS="--color=yes -k $(F)" ctest -V -R "testsuite"))
+	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 PYTEST_ADDOPTS="--color=yes $(if $(F),-k $(F))" ctest -V -R "testsuite"))
 
 # Start the service (via testsuite service runner)
 .PHONY: service-start-debug service-start-release
@@ -113,6 +113,7 @@ format-cpp:
 .PHONY: format-all
 format-all: format-cpp
 	@find tests -name '*.py' -type f | xargs autopep8 -i
+	$(MAKE) add-eol P=api
 	$(MAKE) add-eol P=tests
 	$(MAKE) add-eol P=scripts
 	$(MAKE) add-eol P=postgresql

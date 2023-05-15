@@ -10,11 +10,11 @@
 #include "utils/convert/http_request_parse.hpp"
 #include "utils/convert/json_parse.hpp"
 
-namespace timetable_vsu_backend::views::get_timetable {
+namespace timetable_vsu_backend::views::timetable::get {
 using namespace utils::convert;
 struct Request {
     OptionalProperty<models::LessonFilter, "filter"> filter;
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::views::get_timetable
+}  // namespace timetable_vsu_backend::views::timetable::get

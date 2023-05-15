@@ -1,0 +1,7 @@
+properties:
+  login:
+    type: string
+  admin_id:
+    $ref: 'Id.yaml'
+  user_id:
+    $ref: 'Id.yaml'

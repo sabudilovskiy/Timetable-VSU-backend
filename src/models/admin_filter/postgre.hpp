@@ -1,21 +1,18 @@
-#pragma once
 #include <userver/storages/postgres/io/composite_types.hpp>
 
-#include "models/user_credentials/type.hpp"
+#include "models/admin_filter/type.hpp"
+#include "models/education_type/postgre.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
-
 namespace timetable_vsu_backend::models {
-using TupleUserCredentialsRaw =
+using TupleAdminFilter =
     timetable_vsu_backend::utils::convert::drop_properties_to_ref_const_t<
-        UserCredentials>;
-using TupleUserCredentials = TupleUserCredentialsRaw;
+        AdminFilter>;
 }  // namespace timetable_vsu_backend::models
 
 namespace userver::storages::postgres::io {
 
 template <>
-struct CppToUserPg<timetable_vsu_backend::models::TupleUserCredentials> {
-    static constexpr DBTypeName postgres_name =
-        "vsu_timetable.user_credentials";
+struct CppToUserPg<timetable_vsu_backend::models::TupleAdminFilter> {
+    static constexpr DBTypeName postgres_name = "vsu_timetable.admin_filter";
 };
 }  // namespace userver::storages::postgres::io

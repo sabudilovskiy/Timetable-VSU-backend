@@ -1,0 +1,13 @@
+properties:
+  logins:
+    type: array
+    items:
+      type: string
+  admin_ids:
+    type: array
+    items:
+      $ref: 'Id.yaml'
+  user_ids:
+    type: array
+    items:
+      $ref: 'Id.yaml'

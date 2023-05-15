@@ -16,7 +16,7 @@
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
 #include "utils/parse/uuid/string.hpp"
-namespace timetable_vsu_backend::views::root::create_admin {
+namespace timetable_vsu_backend::views::root::admin::create {
 
 static_assert(
     userver::formats::common::impl::kHasSerialize<
@@ -47,7 +47,7 @@ class Handler final
 
    public:
     [[maybe_unused]] static constexpr std::string_view kName =
-        "handler-root-create-admin";
+        "handler-root-admin-create";
     Handler(const userver::components::ComponentConfig& config,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
@@ -82,4 +82,4 @@ void Append(userver::components::ComponentList& component_list) {
     component_list.Append<Handler>();
 }
 
-}  // namespace timetable_vsu_backend::views::root::create_admin
+}  // namespace timetable_vsu_backend::views::root::admin::create

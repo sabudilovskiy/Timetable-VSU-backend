@@ -14,7 +14,7 @@
 #include "utils/convert/json_parse.hpp"
 #include "utils/convert/json_serialize.hpp"
 
-namespace timetable_vsu_backend::views::get_timetable {
+namespace timetable_vsu_backend::views::timetable::get {
 using namespace utils::convert;
 struct Response200 {
     ArrayProperty<models::LessonV1, "lessons"> lessons;
@@ -29,4 +29,4 @@ static_assert(userver::formats::common::impl::kHasSerialize<
 static_assert(userver::formats::common::impl::kHasSerialize<
               userver::formats::json::Value, std::vector<models::LessonV1>>);
 
-}  // namespace timetable_vsu_backend::views::get_timetable
+}  // namespace timetable_vsu_backend::views::timetable::get
