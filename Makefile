@@ -113,6 +113,7 @@ format-cpp:
 .PHONY: format-all
 format-all: format-cpp
 	@find tests -name '*.py' -type f | xargs autopep8 -i
+	$(MAKE) add-eol P=api
 	$(MAKE) add-eol P=tests
 	$(MAKE) add-eol P=scripts
 	$(MAKE) add-eol P=postgresql
