@@ -1,0 +1,3 @@
+properties:
+  credentials:
+    $ref: ../../../types/UserCredentialV1.yaml
