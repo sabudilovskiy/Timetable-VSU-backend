@@ -18,27 +18,9 @@ paths:
     $ref: 'views/register/view.yaml'
   /login:
     $ref: 'views/login/view.yaml'
-  /get-timetable:
-    $ref: 'views/get-timetable/view.yaml'
-  /lesson/add:
-    $ref: 'views/lesson/add/view.yaml'         
-  /lesson/move:
-    $ref: 'views/lesson/move/view.yaml'   
-  /lesson/remove:
-    $ref: views/lesson/remove/view.yaml
-  /admin/group/add:
-    $ref: views/admin/group/add/view.yaml
-  /admin/group/remove:
-    $ref: views/admin/group/remove/view.yaml
-  /admin/group/lesson/add:
-    $ref: views/admin/group/lesson/add/view.yaml  
-  /admin/group/lesson/remove:
-    $ref: views/admin/group/lesson/remove/view.yaml
-  /admin/group/teacher/add:
-    $ref: views/admin/group/teacher/add/view.yaml
-  /admin/group/teacher/remove:
-    $ref: views/admin/group/teacher/remove/view.yaml
-  /admin/teacher/link:
-    $ref: views/admin/teacher/link/view.yaml               
-  /admin/teacher/unlink:
-    $ref: views/admin/teacher/unlink/view.yaml
+  /timetable/get:
+    $ref: 'views/timetable/get/view.yaml'
+  /admin/create:
+    $ref: 'views/admin/create/view.yaml'
+  /admin/list:
+    $ref: 'views/admin/list/view.yaml'

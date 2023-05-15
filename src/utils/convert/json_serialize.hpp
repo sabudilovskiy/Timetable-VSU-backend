@@ -1,5 +1,6 @@
 #pragma once
 #include "detail/serialize/converter_json.hpp"
+#include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::utils::convert {
 //данный концепт лишь активирует перегрузки, но не проверяет все требования для

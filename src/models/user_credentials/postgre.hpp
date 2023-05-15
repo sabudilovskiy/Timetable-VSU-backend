@@ -8,9 +8,6 @@ namespace timetable_vsu_backend::models {
 using TupleUserCredentialsRaw =
     timetable_vsu_backend::utils::convert::drop_properties_to_ref_const_t<
         UserCredentials>;
-// using TupleUserCredentials =
-//     userver::utils::StrongTypedef<struct TupleLessonFilterTag,
-//                                   TupleUserCredentialsRaw>;
 using TupleUserCredentials = TupleUserCredentialsRaw;
 }  // namespace timetable_vsu_backend::models
 

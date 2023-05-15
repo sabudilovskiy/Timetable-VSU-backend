@@ -17,11 +17,29 @@ RETURNING id
     SELECT 
         u.id AS user_id,
         a.id AS admin_id,
-        u.login AS user_login,
-        u.password AS user_password
+        u.login AS user_login
     FROM  vsu_timetable."admin" AS a
     LEFT JOIN vsu_timetable."user" AS u ON u.id = a.id_user
     WHERE a.id = $1
     ;
-)");
+)"),
+    qGetAdminsByFilter(R"(
+    WITH admin_info as (SELECT
+        a.id AS admin_id,
+        a.id_user AS user_id,
+        u.login AS login
+    FROM vsu_timetable.admin AS a
+        LEFT JOIN vsu_timetable.user AS u ON a.id_user = u.id
+    )
+    SELECT 
+        user_id,
+        admin_id,
+        login
+    FROM admin_info
+    WHERE 
+    ($1.admin_ids IS null OR admin_id = ANY($1.admin_ids)) and
+	($1.user_ids IS null OR user_id = ANY($1.user_ids)) and
+	($1.logins IS null OR login = ANY($1.logins))
+    ;
+    )");
 }
