@@ -91,6 +91,8 @@ src/models/subgroup/postgre.hpp
 src/models/subgroup/parse.hpp
 src/models/subgroup/parse.cpp
 src/models/subgroup/all.hpp
+src/models/register_request/type.hpp
+src/models/register_request/fwd.hpp
 src/models/lesson_week_type/type.hpp
 src/models/lesson_week_type/serialize.hpp
 src/models/lesson_week_type/serialize.cpp
