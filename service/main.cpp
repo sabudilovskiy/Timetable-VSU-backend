@@ -12,6 +12,7 @@
 
 #include "components/controllers/postgres/admin/fwd.hpp"
 #include "components/controllers/postgres/lesson/fwd.hpp"
+#include "components/controllers/postgres/teacher/fwd.hpp"
 #include "components/controllers/postgres/token/fwd.hpp"
 #include "components/controllers/postgres/user/fwd.hpp"
 #include "views/admin/create/view.hpp"
@@ -19,6 +20,7 @@
 #include "views/hello/view.hpp"
 #include "views/login/view.hpp"
 #include "views/register/view.hpp"
+#include "views/teacher/list/view.hpp"
 #include "views/timetable/get/view.hpp"
 
 int main(int argc, char* argv[]) {
@@ -35,12 +37,14 @@ int main(int argc, char* argv[]) {
     views::login::Append(component_list);
     views::register_::Append(component_list);
     views::timetable::get::Append(component_list);
-    views::root::admin::create::Append(component_list);
-    views::root::admin::list::Append(component_list);
+    views::admin::create::Append(component_list);
+    views::admin::list::Append(component_list);
+    views::teacher::list::Append(component_list);
     components::controllers::postgres::AppendUserController(component_list);
     components::controllers::postgres::AppendTokenController(component_list);
     components::controllers::postgres::AppendLessonDetailsController(
         component_list);
     components::controllers::postgres::AppendAdminController(component_list);
+    components::controllers::postgres::AppendTeacherController(component_list);
     return userver::utils::DaemonMain(argc, argv, component_list);
 }

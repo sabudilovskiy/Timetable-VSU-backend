@@ -13,6 +13,6 @@ namespace userver::storages::postgres::io {
 
 template <>
 struct CppToUserPg<timetable_vsu_backend::models::TupleAdminFilter> {
-    static constexpr DBTypeName postgres_name = "vsu_timetable.admin_filter";
+    static constexpr DBTypeName postgres_name = "vsu_timetable.admin_filter_v2";
 };
 }  // namespace userver::storages::postgres::io

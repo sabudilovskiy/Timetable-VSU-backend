@@ -5,6 +5,7 @@
 #include <userver/server/http/http_request.hpp>
 
 #include "models/lesson_filter/type.hpp"
+#include "models/substring/parse.hpp"
 #include "utils/convert/additional_properties.hpp"
 #include "utils/convert/base.hpp"
 #include "utils/convert/http_request_parse.hpp"

@@ -17,11 +17,13 @@
 #include <userver/storages/postgres/query.hpp>
 
 #include "models/admin_account/postgre.hpp"
+#include "models/admin_account/type.hpp"
 #include "models/admin_filter/postgre.hpp"
 #include "models/subgroup/serialize.hpp"
 #include "models/user_credentials/postgre.hpp"
 #include "sql_queries.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
+#include "utils/postgres_helper.hpp"
 #include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::admin {
@@ -40,13 +42,10 @@ std::optional<models::AdminAccount> Controller::GetAccountByAdminId(
     const boost::uuids::uuid& admin_id,
     vsu_timetable::utils::SharedTransaction transaction) const {
     vsu_timetable::utils::FillSharedTransaction(transaction, pg_cluster_);
-    auto result = transaction->transaction_.Execute(
+    auto pg_result = transaction->transaction_.Execute(
         sql::qGetAdminAccountByAdminId, admin_id);
-    models::AdminAccount account;
-    models::AdminAccountTuple tuple_account =
-        utils::convert::DropPropertiesToMutRefs(account);
-    result[0].To(tuple_account, userver::storages::postgres::kRowTag);
-    return account;
+    return utils::ConvertPgResultToOptionalItem<models::AdminAccount>(
+        pg_result);
 }
 
 std::optional<models::AdminAccount> Controller::CreateAdmin(
@@ -67,18 +66,9 @@ std::vector<models::AdminAccount> Controller::GetByFilter(
     std::optional<models::AdminFilter>& filter,
     vsu_timetable::utils::SharedTransaction transaction) const {
     vsu_timetable::utils::FillSharedTransaction(transaction, pg_cluster_);
-    auto tuple_filter = utils::convert::DropPropertiesToConstRefs(filter);
-    auto pg_result = transaction->transaction_.Execute(sql::qGetAdminsByFilter,
-                                                       tuple_filter);
-    std::vector<models::AdminAccount> result;
-    result.reserve(pg_result.Size());
-    for (auto& row : pg_result) {
-        models::AdminAccount account;
-        auto tuple_account = utils::convert::DropPropertiesToMutRefs(account);
-        row.To(tuple_account, userver::storages::postgres::kRowTag);
-        result.emplace_back(std::move(account));
-    }
-    return result;
+    auto pg_result =
+        utils::PgExecute(transaction, sql::qGetAdminsByFilter, filter);
+    return utils::ConvertPgResultToArray<models::AdminAccount>(pg_result);
 }
 
 }  // namespace timetable_vsu_backend::components::controllers::postgres::admin

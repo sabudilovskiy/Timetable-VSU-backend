@@ -13,7 +13,7 @@
 #include "utils/convert/http_response_serialize.hpp"
 #include "utils/convert/json_parse.hpp"
 
-namespace timetable_vsu_backend::views::root::admin::list {
+namespace timetable_vsu_backend::views::admin::list {
 using namespace utils::convert;
 struct Response200 {
     ArrayProperty<timetable_vsu_backend::models::AdminAccount, "admins"> admins;
@@ -38,4 +38,4 @@ struct Response500 {
     static constexpr userver::server::http::HttpStatus kStatusCode =
         userver::server::http::HttpStatus::kInternalServerError;
 };
-}  // namespace timetable_vsu_backend::views::root::admin::list
+}  // namespace timetable_vsu_backend::views::admin::list

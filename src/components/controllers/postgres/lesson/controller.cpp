@@ -21,25 +21,18 @@
 #include "models/subgroup/serialize.hpp"
 #include "sql_queries.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
+#include "utils/postgres_helper.hpp"
+#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::lesson {
 
 std::vector<models::LessonV1> Controller::Search(
-    const std::optional<models::LessonFilter>& filter) const {
-    std::optional<models::TupleLessonFilter> filter_tuple =
-        convert::DropPropertiesToConstRefs(filter);
-    auto result = pg_cluster_->Execute(
-        userver::storages::postgres::ClusterHostType::kMaster,
-        sql::qGetLessonsByFilter, filter_tuple);
-    std::vector<models::LessonV1> lessons;
-    lessons.reserve(result.Size());
-    auto it = result.begin();
-    for (auto& row : result) {
-        auto& lesson = lessons.emplace_back();
-        auto tuple = convert::DropPropertiesToMutRefs(lesson);
-        row.To(tuple, userver::storages::postgres::kRowTag);
-    }
-    return lessons;
+    const std::optional<models::LessonFilter>& filter,
+    vsu_timetable::utils::SharedTransaction transaction) const {
+    vsu_timetable::utils::FillSharedTransaction(transaction, pg_cluster_);
+    auto pg_result =
+        utils::PgExecute(transaction, sql::qGetLessonsByFilter, filter);
+    return utils::ConvertPgResultToArray<models::LessonV1>(pg_result);
 }
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)

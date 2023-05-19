@@ -30,7 +30,7 @@ async def test_admin_list_nothing(service_client):
 )
 async def test_admin_list_one_account_ok(service_client, field, value, found):
 
-    response = await service_client.get('/admin/list', json={
+    response = await service_client.post('/admin/list', json={
         "filter": _perform_filter(field, value)
     }, headers={
         'token': 'dddddddd-dddd-dddd-dddd-dddddddddddd'
@@ -65,8 +65,8 @@ async def test_admin_list_one_account_ok(service_client, field, value, found):
 async def test_admin_list_forbidden(service_client, type, token):
     credentials = {'login': 'some_' + type, 'password': type + '_password'}
     headers = {'token': token}
-    response = await service_client.get('/admin/list',
-                                        json={}, headers=headers)
+    response = await service_client.post('/admin/list',
+                                         json={}, headers=headers)
     assert response.status_code == 403
     assert 'description' in response.json()
     assert 'machine_id' in response.json()
@@ -89,8 +89,8 @@ async def test_admin_list_forbidden(service_client, type, token):
 )
 async def test_admin_liste_bad_token(service_client, type, token):
     headers = {'token': token}
-    response = await service_client.get('/admin/list',
-                                        json={}, headers=headers)
+    response = await service_client.post('/admin/list',
+                                         json={}, headers=headers)
     assert response.status_code == 401
     assert 'description' in response.json()
     assert 'machine_id' in response.json()

@@ -12,7 +12,7 @@
 #include "utils/convert/http_response_serialize.hpp"
 #include "utils/convert/json_parse.hpp"
 
-namespace timetable_vsu_backend::views::root::admin::create {
+namespace timetable_vsu_backend::views::admin::create {
 using namespace utils::convert;
 struct Response200 {
     Property<timetable_vsu_backend::models::AdminAccount, "created_account">
@@ -38,4 +38,4 @@ struct Response500 {
     static constexpr userver::server::http::HttpStatus kStatusCode =
         userver::server::http::HttpStatus::kInternalServerError;
 };
-}  // namespace timetable_vsu_backend::views::root::admin::create
+}  // namespace timetable_vsu_backend::views::admin::create
