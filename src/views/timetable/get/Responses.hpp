@@ -14,9 +14,11 @@
 #include "utils/convert/json_parse.hpp"
 #include "utils/convert/json_serialize.hpp"
 
-namespace timetable_vsu_backend::views::timetable::get {
+namespace timetable_vsu_backend::views::timetable::get
+{
 using namespace utils::convert;
-struct Response200 {
+struct Response200
+{
     ArrayProperty<models::LessonV1, "lessons"> lessons;
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;

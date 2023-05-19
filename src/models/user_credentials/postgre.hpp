@@ -4,18 +4,20 @@
 #include "models/user_credentials/type.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 using TupleUserCredentialsRaw =
     timetable_vsu_backend::utils::convert::drop_properties_to_ref_const_t<
         UserCredentials>;
 using TupleUserCredentials = TupleUserCredentialsRaw;
 }  // namespace timetable_vsu_backend::models
 
-namespace userver::storages::postgres::io {
-
+namespace userver::storages::postgres::io
+{
 template <>
-struct CppToUserPg<timetable_vsu_backend::models::TupleUserCredentials> {
+struct CppToUserPg<timetable_vsu_backend::models::TupleUserCredentials>
+{
     static constexpr DBTypeName postgres_name =
-        "vsu_timetable.user_credentials";
+        "timetable_vsu.user_credentials";
 };
 }  // namespace userver::storages::postgres::io

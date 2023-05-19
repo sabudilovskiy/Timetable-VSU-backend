@@ -10,9 +10,11 @@
 #include "utils/convert/http_response_serialize.hpp"
 #include "utils/convert/json_parse.hpp"
 
-namespace timetable_vsu_backend::views::login {
+namespace timetable_vsu_backend::views::login
+{
 using namespace utils::convert;
-struct Response200 {
+struct Response200
+{
     Property<boost::uuids::uuid, "token"> id;
     Property<timetable_vsu_backend::models::User, "user"> user;
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
@@ -22,7 +24,8 @@ struct Response200 {
 };
 using Response401 =
     http::ErrorV1<userver::server::http::HttpStatus::kUnauthorized>;
-struct Response500 {
+struct Response500
+{
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Empty;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
     static constexpr userver::server::http::HttpStatus kStatusCode =

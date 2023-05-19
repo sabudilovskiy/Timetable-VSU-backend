@@ -18,29 +18,34 @@
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
 #include "utils/parse/uuid/string.hpp"
-namespace timetable_vsu_backend::views::admin::list {
-
+namespace timetable_vsu_backend::views::admin::list
+{
 static_assert(
     userver::formats::common::impl::kHasSerialize<
         userver::formats::json::Value, timetable_vsu_backend::models::User>);
-namespace {
+namespace
+{
 namespace pg = components::controllers::postgres;
 class Handler final
     : public http::HandlerParsed<Request, Response200, Response400, Response401,
-                                 Response403> {
-    static Response400 PerformLoginTaken() {
+                                 Response403>
+{
+    static Response400 PerformLoginTaken()
+    {
         Response400 resp;
         resp.description = "Account can't created: login is already taken";
         resp.machine_id = "LOGIN_TAKEN";
         return resp;
     }
-    static Response401 PerformInvalidToken() {
+    static Response401 PerformInvalidToken()
+    {
         Response401 resp;
         resp.description = "Account not founded: token invalid";
         resp.machine_id = "INVALID_TOKEN";
         return resp;
     }
-    static Response403 PerformForbidden() {
+    static Response403 PerformForbidden()
+    {
         Response403 resp;
         resp.description = "Not enough permissions to do so";
         resp.machine_id = "NOT_ENOUGH_PERMISSIONS";
@@ -54,15 +59,19 @@ class Handler final
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
           user_controller(context.FindComponent<pg::user::Controller>()),
-          admin_controller(context.FindComponent<pg::admin::Controller>()) {
+          admin_controller(context.FindComponent<pg::admin::Controller>())
+    {
     }
 
-    Response Handle(Request&& request) const override {
+    Response Handle(Request&& request) const override
+    {
         auto user = user_controller.GetByToken(request.token());
-        if (!user) {
+        if (!user)
+        {
             return PerformInvalidToken();
         }
-        if (user->type() != models::UserType::kRoot) {
+        if (user->type() != models::UserType::kRoot)
+        {
             return PerformForbidden();
         }
         auto admins = admin_controller.GetByFilter(request.filter());
@@ -77,7 +86,8 @@ class Handler final
 };
 }  // namespace
 
-void Append(userver::components::ComponentList& component_list) {
+void Append(userver::components::ComponentList& component_list)
+{
     component_list.Append<Handler>();
 }
 

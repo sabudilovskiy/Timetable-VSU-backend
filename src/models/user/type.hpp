@@ -5,9 +5,11 @@
 #include "models/user_type/type.hpp"
 #include "utils/convert/base.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 namespace convert = utils::convert;
-struct User {
+struct User
+{
     convert::Property<boost::uuids::uuid, "id"> id;
     convert::Property<models::UserType, "type"> type;
     static constexpr convert::PolicyFields kPolicyFields =

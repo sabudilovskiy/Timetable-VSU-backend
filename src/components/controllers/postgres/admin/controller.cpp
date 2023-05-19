@@ -26,22 +26,28 @@
 #include "utils/postgres_helper.hpp"
 #include "utils/shared_transaction.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::admin {
-vsu_timetable::utils::SharedTransaction Controller::CreateTransaction() {
-    return vsu_timetable::utils::MakeSharedTransaction(pg_cluster_);
+namespace timetable_vsu_backend::components::controllers::postgres::admin
+{
+utils::SharedTransaction Controller::CreateTransaction() const
+{
+    return timetable_vsu_backend::utils::MakeSharedTransaction(pg_cluster_);
 }
+
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)
     : LoggableComponentBase(config, context),
       pg_cluster_(
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
-              .GetCluster()) {
+              .GetCluster())
+{
 }
 
 std::optional<models::AdminAccount> Controller::GetAccountByAdminId(
     const boost::uuids::uuid& admin_id,
-    vsu_timetable::utils::SharedTransaction transaction) const {
-    vsu_timetable::utils::FillSharedTransaction(transaction, pg_cluster_);
+    timetable_vsu_backend::utils::SharedTransaction transaction) const
+{
+    timetable_vsu_backend::utils::FillSharedTransaction(transaction,
+                                                        pg_cluster_);
     auto pg_result = transaction->transaction_.Execute(
         sql::qGetAdminAccountByAdminId, admin_id);
     return utils::ConvertPgResultToOptionalItem<models::AdminAccount>(
@@ -50,12 +56,15 @@ std::optional<models::AdminAccount> Controller::GetAccountByAdminId(
 
 std::optional<models::AdminAccount> Controller::CreateAdmin(
     const models::UserCredentials& user,
-    vsu_timetable::utils::SharedTransaction transaction) const {
-    vsu_timetable::utils::FillSharedTransaction(transaction, pg_cluster_);
+    timetable_vsu_backend::utils::SharedTransaction transaction) const
+{
+    timetable_vsu_backend::utils::FillSharedTransaction(transaction,
+                                                        pg_cluster_);
     auto tuple_user = utils::convert::DropPropertiesToConstRefs(user);
     auto result_id =
         transaction->transaction_.Execute(sql::qCreateAdminAccount, tuple_user);
-    if (result_id.Size() != 1) {
+    if (result_id.Size() != 1)
+    {
         return std::nullopt;
     }
     boost::uuids::uuid admin_id = result_id.AsSingleRow<boost::uuids::uuid>();
@@ -64,8 +73,10 @@ std::optional<models::AdminAccount> Controller::CreateAdmin(
 
 std::vector<models::AdminAccount> Controller::GetByFilter(
     std::optional<models::AdminFilter>& filter,
-    vsu_timetable::utils::SharedTransaction transaction) const {
-    vsu_timetable::utils::FillSharedTransaction(transaction, pg_cluster_);
+    timetable_vsu_backend::utils::SharedTransaction transaction) const
+{
+    timetable_vsu_backend::utils::FillSharedTransaction(transaction,
+                                                        pg_cluster_);
     auto pg_result =
         utils::PgExecute(transaction, sql::qGetAdminsByFilter, filter);
     return utils::ConvertPgResultToArray<models::AdminAccount>(pg_result);

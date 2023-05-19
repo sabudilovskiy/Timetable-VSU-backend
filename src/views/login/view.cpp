@@ -16,16 +16,19 @@
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
 
-namespace timetable_vsu_backend::views::login {
-
+namespace timetable_vsu_backend::views::login
+{
 static_assert(
     userver::formats::common::impl::kHasSerialize<
         userver::formats::json::Value, timetable_vsu_backend::models::User>);
-namespace {
+namespace
+{
 namespace pg = components::controllers::postgres;
-class Handler final : public http::HandlerParsed<Request, Response200,
-                                                 Response401, Response500> {
-    static Response401 PerformInvalidCredentials() {
+class Handler final
+    : public http::HandlerParsed<Request, Response200, Response401, Response500>
+{
+    static Response401 PerformInvalidCredentials()
+    {
         Response401 resp;
         resp.description = "Account not founded: login or password invalid";
         resp.machine_id = "INVALID_CREDENTIALS";
@@ -38,18 +41,22 @@ class Handler final : public http::HandlerParsed<Request, Response200,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
           user_controller(context.FindComponent<pg::user::Controller>()),
-          token_controller(context.FindComponent<pg::token::Controller>()) {
+          token_controller(context.FindComponent<pg::token::Controller>())
+    {
     }
 
-    Response Handle(Request&& request) const override {
+    Response Handle(Request&& request) const override
+    {
         auto user = user_controller.GetByCredentials(request);
-        if (!user) {
+        if (!user)
+        {
             return PerformInvalidCredentials();
         }
         auto id = token_controller.CreateNew(
             user->id(),
             userver::utils::datetime::Now() + std::chrono::hours(24));
-        if (!id) {
+        if (!id)
+        {
             LOG_WARNING() << fmt::format(
                 "Failed to create token for user, id: {}",
                 boost::uuids::to_string(user->id()));
@@ -67,7 +74,8 @@ class Handler final : public http::HandlerParsed<Request, Response200,
 };
 }  // namespace
 
-void Append(userver::components::ComponentList& component_list) {
+void Append(userver::components::ComponentList& component_list)
+{
     component_list.Append<Handler>();
 }
 

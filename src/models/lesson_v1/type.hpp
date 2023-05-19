@@ -12,9 +12,11 @@
 
 namespace convert = timetable_vsu_backend::utils::convert;
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 //Пара со всей дополнительной информацией
-struct LessonV1 {
+struct LessonV1
+{
     convert::Property<boost::uuids::uuid, "id"> lesson_id;
     convert::Property<TimeString, "begin"> lesson_begin;
     convert::Property<TimeString, "end"> lesson_end;

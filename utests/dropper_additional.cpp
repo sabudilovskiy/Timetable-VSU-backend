@@ -8,27 +8,32 @@
 #include "utils/convert/drop_properties_ref.hpp"
 
 using namespace timetable_vsu_backend::utils::convert;
-namespace {
-struct TestStruct {
+namespace
+{
+struct TestStruct
+{
     static constexpr auto kPolicyFields = PolicyFields::ConvertAll;
     Property<std::string, "login"> login;
     Property<std::string, "password"> password;
 };
 
-struct TestStruct2 {
+struct TestStruct2
+{
     static constexpr auto kPolicyFields = PolicyFields::ConvertAll;
     Property<int, "descriptor"> descriptor;
     Property<int, "money"> money;
 };
 
-struct TestStruct3 {
+struct TestStruct3
+{
     static constexpr auto kPolicyFields = PolicyFields::ConvertAll;
     OptionalProperty<TestStruct, "auth"> auth;
     OptionalProperty<TestStruct2, "description"> description;
 };
 }  // namespace
 
-UTEST(TestDropAdditionalProperties, Recursive) {
+UTEST(TestDropAdditionalProperties, Recursive)
+{
     TestStruct3 test;
     test.description() = {TestStruct2{.descriptor = {42}, .money = {43}}};
     auto tuple = DropPropertiesToMutRefs(test);

@@ -17,21 +17,25 @@
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
 #include "utils/parse/uuid/string.hpp"
-namespace timetable_vsu_backend::views::teacher::list {
-
-namespace {
+namespace timetable_vsu_backend::views::teacher::list
+{
+namespace
+{
 namespace pg = components::controllers::postgres;
-class Handler final : public http::HandlerParsed<Request, Response200> {
+class Handler final : public http::HandlerParsed<Request, Response200>
+{
    public:
     [[maybe_unused]] static constexpr std::string_view kName =
         "handler-teacher-list";
     Handler(const userver::components::ComponentConfig& config,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
-          teacher_controller(context.FindComponent<pg::teacher::Controller>()) {
+          teacher_controller(context.FindComponent<pg::teacher::Controller>())
+    {
     }
 
-    Response Handle(Request&& request) const override {
+    Response Handle(Request&& request) const override
+    {
         auto teachers = teacher_controller.GetByFilter(request.filter());
         Response200 resp;
         resp.teachers() = std::move(teachers);
@@ -43,7 +47,8 @@ class Handler final : public http::HandlerParsed<Request, Response200> {
 };
 }  // namespace
 
-void Append(userver::components::ComponentList& component_list) {
+void Append(userver::components::ComponentList& component_list)
+{
     component_list.Append<Handler>();
 }
 

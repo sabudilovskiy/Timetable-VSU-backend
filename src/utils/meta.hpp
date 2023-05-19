@@ -1,5 +1,6 @@
 #pragma once
 template <auto value>
-concept IsConstexpr = requires {
+concept IsConstexpr = requires
+{
     requires true;
 };

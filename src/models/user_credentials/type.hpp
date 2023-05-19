@@ -2,9 +2,11 @@
 #include <string>
 
 #include "utils/convert/base.hpp"
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 using namespace utils::convert;
-struct UserCredentials {
+struct UserCredentials
+{
     Property<std::string, "login"> login;
     Property<std::string, "password"> password;
     static constexpr TypeOfBody kTypeOfBody =

@@ -8,21 +8,31 @@
 #include "type.hpp"
 #include "utils/json_type.hpp"
 
-namespace timetable_vsu_backend::models {
-Subgroup Parse(std::string_view str, userver::formats::parse::To<Subgroup>) {
-    if (str == "all") {
+namespace timetable_vsu_backend::models
+{
+Subgroup Parse(std::string_view str, userver::formats::parse::To<Subgroup>)
+{
+    if (str == "all")
+    {
         return Subgroup::kAll;
-    } else if (str == "first") {
+    }
+    else if (str == "first")
+    {
         return Subgroup::kFirst;
-    } else if (str == "second") {
+    }
+    else if (str == "second")
+    {
         return Subgroup::kSecond;
-    } else
+    }
+    else
         throw std::runtime_error(
             fmt::format("Fail parse Subgroup, get unexpected value: {}", str));
 }
 Subgroup Parse(const userver::formats::json::Value& value,
-               userver::formats::parse::To<Subgroup>) {
-    if (!value.IsString()) {
+               userver::formats::parse::To<Subgroup>)
+{
+    if (!value.IsString())
+    {
         throw std::runtime_error(fmt::format(
             "Expected string type, but got: {}", utils::GetType(value)));
     }

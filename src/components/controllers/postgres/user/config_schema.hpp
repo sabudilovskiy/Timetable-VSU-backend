@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-namespace timetable_vsu_backend::components::controllers::postgres::user::
-    config {
+namespace timetable_vsu_backend::components::controllers::postgres::user::config
+{
 const std::string schema =
     R"(
 type: object

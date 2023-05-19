@@ -4,8 +4,11 @@
 
 #include "type.hpp"
 
-namespace userver::storages::postgres::io {
+namespace userver::storages::postgres::io
+{
 using timetable_vsu_backend::models::SubString;
 template <>
-struct CppToSystemPg<SubString> : PredefinedOid<PredefinedOids::kText> {};
+struct CppToSystemPg<SubString> : PredefinedOid<PredefinedOids::kText>
+{
+};
 }  // namespace userver::storages::postgres::io

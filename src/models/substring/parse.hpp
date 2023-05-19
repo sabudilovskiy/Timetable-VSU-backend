@@ -5,7 +5,8 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 SubString Parse(const std::string& str, userver::formats::parse::To<SubString>);
 SubString Parse(const userver::formats::json::Value& value,
                 userver::formats::parse::To<SubString>);

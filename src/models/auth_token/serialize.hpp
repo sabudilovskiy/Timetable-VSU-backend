@@ -9,10 +9,12 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 inline userver::formats::json::Value Serialize(
     const AuthToken& token,
-    userver::formats::serialize::To<userver::formats::json::Value>) {
+    userver::formats::serialize::To<userver::formats::json::Value>)
+{
     userver::formats::json::ValueBuilder json;
     json["token"] = boost::uuids::to_string(token.id);
     return json.ExtractValue();

@@ -7,14 +7,17 @@
 #include "utils/convert/drop_properties_ref.hpp"
 
 namespace magic = timetable_vsu_backend::utils::convert;
-namespace {
-struct TestStruct {
+namespace
+{
+struct TestStruct
+{
     static constexpr auto kPolicyFields = magic::PolicyFields::ConvertAll;
     magic::Property<std::string, "login"> Login;
     magic::Property<std::string, "password"> Password;
 };
 
-struct TestStruct2 {
+struct TestStruct2
+{
     static constexpr auto kPolicyFields = magic::PolicyFields::ConvertAll;
     magic::Property<TestStruct, "auth"> auth;
     magic::Property<std::string, "description"> description;
@@ -22,7 +25,8 @@ struct TestStruct2 {
 
 }  // namespace
 
-UTEST(TestDropProperties, Recursive) {
+UTEST(TestDropProperties, Recursive)
+{
     TestStruct2 test;
     test.auth().Login() = "1232";
     test.auth().Password() = "adad";
@@ -48,7 +52,8 @@ UTEST(TestDropProperties, Recursive) {
     UASSERT(&std::get<1>(tuple) == &test.description());
 }
 
-UTEST(TestDropProperties, Basic) {
+UTEST(TestDropProperties, Basic)
+{
     TestStruct test;
     test.Login() = "1232";
     test.Password() = "adad";
@@ -61,7 +66,8 @@ UTEST(TestDropProperties, Basic) {
     UASSERT(&std::get<1>(tuple) == &test.Password());
 }
 
-UTEST(TestDropProperties, ConstBasic) {
+UTEST(TestDropProperties, ConstBasic)
+{
     TestStruct test;
     test.Login() = "1232";
     test.Password() = "adad";
@@ -76,7 +82,8 @@ UTEST(TestDropProperties, ConstBasic) {
     UASSERT(&std::get<1>(tuple) == &test.Password());
 }
 
-UTEST(TestDropProperties, ConstRecursive) {
+UTEST(TestDropProperties, ConstRecursive)
+{
     TestStruct2 test;
     test.auth().Login() = "1232";
     test.auth().Password() = "adad";

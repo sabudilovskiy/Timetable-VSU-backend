@@ -23,7 +23,8 @@
 #include "views/teacher/list/view.hpp"
 #include "views/timetable/get/view.hpp"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     using namespace timetable_vsu_backend;
     auto component_list =
         userver::components::MinimalServerComponentList()

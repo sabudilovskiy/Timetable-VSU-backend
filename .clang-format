@@ -4,7 +4,7 @@ BasedOnStyle: Google
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
-BreakBeforeBraces: Attach
+BreakBeforeBraces: Allman
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
@@ -14,3 +14,6 @@ SpaceAfterCStyleCast: true
 DerivePointerAlignment: false
 AlignTrailingComments: true
 SortIncludes: true
+BraceWrapping:
+  AfterClass: true
+  AfterFunction: true

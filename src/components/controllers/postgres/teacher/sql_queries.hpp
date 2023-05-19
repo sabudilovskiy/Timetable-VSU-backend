@@ -1,8 +1,8 @@
 #pragma once
 #include <userver/storages/postgres/query.hpp>
 
-namespace timetable_vsu_backend::components::controllers::postgres::teacher::
-    sql {
+namespace timetable_vsu_backend::components::controllers::postgres::teacher::sql
+{
 const userver::storages::postgres::Query qGetTeachersByFilter(R"(
     WITH teacher_info as (SELECT
         t.id AS teacher_id,
@@ -12,9 +12,9 @@ const userver::storages::postgres::Query qGetTeachersByFilter(R"(
         d.name AS department_name,
         f.id AS faculty_id,
         f.name AS faculty_name
-    FROM vsu_timetable.teacher AS t
-        LEFT JOIN vsu_timetable.department AS d ON t.id_department = d.id
-        LEFT JOIN vsu_timetable.faculty AS f ON d.id_faculty = f.id
+    FROM timetable_vsu.teacher AS t
+        LEFT JOIN timetable_vsu.department AS d ON t.id_department = d.id
+        LEFT JOIN timetable_vsu.faculty AS f ON d.id_faculty = f.id
     )
     SELECT 
         teacher_id,

@@ -5,12 +5,14 @@
 
 #include "type.hpp"
 
-namespace userver::storages::postgres::io {
+namespace userver::storages::postgres::io
+{
 using timetable_vsu_backend::models::UserType;
 template <>
-struct CppToUserPg<UserType> : EnumMappingBase<UserType> {
+struct CppToUserPg<UserType> : EnumMappingBase<UserType>
+{
     static constexpr userver::storages::postgres::DBTypeName postgres_name =
-        "vsu_timetable.user_type";
+        "timetable_vsu.user_type";
     static constexpr userver::utils::TrivialBiMap enumerators =
         [](auto selector) {
             return selector()

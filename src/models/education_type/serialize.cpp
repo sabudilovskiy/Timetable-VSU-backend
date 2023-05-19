@@ -2,10 +2,13 @@
 
 #include <userver/formats/json/value_builder.hpp>
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 std::string Serialize(const EducationType& value,
-                      userver::formats::serialize::To<std::string>) {
-    switch (value) {
+                      userver::formats::serialize::To<std::string>)
+{
+    switch (value)
+    {
         case EducationType::kMagistracy:
             return "magistracy";
         case EducationType::kPostgraduate:
@@ -18,7 +21,8 @@ std::string Serialize(const EducationType& value,
 }
 userver::formats::json::Value Serialize(
     const EducationType& value,
-    userver::formats::serialize::To<userver::formats::json::Value>) {
+    userver::formats::serialize::To<userver::formats::json::Value>)
+{
     std::string str =
         Serialize(value, userver::formats::serialize::To<std::string>{});
     return userver::formats::json::ValueBuilder(str).ExtractValue();

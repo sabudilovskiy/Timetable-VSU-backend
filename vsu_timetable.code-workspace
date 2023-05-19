@@ -2,7 +2,7 @@
     "folders": [
         { 
             "path": ".",
-            "name" : "vsu_timetable"
+            "name" : "timetable_vsu_backend"
         },
     ],
     "extensions":{
