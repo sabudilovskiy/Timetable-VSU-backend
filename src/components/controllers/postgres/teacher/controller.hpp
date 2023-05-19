@@ -5,23 +5,24 @@
 #include <userver/storages/postgres/postgres_fwd.hpp>
 #include <vector>
 
-#include "models/lesson_filter/fwd.hpp"
-#include "models/lesson_v1/type.hpp"
+#include "models/teacher/type.hpp"
+#include "models/teacher_filter/type.hpp"
 #include "utils/shared_transaction.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::lesson {
+namespace timetable_vsu_backend::components::controllers::postgres::teacher {
 class Controller final : public userver::components::LoggableComponentBase {
    public:
     using userver::components::LoggableComponentBase::LoggableComponentBase;
-    static constexpr inline std::string_view kName =
-        "lesson_details_controller";
-    std::vector<models::LessonV1> Search(
-        const std::optional<models::LessonFilter>& filter,
-        vsu_timetable::utils::SharedTransaction transaction = nullptr) const;
+    static constexpr inline std::string_view kName = "teacher_controller";
     Controller(const userver::components::ComponentConfig& config,
                const userver::components::ComponentContext& context);
+    std::vector<models::Teacher> GetByFilter(
+        std::optional<models::TeacherFilter>& filter,
+        vsu_timetable::utils::SharedTransaction transaction = nullptr) const;
+    vsu_timetable::utils::SharedTransaction CreateTransaction();
 
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace timetable_vsu_backend::components::controllers::postgres::lesson
+}  // namespace
+   // timetable_vsu_backend::components::controllers::postgres::teacher

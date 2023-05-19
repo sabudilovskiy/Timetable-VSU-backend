@@ -187,8 +187,8 @@ K_IDS_TEACHER_IDS = [
 
 K_FIELDS_ROOM_NAMES = [
     ('room_names', ['101'], True),
-    ('room_names', ['102'], False),
-    ('room_names', ['102', '101'], True)
+    ('room_names', ['201'], False),
+    ('room_names', ['201', '101'], True)
 ]
 
 K_IDS_ROOM_NAMES = [
@@ -343,3 +343,33 @@ K_IDS = K_IDS_DAYS \
     + K_IDS_GROUP_COURSES \
     + K_IDS_GROUP_TYPES \
     + K_IDS_SUBJECT_IDS
+
+K_FIELDS_LIKE = K_FIELDS_LESSON_IDS \
+    + K_FIELDS_ROOM_IDS \
+    + K_FIELDS_ROOM_NAMES \
+    + K_FIELDS_SUBJECT_IDS \
+    + K_FIELDS_SUBJECT_NAMES \
+    + K_FIELDS_GROUP_IDS \
+    + K_FIELDS_GROUP_NAMES \
+    + K_FIELDS_FACULTY_IDS \
+    + K_FIELDS_FACULTY_NAMES \
+    + K_FIELDS_DEPARTMENT_IDS \
+    + K_FIELDS_DEPARTMENT_NAMES \
+    + K_FIELDS_TEACHER_IDS \
+    + K_FIELDS_TEACHER_FIOS \
+    + K_FIELDS_TEACHER_BIOS
+
+K_IDS_LIKE = K_IDS_LESSON_IDS \
+    + K_IDS_ROOM_IDS \
+    + K_IDS_ROOM_NAMES \
+    + K_IDS_SUBJECT_IDS \
+    + K_IDS_SUBJECT_NAMES \
+    + K_IDS_GROUP_IDS \
+    + K_IDS_GROUP_NAMES \
+    + K_IDS_FACULTY_IDS \
+    + K_IDS_FACULTY_NAMES \
+    + K_IDS_DEPARTMENT_IDS \
+    + K_IDS_DEPARTMENT_NAMES \
+    + K_IDS_TEACHER_IDS \
+    + K_IDS_TEACHER_FIOS \
+    + K_IDS_TEACHER_BIOS

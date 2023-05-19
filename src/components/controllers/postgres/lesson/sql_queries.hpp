@@ -67,25 +67,25 @@ const userver::storages::postgres::Query qGetLessonsByFilter(R"(
         teacher_bio
     FROM lesson_info
     WHERE 
-    ($1.lesson_ids IS null OR lesson_id = ANY($1.lesson_ids)) and
+    ($1.lesson_ids IS null OR lesson_id::text ILIKE ANY($1.lesson_ids)) and
     ($1.begin IS null OR $1.begin <= lesson_end) and
     ($1."end" IS null OR $1."end" >= lesson_begin) and
     ($1.days IS null OR lesson_day = ANY($1.days)) and
-	($1.department_ids IS null OR department_id = ANY($1.department_ids)) and
-	($1.department_names IS null OR department_name = ANY($1.department_names)) and
-	($1.faculty_ids IS null OR faculty_id = ANY($1.faculty_ids)) and
-	($1.faculty_names IS null OR faculty_name = ANY($1.faculty_names)) and
-	($1.group_ids IS null OR group_stage_id = ANY($1.group_ids)) and
-	($1.group_names IS null OR group_name = ANY($1.group_names)) and
+	($1.department_ids IS null OR department_id::text ILIKE ANY($1.department_ids)) and
+	($1.department_names IS null OR department_name ILIKE ANY($1.department_names)) and
+	($1.faculty_ids IS null OR faculty_id::text ILIKE ANY($1.faculty_ids)) and
+	($1.faculty_names IS null OR faculty_name ILIKE ANY($1.faculty_names)) and
+	($1.group_ids IS null OR group_stage_id::text ILIKE ANY($1.group_ids)) and
+	($1.group_names IS null OR group_name ILIKE ANY($1.group_names)) and
     ($1.group_courses is null OR group_stage_course = ANY($1.group_courses)) and
     ($1.group_types is null OR group_type = ANY($1.group_types)) and
-    ($1.room_ids IS null OR room_id = ANY($1.room_ids)) and
-	($1.room_names IS null OR room_name = ANY($1.room_names)) and
-	($1.subject_names IS null OR subject_name = ANY($1.subject_names)) and
-    ($1.subject_ids IS null OR subject_id = ANY($1.subject_ids)) and
-	($1.teacher_fios IS null OR teacher_fio = ANY($1.teacher_fios)) and
-    ($1.teacher_bios IS null OR teacher_bio = ANY($1.teacher_bios)) and
-	($1.teacher_ids IS null OR teacher_id = ANY($1.teacher_ids)) and
+    ($1.room_ids IS null OR room_id::text ILIKE ANY($1.room_ids)) and
+	($1.room_names IS null OR room_name ILIKE ANY($1.room_names)) and
+	($1.subject_names IS null OR subject_name ILIKE ANY($1.subject_names)) and
+    ($1.subject_ids IS null OR subject_id::text ILIKE ANY($1.subject_ids)) and
+	($1.teacher_fios IS null OR teacher_fio ILIKE ANY($1.teacher_fios)) and
+    ($1.teacher_bios IS null OR teacher_bio ILIKE ANY($1.teacher_bios)) and
+	($1.teacher_ids IS null OR teacher_id::text ILIKE ANY($1.teacher_ids)) and
     ($1.subgroup IS null OR lesson_subgroup = $1.subgroup) and
 	($1.week IS null OR lesson_week_type = $1.week) and
     ($1.lesson_type is null OR lesson_type = $1.lesson_type) and

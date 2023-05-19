@@ -65,14 +65,18 @@ components_manager:
             path: /timetable/get
             method: POST                
             task_processor: main-task-processor
-        handler-root-admin-create:
+        handler-admin-create:
             path: /admin/create
             method: POST
             task_processor: main-task-processor    
-        handler-root-admin-list:
+        handler-admin-list:
             path: /admin/list
-            method: GET
-            task_processor: main-task-processor    
+            method: POST
+            task_processor: main-task-processor 
+        handler-teacher-list:
+            path: /teacher/list
+            method: POST
+            task_processor: main-task-processor         
         postgres-db-1:
             dbconnection: $dbconnection
             blocking_task_processor: fs-task-processor                
@@ -86,6 +90,7 @@ components_manager:
                 id: $root_id
         token_controller: {}
         lesson_details_controller : {}
+        teacher_controller : {}
         handler-ping:
             path: /ping
             method: GET

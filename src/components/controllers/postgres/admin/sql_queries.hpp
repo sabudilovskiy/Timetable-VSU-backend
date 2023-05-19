@@ -37,9 +37,9 @@ RETURNING id
         login
     FROM admin_info
     WHERE 
-    ($1.admin_ids IS null OR admin_id = ANY($1.admin_ids)) and
-	($1.user_ids IS null OR user_id = ANY($1.user_ids)) and
-	($1.logins IS null OR login = ANY($1.logins))
+    ($1.admin_ids IS null OR admin_id::text ILIKE ANY($1.admin_ids)) and
+	($1.user_ids IS null OR user_id::text ILIKE ANY($1.user_ids)) and
+	($1.logins IS null OR login ILIKE ANY($1.logins))
     ;
     )");
 }

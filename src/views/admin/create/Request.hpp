@@ -8,7 +8,7 @@
 #include "utils/convert/http_request_parse.hpp"
 #include "utils/convert/json_parse.hpp"
 #include "utils/parse/uuid/string.hpp"
-namespace timetable_vsu_backend::views::root::admin::create {
+namespace timetable_vsu_backend::views::admin::create {
 using namespace utils::convert;
 struct Request {
     Property<models::UserCredentials, "credentials"> credentials;
@@ -18,4 +18,4 @@ struct Request {
         TypeOfBody::Json;  //открываем возможность использовать структуру, как
                            //запрос
 };
-}  // namespace timetable_vsu_backend::views::root::admin::create
+}  // namespace timetable_vsu_backend::views::admin::create
