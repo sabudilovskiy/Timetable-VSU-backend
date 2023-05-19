@@ -196,10 +196,16 @@ components:
           $ref: '#/components/schemas/TypesUserV1'
     ViewsRegisterRequestV1:
       properties:
+        description:
+          description: Дополнительная информация для администраторов при регистрации
+            (в рамках запроса привиллегий преподавателя или администратора)
+          type: string
+        desired_type:
+          $ref: '#/components/schemas/TypesUserTypeV1'
         user_credential:
           $ref: '#/components/schemas/TypesUserCredentialV1'
-        user_type:
-          $ref: '#/components/schemas/TypesUserTypeV1'
+      required:
+      - user_credential
     ViewsTimetableGetRequest:
       properties:
         begin:

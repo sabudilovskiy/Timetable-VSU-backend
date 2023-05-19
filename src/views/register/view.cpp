@@ -63,15 +63,15 @@ class Handler final
                            const boost::uuids::uuid& user_id) const
     {
         using enum models::UserType;
-        switch (request.desired_type())
+        switch (request.desired_type().value_or(kUser))
         {
             case kAdmin:
                 user_controller.CreateRequestAdmin(
-                    user_id, request.description(), transaction);
+                    user_id, request.description().value_or(""), transaction);
                 return;
             case kTeacher:
                 user_controller.CreateRequestTeacher(
-                    user_id, request.description(), transaction);
+                    user_id, request.description().value_or(""), transaction);
                 return;
             default:
                 return;

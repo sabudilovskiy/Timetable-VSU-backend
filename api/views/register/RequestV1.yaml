@@ -1,5 +1,10 @@
 properties:
   user_credential:
     $ref: '../../types/UserCredentialV1.yaml'
-  user_type:
+  desired_type:
     $ref: '../../types/UserTypeV1.yaml'
+  description:
+    type: string
+    description: Дополнительная информация для администраторов при регистрации (в рамках запроса привиллегий преподавателя или администратора)
+required:
+  - user_credential
