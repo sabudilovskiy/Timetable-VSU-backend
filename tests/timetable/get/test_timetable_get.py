@@ -48,7 +48,8 @@ async def test_timetable_get_one_lesson(service_client, field, value, found):
     K_FIELDS_LIKE,
     ids=K_IDS_LIKE
 )
-async def test_timetable_get_one_lesson_like(service_client, field, value, found):
+async def test_timetable_get_one_lesson_like(service_client, field,
+                                             value, found):
 
     response = await service_client.post('/timetable/get', json={
         "filter": _perform_filter_like(field, value)
