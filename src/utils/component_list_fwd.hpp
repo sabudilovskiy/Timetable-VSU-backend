@@ -1,4 +1,5 @@
 #pragma once
-namespace userver::components {
+namespace userver::components
+{
 class ComponentList;
 }

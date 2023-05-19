@@ -8,22 +8,32 @@
 #include "type.hpp"
 #include "utils/json_type.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 LessonWeekType Parse(std::string_view str,
-                     userver::formats::parse::To<LessonWeekType>) {
-    if (str == "all") {
+                     userver::formats::parse::To<LessonWeekType>)
+{
+    if (str == "all")
+    {
         return LessonWeekType::kAll;
-    } else if (str == "even") {
+    }
+    else if (str == "even")
+    {
         return LessonWeekType::kEven;
-    } else if (str == "odd") {
+    }
+    else if (str == "odd")
+    {
         return LessonWeekType::kOdd;
-    } else
+    }
+    else
         throw std::runtime_error(fmt::format(
             "Fail parse LessonWeekType, get unexpected value: {}", str));
 }
 LessonWeekType Parse(const userver::formats::json::Value& value,
-                     userver::formats::parse::To<LessonWeekType>) {
-    if (!value.IsString()) {
+                     userver::formats::parse::To<LessonWeekType>)
+{
+    if (!value.IsString())
+    {
         throw std::runtime_error(fmt::format(
             "Expected string type, but got: {}", utils::GetType(value)));
     }

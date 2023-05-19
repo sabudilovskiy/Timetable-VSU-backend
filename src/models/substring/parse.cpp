@@ -7,21 +7,22 @@
 #include <userver/formats/json.hpp>
 
 #include "type.hpp"
-#include "userver/logging/log.hpp"
 #include "utils/json_type.hpp"
 
-namespace timetable_vsu_backend::models {
-SubString Parse(const std::string& str,
-                userver::formats::parse::To<SubString>) {
+namespace timetable_vsu_backend::models
+{
+SubString Parse(const std::string& str, userver::formats::parse::To<SubString>)
+{
     SubString result;
     result.GetUnderlying().reserve(str.size() + 2);
     result.GetUnderlying().append("%").append(str).append("%");
-    LOG_DEBUG() << fmt::format("result: {}", result);
     return result;
 }
 SubString Parse(const userver::formats::json::Value& value,
-                userver::formats::parse::To<SubString>) {
-    if (!value.IsString()) {
+                userver::formats::parse::To<SubString>)
+{
+    if (!value.IsString())
+    {
         throw std::runtime_error(fmt::format(
             "Expected string type, but got: {}", utils::GetType(value)));
     }

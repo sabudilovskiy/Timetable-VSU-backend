@@ -1,8 +1,8 @@
 #pragma once
 #include <userver/storages/postgres/query.hpp>
 
-namespace timetable_vsu_backend::components::controllers::postgres::lesson::
-    sql {
+namespace timetable_vsu_backend::components::controllers::postgres::lesson::sql
+{
 const userver::storages::postgres::Query qGetLessonsByFilter(R"(
     WITH lesson_info as (SELECT
         l.id AS lesson_id,
@@ -31,15 +31,15 @@ const userver::storages::postgres::Query qGetLessonsByFilter(R"(
         t.id AS teacher_id,
         t.fio AS teacher_fio,
         t.bio AS teacher_bio
-    FROM vsu_timetable.lesson AS l
-        LEFT JOIN vsu_timetable.room AS r ON l.id_room = r.id
-        LEFT JOIN vsu_timetable.shedule AS sh ON l.id_shedule = sh.id
-        LEFT JOIN vsu_timetable.subject AS s ON sh.id_subject = s.id
-        LEFT JOIN vsu_timetable.group_stage AS gs ON sh.id_group_stage = gs.id
-        LEFT JOIN vsu_timetable.group AS g ON gs.id_group = g.id
-        LEFT JOIN vsu_timetable.teacher AS t ON sh.id_teacher = t.id
-        LEFT JOIN vsu_timetable.department AS d ON t.id_department = d.id
-        LEFT JOIN vsu_timetable.faculty AS f ON d.id_faculty = f.id
+    FROM timetable_vsu.lesson AS l
+        LEFT JOIN timetable_vsu.room AS r ON l.id_room = r.id
+        LEFT JOIN timetable_vsu.shedule AS sh ON l.id_shedule = sh.id
+        LEFT JOIN timetable_vsu.subject AS s ON sh.id_subject = s.id
+        LEFT JOIN timetable_vsu.group_stage AS gs ON sh.id_group_stage = gs.id
+        LEFT JOIN timetable_vsu.group AS g ON gs.id_group = g.id
+        LEFT JOIN timetable_vsu.teacher AS t ON sh.id_teacher = t.id
+        LEFT JOIN timetable_vsu.department AS d ON t.id_department = d.id
+        LEFT JOIN timetable_vsu.faculty AS f ON d.id_faculty = f.id
     )
     SELECT 
         lesson_id,

@@ -15,39 +15,41 @@
 #include <userver/utils/datetime.hpp>
 
 #include "models/user/postgre.hpp"
+#include "models/user/type.hpp"
 #include "models/user_type/postgre.hpp"
 #include "sql_queries.hpp"
+#include "utils/postgres_helper.hpp"
+#include "utils/shared_transaction.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::token {
+namespace timetable_vsu_backend::components::controllers::postgres::token
+{
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)
     : LoggableComponentBase(config, context),
       pg_cluster_(
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
-              .GetCluster()) {
+              .GetCluster())
+{
 }
-std::optional<models::User> Controller::GetById(std::string_view id) const {
-    auto result = pg_cluster_->Execute(
-        userver::storages::postgres::ClusterHostType::kMaster,
-        sql::qGetUserByTokenId, id, userver::utils::datetime::Now());
-    if (result.IsEmpty()) {
-        return std::nullopt;
-    }
-    return result.AsSingleRow<models::User>(
-        userver::storages::postgres::kRowTag);
+std::optional<models::User> Controller::GetById(
+    std::string_view id, utils::SharedTransaction transaction) const
+{
+    utils::FillSharedTransaction(transaction, pg_cluster_);
+    auto result = utils::PgExecute(transaction, sql::qGetUserByTokenId, id,
+                                   userver::utils::datetime::Now());
+    return utils::ConvertPgResultToOptionalItem<models::User>(result);
 }
 
 std::optional<boost::uuids::uuid> Controller::CreateNew(
     const boost::uuids::uuid& user_id,
-    const std::chrono::system_clock::time_point& time) const {
+    const std::chrono::system_clock::time_point& time,
+    utils::SharedTransaction transaction) const
+{
+    utils::FillSharedTransaction(transaction, pg_cluster_);
     LOG_DEBUG() << fmt::format("Try to create new token, id_user: {}",
                                boost::uuids::to_string(user_id));
-    auto result = pg_cluster_->Execute(
-        userver::storages::postgres::ClusterHostType::kMaster, sql::qAddToken,
-        user_id, time);
-    if (result.IsEmpty()) {
-        return {};
-    }
-    return result.AsSingleRow<boost::uuids::uuid>();
+
+    auto result = utils::PgExecute(transaction, sql::qAddToken, user_id, time);
+    return utils::ConvertPgResultToOptionalItem<boost::uuids::uuid>(result);
 }
 }  // namespace timetable_vsu_backend::components::controllers::postgres::token

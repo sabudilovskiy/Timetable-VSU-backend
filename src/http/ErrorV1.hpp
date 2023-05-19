@@ -3,10 +3,12 @@
 
 #include "../utils/convert/base.hpp"
 
-namespace timetable_vsu_backend::http {
+namespace timetable_vsu_backend::http
+{
 namespace convert = timetable_vsu_backend::utils::convert;
 template <userver::server::http::HttpStatus code>
-struct ErrorV1 {
+struct ErrorV1
+{
     static constexpr convert::TypeOfBody kTypeOfBody =
         convert::TypeOfBody::Json;
     static constexpr convert::PolicyFields kPolicyFields =

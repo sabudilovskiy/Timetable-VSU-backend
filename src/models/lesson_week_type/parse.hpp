@@ -5,7 +5,8 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 LessonWeekType Parse(std::string_view str,
                      userver::formats::parse::To<LessonWeekType>);
 LessonWeekType Parse(const userver::formats::json::Value& value,

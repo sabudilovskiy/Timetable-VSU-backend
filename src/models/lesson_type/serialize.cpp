@@ -2,10 +2,13 @@
 
 #include <userver/formats/json/value_builder.hpp>
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 std::string Serialize(const LessonType& value,
-                      userver::formats::serialize::To<std::string>) {
-    switch (value) {
+                      userver::formats::serialize::To<std::string>)
+{
+    switch (value)
+    {
         case LessonType::kLabaratory:
             return "labaratory";
         case LessonType::kLection:
@@ -16,7 +19,8 @@ std::string Serialize(const LessonType& value,
 }
 userver::formats::json::Value Serialize(
     const LessonType& value,
-    userver::formats::serialize::To<userver::formats::json::Value>) {
+    userver::formats::serialize::To<userver::formats::json::Value>)
+{
     std::string str =
         Serialize(value, userver::formats::serialize::To<std::string>{});
     return userver::formats::json::ValueBuilder(str).ExtractValue();

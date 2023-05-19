@@ -1,21 +1,23 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
+#include <userver/server/http/http_status.hpp>
 
 #include "http/ErrorV1.hpp"
 #include "models/admin_account/type.hpp"
 #include "models/user/type.hpp"
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
-#include "userver/server/http/http_status.hpp"
 #include "utils/convert/additional_properties.hpp"
 #include "utils/convert/base.hpp"
 #include "utils/convert/http_response_serialize.hpp"
 #include "utils/convert/json_parse.hpp"
 
-namespace timetable_vsu_backend::views::admin::list {
+namespace timetable_vsu_backend::views::admin::list
+{
 using namespace utils::convert;
-struct Response200 {
+struct Response200
+{
     ArrayProperty<timetable_vsu_backend::models::AdminAccount, "admins"> admins;
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
@@ -32,7 +34,8 @@ using Response401 =
 using Response403 =
     http::ErrorV1<userver::server::http::HttpStatus::kForbidden>;
 
-struct Response500 {
+struct Response500
+{
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Empty;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
     static constexpr userver::server::http::HttpStatus kStatusCode =

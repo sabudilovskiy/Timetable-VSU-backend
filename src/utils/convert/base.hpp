@@ -6,18 +6,24 @@
 #include "utils/constexpr_string.hpp"
 #include "utils/meta.hpp"
 
-namespace timetable_vsu_backend::utils::convert {
+namespace timetable_vsu_backend::utils::convert
+{
 //В данный момент поддерживаются только конвертация всех полей
-enum struct PolicyFields { ConvertAll };
+enum struct PolicyFields
+{
+    ConvertAll
+};
 
 //тип тела в запросе
-enum struct TypeOfBody {
+enum struct TypeOfBody
+{
     Empty,  // Empty body = body игнорируеттся
     Json
 };
 
 //указание откуда следует парсить в http запросе
-enum struct RequestParse {
+enum struct RequestParse
+{
     Unspecified,  //данное поле в запросах будет парсится из body
     Query,
     Header,
@@ -26,20 +32,24 @@ enum struct RequestParse {
 
 template <typename T, ConstexprString name,
           RequestParse request_parse = RequestParse::Unspecified>
-struct BaseProperty {
+struct BaseProperty
+{
     using value_type = T;
     constexpr auto static kName = name;
     constexpr auto static kRequestParse = request_parse;
 
     template <class Arg>
-    value_type& operator=(Arg&& arg) {
+    value_type& operator=(Arg&& arg)
+    {
         value = std::forward<Arg>(arg);
         return value;
     }
-    value_type& operator()() {
+    value_type& operator()()
+    {
         return value;
     }
-    const value_type& operator()() const {
+    const value_type& operator()() const
+    {
         return value;
     }
     value_type value;
@@ -78,14 +88,18 @@ concept IsAnyProperty = std::is_class_v<T>&& std::is_same_v<
     BaseProperty<typename T::value_type, T::kName, T::kRequestParse>, T>;
 
 template <typename T>
-concept HasTypeOfBody = requires {
-    { T::kTypeOfBody }
+concept HasTypeOfBody = requires
+{
+    {
+        T::kTypeOfBody
+    }
     ->std::convertible_to<TypeOfBody>;
     requires IsConstexpr<T::kTypeOfBody>;
 };
 
 template <typename T>
-concept IsConvertAll = requires {
+concept IsConvertAll = requires
+{
     requires T::kPolicyFields == PolicyFields::ConvertAll;
 };
 }  // namespace timetable_vsu_backend::utils::convert

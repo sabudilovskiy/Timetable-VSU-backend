@@ -12,9 +12,11 @@
 #include "models/timestring/type.hpp"
 #include "utils/convert/additional_properties.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 namespace convert = utils::convert;
-struct LessonFilter {
+struct LessonFilter
+{
     convert::OptionalArrayProperty<SubString, "lesson_ids"> lesson_ids;
     convert::OptionalProperty<TimeString, "begin"> begin;
     convert::OptionalProperty<TimeString, "end"> end;

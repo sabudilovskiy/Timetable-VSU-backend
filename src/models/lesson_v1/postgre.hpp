@@ -8,7 +8,8 @@
 #include "models/subgroup/postgre.hpp"
 #include "models/timestring/postgre.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 using TupleLessonV1 =
     timetable_vsu_backend::utils::convert::drop_properties_to_ref_mut_t<
         LessonV1>;

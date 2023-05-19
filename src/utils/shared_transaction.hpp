@@ -5,29 +5,35 @@
 #include <userver/storages/postgres/transaction.hpp>
 #include <userver/utils/make_intrusive_ptr.hpp>
 
-namespace vsu_timetable::utils {
-
+namespace timetable_vsu_backend::utils
+{
 // thread unsafe
 // count owners
-struct SafeTranscaction {
+struct SafeTranscaction
+{
     userver::storages::postgres::Transaction transaction_;
     SafeTranscaction(const userver::storages::postgres::ClusterPtr& ptr,
                      const std::string& name, bool auto_commit)
         : transaction_(ptr->Begin(
               name, userver::storages::postgres::ClusterHostType::kMaster, {})),
-          auto_commit_(auto_commit) {
+          auto_commit_(auto_commit)
+    {
     }
-    friend void intrusive_ptr_add_ref(SafeTranscaction* transaction) {
+    friend void intrusive_ptr_add_ref(SafeTranscaction* transaction)
+    {
         transaction->counter++;
     }
 
-    friend void intrusive_ptr_release(SafeTranscaction* transaction) {
+    friend void intrusive_ptr_release(SafeTranscaction* transaction)
+    {
         transaction->counter--;
         if (transaction->counter == 0)
             delete transaction;
     }
-    ~SafeTranscaction() {
-        if (auto_commit_) {
+    ~SafeTranscaction()
+    {
+        if (auto_commit_)
+        {
             transaction_.Commit();
         }
     }
@@ -51,7 +57,8 @@ using SharedTransaction = boost::intrusive_ptr<SafeTranscaction>;
 
 inline auto MakeSharedTransaction(
     const userver::storages::postgres::ClusterPtr& ptr,
-    const std::string& name = "", bool auto_commit = true) {
+    const std::string& name = "", bool auto_commit = true)
+{
     return userver::utils::make_intrusive_ptr<SafeTranscaction>(ptr, name,
                                                                 auto_commit);
 }
@@ -59,10 +66,12 @@ inline auto MakeSharedTransaction(
 inline void FillSharedTransaction(
     SharedTransaction& transaction,
     const userver::storages::postgres::ClusterPtr& ptr,
-    const std::string& name = "", bool auto_commit = true) {
-    if (!transaction) {
-        transaction =
-            vsu_timetable::utils::MakeSharedTransaction(ptr, name, auto_commit);
+    const std::string& name = "", bool auto_commit = true)
+{
+    if (!transaction)
+    {
+        transaction = timetable_vsu_backend::utils::MakeSharedTransaction(
+            ptr, name, auto_commit);
     }
 }
-}  // namespace vsu_timetable::utils
+}  // namespace timetable_vsu_backend::utils

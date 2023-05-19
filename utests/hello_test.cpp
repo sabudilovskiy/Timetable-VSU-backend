@@ -3,7 +3,8 @@
 
 #include "views/hello/view.hpp"
 
-UTEST(SayHelloTo, Basic) {
+UTEST(SayHelloTo, Basic)
+{
     EXPECT_EQ(service_template::SayHelloTo("Developer",
                                            service_template::UserType::kKnown),
               "Hi again, Developer!\n");

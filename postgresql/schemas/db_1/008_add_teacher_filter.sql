@@ -1,7 +1,7 @@
 BEGIN;
 
-DROP TYPE IF EXISTS vsu_timetable.teacher_filter;
-CREATE TYPE vsu_timetable.teacher_filter AS
+DROP TYPE IF EXISTS timetable_vsu.teacher_filter;
+CREATE TYPE timetable_vsu.teacher_filter AS
 (
     teacher_ids text[],
     teacher_fios text[],

@@ -7,10 +7,13 @@
 #include "utils/convert/base.hpp"
 #include "utils/convert/http_response_base.hpp"
 
-namespace timetable_vsu_backend::utils::convert::detail::serialize {
+namespace timetable_vsu_backend::utils::convert::detail::serialize
+{
 template <typename T>
-struct ConverterHttpResponse {
-    static void Do(const T& t, HttpResponse& response) {
+struct ConverterHttpResponse
+{
+    static void Do(const T& t, HttpResponse& response)
+    {
         auto tuple = GetTuple(t);
         static_assert(HasTypeOfBody<T>, "Type must have kTypeOfBody");
         static_assert(HasStatusCode<T>, "Type must have kStatusCode");
@@ -21,15 +24,20 @@ struct ConverterHttpResponse {
     }
 
    protected:
-    struct EmptyBody {};
-    static void SetStatus(HttpResponse& response) {
+    struct EmptyBody
+    {
+    };
+    static void SetStatus(HttpResponse& response)
+    {
         response().SetStatus(T::kStatusCode);
     }
-    static void TranslateBody(HttpResponse& response, EmptyBody&) {
+    static void TranslateBody(HttpResponse& response, EmptyBody&)
+    {
         response.body = "";
     }
     static void TranslateBody(HttpResponse& response,
-                              userver::formats::json::ValueBuilder& body) {
+                              userver::formats::json::ValueBuilder& body)
+    {
         response.body = ToString(body.ExtractValue());
     }
     using ValueType = T;
@@ -41,20 +49,24 @@ struct ConverterHttpResponse {
     //последовательность индексов для обхода полей
     using IndexSequence = std::make_index_sequence<size>;
     //создаем кортеж ссылок на поля изначальной структуры
-    static ConstTupleType GetTuple(const ValueType& v) {
+    static ConstTupleType GetTuple(const ValueType& v)
+    {
         return boost::pfr::structure_tie(v);
     }
 
     //проверяем, что каждое поле кортежа является Property
     template <typename... Properties>
-    static constexpr void check_properties(const std::tuple<Properties...>&) {
+    static constexpr void check_properties(const std::tuple<Properties...>&)
+    {
         static_assert((IsAnyProperty<std::remove_cvref_t<Properties>> && ...),
                       "Not all properties satisfy IsProperty concept");
     }
     //невозможно распарсить поле в тело, если оно пустое
     template <IsProperty Field>
-    static void SerializeField(HttpResponse&, const EmptyBody&, const Field&) {
-        auto bad = []<bool flag = false>() {
+    static void SerializeField(HttpResponse&, const EmptyBody&, const Field&)
+    {
+        auto bad = []<bool flag = false>()
+        {
             static_assert(flag,
                           "Found property from body, but body marked empty");
         };
@@ -63,7 +75,8 @@ struct ConverterHttpResponse {
     template <IsProperty Field>
     static void SerializeField(HttpResponse&,
                                userver::formats::json::ValueBuilder& body,
-                               const Field& field) {
+                               const Field& field)
+    {
         static constexpr std::string_view kName = Field::kName;
         std::string temp{kName};
         body[temp] = field();
@@ -72,8 +85,10 @@ struct ConverterHttpResponse {
     template <IsQueryProperty Field>
     static void SerializeField(HttpResponse&,
                                userver::formats::json::ValueBuilder&,
-                               const Field&) {
-        auto bad = []<bool flag = false>() {
+                               const Field&)
+    {
+        auto bad = []<bool flag = false>()
+        {
             static_assert(
                 flag,
                 "A query property was found, which is invalid because "
@@ -84,7 +99,8 @@ struct ConverterHttpResponse {
     template <IsCookieProperty Field>
     static void SerializeField(HttpResponse& response,
                                userver::formats::json::ValueBuilder&,
-                               const Field& field) {
+                               const Field& field)
+    {
         static constexpr std::string_view kName = Field::kName;
         std::string temp{kName};
         std::string field_value =
@@ -99,7 +115,8 @@ struct ConverterHttpResponse {
     template <IsHeaderProperty Field>
     static void SerializeField(HttpResponse& response,
                                userver::formats::json::ValueBuilder&,
-                               const Field& field) {
+                               const Field& field)
+    {
         static constexpr std::string_view kName = Field::kName;
         std::string temp{kName};
         std::string field_value =
@@ -108,19 +125,24 @@ struct ConverterHttpResponse {
     }
     //Паттерн-матчинг относительно типа поля
     template <TypeOfBody type_of_body>
-    static auto GetBody() {
-        if constexpr (type_of_body == TypeOfBody::Json) {
+    static auto GetBody()
+    {
+        if constexpr (type_of_body == TypeOfBody::Json)
+        {
             //было бы неплохо поддерживать не только возврат как объекта, но
             //пока так
             return userver::formats::json::ValueBuilder(
                 userver::formats::json::Type::kObject);
-        } else {
+        }
+        else
+        {
             return EmptyBody{};
         }
     }
     template <typename Tuple, typename Body, std::size_t... Indexes>
     static void SerializeTuple(HttpResponse& response, Body& body,
-                               Tuple&& tuple, std::index_sequence<Indexes...>) {
+                               Tuple&& tuple, std::index_sequence<Indexes...>)
+    {
         check_properties(tuple);
         //сериализуем все поля
         (SerializeField(response, body, std::get<Indexes>(tuple)), ...);

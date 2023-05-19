@@ -20,15 +20,20 @@
 #include "http/handler_parsed.hpp"
 #include "models/auth_token/serialize.hpp"
 #include "models/user/serialize.hpp"
+#include "models/user_type/parse.hpp"
+#include "models/user_type/type.hpp"
+#include "utils/shared_transaction.hpp"
 #include "views/register/Responses.hpp"
 
-namespace timetable_vsu_backend::views::register_ {
-
-namespace {
+namespace timetable_vsu_backend::views::register_
+{
+namespace
+{
 namespace pg = components::controllers::postgres;
 using Response = models::AuthToken;
-class Handler final : public http::HandlerParsed<Request, Response200,
-                                                 Response400, Response500> {
+class Handler final
+    : public http::HandlerParsed<Request, Response200, Response400, Response500>
+{
    public:
     static constexpr std::string_view kName = "handler-register";
     using http::HandlerParsed<Request, Response200, Response400,
@@ -37,23 +42,58 @@ class Handler final : public http::HandlerParsed<Request, Response200,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
           user_controller(context.FindComponent<pg::user::Controller>()),
-          token_controller(context.FindComponent<pg::token::Controller>()) {
+          token_controller(context.FindComponent<pg::token::Controller>())
+    {
     }
-
-    Response Handle(Request&& request) const override {
-        auto user_id = user_controller.TryToAdd(request);
-        if (!user_id) {
-            LOG_DEBUG() << fmt::format("Cannot create user, login: {}",
-                                       request.login());
-            return Response400{};
+    static Response400 PerformLoginTaken()
+    {
+        Response400 resp400;
+        resp400.machine_id() = "LOGIN_ALREADY_TAKEN";
+        resp400.description() = "This login is busy, please use another one.";
+        return resp400;
+    }
+    static Response500 PerformFailToken(const boost::uuids::uuid& user_id)
+    {
+        LOG_WARNING() << fmt::format("Failed to create token for user, id: {}",
+                                     user_id);
+        return Response500{};
+    }
+    void HandleDesiredType(const utils::SharedTransaction& transaction,
+                           const Request& request,
+                           const boost::uuids::uuid& user_id) const
+    {
+        using enum models::UserType;
+        switch (request.desired_type())
+        {
+            case kAdmin:
+                user_controller.CreateRequestAdmin(
+                    user_id, request.description(), transaction);
+                return;
+            case kTeacher:
+                user_controller.CreateRequestTeacher(
+                    user_id, request.description(), transaction);
+                return;
+            default:
+                return;
+        }
+    }
+    Response Handle(Request&& request) const override
+    {
+        auto transaction = user_controller.CreateTransaction();
+        auto user_id =
+            user_controller.TryToAdd(request.user_credentials(), transaction);
+        if (!user_id)
+        {
+            return PerformLoginTaken();
         }
         auto id = token_controller.CreateNew(
-            *user_id, userver::utils::datetime::Now() + std::chrono::hours(24));
-        if (!id) {
-            LOG_WARNING() << fmt::format(
-                "Failed to create token for user, id: {}", *user_id);
-            return Response500{};
+            *user_id, userver::utils::datetime::Now() + std::chrono::hours(24),
+            transaction);
+        if (!id)
+        {
+            return PerformFailToken(user_id.value());
         }
+        HandleDesiredType(transaction, request, user_id.value());
         Response200 resp;
         resp.id() = *id;
         resp.user() =
@@ -67,7 +107,8 @@ class Handler final : public http::HandlerParsed<Request, Response200,
 };
 }  // namespace
 
-void Append(userver::components::ComponentList& component_list) {
+void Append(userver::components::ComponentList& component_list)
+{
     component_list.Append<Handler>();
 }
 

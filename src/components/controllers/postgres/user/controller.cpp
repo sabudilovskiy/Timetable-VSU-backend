@@ -14,6 +14,7 @@
 #include <userver/storages/postgres/cluster_types.hpp>
 #include <userver/storages/postgres/component.hpp>
 #include <userver/storages/postgres/query.hpp>
+#include <userver/storages/postgres/result_set.hpp>
 #include <userver/yaml_config/merge_schemas.hpp>
 #include <userver/yaml_config/schema.hpp>
 #include <utils/convert/drop_properties_ref.hpp>
@@ -23,95 +24,143 @@
 #include "models/user/postgre.hpp"
 #include "models/user/type.hpp"
 #include "models/user_credentials/postgre.hpp"
-#include "userver/storages/postgres/result_set.hpp"
+#include "utils/postgres_helper.hpp"
+#include "utils/shared_transaction.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::user {
+namespace timetable_vsu_backend::components::controllers::postgres::user
+{
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)
     : LoggableComponentBase(config, context),
       pg_cluster_(
           context.FindComponent<userver::components::Postgres>("postgres-db-1")
-              .GetCluster()) {
+              .GetCluster())
+{
     models::UserCredentials root;
     root.login() = config["root"]["login"].As<std::string>();
     root.password() = config["root"]["password"].As<std::string>();
     root_id = boost::lexical_cast<boost::uuids::uuid>(
         config["root"]["id"].As<std::string>());
-    try {
+    try
+    {
         InternalForceCreateUser(root_id.value(), root);
-    } catch (std::exception& exc) {
+    }
+    catch (std::exception& exc)
+    {
         LOG_WARNING() << fmt::format("Error while creating superuser : {}",
                                      exc.what());
         root_id = std::nullopt;
     }
 }
 
+utils::SharedTransaction Controller::CreateTransaction()
+{
+    return utils::MakeSharedTransaction(pg_cluster_);
+}
+
 void Controller::InternalForceCreateUser(
-    const boost::uuids::uuid&,
-    const models::UserCredentials& user_credentials) {
-    pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
-                         sql::qDropUserById, root_id);
-    pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
-                         sql::qDropUserByLogin, user_credentials.login());
-    pg_cluster_->Execute(
-        userver::storages::postgres::ClusterHostType::kMaster,
-        sql::qInternalAddUser, root_id,
-        utils::convert::DropPropertiesToConstRefs(user_credentials));
+    const boost::uuids::uuid&, const models::UserCredentials& user_credentials,
+    utils::SharedTransaction transaction)
+{
+    utils::FillSharedTransaction(transaction, pg_cluster_);
+    utils::PgExecute(transaction, sql::qDropUserById, root_id);
+    utils::PgExecute(transaction, sql::qDropUserByLogin,
+                     user_credentials.login());
+    utils::PgExecute(transaction, sql::qInternalAddUser, root_id,
+                     user_credentials);
+}
+
+std::optional<boost::uuids::uuid> Controller::CreateRequestTeacher(
+    const boost::uuids::uuid& user_id, const std::string& description,
+    utils::SharedTransaction transaction) const
+{
+    utils::FillSharedTransaction(transaction, pg_cluster_);
+    auto pg_result = utils::PgExecute(transaction, sql::qCreateTeacherRequest,
+                                      user_id, description);
+    return utils::ConvertPgResultToOptionalItem<boost::uuids::uuid>(pg_result);
+}
+
+std::optional<boost::uuids::uuid> Controller::CreateRequestAdmin(
+    const boost::uuids::uuid& user_id, const std::string& description,
+    utils::SharedTransaction transaction) const
+{
+    utils::FillSharedTransaction(transaction, pg_cluster_);
+    auto pg_result = utils::PgExecute(transaction, sql::qCreateAdminRequest,
+                                      user_id, description);
+    return utils::ConvertPgResultToOptionalItem<boost::uuids::uuid>(pg_result);
 }
 
 std::optional<models::User> Controller::HandleUserFromPg(
-    userver::storages::postgres::ResultSet& result) const {
-    if (result.IsEmpty()) {
+    userver::storages::postgres::ResultSet& result) const
+{
+    if (result.IsEmpty())
+    {
         return std::nullopt;
     }
     std::optional<models::User> user = std::nullopt;
-    if (result.Size() == 1) {
-        models::User read;
-        auto pg_user = utils::convert::DropPropertiesToMutRefs(read);
-        result[0].To(pg_user, userver::storages::postgres::kRowTag);
-        user = read;
-    } else if (result.Size() != 0) {
+    if (result.Size() == 1)
+    {
+        user = utils::ConvertPgResultToItem<models::User>(result);
+    }
+    else if (result.Size() != 0)
+    {
         LOG_WARNING() << fmt::format("Unexpected quantity from postgres: {}",
                                      result.Size());
     }
-    if (user && user->id() == root_id) {
+    if (user && user->id() == root_id)
+    {
         user->type() = models::UserType::kRoot;
     }
     return user;
 }
 
 std::optional<models::User> Controller::GetByCredentials(
-    const models::UserCredentials& user_credentials) const {
-    auto result = pg_cluster_->Execute(
-        userver::storages::postgres::ClusterHostType::kMaster,
+    const models::UserCredentials& user_credentials,
+    utils::SharedTransaction transaction) const
+{
+    utils::FillSharedTransaction(transaction, pg_cluster_);
+    auto result = transaction->transaction_.Execute(
         sql::qGetUserByCredentials,
         utils::convert::DropPropertiesToConstRefs(user_credentials));
     return HandleUserFromPg(result);
 }
 
 std::optional<models::User> Controller::GetByToken(
-    const boost::uuids::uuid& token) const {
-    auto result = pg_cluster_->Execute(
-        userver::storages::postgres::ClusterHostType::kMaster,
-        sql::qGetUserByToken, token);
+    const boost::uuids::uuid& token, utils::SharedTransaction transaction) const
+{
+    utils::FillSharedTransaction(transaction, pg_cluster_);
+    auto result =
+        transaction->transaction_.Execute(sql::qGetUserByToken, token);
     return HandleUserFromPg(result);
 }
+
+utils::SharedTransaction Controller::CreateTransaction() const
+{
+    return utils::MakeSharedTransaction(pg_cluster_);
+}
+
 std::optional<boost::uuids::uuid> Controller::TryToAdd(
-    const models::UserCredentials& user_credentials) const {
-    auto result = pg_cluster_->Execute(
-        userver::storages::postgres::ClusterHostType::kMaster, sql::qAddUser,
-        utils::convert::DropPropertiesToConstRefs(user_credentials));
-    if (result.IsEmpty()) {
+    const models::UserCredentials& user_credentials,
+    utils::SharedTransaction transaction) const
+{
+    utils::FillSharedTransaction(transaction, pg_cluster_);
+    auto result =
+        utils::PgExecute(transaction, sql::qAddUser, user_credentials);
+    if (result.IsEmpty())
+    {
         return {};
     }
     return result.AsSingleRow<boost::uuids::uuid>();
 }
-Controller::~Controller() {
+
+Controller::~Controller()
+{
     pg_cluster_->Execute(userver::storages::postgres::ClusterHostType::kMaster,
                          sql::qDropUserById, root_id);
 }
 
-userver::yaml_config::Schema Controller::GetStaticConfigSchema() {
+userver::yaml_config::Schema Controller::GetStaticConfigSchema()
+{
     return userver::yaml_config::MergeSchemas<
         userver::components::LoggableComponentBase>(config::schema);
 }

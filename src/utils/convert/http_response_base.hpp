@@ -3,24 +3,32 @@
 
 #include "utils/meta.hpp"
 
-namespace userver::server::http {
+namespace userver::server::http
+{
 class HttpResponse;
 }
 
-namespace timetable_vsu_backend::utils::convert {
-struct HttpResponse {
+namespace timetable_vsu_backend::utils::convert
+{
+struct HttpResponse
+{
     userver::server::http::HttpResponse& response;
     std::string& body;
-    userver::server::http::HttpResponse& operator()() {
+    userver::server::http::HttpResponse& operator()()
+    {
         return response;
     }
-    userver::server::http::HttpResponse& operator()() const {
+    userver::server::http::HttpResponse& operator()() const
+    {
         return response;
     }
 };
 template <typename T>
-concept HasStatusCode = requires {
-    { T::kStatusCode }
+concept HasStatusCode = requires
+{
+    {
+        T::kStatusCode
+    }
     ->std::convertible_to<userver::server::http::HttpStatus>;
     requires IsConstexpr<T::kStatusCode>;
 };

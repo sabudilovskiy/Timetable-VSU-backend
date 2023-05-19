@@ -1,7 +1,7 @@
 BEGIN;
 
-DROP TYPE IF EXISTS vsu_timetable.admin_account;
-CREATE TYPE vsu_timetable.admin_account AS
+DROP TYPE IF EXISTS timetable_vsu.admin_account;
+CREATE TYPE timetable_vsu.admin_account AS
 (
     user_id uuid,
 	admin_id uuid

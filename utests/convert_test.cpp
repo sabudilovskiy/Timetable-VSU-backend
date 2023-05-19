@@ -14,14 +14,16 @@
 #include "utils/convert/json_serialize.hpp"
 
 namespace magic = timetable_vsu_backend::utils::convert;
-struct TestStruct {
+struct TestStruct
+{
     static constexpr auto kPolicyFields = magic::PolicyFields::ConvertAll;
     magic::Property<std::string, "login"> Login;
     magic::Property<std::string, "password"> Password;
 };
 static_assert(magic::IsProperty<decltype(TestStruct::Login)>);
 
-UTEST(TestConvert, BasicJsonToStruct) {
+UTEST(TestConvert, BasicJsonToStruct)
+{
     static_assert(magic::IsConvertAll<TestStruct>);
     static_assert(
         userver::formats::common::impl::kHasParse<userver::formats::json::Value,
@@ -35,7 +37,8 @@ UTEST(TestConvert, BasicJsonToStruct) {
     EXPECT_EQ(test_struct.Password(), "test_password");
 }
 
-UTEST(TestConvert, BasicStructToJson) {
+UTEST(TestConvert, BasicStructToJson)
+{
     static_assert(magic::IsConvertAll<TestStruct>);
     static_assert(userver::formats::common::impl::kHasSerialize<
                   userver::formats::json::Value, TestStruct>);

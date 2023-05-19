@@ -8,24 +8,36 @@
 #include "type.hpp"
 #include "utils/json_type.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 EducationType Parse(std::string_view str,
-                    userver::formats::parse::To<EducationType>) {
-    if (str == "magistracy") {
+                    userver::formats::parse::To<EducationType>)
+{
+    if (str == "magistracy")
+    {
         return EducationType::kMagistracy;
-    } else if (str == "postgraduate") {
+    }
+    else if (str == "postgraduate")
+    {
         return EducationType::kPostgraduate;
-    } else if (str == "specialty") {
+    }
+    else if (str == "specialty")
+    {
         return EducationType::kSpecialty;
-    } else if (str == "undergraduate") {
+    }
+    else if (str == "undergraduate")
+    {
         return EducationType::kUndergraduate;
-    } else
+    }
+    else
         throw std::runtime_error(fmt::format(
             "Fail parse EducationType, get unexpected value: {}", str));
 }
 EducationType Parse(const userver::formats::json::Value& value,
-                    userver::formats::parse::To<EducationType>) {
-    if (!value.IsString()) {
+                    userver::formats::parse::To<EducationType>)
+{
+    if (!value.IsString())
+    {
         throw std::runtime_error(fmt::format(
             "Expected string type, but got: {}", utils::GetType(value)));
     }

@@ -5,7 +5,8 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 TimeString Parse(const std::string& str,
                  userver::formats::parse::To<TimeString>);
 TimeString Parse(const userver::formats::json::Value& value,

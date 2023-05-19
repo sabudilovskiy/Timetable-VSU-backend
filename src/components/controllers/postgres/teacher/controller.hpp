@@ -9,8 +9,10 @@
 #include "models/teacher_filter/type.hpp"
 #include "utils/shared_transaction.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::teacher {
-class Controller final : public userver::components::LoggableComponentBase {
+namespace timetable_vsu_backend::components::controllers::postgres::teacher
+{
+class Controller final : public userver::components::LoggableComponentBase
+{
    public:
     using userver::components::LoggableComponentBase::LoggableComponentBase;
     static constexpr inline std::string_view kName = "teacher_controller";
@@ -18,8 +20,9 @@ class Controller final : public userver::components::LoggableComponentBase {
                const userver::components::ComponentContext& context);
     std::vector<models::Teacher> GetByFilter(
         std::optional<models::TeacherFilter>& filter,
-        vsu_timetable::utils::SharedTransaction transaction = nullptr) const;
-    vsu_timetable::utils::SharedTransaction CreateTransaction();
+        timetable_vsu_backend::utils::SharedTransaction transaction =
+            nullptr) const;
+    timetable_vsu_backend::utils::SharedTransaction CreateTransaction();
 
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;

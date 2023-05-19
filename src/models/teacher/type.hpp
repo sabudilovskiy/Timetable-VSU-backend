@@ -5,9 +5,11 @@
 #include "models/user_type/type.hpp"
 #include "utils/convert/base.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 namespace convert = utils::convert;
-struct Teacher {
+struct Teacher
+{
     convert::Property<boost::uuids::uuid, "id"> id;
     convert::Property<std::string, "fio"> fio;
     convert::Property<std::string, "bio"> bio;

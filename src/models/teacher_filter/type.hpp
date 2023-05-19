@@ -13,9 +13,11 @@
 #include "models/timestring/type.hpp"
 #include "utils/convert/additional_properties.hpp"
 
-namespace timetable_vsu_backend::models {
+namespace timetable_vsu_backend::models
+{
 namespace convert = utils::convert;
-struct TeacherFilter {
+struct TeacherFilter
+{
     convert::OptionalArrayProperty<SubString, "teacher_ids"> admin_ids;
     convert::OptionalArrayProperty<SubString, "teacher_fios"> fios;
     convert::OptionalArrayProperty<SubString, "teacher_bios"> bios;

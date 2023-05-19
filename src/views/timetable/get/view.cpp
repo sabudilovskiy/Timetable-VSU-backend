@@ -28,29 +28,33 @@
 static_assert(userver::formats::common::impl::kHasSerialize<
               userver::formats::json::Value,
               timetable_vsu_backend::models::LessonType>);
-namespace timetable_vsu_backend::views::timetable::get {
-
-namespace {
-
+namespace timetable_vsu_backend::views::timetable::get
+{
+namespace
+{
 namespace pg = components::controllers::postgres;
-class Handler final : public http::HandlerParsed<Request, Response200> {
+class Handler final : public http::HandlerParsed<Request, Response200>
+{
    public:
     static constexpr std::string_view kName = "handler-timetable-get";
     Handler(const userver::components::ComponentConfig& config,
             const userver::components::ComponentContext& context)
         : HandlerParsed(config, context),
-          lesson_controller(context.FindComponent<pg::lesson::Controller>()) {
+          lesson_controller(context.FindComponent<pg::lesson::Controller>())
+    {
     }
-    static void ValidateBeginEnd(Request& request) {
+    static void ValidateBeginEnd(Request& request)
+    {
         if (request.filter() and request.filter()->begin() and
             request.filter()->end() &&
-            request.filter()->begin().value() >
-                request.filter()->end().value()) {
+            request.filter()->begin().value() > request.filter()->end().value())
+        {
             std::swap(request.filter()->begin().value(),
                       request.filter()->end().value());
         }
     }
-    Response Handle(Request&& request) const override {
+    Response Handle(Request&& request) const override
+    {
         Response200 resp;
         ValidateBeginEnd(request);
         resp.lessons() = lesson_controller.Search(request.filter());
@@ -62,7 +66,8 @@ class Handler final : public http::HandlerParsed<Request, Response200> {
 };
 }  // namespace
 
-void Append(userver::components::ComponentList& component_list) {
+void Append(userver::components::ComponentList& component_list)
+{
     component_list.Append<Handler>();
 }
 
