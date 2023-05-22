@@ -30,28 +30,6 @@ class Handler final
     : public http::HandlerParsed<Request, Response200, Response400, Response401,
                                  Response403>
 {
-    static Response400 PerformLoginTaken()
-    {
-        Response400 resp;
-        resp.description = "Account can't created: login is already taken";
-        resp.machine_id = "LOGIN_TAKEN";
-        return resp;
-    }
-    static Response401 PerformInvalidToken()
-    {
-        Response401 resp;
-        resp.description = "Account not founded: token invalid";
-        resp.machine_id = "INVALID_TOKEN";
-        return resp;
-    }
-    static Response403 PerformForbidden()
-    {
-        Response403 resp;
-        resp.description = "Not enough permissions to do so";
-        resp.machine_id = "NOT_ENOUGH_PERMISSIONS";
-        return resp;
-    }
-
    public:
     [[maybe_unused]] static constexpr std::string_view kName =
         "handler-admin-list";
@@ -68,11 +46,11 @@ class Handler final
         auto user = user_controller.GetByToken(request.token());
         if (!user)
         {
-            return PerformInvalidToken();
+            return utils::common_errors::PerformInvalidToken();
         }
         if (user->type() != models::UserType::kRoot)
         {
-            return PerformForbidden();
+            return utils::common_errors::PerformForbidden();
         }
         auto admins = admin_controller.GetByFilter(request.filter());
         Response200 resp;

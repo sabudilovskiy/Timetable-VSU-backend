@@ -20,7 +20,11 @@
 #include "views/hello/view.hpp"
 #include "views/login/view.hpp"
 #include "views/register/view.hpp"
+#include "views/teacher/create/view.hpp"
 #include "views/teacher/list/view.hpp"
+#include "views/teacher/request/approve/link/view.hpp"
+#include "views/teacher/request/approve/new/view.hpp"
+#include "views/teacher/request/list/view.hpp"
 #include "views/timetable/get/view.hpp"
 
 int main(int argc, char* argv[])
@@ -41,6 +45,10 @@ int main(int argc, char* argv[])
     views::admin::create::Append(component_list);
     views::admin::list::Append(component_list);
     views::teacher::list::Append(component_list);
+    views::teacher::create::Append(component_list);
+    views::teacher::requests::list::Append(component_list);
+    views::teacher::requests::approve::link::Append(component_list);
+    views::teacher::requests::approve::new_::Append(component_list);
     components::controllers::postgres::AppendUserController(component_list);
     components::controllers::postgres::AppendTokenController(component_list);
     components::controllers::postgres::AppendLessonDetailsController(

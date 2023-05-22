@@ -1,4 +1,5 @@
 #pragma once
+#include <exception>
 #include <optional>
 #include <userver/storages/postgres/exceptions.hpp>
 #include <userver/storages/postgres/io/row_types.hpp>
@@ -6,6 +7,7 @@
 #include <userver/storages/postgres/result_set.hpp>
 
 #include "convert/base.hpp"
+#include "userver/logging/log.hpp"
 #include "userver/utils/meta.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
 #include "utils/shared_transaction.hpp"
@@ -84,6 +86,17 @@ std::optional<To> ConvertPgResultToOptionalItem(
         return pg_result.AsSingleRow<To>();
 }
 
+template <typename To>
+std::optional<To> ConvertPgResultToOptionalItem(
+    const std::optional<userver::storages::postgres::ResultSet>& pg_result)
+{
+    if (!pg_result)
+    {
+        return std::nullopt;
+    }
+    return ConvertPgResultToOptionalItem<To>(pg_result.value());
+}
+
 namespace details
 {
 //Небольшой хелпер, чтобы обобщить обработку рефлективных типов и нерефлективных
@@ -112,5 +125,27 @@ userver::storages::postgres::ResultSet PgExecute(
 {
     return transaction->transaction_.Execute(query,
                                              details::HelpForwardArg(args)...);
+}
+
+//обертка для повседневного использования магических структур
+//так как было решено во всех контроллерах использовать shared transaction, то
+//этого интерфейса достаточно
+//Ловит все исключения, если было брошено исключение, то вернет std::nullopt
+template <typename... Args>
+std::optional<userver::storages::postgres::ResultSet> PgSafeExecute(
+    const timetable_vsu_backend::utils::SharedTransaction& transaction,
+    const userver::storages::postgres::Query& query, const Args&... args)
+{
+    try
+    {
+        return transaction->transaction_.Execute(
+            query, details::HelpForwardArg(args)...);
+    }
+    catch (std::exception& exc)
+    {
+        LOG_ERROR() << fmt::format(
+            "Throwed exception while executing query, message: {}", exc.what());
+        return std::nullopt;
+    }
 }
 }  // namespace timetable_vsu_backend::utils

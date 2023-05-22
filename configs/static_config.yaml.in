@@ -76,7 +76,23 @@ components_manager:
         handler-teacher-list:
             path: /teacher/list
             method: POST
-            task_processor: main-task-processor         
+            task_processor: main-task-processor
+        handler-teacher-requests-list:
+            path: /teacher/requests/list
+            method: POST
+            task_processor: main-task-processor
+        handler-teacher-requests-approve-link:
+            path: /teacher/requests/approve/link
+            method: POST
+            task_processor: main-task-processor
+        handler-teacher-requests-approve-new:
+            path: /teacher/requests/approve/new
+            method: POST
+            task_processor: main-task-processor       
+        handler-teacher-create:
+            path: /teacher/create
+            method: POST
+            task_processor: main-task-processor               
         postgres-db-1:
             dbconnection: $dbconnection
             blocking_task_processor: fs-task-processor                

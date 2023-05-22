@@ -34,5 +34,26 @@ const userver::storages::postgres::Query qGetTeachersByFilter(R"(
     ($1.faculty_ids IS null OR faculty_id::text ILIKE ANY($1.faculty_ids)) and
     ($1.faculty_names IS null OR faculty_name ILIKE ANY($1.faculty_names))
     ;
+    )"),
+    qCreateTeacher(R"(
+        INSERT INTO timetable_vsu.teacher(fio, bio, id_department) VALUES($1.fio, $1.bio, $1.id_department)
+        RETURNING id
+        ;
+    )"),
+    qGetUserIdFromRequest(R"(
+        SELECT id_user FROM timetable_vsu.teacher_requests WHERE id = $1
+    )"),
+    qCreateLink(R"(
+        INSERT INTO timetable_vsu.teacher_link(id_user, id_teacher) VALUES($1, $2)
+        ON CONFLICT DO NOTHING
+        RETURNING id
+    )"),
+    qGetAllRequests(R"(
+        SELECT id, id_user, description FROM timetable_vsu.teacher_requests
+    )"),
+    qDropRequestById(R"(
+        DELETE FROM timetable_vsu.teacher_requests
+        WHERE id = $1
+        RETURNING id
     )");
 }
