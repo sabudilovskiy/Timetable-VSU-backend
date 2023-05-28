@@ -1,0 +1,9 @@
+properties:
+  fio:
+    type: string
+    description: ФИО
+  bio:
+    type: string
+    description: биография
+  department_id:
+    $ref: Id.yaml

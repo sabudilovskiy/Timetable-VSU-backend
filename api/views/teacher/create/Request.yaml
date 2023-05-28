@@ -1,0 +1,3 @@
+properties:
+  credentials:
+    $ref: ../../../types/TeacherInfo.yaml
