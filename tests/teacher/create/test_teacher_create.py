@@ -17,7 +17,7 @@ def _assert_teachers(vsu_timetable_db, teacher_id, bio, fio, department_id):
 async def test_teacher_create_one_ok(service_client, vsu_timetable_db):
 
     response = await service_client.post('/teacher/create', json={
-        "teacher": {
+        "teacher_info": {
             "fio": "test_fio",
             "bio": "test_bio",
             "department_id": '1f93ceb4-d931-4b66-a0e5-7323d6b60f3b'
@@ -38,7 +38,7 @@ async def test_teacher_create_one_ok(service_client, vsu_timetable_db):
 async def test_teacher_create_one_bad_data(service_client):
 
     response = await service_client.post('/teacher/create', json={
-        "teacher": {
+        "teacher_info": {
             "fio": "test_fio",
             "bio": "test_bio",
             "department_id": '1f93ceb4-d931-4b66-a0e5-7323d6b60f3b'
@@ -55,7 +55,7 @@ async def test_teacher_create_one_bad_data(service_client):
                                   'initial_data_auth_admin_token.sql'])
 async def test_teacher_create_one_bad_token(service_client):
     response = await service_client.post('/teacher/create', json={
-        "teacher": {
+        "teacher_info": {
             "fio": "test_fio",
             "bio": "test_bio",
             "department_id": '1f93ceb4-d931-4b66-a0e5-7323d6b60f3b'
@@ -87,7 +87,7 @@ async def test_teacher_create_one_bad_token(service_client):
 async def test_teacher_create_forbiden(service_client, token):
 
     response = await service_client.post('/teacher/create', json={
-        "teacher": {
+        "teacher_info": {
             "fio": "test_fio",
             "bio": "test_bio",
             "department_id": '1f93ceb4-d931-4b66-a0e5-7323d6b60f3b'

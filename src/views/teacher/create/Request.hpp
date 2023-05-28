@@ -15,7 +15,7 @@ namespace timetable_vsu_backend::views::teacher::create
 using namespace utils::convert;
 struct Request
 {
-    Property<models::TeacherInfo, "teacher"> teacher;
+    Property<models::TeacherInfo, "teacher_info"> teacher_info;
     HeaderProperty<boost::uuids::uuid, "token"> token;
     static constexpr auto kPolicyFields = PolicyFields::ConvertAll;
     static constexpr TypeOfBody kTypeOfBody =

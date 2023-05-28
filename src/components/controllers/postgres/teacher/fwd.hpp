@@ -6,7 +6,7 @@ namespace timetable_vsu_backend::components::controllers::postgres
 namespace teacher
 {
 class Controller;
-}
-void AppendTeacherController(
-    userver::components::ComponentList& component_list);
+void Append(userver::components::ComponentList& component_list);
+}  // namespace teacher
+
 }  // namespace timetable_vsu_backend::components::controllers::postgres

@@ -77,6 +77,10 @@ components_manager:
             path: /teacher/list
             method: POST
             task_processor: main-task-processor
+        handler-faculty-list:
+            path: /faculty/list
+            method: POST
+            task_processor: main-task-processor
         handler-teacher-requests-list:
             path: /teacher/requests/list
             method: POST
@@ -99,6 +103,7 @@ components_manager:
             dns_resolver: async
             sync-start: true
         admin_controller: {}    
+        faculty_controller: {}
         user-controller:
             root:
                 login: $root_login

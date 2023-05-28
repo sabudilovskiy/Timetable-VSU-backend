@@ -11,12 +11,14 @@
 #include <utility>
 
 #include "components/controllers/postgres/admin/fwd.hpp"
+#include "components/controllers/postgres/faculty/fwd.hpp"
 #include "components/controllers/postgres/lesson/fwd.hpp"
 #include "components/controllers/postgres/teacher/fwd.hpp"
 #include "components/controllers/postgres/token/fwd.hpp"
 #include "components/controllers/postgres/user/fwd.hpp"
 #include "views/admin/create/view.hpp"
 #include "views/admin/list/view.hpp"
+#include "views/faculty/list/view.hpp"
 #include "views/hello/view.hpp"
 #include "views/login/view.hpp"
 #include "views/register/view.hpp"
@@ -26,6 +28,33 @@
 #include "views/teacher/request/approve/new/view.hpp"
 #include "views/teacher/request/list/view.hpp"
 #include "views/timetable/get/view.hpp"
+
+using namespace timetable_vsu_backend;
+
+void AppendPgControllers(userver::components::ComponentList& component_list)
+{
+    components::controllers::postgres::user::Append(component_list);
+    components::controllers::postgres::token::Append(component_list);
+    components::controllers::postgres::lesson::Append(component_list);
+    components::controllers::postgres::admin::Append(component_list);
+    components::controllers::postgres::teacher::Append(component_list);
+    components::controllers::postgres::faculty::Append(component_list);
+}
+
+void AppendViews(userver::components::ComponentList& component_list)
+{
+    views::login::Append(component_list);
+    views::register_::Append(component_list);
+    views::timetable::get::Append(component_list);
+    views::admin::create::Append(component_list);
+    views::admin::list::Append(component_list);
+    views::teacher::list::Append(component_list);
+    views::teacher::create::Append(component_list);
+    views::teacher::requests::list::Append(component_list);
+    views::teacher::requests::approve::link::Append(component_list);
+    views::teacher::requests::approve::new_::Append(component_list);
+    views::faculty::list::Append(component_list);
+}
 
 int main(int argc, char* argv[])
 {
@@ -39,21 +68,8 @@ int main(int argc, char* argv[])
             .Append<userver::components::Postgres>("postgres-db-1")
             .Append<userver::server::handlers::TestsControl>();
     service_template::AppendHello(component_list);
-    views::login::Append(component_list);
-    views::register_::Append(component_list);
-    views::timetable::get::Append(component_list);
-    views::admin::create::Append(component_list);
-    views::admin::list::Append(component_list);
-    views::teacher::list::Append(component_list);
-    views::teacher::create::Append(component_list);
-    views::teacher::requests::list::Append(component_list);
-    views::teacher::requests::approve::link::Append(component_list);
-    views::teacher::requests::approve::new_::Append(component_list);
-    components::controllers::postgres::AppendUserController(component_list);
-    components::controllers::postgres::AppendTokenController(component_list);
-    components::controllers::postgres::AppendLessonDetailsController(
-        component_list);
-    components::controllers::postgres::AppendAdminController(component_list);
-    components::controllers::postgres::AppendTeacherController(component_list);
+    AppendPgControllers(component_list);
+    AppendViews(component_list);
+
     return userver::utils::DaemonMain(argc, argv, component_list);
 }

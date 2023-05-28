@@ -32,6 +32,10 @@ src/views/login/Responses.hpp
 src/views/login/Request.hpp
 src/views/hello/view.hpp
 src/views/hello/view.cpp
+src/views/faculty/list/view.hpp
+src/views/faculty/list/view.cpp
+src/views/faculty/list/Responses.hpp
+src/views/faculty/list/Request.hpp
 src/views/admin/list/view.hpp
 src/views/admin/list/view.cpp
 src/views/admin/list/Responses.hpp
@@ -139,6 +143,12 @@ src/models/lesson_type/all.hpp
 src/models/lesson_filter/type.hpp
 src/models/lesson_filter/postgre.hpp
 src/models/lesson_filter/fwd.hpp
+src/models/faculty_filter/type.hpp
+src/models/faculty_filter/postgre.hpp
+src/models/faculty_filter/fwd.hpp
+src/models/faculty/type.hpp
+src/models/faculty/postgre.hpp
+src/models/faculty/fwd.hpp
 src/models/education_type/type.hpp
 src/models/education_type/serialize.hpp
 src/models/education_type/serialize.cpp
@@ -184,6 +194,11 @@ src/components/controllers/postgres/lesson/fwd.hpp
 src/components/controllers/postgres/lesson/fwd.cpp
 src/components/controllers/postgres/lesson/controller.hpp
 src/components/controllers/postgres/lesson/controller.cpp
+src/components/controllers/postgres/faculty/sql_queries.hpp
+src/components/controllers/postgres/faculty/fwd.hpp
+src/components/controllers/postgres/faculty/fwd.cpp
+src/components/controllers/postgres/faculty/controller.hpp
+src/components/controllers/postgres/faculty/controller.cpp
 src/components/controllers/postgres/admin/sql_queries.hpp
 src/components/controllers/postgres/admin/fwd.hpp
 src/components/controllers/postgres/admin/fwd.cpp

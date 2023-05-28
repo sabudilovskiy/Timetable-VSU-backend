@@ -28,7 +28,6 @@ def _perform_filter_like(field, value):
     ids=K_IDS
 )
 async def test_timetable_get_one_lesson(service_client, field, value, found):
-
     response = await service_client.post('/timetable/get', json={
         "filter": _perform_filter(field, value)
     })

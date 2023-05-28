@@ -52,7 +52,8 @@ class Handler final
             return utils::common_errors::PerformForbidden();
         }
 
-        auto teacher_id = teacher_controller.CreateTeacher(request.teacher());
+        auto teacher_id =
+            teacher_controller.CreateTeacher(request.teacher_info());
 
         if (!teacher_id)
         {

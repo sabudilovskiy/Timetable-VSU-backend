@@ -59,6 +59,7 @@ struct ConverterHttpRequest
             static_assert(flag,
                           "Found property from body, but body marked empty");
         };
+        bad();
     }
     //парсим поле из json тела
     template <IsProperty Field>

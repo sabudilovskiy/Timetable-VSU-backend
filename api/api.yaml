@@ -7,6 +7,8 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
+  - name: root
+    description: Доступно суперпользователю
   - name: admins
     description: Доступно администраторам сервиса
   - name: teachers
@@ -24,3 +26,5 @@ paths:
     $ref: 'views/admin/create/view.yaml'
   /admin/list:
     $ref: 'views/admin/list/view.yaml'
+  /teacher/create:
+    $ref: 'views/teacher/create/view.yaml'
