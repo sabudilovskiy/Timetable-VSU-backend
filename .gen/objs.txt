@@ -32,6 +32,10 @@ src/views/login/Responses.hpp
 src/views/login/Request.hpp
 src/views/hello/view.hpp
 src/views/hello/view.cpp
+src/views/group-stage/list/view.hpp
+src/views/group-stage/list/view.cpp
+src/views/group-stage/list/Responses.hpp
+src/views/group-stage/list/Request.hpp
 src/views/faculty/list/view.hpp
 src/views/faculty/list/view.cpp
 src/views/faculty/list/Responses.hpp
@@ -143,6 +147,12 @@ src/models/lesson_type/all.hpp
 src/models/lesson_filter/type.hpp
 src/models/lesson_filter/postgre.hpp
 src/models/lesson_filter/fwd.hpp
+src/models/group_stage_filter/type.hpp
+src/models/group_stage_filter/postgre.hpp
+src/models/group_stage_filter/fwd.hpp
+src/models/group_stage/type.hpp
+src/models/group_stage/postgre.hpp
+src/models/group_stage/fwd.hpp
 src/models/faculty_filter/type.hpp
 src/models/faculty_filter/postgre.hpp
 src/models/faculty_filter/fwd.hpp
@@ -194,6 +204,11 @@ src/components/controllers/postgres/lesson/fwd.hpp
 src/components/controllers/postgres/lesson/fwd.cpp
 src/components/controllers/postgres/lesson/controller.hpp
 src/components/controllers/postgres/lesson/controller.cpp
+src/components/controllers/postgres/group_stage/sql_queries.hpp
+src/components/controllers/postgres/group_stage/fwd.hpp
+src/components/controllers/postgres/group_stage/fwd.cpp
+src/components/controllers/postgres/group_stage/controller.hpp
+src/components/controllers/postgres/group_stage/controller.cpp
 src/components/controllers/postgres/faculty/sql_queries.hpp
 src/components/controllers/postgres/faculty/fwd.hpp
 src/components/controllers/postgres/faculty/fwd.cpp

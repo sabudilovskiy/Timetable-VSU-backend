@@ -53,7 +53,7 @@ std::vector<models::GroupStage> Controller::GetByFilter(
 {
     utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result =
-        utils::PgExecute(transaction, sql::qGetFacultiesByFilter, filter);
+        utils::PgExecute(transaction, sql::qGetGroupStages, filter);
     return utils::ConvertPgResultToArray<models::GroupStage>(pg_result);
 }
 

@@ -96,13 +96,18 @@ components_manager:
         handler-teacher-create:
             path: /teacher/create
             method: POST
-            task_processor: main-task-processor               
+            task_processor: main-task-processor
+        handler-group-stage-list:
+            path: /group-stage/list
+            method: POST
+            task_processor: main-task-processor     
         postgres-db-1:
             dbconnection: $dbconnection
             blocking_task_processor: fs-task-processor                
             dns_resolver: async
             sync-start: true
-        admin_controller: {}    
+        admin_controller: {}
+        group_stage_controller: {}    
         faculty_controller: {}
         user-controller:
             root:

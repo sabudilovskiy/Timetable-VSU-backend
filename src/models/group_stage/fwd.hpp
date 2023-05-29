@@ -2,5 +2,5 @@
 
 namespace timetable_vsu_backend::models
 {
-struct Faculty;
+struct GroupStage;
 }

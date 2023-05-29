@@ -12,6 +12,7 @@
 
 #include "components/controllers/postgres/admin/fwd.hpp"
 #include "components/controllers/postgres/faculty/fwd.hpp"
+#include "components/controllers/postgres/group_stage/fwd.hpp"
 #include "components/controllers/postgres/lesson/fwd.hpp"
 #include "components/controllers/postgres/teacher/fwd.hpp"
 #include "components/controllers/postgres/token/fwd.hpp"
@@ -28,32 +29,37 @@
 #include "views/teacher/request/approve/new/view.hpp"
 #include "views/teacher/request/list/view.hpp"
 #include "views/timetable/get/view.hpp"
+#include "views/group-stage/list/view.hpp"
 
 using namespace timetable_vsu_backend;
 
 void AppendPgControllers(userver::components::ComponentList& component_list)
 {
-    components::controllers::postgres::user::Append(component_list);
-    components::controllers::postgres::token::Append(component_list);
-    components::controllers::postgres::lesson::Append(component_list);
-    components::controllers::postgres::admin::Append(component_list);
-    components::controllers::postgres::teacher::Append(component_list);
-    components::controllers::postgres::faculty::Append(component_list);
+    using namespace components::controllers::postgres;
+    user::Append(component_list);
+    token::Append(component_list);
+    lesson::Append(component_list);
+    admin::Append(component_list);
+    teacher::Append(component_list);
+    faculty::Append(component_list);
+    group_stage::Append(component_list);
 }
 
 void AppendViews(userver::components::ComponentList& component_list)
 {
-    views::login::Append(component_list);
-    views::register_::Append(component_list);
-    views::timetable::get::Append(component_list);
-    views::admin::create::Append(component_list);
-    views::admin::list::Append(component_list);
-    views::teacher::list::Append(component_list);
-    views::teacher::create::Append(component_list);
-    views::teacher::requests::list::Append(component_list);
-    views::teacher::requests::approve::link::Append(component_list);
-    views::teacher::requests::approve::new_::Append(component_list);
-    views::faculty::list::Append(component_list);
+    using namespace views;
+    login::Append(component_list);
+    register_::Append(component_list);
+    timetable::get::Append(component_list);
+    admin::create::Append(component_list);
+    admin::list::Append(component_list);
+    teacher::list::Append(component_list);
+    teacher::create::Append(component_list);
+    teacher::requests::list::Append(component_list);
+    teacher::requests::approve::link::Append(component_list);
+    teacher::requests::approve::new_::Append(component_list);
+    faculty::list::Append(component_list);
+    group::stage::list::Append(component_list);
 }
 
 int main(int argc, char* argv[])
