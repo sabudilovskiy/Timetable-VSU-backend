@@ -11,7 +11,7 @@ INSERT INTO timetable_vsu.teacher (id, fio, bio, id_department)
 VALUES ('dc5bad6f-fcf6-4869-b0e5-5c36aed85cc1', 'УСКОВА О.Ф.', 'ЛУЧШИЙ ПРЕПОД МИРА', '3ec37598-6c49-4a02-8134-d9dbffafa8c4');
 
 -- Insert test data into the group table
-INSERT INTO timetable_vsu.group (id, name, type, id_group)
+INSERT INTO timetable_vsu.group (id, name, type, id_faculty)
 VALUES ('c8a34f05-f081-4d78-b971-30d562fd9f1c', '62', 'undergraduate', 'af8f26b8-afc7-483d-b6cc-ffaec29d4bc7');
 
 -- Insert test data into the group_stage table
