@@ -1,7 +1,7 @@
 post:
   description: Получить список администраторов
   tags:
-    - admins
+    - root
   requestBody:
     required: true
     content:

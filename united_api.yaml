@@ -134,6 +134,16 @@ components:
       - first
       - second
       type: string
+    TypesTeacherInfo:
+      properties:
+        bio:
+          description: биография
+          type: string
+        department_id:
+          $ref: '#/components/schemas/TypesId'
+        fio:
+          description: ФИО
+          type: string
     TypesTimestamp:
       example: 2023-04-01T05:30:00+0000
       type: string
@@ -206,6 +216,10 @@ components:
           $ref: '#/components/schemas/TypesUserCredentialV1'
       required:
       - user_credential
+    ViewsTeacherCreateRequest:
+      properties:
+        credentials:
+          $ref: '#/components/schemas/TypesTeacherInfo'
     ViewsTimetableGetRequest:
       properties:
         begin:
@@ -334,7 +348,7 @@ paths:
                 $ref: '#/components/schemas/TypesErrorV1'
           description: Нет прав на подобные изменения
       tags:
-      - admins
+      - root
   /admin/list:
     post:
       description: Получить список администраторов
@@ -372,7 +386,7 @@ paths:
                 $ref: '#/components/schemas/TypesErrorV1'
           description: Нет прав на подобные изменения
       tags:
-      - admins
+      - root
   /login:
     post:
       requestBody:
@@ -421,6 +435,42 @@ paths:
           description: Логин уже занят или пароль не удолетворяет требованиям
       tags:
       - users
+  /teacher/create:
+    post:
+      description: Создать нового преподавателя
+      parameters:
+      - in: header
+        name: authToken
+        required: true
+        schema:
+          $ref: '#/components/schemas/TypesAuthTokenV1'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewsTeacherCreateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TypesAdminAccount'
+          description: Преподаватель успешно создан
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TypesErrorV1'
+          description: Отсутствует или истекший токен
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TypesErrorV1'
+          description: Нет прав на подобные изменения
+      tags:
+      - admins
   /timetable/get:
     post:
       requestBody:
@@ -441,6 +491,8 @@ paths:
       tags:
       - users
 tags:
+- description: Доступно суперпользователю
+  name: root
 - description: Доступно администраторам сервиса
   name: admins
 - description: Доступны для преподавателей, которые ведут соответствующую группу и

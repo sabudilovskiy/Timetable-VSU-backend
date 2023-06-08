@@ -59,6 +59,7 @@ struct ConverterHttpRequest
             static_assert(flag,
                           "Found property from body, but body marked empty");
         };
+        bad();
     }
     //парсим поле из json тела
     template <IsProperty Field>
@@ -93,9 +94,9 @@ struct ConverterHttpRequest
         field = body[kName].template As<FieldValue>();
     }
     //парсим поле из query
-    template <IsQueryProperty Field>
+    template <IsQueryProperty Field, typename Body>
     static void ParseField(const userver::server::http::HttpRequest& value,
-                           const userver::formats::json::Value&, Field& field)
+                           Body&, Field& field)
     {
         static constexpr std::string_view kName = Field::kName;
         using FieldValue = typename Field::value_type;
@@ -121,9 +122,9 @@ struct ConverterHttpRequest
         }
     }
     //парсим поле из cookie
-    template <IsCookieProperty Field>
+    template <IsCookieProperty Field, typename Body>
     static void ParseField(const userver::server::http::HttpRequest& value,
-                           const userver::formats::json::Value&, Field& field)
+                           const Body&, Field& field)
     {
         static constexpr std::string_view kName = Field::kName;
         using FieldValue = typename Field::value_type;
@@ -149,9 +150,9 @@ struct ConverterHttpRequest
         }
     }
     //парсим поле из header
-    template <IsHeaderProperty Field>
+    template <IsHeaderProperty Field, typename Body>
     static void ParseField(const userver::server::http::HttpRequest& value,
-                           const userver::formats::json::Value&, Field& field)
+                           const Body&, Field& field)
     {
         static constexpr std::string_view kName = Field::kName;
         using FieldValue = typename Field::value_type;

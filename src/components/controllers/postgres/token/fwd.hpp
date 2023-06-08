@@ -5,6 +5,6 @@ namespace timetable_vsu_backend::components::controllers::postgres
 namespace token
 {
 class Controller;
-}
-void AppendTokenController(userver::components::ComponentList& component_list);
+void Append(userver::components::ComponentList& component_list);
+}  // namespace token
 }  // namespace timetable_vsu_backend::components::controllers::postgres

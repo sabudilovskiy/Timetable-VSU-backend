@@ -1,0 +1,5 @@
+properties:
+  teacher_id:
+    $ref: ../../../../../types/Id.yaml
+  request_id:
+    $ref: ../../../../../types/Id.yaml
