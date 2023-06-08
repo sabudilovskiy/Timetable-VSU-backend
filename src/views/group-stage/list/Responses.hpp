@@ -27,4 +27,4 @@ struct Response200
         userver::server::http::HttpStatus::kOk;
 };
 
-}  // namespace timetable_vsu_backend::views::faculty::list
+}  // namespace timetable_vsu_backend::views::group::stage::list

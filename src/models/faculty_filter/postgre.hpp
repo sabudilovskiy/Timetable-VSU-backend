@@ -15,7 +15,6 @@ namespace userver::storages::postgres::io
 template <>
 struct CppToUserPg<timetable_vsu_backend::models::TupleFacultyFilter>
 {
-    static constexpr DBTypeName postgres_name =
-        "timetable_vsu.faculty_filter";
+    static constexpr DBTypeName postgres_name = "timetable_vsu.faculty_filter";
 };
 }  // namespace userver::storages::postgres::io

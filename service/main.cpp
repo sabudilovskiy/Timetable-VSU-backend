@@ -20,6 +20,7 @@
 #include "views/admin/create/view.hpp"
 #include "views/admin/list/view.hpp"
 #include "views/faculty/list/view.hpp"
+#include "views/group-stage/list/view.hpp"
 #include "views/hello/view.hpp"
 #include "views/login/view.hpp"
 #include "views/register/view.hpp"
@@ -29,7 +30,6 @@
 #include "views/teacher/request/approve/new/view.hpp"
 #include "views/teacher/request/list/view.hpp"
 #include "views/timetable/get/view.hpp"
-#include "views/group-stage/list/view.hpp"
 
 using namespace timetable_vsu_backend;
 

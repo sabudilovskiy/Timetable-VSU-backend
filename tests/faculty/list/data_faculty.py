@@ -1,6 +1,6 @@
 K_FACULTY = {
-    'id' : 'bbc6312c-f25e-4db3-b2a0-3f5dc6717a8d',
-    'name' : 'Faculty of Mathematics and Mechanics'
+    'id': 'bbc6312c-f25e-4db3-b2a0-3f5dc6717a8d',
+    'name': 'Faculty of Mathematics and Mechanics'
 }
 
 K_IDS_FIELDS = [

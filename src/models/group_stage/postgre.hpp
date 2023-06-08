@@ -15,6 +15,7 @@ namespace userver::storages::postgres::io
 template <>
 struct CppToUserPg<timetable_vsu_backend::models::TupleGroupStage>
 {
-    static constexpr DBTypeName postgres_name = "timetable_vsu.group_stage_tuple";
+    static constexpr DBTypeName postgres_name =
+        "timetable_vsu.group_stage_tuple";
 };
 }  // namespace userver::storages::postgres::io

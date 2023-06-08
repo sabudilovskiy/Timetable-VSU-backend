@@ -25,7 +25,7 @@ struct GroupStage
     convert::Property<TimeString, "group_stage_end"> group_stage_end;
     convert::Property<boost::uuids::uuid, "group_id"> group_id;
     convert::Property<std::string, "group_name"> group_name;
-    convert::Property<EducationType, "group_type"> group_type; 
+    convert::Property<EducationType, "group_type"> group_type;
     convert::Property<boost::uuids::uuid, "faculty_id"> faculty_id;
     convert::Property<std::string, "faculty_name"> faculty_name;
     static constexpr utils::convert::PolicyFields kPolicyFields =

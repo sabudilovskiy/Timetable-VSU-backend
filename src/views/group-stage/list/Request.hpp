@@ -19,4 +19,4 @@ struct Request
         TypeOfBody::Json;  //открываем возможность использовать структуру, как
                            //запрос
 };
-}  // namespace timetable_vsu_backend::views::group::list
+}  // namespace timetable_vsu_backend::views::group::stage::list
