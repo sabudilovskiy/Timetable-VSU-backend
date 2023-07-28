@@ -1,7 +1,7 @@
 #pragma once
 #include <userver/server/http/http_status.hpp>
 
-#include "../utils/convert/base.hpp"
+#include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::http
 {

@@ -11,7 +11,7 @@
 #include <userver/server/http/http_status.hpp>
 #include <utility>
 
-#include "../utils/convert/http_response_base.hpp"
+#include "utils/convert/http_response_base.hpp"
 
 namespace timetable_vsu_backend::http
 {

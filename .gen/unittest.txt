@@ -1,3 +1,4 @@
+utests/openapi/json/parse/basic.cpp
 utests/hello_test.cpp
 utests/dropper_additional.cpp
 utests/dropper.cpp

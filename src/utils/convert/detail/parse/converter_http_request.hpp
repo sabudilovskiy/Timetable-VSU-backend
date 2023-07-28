@@ -12,7 +12,7 @@
 #include <userver/server/http/http_request.hpp>
 #include <userver/utils/meta.hpp>
 
-#include "../../base.hpp"
+#include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::utils::convert::detail::parse
 {

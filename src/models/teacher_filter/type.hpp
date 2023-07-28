@@ -3,6 +3,7 @@
 #include <optional>
 #include <type_traits>
 
+#include "boost/pfr/core.hpp"
 #include "models/day/type.hpp"
 #include "models/education_type/type.hpp"
 #include "models/lesson_type/type.hpp"
@@ -12,6 +13,7 @@
 #include "models/substring/type.hpp"
 #include "models/timestring/type.hpp"
 #include "utils/convert/additional_properties.hpp"
+#include "utils/convert/drop_properties_ref.hpp"
 
 namespace timetable_vsu_backend::models
 {

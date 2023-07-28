@@ -11,8 +11,8 @@
 #include <userver/utils/meta.hpp>
 #include <utility>
 
-#include "../../base.hpp"
 #include "utils/convert/additional_properties.hpp"
+#include "utils/convert/base.hpp"
 #include "utils/type_holder.hpp"
 namespace timetable_vsu_backend::utils::convert::detail::drop_properties
 {

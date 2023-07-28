@@ -50,6 +50,12 @@ testsuite-debug testsuite-release: testsuite-%: build-%
 	@rm -rf tests/results
 	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 PYTEST_ADDOPTS="--color=yes $(if $(F),-k $(F))" ctest -V -R "testsuite"))
 
+.PHONY: utest-debug utest-release
+utest-debug utest-release: utest-%: build-%
+	@rm -rf tests/results
+	@cmake --build build_$* -j $(NPROCS) --target timetable_vsu_backend_unittest
+	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 ctest -V -R "unittest"))
+
 # Start the service (via testsuite service runner)
 .PHONY: service-start-debug service-start-release
 service-start-debug service-start-release: service-start-%: build-%

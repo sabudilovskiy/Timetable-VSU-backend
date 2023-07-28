@@ -15,6 +15,7 @@
 #include "models/auth_token/serialize.hpp"
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
+#include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::views::login
 {
