@@ -23,11 +23,13 @@ struct ConstexprString
     {
         return AsStringView();
     }
-    constexpr const char& operator[](size_t index) const{
+    constexpr const char& operator[](size_t index) const
+    {
         return contents[index];
     }
 
-    constexpr char& operator[](size_t index){
+    constexpr char& operator[](size_t index)
+    {
         return contents[index];
     }
 
@@ -36,7 +38,13 @@ struct ConstexprString
         return {contents.begin(), contents.begin() + Size - 1};
     }
 
-    constexpr bool empty() const{
+    constexpr const char* data() const
+    {
+        return contents.begin();
+    }
+
+    constexpr bool empty() const
+    {
         return Size == 1;
     }
 
@@ -55,13 +63,14 @@ struct ConstexprString
     {
         return string == lhs;
     }
-};  
-template < std::size_t n >
-ConstexprString ( char const(&)[n] ) -> ConstexprString<n>;
+};
+template <std::size_t n>
+ConstexprString(char const (&)[n]) -> ConstexprString<n>;
 
-template<std::array<char, 256> arr_>
-auto consteval MakeConstexprString(){
-    constexpr auto real_end_it= std::find(begin(arr_), end(arr_), '\0');
+template <std::array<char, 256> arr_>
+auto consteval MakeConstexprString()
+{
+    constexpr auto real_end_it = std::find(begin(arr_), end(arr_), '\0');
     constexpr auto len = real_end_it - begin(arr_);
     char buffer[len + 1]{};
     std::copy(begin(arr_), real_end_it, std::begin(buffer));
