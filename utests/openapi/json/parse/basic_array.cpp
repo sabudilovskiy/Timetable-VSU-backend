@@ -11,11 +11,12 @@
 #include "openapi/types/array_type.hpp"
 #include "utils/constexpr_optional.hpp"
 #include "utils/constexpr_string.hpp"
+#include "utils/tests_macros.hpp"
 #include "views/hello/view.hpp"
 
 using namespace timetable_vsu_backend::openapi;
 
-UTEST(Openapi_Json_Serialize, BasicArrayProperty)
+UTEST(Openapi_Json_Parse, BasicArrayProperty)
 {
     using Type = types::Array<int>;
     constexpr auto jsonString = R"(
@@ -29,7 +30,7 @@ UTEST(Openapi_Json_Serialize, BasicArrayProperty)
     EXPECT_EQ(item(), expected_item);
 }
 
-UTEST(Openapi_Json_Serialize, BasicArrayPropertyMin)
+UTEST(Openapi_Json_Parse, BasicArrayPropertyMin)
 {
     using Type = types::Array<int, preferences::Min<4>>;
     constexpr auto jsonString = R"(
@@ -38,24 +39,12 @@ UTEST(Openapi_Json_Serialize, BasicArrayPropertyMin)
         }
     )";
     auto json = userver::formats::json::FromString(jsonString);
-    bool was_exception = false;
-    try
-    {
-        json["test"].As<Type>();
-    }
-    catch (std::exception& exc)
-    {
-        was_exception = true;
-        std::string exc_msg = exc.what();
-        std::string expected =
-            "Field has elements less than allowed, current: 3, "
-            "min: 4";
-        EXPECT_EQ(exc_msg, expected);
-    }
-    EXPECT_TRUE(was_exception);
+    EXPECT_THROW_MSG(
+        json["test"].As<Type>(), std::runtime_error,
+        "Field has elements less than allowed, current: 3, min: 4");
 }
 
-UTEST(Openapi_Json_Serialize, BasicArrayPropertyMax)
+UTEST(Openapi_Json_Parse, BasicArrayPropertyMax)
 {
     using Type = types::Array<int, preferences::Min<1>, preferences::Max<2>>;
     constexpr auto jsonString = R"(
@@ -64,45 +53,20 @@ UTEST(Openapi_Json_Serialize, BasicArrayPropertyMax)
         }
     )";
     auto json = userver::formats::json::FromString(jsonString);
-    bool was_exception = false;
-    try
-    {
-        json["test"].As<Type>();
-    }
-    catch (std::exception& exc)
-    {
-        was_exception = true;
-        std::string exc_msg = exc.what();
-        std::string expected =
-            "Field has elements more than allowed, current: 3, "
-            "max: 2";
-        EXPECT_EQ(exc_msg, expected);
-    }
-    EXPECT_TRUE(was_exception);
+    EXPECT_THROW_MSG(
+        json["test"].As<Type>(), std::runtime_error,
+        "Field has elements more than allowed, current: 3, max: 2");
 }
 
-UTEST(Openapi_Json_Serialize, BasicArrayPropertyUnique)
+UTEST(Openapi_Json_Parse, BasicArrayPropertyUnique)
 {
-    using Type = types::Array<int, preferences::UniqueItems<true>>;
+    using Type = types::Array<int, preferences::UniqueItems>;
     constexpr auto jsonString = R"(
         {
             "test" : [1,2,2]
         }
     )";
     auto json = userver::formats::json::FromString(jsonString);
-    bool was_exception = false;
-    try
-    {
-        json["test"].As<Type>();
-    }
-    catch (std::exception& exc)
-    {
-        was_exception = true;
-        std::string exc_msg = exc.what();
-        std::string expected =
-            "Field has equals elements, element 2 and 3 are "
-            "equal";
-        EXPECT_EQ(exc_msg, expected);
-    }
-    EXPECT_TRUE(was_exception);
+    EXPECT_THROW_MSG(json["test"].As<Type>(), std::runtime_error,
+                     "Field has equals elements, element 2 and 3 are equal");
 }

@@ -52,6 +52,14 @@ struct ConstexprOptional
         }
         return value_;
     }
+    constexpr const T& operator*() const
+    {
+        return value();
+    }
+    constexpr const T& operator*()
+    {
+        return value();
+    }
     constexpr const T& value() const
     {
         if (IsNull())

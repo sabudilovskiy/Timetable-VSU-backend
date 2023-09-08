@@ -31,6 +31,36 @@
         "version": "2.0.0",
         "tasks": [
             {
+                "label": "Запустить питоновские линтеры",
+                "command": "make",
+                "type": "shell",
+                "args": ["-s", "check-pep8"],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "none"
+            },
+            {
+                "label": "Перегенерировать список исходников",
+                "command": "make",
+                "type": "shell",
+                "args": ["-s", "gen"],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "none"
+            },
+            {
+                "label": "Перегенерировать единый open-api файл",
+                "command": "make",
+                "type": "shell",
+                "args": ["-s", "unite-api"],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "none"
+            },
+            {
                 "label": "Отформатировать весь код",
                 "command": "make",
                 "type": "shell",
@@ -45,6 +75,16 @@
                 "command": "make",
                 "type": "shell",
                 "args": ["-s", "utest-debug"],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": "none"
+            },
+            {
+                "label": "Запустить testsuite тесты",
+                "command": "make",
+                "type": "shell",
+                "args": ["-s", "testsuite-debug"],
                 "presentation": {
                     "reveal": "always"
                 },

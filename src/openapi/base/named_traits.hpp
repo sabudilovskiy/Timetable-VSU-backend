@@ -51,18 +51,19 @@ constexpr auto _getName()
 }
 }  // namespace details
 
-
-struct ConstexprSetString{
+struct ConstexprSetString
+{
     std::array<std::string_view, 256> test;
 };
 
-consteval ConstexprSetString foo (){
+consteval ConstexprSetString foo()
+{
     return {};
 }
 
 namespace traits
 {
-// returns ConstexprOptional<ConstexprString>
+// returns ConstexprString
 template <typename T>
 constexpr auto GetName()
 {

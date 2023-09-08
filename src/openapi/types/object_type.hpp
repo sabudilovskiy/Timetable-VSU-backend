@@ -1,11 +1,9 @@
 #pragma once
 #include <string_view>
 
-#include "openapi/base/extended_object_property.hpp"
+#include "openapi/base/named_traits.hpp"
 #include "openapi/base/object_property.hpp"
 #include "openapi/base/preferences.hpp"
-#include "openapi/base/string_property.hpp"
-#include "openapi/base/string_traits.hpp"
 #include "utils/constexpr_optional.hpp"
 
 namespace timetable_vsu_backend::openapi
@@ -16,15 +14,16 @@ template <utils::ConstexprString Name, utils::ConstexprOptional<bool> UseRoot,
           utils::ConstexprOptional<bool> AdditionalProperties>
 struct ObjectTraits : NamedTraits<Name>
 {
-    static constexpr auto kUseRoot = UseRoot;
-    static constexpr auto kAdditionalProperties = AdditionalProperties;
 };
 
-//вся эта структура нужна для того, чтобы работать с трейтами как с значением и
-//применять поэтапно опции
-//у меня нет иного выбора, кроме как стереть информацию о
-//реальном размере строки, так как мне нельзя менять тип.
-// 256 должно хватить
+/*
+вся эта структура нужна для того, чтобы работать с трейтами как с значением и
+применять поэтапно опции
+
+у меня нет иного выбора, кроме как стереть информацию о реальном размере строки,
+так как мне нельзя менять тип.
+
+256 должно хватить*/
 struct ObjectTraitsHolder
 {
     utils::ConstexprOptional<bool> AdditionalProperties{utils::kNull};
@@ -50,21 +49,6 @@ void consteval Apply(ObjectTraitsHolder& traits, preferences::Name<value> name)
     traits.Name_was_changed++;
 }
 
-template <bool value>
-void consteval Apply(ObjectTraitsHolder& traits, preferences::UseRoot<value>)
-{
-    traits.UseRoot = value;
-    traits.Name_was_changed++;
-}
-
-template <bool value>
-void consteval Apply(ObjectTraitsHolder& traits,
-                     preferences::AdditionalProperties<value>)
-{
-    traits.AdditionalProperties = value;
-    traits.AdditionalProperties_was_changed++;
-}
-
 template <typename T>
 void consteval Apply(ObjectTraitsHolder&, const T&)
 {
@@ -87,30 +71,19 @@ struct ObjectMagicHelper
         ApplyAll(helper, Option{}...);
         return helper;
     }
-    consteval static auto resolve_traits()
+    consteval static auto resolve_type()
     {
         constexpr ObjectTraitsHolder traits = resolve_holder();
         constexpr auto name = utils::MakeConstexprString<traits.Name>();
         static_assert(traits.Name_was_changed <= 1,
                       "Don't use more 1 Name in template args");
-        static_assert(traits.UseRoot_was_changed <= 1,
-                      "Don't use more 1 UseRoot in template args");
-        static_assert(traits.AdditionalProperties_was_changed <= 1,
-                      "Don't use more 1 AdditionalProperties in template args");
-        return ObjectTraits<name, traits.UseRoot.value_or(false),
-                            traits.AdditionalProperties.value_or(false)>{};
-    }
-    consteval static auto resolve_type()
-    {
-        using Traits = decltype(resolve_traits());
-        if constexpr (Traits::kAdditionalProperties.value_or(false))
-        {
-            return ExtendedObjectProperty<T, Traits>{};
-        }
-        else
-        {
-            return ObjectProperty<T, Traits>{};
-        }
+        // static_assert(!(traits.UseRoot.value_or(false) &&
+        // traits.AdditionalProperties.value_or(false)), "Dont use UseRoot with
+        // AdditionalProperties");
+        using Traits =
+            ObjectTraits<name, traits.UseRoot.value_or(false),
+                         traits.AdditionalProperties.value_or(false)>;
+        return ObjectProperty<T, Traits>{};
     }
 };
 

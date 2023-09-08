@@ -1,5 +1,6 @@
 #pragma once
 #include <concepts>
+#include <initializer_list>
 #include <optional>
 #include <type_traits>
 #include <utility>
@@ -14,22 +15,68 @@ struct Yes
 {
 };
 
-namespace checks
+template <typename T, typename U>
+concept HasSpaceShip = requires(T t, U u)
 {
-template <typename T>
-concept IsReflective = requires
-{
-    requires std::is_class_v<T>;
-    typename T::Reflective;
-    requires std::same_as<typename T::Reflective, Yes>;
+    {t <=> u};
 };
-};  // namespace checks
+
+template <typename T, typename U>
+concept HasEquality = requires(T t, U u)
+{
+    {t == u};
+};
+
+template <typename T, typename U>
+concept HasSpaceShipProperty = requires
+{
+    typename U::value_type;
+    typename U::traits;
+    requires HasSpaceShip<T, typename U::value_type>;
+};
+
+template <typename T, typename U>
+concept HasEqualityProperty = requires
+{
+    typename U::value_type;
+    typename U::traits;
+    requires HasEquality<T, typename U::value_type>;
+};
 
 template <typename T, typename Traits = EmptyTraits>
 struct PropertyBase
 {
     using value_type = T;
     using traits = Traits;
+
+    template <typename... Args>
+    PropertyBase(Args&&... args) : value(std::forward<Args>(args)...)
+    {
+    }
+
+    template <typename Arg>
+    PropertyBase(std::initializer_list<Arg> init_list)
+        : value(std::move(init_list))
+    {
+    }
+
+    template <typename U>
+    requires HasEqualityProperty<value_type, U> auto operator==(const U& u)
+    {
+        return value == u();
+    }
+
+    template <typename U>
+    requires HasSpaceShip<T, U> auto operator<=>(const U& u)
+    {
+        return value <=> u;
+    }
+
+    template <typename U>
+    requires HasEquality<T, U> auto operator==(const U& u)
+    {
+        return value == u;
+    }
 
     template <class Arg>
     value_type& operator=(Arg&& arg)

@@ -19,8 +19,7 @@ struct Max : value_holder<value>
 {
 };
 
-template <bool value>
-struct UniqueItems : value_holder<value>
+struct UniqueItems
 {
 };
 
@@ -34,13 +33,7 @@ struct Pattern : value_holder<value>
 {
 };
 
-template <bool value>
-struct AdditionalProperties : value_holder<value>
-{
-};
-
-template <bool value>
-struct UseRoot : value_holder<value>
+struct UseNullOnFail
 {
 };
 

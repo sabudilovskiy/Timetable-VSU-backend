@@ -1,6 +1,11 @@
+utests/openapi/json/serialize/basic_string.cpp
+utests/openapi/json/serialize/basic_optional.cpp
+utests/openapi/json/serialize/basic_object.cpp
+utests/openapi/json/serialize/basic_array.cpp
 utests/openapi/json/parse/basic_string.cpp
 utests/openapi/json/parse/basic_object.cpp
 utests/openapi/json/parse/basic_array.cpp
+utests/openapi/doc/serialize/basic_array.cpp
 utests/hello_test.cpp
 utests/dropper_additional.cpp
 utests/dropper.cpp

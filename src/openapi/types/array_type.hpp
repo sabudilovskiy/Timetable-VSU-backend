@@ -1,7 +1,10 @@
 #pragma once
 #include <string_view>
 
+#include "openapi/base/array_property.hpp"
 #include "openapi/base/array_traits.hpp"
+#include "openapi/base/preferences.hpp"
+#include "utils/constexpr_optional.hpp"
 
 namespace timetable_vsu_backend::openapi
 {
@@ -71,10 +74,9 @@ void consteval Apply(ArrayTraitsHolder& traits, preferences::Max<value>)
     traits.Max_was_changed++;
 }
 
-template <bool value>
-void consteval Apply(ArrayTraitsHolder& traits, preferences::UniqueItems<value>)
+void consteval Apply(ArrayTraitsHolder& traits, preferences::UniqueItems)
 {
-    traits.UniqueItems = value;
+    traits.UniqueItems = true;
     traits.UniqueItems_was_changed++;
 }
 
@@ -93,7 +95,7 @@ struct ArrayMagicHelper
         ApplyAll(helper, Option{}...);
         return helper;
     }
-    consteval static auto resolve_traits()
+    consteval static auto resolve_type()
     {
         constexpr ArrayTraitsHolder traits = resolve_holder();
         constexpr auto name = utils::MakeConstexprString<traits.Name>();
@@ -105,19 +107,34 @@ struct ArrayMagicHelper
                       "Don't use more 1 Min in template args");
         static_assert(traits.UniqueItems_was_changed <= 1,
                       "Don't use more 1 UniqueItems in template args");
-        return ArrayTraits<name, traits.Min, traits.Max, traits.UniqueItems>{};
+        using Traits =
+            ArrayTraits<name, traits.Min, traits.Max, traits.UniqueItems>;
+        return ArrayProperty<T, Traits>{};
     }
 };
 
-template <typename T, typename... Option>
-using array_traits_helper_t =
-    decltype(ArrayMagicHelper<T, Option...>::resolve_traits());
 }  // namespace detail
 
 namespace types
 {
-template <typename T, typename... Option>
-using Array = ArrayProperty<T, detail::array_traits_helper_t<T, Option...>>;
+/*
+T -> тип, который вы хотите использовать.
 
-}
+Убедитесь, что в месте парса/сериализации будут доступны парсы/сериализаторы для
+него
+
+Option... -> свойства, которые вы хотите добавить.
+
+Min<1> -> минимум элементов. Соответствует min: 1 в openapi
+
+Max<2> -> максимум элементов. Соответствует max: 2 в openapi
+
+Name<"FieldName"> -> имя поля в объекте
+
+UniqueItems -> добавлять только уникальные итемы
+*/
+template <typename T, typename... Option>
+using Array = decltype(detail::ArrayMagicHelper<T, Option...>::resolve_type());
+
+}  // namespace types
 }  // namespace timetable_vsu_backend::openapi
