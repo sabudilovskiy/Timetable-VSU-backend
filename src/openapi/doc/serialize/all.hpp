@@ -231,12 +231,14 @@ void AppendFields(DocHelper doc_helper, std::type_identity<T>)
 }
 
 template <checks::IsReflective T>
-void Append(DocHelper doc_helper, std::type_identity<T>, bool append_cur_place = true)
+void Append(DocHelper doc_helper, std::type_identity<T>,
+            bool append_cur_place = true)
 {
     std::string name_type = GetOpenApiTypeName<T>();
-    if (append_cur_place){
+    if (append_cur_place)
+    {
         doc_helper.cur_place =
-        std::string("$ref/components/schemas/").append(name_type);
+            std::string("$ref/components/schemas/").append(name_type);
     }
     auto type_node = doc_helper.root["components"]["schemas"][name_type];
     if (!type_node.IsObject())

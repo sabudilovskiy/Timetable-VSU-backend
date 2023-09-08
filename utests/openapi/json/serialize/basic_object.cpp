@@ -47,7 +47,8 @@
 //             .field2 = {{1,2,3}}
 //         }
 //     };
-//     Serialize(serializable, userver::formats::serialize::To<userver::formats::json::Value>{});
+//     Serialize(serializable,
+//     userver::formats::serialize::To<userver::formats::json::Value>{});
 //     userver::formats::json::ValueBuilder json(serializable);
 //     auto text_json = ToString(json.ExtractValue());
 //     EXPECT_EQ(text_json, R"({"field":"test_string","field2":[1,2,3]})");

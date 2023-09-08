@@ -62,7 +62,7 @@ UTEST(Openapi_Doc_Serialize, BasicArray)
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
     EXPECT_EQ(result_schema, RAW_STRING(
-R"(
+                                 R"(
 components:
   schemas:
     ServerUser:
@@ -87,15 +87,14 @@ components:
       required:
         - login
         - password
-)"
-));
+)"));
 }
 
 UTEST(MacrosRawString, Basic)
 {
-  auto string = RAW_STRING(
-R"(
+    auto string = RAW_STRING(
+        R"(
 test
 )");
-  EXPECT_EQ(string, "test");
+    EXPECT_EQ(string, "test");
 }
