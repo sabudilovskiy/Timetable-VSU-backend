@@ -76,6 +76,7 @@ src/utils/convert/additional_properties.hpp
 src/utils/constexpr_string.hpp
 src/utils/constexpr_optional.hpp
 src/utils/component_list_fwd.hpp
+src/utils/compilers_macros.hpp
 src/utils/common_errors.hpp
 src/openapi/types/string_type.hpp
 src/openapi/types/optional_type.hpp
