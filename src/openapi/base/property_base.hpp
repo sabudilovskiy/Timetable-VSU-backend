@@ -11,7 +11,7 @@ struct EmptyTraits
 {
 };
 
-struct Yes
+struct Reflective
 {
 };
 

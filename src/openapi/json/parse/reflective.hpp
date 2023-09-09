@@ -85,10 +85,6 @@ T Parse(const json::Value& item, To<T>)
     using namespace timetable_vsu_backend::openapi;
     T result;
     constexpr checks::ReflectivePreferences<T> preferences{};
-    static_assert(
-        preferences.additional_properties_status !=
-            checks::AdditionalPropertiesStatus::Error,
-        "Вы используете в полях структуры больше одного AdditionalProperties");
 
     if constexpr (preferences.additional_properties_status ==
                   checks::AdditionalPropertiesStatus::True)

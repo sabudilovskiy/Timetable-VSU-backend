@@ -1,5 +1,7 @@
 #pragma once
 
+#include <gtest/gtest.h>
+
 #include <boost/pfr/core.hpp>
 #include <cstddef>
 #include <tuple>
@@ -9,6 +11,7 @@
 #include "boost/pfr/tuple_size.hpp"
 #include "openapi/base/object_property.hpp"
 #include "openapi/base/property_base.hpp"
+#include "utils/compilers_macros.hpp"
 
 namespace timetable_vsu_backend::openapi
 {
@@ -37,8 +40,7 @@ namespace checks
 enum struct AdditionalPropertiesStatus
 {
     True,
-    False,
-    Error
+    False
 };
 struct ReflectivePreferencesHelper
 {
@@ -96,7 +98,7 @@ AdditionalPropertiesStatus consteval resolve_additional_properties_status()
     }
     else
     {
-        return AdditionalPropertiesStatus::Error;
+        STATIC_ASSERT_FALSE("You use more one AdditionalProperties");
     }
 }
 }  // namespace impl
@@ -107,17 +109,5 @@ struct ReflectivePreferences
         impl::resolve_additional_properties_status<T>();
 };
 }  // namespace checks
-
-struct Test
-{
-    using Reflective = timetable_vsu_backend::openapi::Yes;
-    AdditionalProperties other;
-    AdditionalProperties other_2;
-};
-
-static_assert(checks::IsReflective<Test>);
-static_assert(
-    checks::ReflectivePreferences<Test>::additional_properties_status ==
-    checks::AdditionalPropertiesStatus::Error);
 
 }  // namespace timetable_vsu_backend::openapi

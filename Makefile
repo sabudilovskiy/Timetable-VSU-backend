@@ -115,6 +115,12 @@ format-cpp:
 	$(MAKE) add-eol P=src
 	$(MAKE) add-eol P=utests
 
+.PHONY: format-includes
+format-includes:
+    @for file in /путь/к/директории/*.pp; do \
+        python format_includes.py "$$file" userver boost; \
+    done
+
 # Format the sources
 .PHONY: format-all
 format-all: format-cpp

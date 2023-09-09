@@ -28,22 +28,22 @@ inline void serialize_without_additional(
     auto matcher_common = [&result]<typename F>(const F& field) {
         constexpr auto name = traits::GetName<typename F::traits>();
         static_assert(!name.empty(), "Common field must have name");
-        result[name] = field();
+        auto name_str = std::string{name.AsStringView()};
+        result[name_str] = field();
     };
     // noop
     auto matcher_additional_properties = [](const AdditionalProperties&) {};
-    auto matcher_all = userver::utils::Overloaded(
-        std::move(matcher_common), std::move(matcher_additional_properties));
+    auto matcher_all = userver::utils::Overloaded{
+        matcher_common, matcher_additional_properties};
     boost::pfr::for_each_field(item, std::move(matcher_all));
 }
 
 template <checks::IsReflective T>
 inline void serialize_additional(const T& item,
-                                 std::unordered_set<std::string> used,
                                  userver::formats::json::ValueBuilder& result)
 {
     // noop
-    auto matcher_common = [&result, &used]<typename F>(const F&) {};
+    auto matcher_common = []<typename F>(const F&) {};
     auto matcher_additional_properties =
         [&result](const AdditionalProperties& field) {
             for (auto it = field().begin(); it != field().end(); ++it)
@@ -55,25 +55,30 @@ inline void serialize_additional(const T& item,
                 }
             }
         };
-    auto matcher_all = userver::utils::Overloaded(
-        std::move(matcher_common), std::move(matcher_additional_properties));
+    auto matcher_all = userver::utils::Overloaded{
+        matcher_common, matcher_additional_properties};
     boost::pfr::for_each_field(item, std::move(matcher_all));
 }
 
 }  // namespace timetable_vsu_backend::openapi::detail
 
-namespace timetable_vsu_backend::openapi
+namespace userver::formats::serialize
 {
-template <checks::IsReflective T>
-userver::formats::json::Value Serialize(
-    const T& item,
-    userver::formats::serialize::To<userver::formats::json::Value>)
+template <timetable_vsu_backend::openapi::checks::IsReflective T>
+userver::formats::json::Value Serialize(const T& item,
+                                        To<userver::formats::json::Value>)
 {
+    using namespace timetable_vsu_backend::openapi;
     userver::formats::json::ValueBuilder result{
         userver::formats::json::Type::kObject};
-    auto used = detail::serialize_without_additional(item, result);
-
-    return userver::formats::json::ValueBuilder(item()).ExtractValue();
+    detail::serialize_without_additional(item, result);
+    checks::ReflectivePreferences<T> prefs{};
+    if constexpr (prefs.additional_properties_status ==
+                  checks::AdditionalPropertiesStatus::True)
+    {
+        detail::serialize_additional(item, result);
+    }
+    return result.ExtractValue();
 }
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace userver::formats::serialize

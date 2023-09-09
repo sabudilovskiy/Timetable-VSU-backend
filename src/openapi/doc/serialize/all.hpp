@@ -246,9 +246,6 @@ void Append(DocHelper doc_helper, std::type_identity<T>,
         type_node = userver::formats::common::Type::kObject;
         type_node["type"] = "object";
         constexpr checks::ReflectivePreferences<T> pref{};
-        static_assert(pref.additional_properties_status !=
-                          checks::AdditionalPropertiesStatus::Error,
-                      "Dont use more one AdditionalProperties in struct");
         bool additional_properties = (pref.additional_properties_status ==
                                       checks::AdditionalPropertiesStatus::True);
         type_node["additionalProperties"] = additional_properties;

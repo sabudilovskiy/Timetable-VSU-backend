@@ -25,14 +25,14 @@
 #include "utils/tests_macros.hpp"
 #include "views/hello/view.hpp"
 
-using namespace timetable_vsu_backend::openapi::types;
-using namespace timetable_vsu_backend::openapi::preferences;
+using namespace timetable_vsu_backend::openapi;
+using namespace types;
+using namespace preferences;
 
 namespace user
 {
-struct Credentials
+struct Credentials : Reflective
 {
-    using Reflective = timetable_vsu_backend::openapi::Yes;
     String<Pattern<"[a-z]*">, Name<"login">> login;
     String<Name<"password">> password;
 };
@@ -40,9 +40,8 @@ struct Credentials
 
 namespace server
 {
-struct User
+struct User : Reflective
 {
-    using Reflective = timetable_vsu_backend::openapi::Yes;
     Object<user::Credentials, Name<"user">> user;
     String<Name<"id">> id;
 };
