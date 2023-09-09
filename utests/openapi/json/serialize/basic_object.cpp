@@ -33,8 +33,9 @@ using namespace timetable_vsu_backend::openapi;
 using namespace timetable_vsu_backend::openapi::types;
 using namespace timetable_vsu_backend::openapi::preferences;
 
-struct First : Reflective
+struct First
 {
+    REFLECTIVE_BASE(First);
     String<Name<"field">> field;
     Array<int, Name<"field2">> field2;
 };
@@ -49,8 +50,9 @@ UTEST(Openapi_Json_Serialize, BasicObject)
     EXPECT_EQ(text_json, R"({"field":"test_string","field2":[1,2,3]})");
 }
 
-struct Second : Reflective
+struct Second
 {
+    REFLECTIVE_BASE(Second);
     String<Name<"field">> field;
     AdditionalProperties other_fields;
 };

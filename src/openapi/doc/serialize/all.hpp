@@ -95,6 +95,19 @@ std::string GetOpenApiTypeName()
     return raw_name;
 }
 
+template <typename T>
+void PlaceRefToType(userver::formats::yaml::ValueBuilder& place)
+{
+    if (!place.IsObject())
+    {
+        place = userver::formats::common::Type::kObject;
+    }
+    auto ref_str =
+        std::string(R"(#/components/schemas/)").append(GetOpenApiTypeName<T>());
+    std::clog << "log this moment: 104\n";
+    place["$ref"] = std::move(ref_str);
+}
+
 template <typename T, typename... Other>
 consteval bool IsAnyOf()
 {
@@ -201,6 +214,12 @@ void AppendField(DocHelper doc_helper, std::type_identity<T> type = {})
     Append(DocHelper{doc_helper.root, field_node}, std::type_identity<T>{});
 }
 
+// noop, пропускаем
+template <>
+inline void AppendField(DocHelper, std::type_identity<AdditionalProperties>)
+{
+}
+
 template <typename... Field>
 void AppendFields(DocHelper doc_helper,
                   std::type_identity<std::tuple<Field...>>)
@@ -237,8 +256,7 @@ void Append(DocHelper doc_helper, std::type_identity<T>,
     std::string name_type = GetOpenApiTypeName<T>();
     if (append_cur_place)
     {
-        doc_helper.cur_place =
-            std::string("$ref/components/schemas/").append(name_type);
+        PlaceRefToType<T>(doc_helper.cur_place);
     }
     auto type_node = doc_helper.root["components"]["schemas"][name_type];
     if (!type_node.IsObject())

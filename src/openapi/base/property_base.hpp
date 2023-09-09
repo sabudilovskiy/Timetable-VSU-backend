@@ -11,9 +11,12 @@ struct EmptyTraits
 {
 };
 
-struct Reflective
+struct Yes
 {
 };
+
+#define REFLECTIVE_BASE(type) \
+    using Reflective = timetable_vsu_backend::openapi::Yes
 
 template <typename T, typename U>
 concept HasSpaceShip = requires(T t, U u)

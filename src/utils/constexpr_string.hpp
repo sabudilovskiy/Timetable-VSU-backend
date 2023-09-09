@@ -38,6 +38,11 @@ struct ConstexprString
         return {contents.begin(), contents.begin() + Size - 1};
     }
 
+    std::string AsString() const
+    {
+        return std::string{AsStringView()};
+    }
+
     constexpr const char* data() const
     {
         return contents.begin();

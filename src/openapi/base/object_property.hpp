@@ -15,7 +15,8 @@ template <typename T>
 concept IsReflective = requires
 {
     requires std::is_class_v<T>;
-    requires std::is_base_of_v<Reflective, T>;
+    typename T::Reflective;
+    requires std::is_same_v<typename T::Reflective, Yes>;
 };
 }  // namespace checks
 

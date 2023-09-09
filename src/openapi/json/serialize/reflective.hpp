@@ -28,8 +28,7 @@ inline void serialize_without_additional(
     auto matcher_common = [&result]<typename F>(const F& field) {
         constexpr auto name = traits::GetName<typename F::traits>();
         static_assert(!name.empty(), "Common field must have name");
-        auto name_str = std::string{name.AsStringView()};
-        result[name_str] = field();
+        result[name.AsString()] = field();
     };
     // noop
     auto matcher_additional_properties = [](const AdditionalProperties&) {};

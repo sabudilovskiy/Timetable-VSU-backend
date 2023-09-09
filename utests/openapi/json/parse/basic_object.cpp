@@ -28,8 +28,9 @@ using namespace timetable_vsu_backend::openapi;
 using namespace timetable_vsu_backend::openapi::types;
 using namespace timetable_vsu_backend::openapi::preferences;
 
-struct First : Reflective
+struct First
 {
+    REFLECTIVE_BASE(First);
     String<Name<"field">> field;
     Array<int, Name<"field2">> field2;
 };
@@ -52,8 +53,9 @@ UTEST(Openapi_Json_Parse, BasicObject)
     EXPECT_EQ(got_object().field2(), expected_object().field2());
 }
 
-struct Second : Reflective
+struct Second
 {
+    REFLECTIVE_BASE(Second);
     String<Name<"field">> field;
     AdditionalProperties other;
 };
@@ -69,14 +71,14 @@ UTEST(Openapi_Json_Parse, BasicObjectAdditional)
     )";
     auto json = userver::formats::json::FromString(jsonString);
     auto got_object = json.As<Type>();
-    auto expected_object = Type();
-    expected_object().field() = "test";
-    EXPECT_TRUE(expected_object().other().IsArray());
-    EXPECT_EQ(expected_object().other().GetSize(), 3);
-    auto first_elem = expected_object().other()[0].As<int>();
+    EXPECT_TRUE(got_object().other().IsObject());
+    auto field2 = got_object().other()["field2"];
+    EXPECT_TRUE(field2.IsArray());
+    EXPECT_EQ(field2.GetSize(), 3);
+    auto first_elem = field2[0].As<int>();
     EXPECT_EQ(first_elem, 1);
-    auto second_elem = expected_object().other()[1].As<int>();
+    auto second_elem = field2[1].As<int>();
     EXPECT_EQ(second_elem, 3);
-    auto thirst_elem = expected_object().other()[2].As<int>();
+    auto thirst_elem = field2[2].As<int>();
     EXPECT_EQ(thirst_elem, 5);
 }

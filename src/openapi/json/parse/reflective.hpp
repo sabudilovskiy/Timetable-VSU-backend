@@ -1,8 +1,11 @@
 #pragma once
 
+#include <fmt/core.h>
+
 #include <array>
 #include <boost/pfr.hpp>
 #include <boost/pfr/core.hpp>
+#include <iostream>
 #include <stdexcept>
 #include <string_view>
 #include <unordered_map>
@@ -105,7 +108,7 @@ T Parse(const json::Value& item, To<T>)
         };
         boost::pfr::for_each_field(result, matcher_common_type);
     }
-    return {std::move(result)};
+    return result;
 }
 
 }  // namespace userver::formats::parse
