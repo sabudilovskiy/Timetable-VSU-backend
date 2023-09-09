@@ -107,9 +107,9 @@ install-run-debug install-run-release: install-run-%: install-%
 
 .PHONY: format-includes
 format-includes:
-	# @python3 scripts/format_includes.py src $(FORMAT_INCLUDES_FLAGS)
+	@python3 scripts/format_includes.py src $(FORMAT_INCLUDES_FLAGS)
 	@python3 scripts/format_includes.py utests $(FORMAT_INCLUDES_FLAGS)
-	# @python3 scripts/format_includes.py service $(FORMAT_INCLUDES_FLAGS)
+	@python3 scripts/format_includes.py service $(FORMAT_INCLUDES_FLAGS)
 
 .PHONY: format-cpp
 format-cpp: format-includes
