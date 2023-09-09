@@ -1,15 +1,17 @@
 #include <gtest/gtest.h>
 
+#include <boost/pfr/core.hpp>
 #include <exception>
 #include <stdexcept>
 #include <string_view>
 #include <type_traits>
 #include <userver/formats/serialize/common_containers.hpp>
+#include <userver/formats/yaml/serialize.hpp>
+#include <userver/logging/log_helper.hpp>
 #include <userver/utest/utest.hpp>
 #include <variant>
 #include <vector>
 
-#include "boost/pfr/core.hpp"
 #include "openapi/base/doc.hpp"
 #include "openapi/base/named_traits.hpp"
 #include "openapi/base/preferences.hpp"
@@ -18,8 +20,6 @@
 #include "openapi/types/array_type.hpp"
 #include "openapi/types/object_type.hpp"
 #include "openapi/types/string_type.hpp"
-#include "userver/formats/yaml/serialize.hpp"
-#include "userver/logging/log_helper.hpp"
 #include "utils/constexpr_optional.hpp"
 #include "utils/constexpr_string.hpp"
 #include "utils/tests_macros.hpp"

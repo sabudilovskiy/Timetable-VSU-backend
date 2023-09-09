@@ -14,6 +14,7 @@
 #include <userver/storages/postgres/cluster.hpp>
 #include <userver/storages/postgres/cluster_types.hpp>
 #include <userver/storages/postgres/component.hpp>
+#include <userver/storages/postgres/exceptions.hpp>
 #include <userver/storages/postgres/io/row_types.hpp>
 #include <userver/storages/postgres/io/type_traits.hpp>
 #include <userver/storages/postgres/query.hpp>
@@ -27,7 +28,6 @@
 #include "models/substring/postgre.hpp"
 #include "models/user_credentials/postgre.hpp"
 #include "sql_queries.hpp"
-#include "userver/storages/postgres/exceptions.hpp"
 #include "utils/convert/drop_properties_ref.hpp"
 #include "utils/postgres_helper.hpp"
 #include "utils/shared_transaction.hpp"

@@ -2,10 +2,10 @@
 
 #include <optional>
 #include <type_traits>
+#include <userver/formats/json/value.hpp>
 #include <vector>
 
 #include "property_base.hpp"
-#include "userver/formats/json/value.hpp"
 
 namespace timetable_vsu_backend::openapi
 {

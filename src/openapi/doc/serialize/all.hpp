@@ -1,4 +1,6 @@
 #pragma once
+#include <boost/pfr/core.hpp>
+#include <boost/pfr/tuple_size.hpp>
 #include <cctype>
 #include <concepts>
 #include <cstdint>
@@ -8,13 +10,16 @@
 #include <stdexcept>
 #include <type_traits>
 #include <unordered_map>
+#include <userver/compiler/demangle.hpp>
+#include <userver/formats/common/type.hpp>
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/formats/yaml/serialize.hpp>
+#include <userver/formats/yaml/value_builder.hpp>
+#include <userver/logging/log.hpp>
 #include <userver/utils/checked_pointer.hpp>
+#include <userver/utils/overloaded.hpp>
 #include <utility>
 
-#include "boost/pfr/core.hpp"
-#include "boost/pfr/tuple_size.hpp"
 #include "openapi/base/array_property.hpp"
 #include "openapi/base/array_traits.hpp"
 #include "openapi/base/doc.hpp"
@@ -24,11 +29,6 @@
 #include "openapi/base/reflective_preferences.hpp"
 #include "openapi/base/string_property.hpp"
 #include "openapi/base/string_traits.hpp"
-#include "userver/compiler/demangle.hpp"
-#include "userver/formats/common/type.hpp"
-#include "userver/formats/yaml/value_builder.hpp"
-#include "userver/logging/log.hpp"
-#include "userver/utils/overloaded.hpp"
 #include "utils/compilers_macros.hpp"
 
 namespace timetable_vsu_backend::openapi

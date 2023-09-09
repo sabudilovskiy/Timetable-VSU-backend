@@ -2,7 +2,10 @@
 
 #include <exception>
 #include <string_view>
+#include <userver/formats/json/value.hpp>
+#include <userver/formats/json/value_builder.hpp>
 #include <userver/formats/serialize/common_containers.hpp>
+#include <userver/formats/serialize/to.hpp>
 #include <userver/utest/utest.hpp>
 #include <vector>
 
@@ -22,9 +25,6 @@
 #include "openapi/types/object_type.hpp"
 #include "openapi/types/optional_type.hpp"
 #include "openapi/types/string_type.hpp"
-#include "userver/formats/json/value.hpp"
-#include "userver/formats/json/value_builder.hpp"
-#include "userver/formats/serialize/to.hpp"
 #include "utils/constexpr_optional.hpp"
 #include "utils/constexpr_string.hpp"
 #include "views/hello/view.hpp"

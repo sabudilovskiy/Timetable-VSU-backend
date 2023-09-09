@@ -4,14 +4,14 @@
 #include <stdexcept>
 #include <string_view>
 #include <unordered_map>
+#include <userver/formats/json/value.hpp>
+#include <userver/formats/json/value_builder.hpp>
+#include <userver/formats/parse/to.hpp>
+#include <userver/logging/log.hpp>
 
 #include "openapi/base/named_traits.hpp"
 #include "openapi/base/string_property.hpp"
 #include "openapi/base/string_traits.hpp"
-#include "userver/formats/json/value.hpp"
-#include "userver/formats/json/value_builder.hpp"
-#include "userver/formats/parse/to.hpp"
-#include "userver/logging/log.hpp"
 #include "utils/constexpr_string.hpp"
 
 namespace timetable_vsu_backend::openapi

@@ -1,9 +1,9 @@
 #pragma once
+#include <boost/pfr/core.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <optional>
 #include <type_traits>
 
-#include "boost/pfr/core.hpp"
 #include "models/day/type.hpp"
 #include "models/education_type/type.hpp"
 #include "models/lesson_type/type.hpp"

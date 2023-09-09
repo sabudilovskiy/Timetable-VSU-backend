@@ -3,12 +3,12 @@
 #include <gtest/gtest.h>
 
 #include <boost/pfr/core.hpp>
+#include <boost/pfr/tuple_size.hpp>
 #include <cstddef>
 #include <tuple>
 #include <type_traits>
 #include <utility>
 
-#include "boost/pfr/tuple_size.hpp"
 #include "openapi/base/object_property.hpp"
 #include "openapi/base/property_base.hpp"
 #include "utils/compilers_macros.hpp"

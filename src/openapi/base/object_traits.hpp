@@ -1,10 +1,10 @@
 #pragma once
 
+#include <boost/pfr/core.hpp>
+#include <boost/pfr/tuple_size.hpp>
 #include <type_traits>
 #include <utility>
 
-#include "boost/pfr/core.hpp"
-#include "boost/pfr/tuple_size.hpp"
 #include "named_traits.hpp"
 #include "object_property.hpp"
 #include "preferences.hpp"
