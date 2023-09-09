@@ -2,6 +2,7 @@ CMAKE_COMMON_FLAGS ?= -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 CMAKE_DEBUG_FLAGS ?= -DUSERVER_SANITIZE='addr ub'
 CMAKE_RELEASE_FLAGS ?=
 CMAKE_OS_FLAGS ?= -DUSERVER_FEATURE_CRYPTOPP_BLAKE2=0 -DUSERVER_FEATURE_REDIS_HI_MALLOC=1
+FORMAT_INCLUDES_FLAGS ?= userver boost gtest
 NPROCS ?= $(shell nproc)
 CLANG_FORMAT ?= clang-format-11
 
@@ -104,8 +105,14 @@ run-debug run-release: run-%: nothing-%
 install-run-debug install-run-release: install-run-%: install-%
 	$(MAKE) run-$*
 
+.PHONY: format-includes
+format-includes:
+	# @python3 scripts/format_includes.py src $(FORMAT_INCLUDES_FLAGS)
+	@python3 scripts/format_includes.py utests $(FORMAT_INCLUDES_FLAGS)
+	# @python3 scripts/format_includes.py service $(FORMAT_INCLUDES_FLAGS)
+
 .PHONY: format-cpp
-format-cpp:
+format-cpp: format-includes
 	@find benchs -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
 	@find service -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
 	@find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
@@ -114,12 +121,6 @@ format-cpp:
 	$(MAKE) add-eol P=service
 	$(MAKE) add-eol P=src
 	$(MAKE) add-eol P=utests
-
-.PHONY: format-includes
-format-includes:
-    @for file in /путь/к/директории/*.pp; do \
-        python format_includes.py "$$file" userver boost; \
-    done
 
 # Format the sources
 .PHONY: format-all
