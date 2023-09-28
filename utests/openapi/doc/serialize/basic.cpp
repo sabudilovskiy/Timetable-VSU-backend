@@ -2,6 +2,18 @@
 
 #include <boost/pfr/core.hpp>
 #include <exception>
+#include <openapi/base/doc.hpp>
+#include <openapi/base/named_traits.hpp>
+#include <openapi/base/preferences.hpp>
+#include <openapi/base/property_base.hpp>
+#include <openapi/base/reflective_preferences.hpp>
+#include <openapi/doc/serialize/all.hpp>
+#include <openapi/http/base/body.hpp>
+#include <openapi/http/base/cookie.hpp>
+#include <openapi/http/base/header.hpp>
+#include <openapi/types/array_type.hpp>
+#include <openapi/types/object_type.hpp>
+#include <openapi/types/string_type.hpp>
 #include <stdexcept>
 #include <string_view>
 #include <type_traits>
@@ -12,15 +24,6 @@
 #include <variant>
 #include <vector>
 
-#include "openapi/base/doc.hpp"
-#include "openapi/base/named_traits.hpp"
-#include "openapi/base/preferences.hpp"
-#include "openapi/base/property_base.hpp"
-#include "openapi/base/reflective_preferences.hpp"
-#include "openapi/doc/serialize/all.hpp"
-#include "openapi/types/array_type.hpp"
-#include "openapi/types/object_type.hpp"
-#include "openapi/types/string_type.hpp"
 #include "utils/constexpr_optional.hpp"
 #include "utils/constexpr_string.hpp"
 #include "utils/tests_macros.hpp"
@@ -35,7 +38,7 @@ namespace user
 struct Credentials
 {
     REFLECTIVE_BASE(Credentials);
-    String<Pattern<"[a-z]*">, Name<"login">> login;
+    String<Name<"login">, Pattern<"[a-z]*">> login;
     String<Name<"password">> password;
 };
 }  // namespace user
@@ -51,7 +54,7 @@ namespace server
 {
 struct User
 {
-    REFLECTIVE_BASE(User);
+    REFLECTIVE_BASE(server::User);
     Object<user::Credentials, Name<"credentials">> user;
     String<Name<"id">> id;
 };

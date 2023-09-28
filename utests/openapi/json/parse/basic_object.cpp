@@ -1,25 +1,17 @@
 #include <gtest/gtest.h>
 
 #include <exception>
+#include <openapi/base/preferences.hpp>
+#include <openapi/base/property_base.hpp>
+#include <openapi/base/reflective_preferences.hpp>
+#include <openapi/base/string_traits.hpp>
+#include <openapi/json/parse/all.hpp>
+#include <openapi/types/all.hpp>
 #include <string_view>
+#include <userver/formats/json.hpp>
 #include <userver/utest/utest.hpp>
 #include <vector>
 
-#include "openapi/base/named_traits.hpp"
-#include "openapi/base/optional_traits.hpp"
-#include "openapi/base/preferences.hpp"
-#include "openapi/base/property_base.hpp"
-#include "openapi/base/reflective_preferences.hpp"
-#include "openapi/base/string_traits.hpp"
-#include "openapi/json/parse/array_property.hpp"
-#include "openapi/json/parse/object_property.hpp"
-#include "openapi/json/parse/optional_property.hpp"
-#include "openapi/json/parse/reflective.hpp"
-#include "openapi/json/parse/string_property.hpp"
-#include "openapi/types/array_type.hpp"
-#include "openapi/types/object_type.hpp"
-#include "openapi/types/optional_type.hpp"
-#include "openapi/types/string_type.hpp"
 #include "utils/constexpr_optional.hpp"
 #include "utils/constexpr_string.hpp"
 #include "views/hello/view.hpp"
@@ -32,7 +24,7 @@ struct First
 {
     REFLECTIVE_BASE(First);
     String<Name<"field">> field;
-    Array<int, Name<"field2">> field2;
+    Array<std::int32_t, Name<"field2">> field2;
 };
 
 UTEST(Openapi_Json_Parse, BasicObject)
@@ -62,13 +54,13 @@ struct Second
 
 UTEST(Openapi_Json_Parse, BasicObjectAdditional)
 {
-    using Type = Object<Second>;
     constexpr auto jsonString = R"(
         {
             "field" : "test",
             "field2" : [1,3,5]
         }
     )";
+    using Type = Object<Second>;
     auto json = userver::formats::json::FromString(jsonString);
     auto got_object = json.As<Type>();
     EXPECT_TRUE(got_object().other().IsObject());

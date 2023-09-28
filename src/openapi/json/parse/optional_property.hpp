@@ -4,6 +4,9 @@
 #include <boost/pfr.hpp>
 #include <boost/pfr/core.hpp>
 #include <exception>
+#include <openapi/base/named_traits.hpp>
+#include <openapi/base/optional_property.hpp>
+#include <openapi/base/optional_traits.hpp>
 #include <optional>
 #include <stdexcept>
 #include <string_view>
@@ -12,9 +15,6 @@
 #include <userver/formats/parse/to.hpp>
 #include <userver/utils/overloaded.hpp>
 
-#include "openapi/base/named_traits.hpp"
-#include "openapi/base/optional_property.hpp"
-#include "openapi/base/optional_traits.hpp"
 #include "utils/constexpr_string.hpp"
 
 namespace userver::formats::parse

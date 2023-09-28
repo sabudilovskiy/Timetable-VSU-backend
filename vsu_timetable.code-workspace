@@ -25,7 +25,7 @@
             "dependencies" : true, 
             "compile_commands.json" : true
         },
-        "clang-tidy.buildPath": "build_debug"
+        "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
     },
     "tasks": {
         "version": "2.0.0",

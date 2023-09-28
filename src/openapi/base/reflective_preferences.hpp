@@ -5,19 +5,20 @@
 #include <boost/pfr/core.hpp>
 #include <boost/pfr/tuple_size.hpp>
 #include <cstddef>
+#include <openapi/base/object_property.hpp>
+#include <openapi/base/property_base.hpp>
 #include <tuple>
 #include <type_traits>
+#include <userver/formats/json/value.hpp>
 #include <utility>
 
-#include "openapi/base/object_property.hpp"
-#include "openapi/base/property_base.hpp"
 #include "utils/compilers_macros.hpp"
 
 namespace timetable_vsu_backend::openapi
 {
 /* Добавьте это поле в свою структуру, чтобы её схема была с
-
 AddditionalProperties: true */
+
 struct AdditionalProperties
 {
     userver::formats::json::Value value_;

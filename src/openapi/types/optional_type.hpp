@@ -1,10 +1,10 @@
 #pragma once
+#include <openapi/base/object_property.hpp>
+#include <openapi/base/optional_property.hpp>
+#include <openapi/base/optional_traits.hpp>
+#include <openapi/base/preferences.hpp>
 #include <string_view>
 
-#include "openapi/base/object_property.hpp"
-#include "openapi/base/optional_property.hpp"
-#include "openapi/base/optional_traits.hpp"
-#include "openapi/base/preferences.hpp"
 #include "utils/constexpr_optional.hpp"
 
 namespace timetable_vsu_backend::openapi

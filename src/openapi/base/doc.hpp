@@ -1,12 +1,11 @@
 #pragma once
 
 #include <iostream>
+#include <openapi/json/serialize/array_property.hpp>
+#include <openapi/types/array_type.hpp>
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/formats/yaml/value_builder.hpp>
 #include <userver/utils/strong_typedef.hpp>
-
-#include "openapi/json/serialize/array_property.hpp"
-#include "openapi/types/array_type.hpp"
 
 namespace timetable_vsu_backend::openapi
 {

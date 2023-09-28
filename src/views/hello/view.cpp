@@ -3,6 +3,7 @@
 #include <fmt/format.h>
 
 #include <userver/clients/dns/component.hpp>
+#include <userver/components/component_context.hpp>
 #include <userver/server/handlers/http_handler_base.hpp>
 #include <userver/storages/postgres/cluster.hpp>
 #include <userver/storages/postgres/component.hpp>
@@ -12,9 +13,8 @@ namespace service_template
 {
 namespace
 {
-class Hello final : public userver::server::handlers::HttpHandlerBase
+struct Hello final : userver::server::handlers::HttpHandlerBase
 {
-   public:
     static constexpr std::string_view kName = "handler-hello";
 
     Hello(const userver::components::ComponentConfig& config,
@@ -53,6 +53,7 @@ class Hello final : public userver::server::handlers::HttpHandlerBase
         return service_template::SayHelloTo(name, user_type);
     }
 
+   private:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
 

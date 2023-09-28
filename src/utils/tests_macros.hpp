@@ -37,4 +37,4 @@ inline std::string drop_first_and_last_symbol(std::string_view text)
 }
 }  // namespace impl
 
-#define RAW_STRING(X) impl::drop_first_and_last_symbol(X)
+#define RAW_STRING(X) ::impl::drop_first_and_last_symbol(X)

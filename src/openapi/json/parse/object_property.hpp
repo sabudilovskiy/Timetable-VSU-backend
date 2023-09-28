@@ -3,6 +3,10 @@
 #include <array>
 #include <boost/pfr.hpp>
 #include <boost/pfr/core.hpp>
+#include <openapi/base/named_traits.hpp>
+#include <openapi/base/object_property.hpp>
+#include <openapi/base/object_traits.hpp>
+#include <openapi/base/optional_property.hpp>
 #include <stdexcept>
 #include <string_view>
 #include <unordered_map>
@@ -11,10 +15,6 @@
 #include <userver/logging/log.hpp>
 #include <userver/utils/overloaded.hpp>
 
-#include "openapi/base/named_traits.hpp"
-#include "openapi/base/object_property.hpp"
-#include "openapi/base/object_traits.hpp"
-#include "openapi/base/optional_property.hpp"
 #include "utils/constexpr_string.hpp"
 
 namespace userver::formats::parse

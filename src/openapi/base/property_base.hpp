@@ -15,7 +15,16 @@ struct Yes
 {
 };
 
-#define REFLECTIVE_BASE(type) \
+#define REFLECTIVE_BASE(type)                              \
+   private:                                                \
+    void _Assert_right_type()                              \
+    {                                                      \
+        using This = std::remove_cvref_t<decltype(*this)>; \
+        static_assert(std::is_same_v<This, type>,          \
+                      "You are using the wrong type");     \
+    }                                                      \
+                                                           \
+   public:                                                 \
     using Reflective = timetable_vsu_backend::openapi::Yes
 
 template <typename T, typename U>

@@ -1,9 +1,9 @@
 #pragma once
+#include <openapi/base/array_property.hpp>
+#include <openapi/base/array_traits.hpp>
+#include <openapi/base/preferences.hpp>
 #include <string_view>
 
-#include "openapi/base/array_property.hpp"
-#include "openapi/base/array_traits.hpp"
-#include "openapi/base/preferences.hpp"
 #include "utils/constexpr_optional.hpp"
 
 namespace timetable_vsu_backend::openapi
@@ -21,11 +21,13 @@ struct ArrayTraits : NamedTraits<Name>
     static constexpr auto kUniqueItems = UniqueItems;
 };
 
-//вся эта структура нужна для того, чтобы работать с трейтами как с значением и
-//применять поэтапно опции
-//у меня нет иного выбора, кроме как стереть информацию о
-//реальном размере строки, так как мне нельзя менять тип.
-// 256 должно хватить
+/*вся эта структура нужна для того, чтобы работать с трейтами как с значением и
+применять поэтапно опции
+
+у меня нет иного выбора, кроме как стереть информацию о
+реальном размере строки, так как мне нельзя менять тип.
+
+256 должно хватить*/
 struct ArrayTraitsHolder
 {
     std::array<char, 256> Name{};

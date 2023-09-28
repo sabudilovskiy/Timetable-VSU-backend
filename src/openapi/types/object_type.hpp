@@ -1,9 +1,9 @@
 #pragma once
+#include <openapi/base/named_traits.hpp>
+#include <openapi/base/object_property.hpp>
+#include <openapi/base/preferences.hpp>
 #include <string_view>
 
-#include "openapi/base/named_traits.hpp"
-#include "openapi/base/object_property.hpp"
-#include "openapi/base/preferences.hpp"
 #include "utils/constexpr_optional.hpp"
 
 namespace timetable_vsu_backend::openapi

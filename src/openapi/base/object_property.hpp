@@ -1,9 +1,6 @@
 #pragma once
 
-#include <optional>
 #include <type_traits>
-#include <userver/formats/json/value.hpp>
-#include <vector>
 
 #include "property_base.hpp"
 

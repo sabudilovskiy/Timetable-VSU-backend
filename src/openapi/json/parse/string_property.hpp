@@ -1,5 +1,8 @@
 #pragma once
 
+#include <openapi/base/named_traits.hpp>
+#include <openapi/base/string_property.hpp>
+#include <openapi/base/string_traits.hpp>
 #include <regex>
 #include <stdexcept>
 #include <string_view>
@@ -8,9 +11,6 @@
 #include <userver/formats/parse/to.hpp>
 #include <userver/logging/log.hpp>
 
-#include "openapi/base/named_traits.hpp"
-#include "openapi/base/string_property.hpp"
-#include "openapi/base/string_traits.hpp"
 #include "utils/constexpr_string.hpp"
 
 namespace userver::formats::parse

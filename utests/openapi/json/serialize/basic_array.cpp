@@ -1,6 +1,10 @@
 #include <gtest/gtest.h>
 
 #include <exception>
+#include <openapi/base/named_traits.hpp>
+#include <openapi/base/preferences.hpp>
+#include <openapi/json/serialize/array_property.hpp>
+#include <openapi/types/array_type.hpp>
 #include <stdexcept>
 #include <string_view>
 #include <userver/formats/json/value.hpp>
@@ -9,10 +13,6 @@
 #include <variant>
 #include <vector>
 
-#include "openapi/base/named_traits.hpp"
-#include "openapi/base/preferences.hpp"
-#include "openapi/json/serialize/array_property.hpp"
-#include "openapi/types/array_type.hpp"
 #include "utils/constexpr_optional.hpp"
 #include "utils/constexpr_string.hpp"
 #include "utils/tests_macros.hpp"

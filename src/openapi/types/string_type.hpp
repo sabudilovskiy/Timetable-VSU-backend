@@ -1,9 +1,10 @@
 #pragma once
+#include <openapi/base/preferences.hpp>
+#include <openapi/base/string_property.hpp>
+#include <openapi/base/string_traits.hpp>
 #include <string_view>
 
-#include "openapi/base/preferences.hpp"
-#include "openapi/base/string_property.hpp"
-#include "openapi/base/string_traits.hpp"
+#include "utils/compilers_macros.hpp"
 
 namespace timetable_vsu_backend::openapi
 {
@@ -62,8 +63,7 @@ void consteval Apply(StringTraitsHolder& traits,
 template <typename T>
 void consteval Apply(StringTraitsHolder&, const T&)
 {
-    static_assert(
-        ![] {}, "You are used unknown option");
+    STATIC_ASSERT_FALSE("You are used unknown option");
 }
 
 template <typename... Option>
@@ -84,12 +84,12 @@ struct StringMagicHelper
     consteval static auto resolve_traits()
     {
         constexpr StringTraitsHolder traits = resolve_holder();
-        constexpr auto name = utils::MakeConstexprString<traits.Name>();
-        constexpr auto pattern = utils::MakeConstexprString<traits.Pattern>();
         static_assert(traits.Name_was_changed <= 1,
                       "Don't use more 1 Name in template args");
         static_assert(traits.Pattern_was_changed <= 1,
                       "Don't use more 1 Pattern in template args");
+        constexpr auto name = utils::MakeConstexprString<traits.Name>();
+        constexpr auto pattern = utils::MakeConstexprString<traits.Pattern>();
         return StringTraits<name, pattern>{};
     }
 };

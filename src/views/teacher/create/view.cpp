@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <exception>
+#include <userver/components/component_context.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/formats/parse/boost_uuid.hpp>
 #include <userver/formats/parse/to.hpp>

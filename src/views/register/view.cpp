@@ -6,6 +6,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <chrono>
 #include <exception>
+#include <userver/components/component_context.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/formats/parse/to.hpp>
 #include <userver/logging/log.hpp>
