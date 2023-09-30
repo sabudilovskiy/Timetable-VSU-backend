@@ -2,18 +2,7 @@
 
 #include <boost/pfr/core.hpp>
 #include <exception>
-#include <openapi/base/doc.hpp>
-#include <openapi/base/named_traits.hpp>
-#include <openapi/base/preferences.hpp>
-#include <openapi/base/property_base.hpp>
-#include <openapi/base/reflective_preferences.hpp>
-#include <openapi/doc/serialize/all.hpp>
-#include <openapi/http/base/body.hpp>
-#include <openapi/http/base/cookie.hpp>
-#include <openapi/http/base/header.hpp>
-#include <openapi/types/array_type.hpp>
-#include <openapi/types/object_type.hpp>
-#include <openapi/types/string_type.hpp>
+#include <openapi/all.hpp>
 #include <stdexcept>
 #include <string_view>
 #include <type_traits>

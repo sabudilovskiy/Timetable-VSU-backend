@@ -11,6 +11,9 @@ struct Code
     static_assert(I && false, "Unknowned code");
 };
 
+template <size_t I>
+constexpr auto code_v = Code<I>::value;
+
 #define CODE_IMPL(ENUM_VALUE, INDEX)                                          \
     template <>                                                               \
     struct Code<INDEX> : std::integral_constant<                              \

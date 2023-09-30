@@ -29,4 +29,13 @@ void AppendRequestField(DocHelper doc_helper,
     auto schema = application_json_node["schema"];
     Append(DocHelper{doc_helper.root, schema}, std::type_identity<T>{});
 }
+
+template <typename T, typename Traits>
+void AppendResponseField(DocHelper doc_helper,
+                         std::type_identity<http::BodyProperty<T, Traits>>)
+{
+    auto& [root, cur] = doc_helper;
+    auto schema = cur["content"]["application/json"]["schema"];
+    Append(DocHelper{doc_helper.root, schema}, std::type_identity<T>{});
+}
 }  // namespace timetable_vsu_backend::openapi

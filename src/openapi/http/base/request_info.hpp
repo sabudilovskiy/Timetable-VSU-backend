@@ -1,5 +1,5 @@
 #pragma once
-#include <userver/server/handlers/http_handler_base.hpp>
+#include <userver/server/http/http_request.hpp>
 
 namespace timetable_vsu_backend::openapi::http
 {
@@ -18,7 +18,7 @@ struct TestRequest
 };
 
 inline RequestInfo MakeInfoFromRequest(
-    const userver::server::http::HttpRequest& request)
+    userver::server::http::HttpRequest& request)
 {
     return RequestInfo{.headers = request.RequestHeaders(),
                        .cookies = request.RequestCookies(),

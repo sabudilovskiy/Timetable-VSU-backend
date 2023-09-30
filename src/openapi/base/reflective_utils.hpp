@@ -5,6 +5,7 @@
 #include <openapi/base/property_base.hpp>
 #include <tuple>
 #include <type_traits>
+#include <userver/storages/postgres/io/composite_types.hpp>
 #include <utility>
 
 namespace timetable_vsu_backend::openapi

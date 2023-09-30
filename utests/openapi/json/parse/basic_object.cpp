@@ -1,12 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <exception>
-#include <openapi/base/preferences.hpp>
-#include <openapi/base/property_base.hpp>
-#include <openapi/base/reflective_preferences.hpp>
-#include <openapi/base/string_traits.hpp>
-#include <openapi/json/parse/all.hpp>
-#include <openapi/types/all.hpp>
+#include <openapi/all.hpp>
 #include <string_view>
 #include <userver/formats/json.hpp>
 #include <userver/utest/utest.hpp>
@@ -38,11 +33,16 @@ UTEST(Openapi_Json_Parse, BasicObject)
     )";
     auto json = userver::formats::json::FromString(jsonString);
     auto got_object = json.As<Type>();
-    auto expected_object = Type();
-    expected_object().field() = "test";
-    expected_object().field2() = {1, 3, 5};
-    EXPECT_EQ(got_object().field(), expected_object().field());
-    EXPECT_EQ(got_object().field2(), expected_object().field2());
+    // clang-format off
+    Type expected_object = {
+        First
+        {
+        .field = {"test"}, 
+        .field2 = {{1, 3, 5}}
+        }
+    };
+    // clang-format on
+    EXPECT_EQ(got_object, expected_object);
 }
 
 struct Second
@@ -63,14 +63,13 @@ UTEST(Openapi_Json_Parse, BasicObjectAdditional)
     using Type = Object<Second>;
     auto json = userver::formats::json::FromString(jsonString);
     auto got_object = json.As<Type>();
-    EXPECT_TRUE(got_object().other().IsObject());
-    auto field2 = got_object().other()["field2"];
-    EXPECT_TRUE(field2.IsArray());
-    EXPECT_EQ(field2.GetSize(), 3);
-    auto first_elem = field2[0].As<int>();
-    EXPECT_EQ(first_elem, 1);
-    auto second_elem = field2[1].As<int>();
-    EXPECT_EQ(second_elem, 3);
-    auto thirst_elem = field2[2].As<int>();
-    EXPECT_EQ(thirst_elem, 5);
+    // clang-format off
+    Second expected{
+        .field = {"test"},
+        .other = {userver::formats::json::FromString(R"({
+            "field2" : [1,3,5]
+        })")}
+    };
+    // clang-format on
+    EXPECT_TRUE(got_object == expected);
 }

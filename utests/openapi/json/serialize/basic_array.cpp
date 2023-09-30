@@ -1,10 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <exception>
-#include <openapi/base/named_traits.hpp>
-#include <openapi/base/preferences.hpp>
-#include <openapi/json/serialize/array_property.hpp>
-#include <openapi/types/array_type.hpp>
+#include <openapi/all.hpp>
 #include <stdexcept>
 #include <string_view>
 #include <userver/formats/json/value.hpp>

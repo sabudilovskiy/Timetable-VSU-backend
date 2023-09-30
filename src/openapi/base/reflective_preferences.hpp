@@ -4,6 +4,7 @@
 
 #include <boost/pfr/core.hpp>
 #include <boost/pfr/tuple_size.hpp>
+#include <compare>
 #include <cstddef>
 #include <openapi/base/object_property.hpp>
 #include <openapi/base/property_base.hpp>
@@ -34,6 +35,19 @@ struct AdditionalProperties
     {
         return std::move(value_);
     }
+    std::partial_ordering operator<=>(const AdditionalProperties& rhs) const
+    {
+        return *this <=> rhs.value_;
+    }
+    std::partial_ordering operator<=>(
+        const userver::formats::json::Value& rhs) const
+    {
+        auto& lhs = *this;
+        if (lhs.value_ == rhs)
+            return std::partial_ordering::equivalent;
+        return std::partial_ordering::unordered;
+    }
+    bool operator==(const AdditionalProperties& rhs) const = default;
 };
 
 namespace checks

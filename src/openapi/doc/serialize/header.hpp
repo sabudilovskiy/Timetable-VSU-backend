@@ -1,5 +1,6 @@
 #pragma once
 
+#include <openapi/base/named_traits.hpp>
 #include <openapi/doc/serialize/base.hpp>
 
 namespace timetable_vsu_backend::openapi
@@ -25,4 +26,15 @@ void AppendRequestField(DocHelper doc_helper,
     parameters_node.PushBack(std::move(parameter_node));
 }
 
+template <typename T, typename Traits>
+void AppendResponseField(DocHelper doc_helper,
+                         std::type_identity<http::HeaderProperty<T, Traits>>)
+{
+    auto& [root, cur] = doc_helper;
+    constexpr auto name = traits::GetName<Traits>();
+    static_assert(!name.empty(), "Header must have name");
+    auto name_sv = name.AsStringView();
+    auto header = cur["headers"][name_sv];
+    Append(DocHelper{doc_helper.root, header}, std::type_identity<T>{});
+}
 }  // namespace timetable_vsu_backend::openapi

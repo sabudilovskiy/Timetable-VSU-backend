@@ -3,6 +3,8 @@
 #include <openapi/doc/serialize/base.hpp>
 #include <openapi/http/base/cookie_property.hpp>
 
+#include "utils/compilers_macros.hpp"
+
 namespace timetable_vsu_backend::openapi
 {
 template <typename T, typename Traits>
@@ -24,6 +26,14 @@ void AppendRequestField(DocHelper doc_helper,
     auto schema = parameter_node["schema"];
     Append(DocHelper{doc_helper.root, schema}, std::type_identity<T>{});
     parameters_node.PushBack(std::move(parameter_node));
+}
+
+template <typename T, typename Traits>
+void AppendResponseField(DocHelper,
+                         std::type_identity<http::CookieProperty<T, Traits>>)
+{
+    STATIC_ASSERT_FALSE(
+        "OpenApi 3.0 doesnt support cookie in reponse. Sorry :(");
 }
 
 }  // namespace timetable_vsu_backend::openapi

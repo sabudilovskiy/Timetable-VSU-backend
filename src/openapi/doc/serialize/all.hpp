@@ -7,3 +7,4 @@
 #include <openapi/doc/serialize/header.hpp>
 #include <openapi/doc/serialize/reflective.hpp>
 #include <openapi/doc/serialize/request.hpp>
+#include <openapi/doc/serialize/response.hpp>

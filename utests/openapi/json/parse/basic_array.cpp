@@ -1,12 +1,8 @@
 #include <gtest/gtest.h>
 
+#include <boost/pfr/core.hpp>
 #include <exception>
-#include <openapi/base/named_traits.hpp>
-#include <openapi/base/preferences.hpp>
-#include <openapi/base/property_base.hpp>
-#include <openapi/http/base/header_property.hpp>
-#include <openapi/json/parse/array_property.hpp>
-#include <openapi/types/array_type.hpp>
+#include <openapi/all.hpp>
 #include <string_view>
 #include <userver/utest/utest.hpp>
 #include <vector>
@@ -28,8 +24,8 @@ UTEST(Openapi_Json_Parse, BasicArrayProperty)
     )";
     auto json = userver::formats::json::FromString(jsonString);
     auto item = json["test"].As<Type>();
-    std::vector<int> expected_item{1, 2, 2};
-    EXPECT_EQ(item(), expected_item);
+    Type expected_item{{1, 2, 2}};
+    EXPECT_EQ(item, expected_item);
 }
 
 UTEST(Openapi_Json_Parse, BasicArrayPropertyMin)
