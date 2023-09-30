@@ -1,17 +1,8 @@
-#include <gtest/gtest.h>
-
-#include <boost/pfr/core.hpp>
-#include <exception>
 #include <openapi/all.hpp>
-#include <stdexcept>
 #include <string_view>
-#include <type_traits>
 #include <userver/formats/serialize/common_containers.hpp>
 #include <userver/formats/yaml/serialize.hpp>
-#include <userver/logging/log_helper.hpp>
 #include <userver/utest/utest.hpp>
-#include <variant>
-#include <vector>
 
 #include "utils/constexpr_optional.hpp"
 #include "utils/constexpr_string.hpp"
@@ -22,7 +13,7 @@ using namespace timetable_vsu_backend::openapi;
 using namespace types;
 using namespace preferences;
 
-namespace models
+namespace tests
 {
 struct FindRequestBody
 {
@@ -38,25 +29,24 @@ struct SomeRequest
     http::Header<std::string, Name<"some_header">> some_header;
     http::Cookie<std::string, Name<"some_cookie">> some_cookie;
 };
-}  // namespace models
+}  // namespace tests
 
 UTEST(Openapi_Doc_Serialize, BasicRequest)
 {
     timetable_vsu_backend::openapi::Doc doc;
-    AppendRequest(doc, std::type_identity<models::SomeRequest>{});
+    AppendRequest(doc, std::type_identity<tests::SomeRequest>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
-    std::clog << '\n' << result_schema << '\n';
     EXPECT_EQ(result_schema, RAW_STRING(
                                  R"(
 requests:
-  ModelsSomeRequest:
+  TestsSomeRequest:
     requestBody:
       required: false
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ModelsFindRequestBody"
+            $ref: "#/components/schemas/TestsFindRequestBody"
     parameters:
       - in: header
         name: some_header
@@ -70,7 +60,7 @@ requests:
           type: string
 components:
   schemas:
-    ModelsFindRequestBody:
+    TestsFindRequestBody:
       type: object
       additionalProperties: false
       properties:

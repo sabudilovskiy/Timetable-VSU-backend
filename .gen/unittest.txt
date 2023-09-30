@@ -6,6 +6,7 @@ utests/openapi/json/parse/basic_string.cpp
 utests/openapi/json/parse/basic_object.cpp
 utests/openapi/json/parse/basic_array.cpp
 utests/openapi/http/basic_http.cpp
+utests/openapi/doc/serialize/basic_response.cpp
 utests/openapi/doc/serialize/basic_request.cpp
 utests/openapi/doc/serialize/basic.cpp
 utests/hello_test.cpp

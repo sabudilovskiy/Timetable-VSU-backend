@@ -22,7 +22,7 @@ using namespace timetable_vsu_backend::openapi;
 using namespace types;
 using namespace preferences;
 
-namespace user
+namespace tests
 {
 struct Credentials
 {
@@ -35,16 +35,16 @@ struct Credentials
 UTEST(TestNameStruct, Basic)
 {
     EXPECT_EQ(
-        timetable_vsu_backend::openapi::GetOpenApiTypeName<user::Credentials>(),
-        "UserCredentials");
+        timetable_vsu_backend::openapi::GetOpenApiTypeName<tests::Credentials>(),
+        "TestsCredentials");
 }
 
-namespace server
+namespace tests2
 {
 struct User
 {
-    REFLECTIVE_BASE(server::User);
-    Object<user::Credentials, Name<"credentials">> user;
+    REFLECTIVE_BASE(tests2::User);
+    Object<tests::Credentials, Name<"credentials">> user;
     String<Name<"id">> id;
 };
 }  // namespace server
@@ -52,25 +52,25 @@ struct User
 UTEST(Openapi_Doc_Serialize, MoreOneNamespace)
 {
     timetable_vsu_backend::openapi::Doc doc;
-    Append(doc, std::type_identity<server::User>{});
+    Append(doc, std::type_identity<tests2::User>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
     auto expected_schema = RAW_STRING(
         R"(
 components:
   schemas:
-    ServerUser:
+    Tests2User:
       type: object
       additionalProperties: false
       properties:
         credentials:
-          $ref: "#/components/schemas/UserCredentials"
+          $ref: "#/components/schemas/TestsCredentials"
         id:
           type: string
       required:
         - credentials
         - id
-    UserCredentials:
+    TestsCredentials:
       type: object
       additionalProperties: false
       properties:
@@ -86,12 +86,12 @@ components:
     EXPECT_EQ(result_schema, expected_schema);
 }
 
-namespace timetable_vsu_backend::models
+namespace timetable_vsu_backend::tests
 {
 struct SomeStructure
 {
     REFLECTIVE_BASE(SomeStructure);
-    Object<server::User, Name<"user">> user;
+    Object<tests2::User, Name<"user">> user;
     AdditionalProperties other;
 };
 }  // namespace timetable_vsu_backend::models
@@ -100,33 +100,33 @@ UTEST(Openapi_Doc_Serialize, BasicAdditionalProperties)
 {
     timetable_vsu_backend::openapi::Doc doc;
     Append(doc,
-           std::type_identity<timetable_vsu_backend::models::SomeStructure>{});
+           std::type_identity<timetable_vsu_backend::tests::SomeStructure>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
     EXPECT_EQ(result_schema, RAW_STRING(
                                  R"(
 components:
   schemas:
-    TimetableVsuBackendModelsSomeStructure:
+    TimetableVsuBackendTestsSomeStructure:
       type: object
       additionalProperties: true
       properties:
         user:
-          $ref: "#/components/schemas/ServerUser"
+          $ref: "#/components/schemas/Tests2User"
       required:
         - user
-    ServerUser:
+    Tests2User:
       type: object
       additionalProperties: false
       properties:
         credentials:
-          $ref: "#/components/schemas/UserCredentials"
+          $ref: "#/components/schemas/TestsCredentials"
         id:
           type: string
       required:
         - credentials
         - id
-    UserCredentials:
+    TestsCredentials:
       type: object
       additionalProperties: false
       properties:

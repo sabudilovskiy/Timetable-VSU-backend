@@ -33,8 +33,8 @@ void AppendResponseField(DocHelper doc_helper,
     auto& [root, cur] = doc_helper;
     constexpr auto name = traits::GetName<Traits>();
     static_assert(!name.empty(), "Header must have name");
-    auto name_sv = name.AsStringView();
-    auto header = cur["headers"][name_sv];
+    auto name_s = name.AsString();
+    auto header = cur["headers"][name_s]["schema"];
     Append(DocHelper{doc_helper.root, header}, std::type_identity<T>{});
 }
 }  // namespace timetable_vsu_backend::openapi
