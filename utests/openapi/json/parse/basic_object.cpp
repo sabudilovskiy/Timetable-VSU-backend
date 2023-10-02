@@ -5,22 +5,25 @@
 #include <string_view>
 #include <userver/formats/json.hpp>
 #include <userver/utest/utest.hpp>
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
 #include <vector>
 
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
 #include "views/hello/view.hpp"
 
 using namespace timetable_vsu_backend::openapi;
 using namespace timetable_vsu_backend::openapi::types;
 using namespace timetable_vsu_backend::openapi::preferences;
 
+namespace
+{
 struct First
 {
     REFLECTIVE_BASE(First);
     String<Name<"field">> field;
     Array<std::int32_t, Name<"field2">> field2;
 };
+}  // namespace
 
 UTEST(Openapi_Json_Parse, BasicObject)
 {
@@ -45,12 +48,15 @@ UTEST(Openapi_Json_Parse, BasicObject)
     EXPECT_EQ(got_object, expected_object);
 }
 
+namespace
+{
 struct Second
 {
     REFLECTIVE_BASE(Second);
     String<Name<"field">> field;
     AdditionalProperties other;
 };
+}  // namespace
 
 UTEST(Openapi_Json_Parse, BasicObjectAdditional)
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/constexpr_string.hpp"
+#include <utils/constexpr_string.hpp>
 
 namespace timetable_vsu_backend::openapi::preferences
 {

@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <optional>
 #include <type_traits>
+#include <utils/convert/additional_properties.hpp>
+#include <utils/convert/base.hpp>
 
 #include "models/day/type.hpp"
 #include "models/education_type/type.hpp"
@@ -11,8 +13,6 @@
 #include "models/subgroup/type.hpp"
 #include "models/substring/type.hpp"
 #include "models/timestring/type.hpp"
-#include "utils/convert/additional_properties.hpp"
-#include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::models
 {

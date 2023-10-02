@@ -3,8 +3,7 @@
 #include <openapi/base/string_property.hpp>
 #include <openapi/base/string_traits.hpp>
 #include <string_view>
-
-#include "utils/compilers_macros.hpp"
+#include <utils/compilers_macros.hpp>
 
 namespace timetable_vsu_backend::openapi
 {

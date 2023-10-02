@@ -2,6 +2,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <optional>
 #include <type_traits>
+#include <utils/convert/additional_properties.hpp>
 
 #include "models/day/type.hpp"
 #include "models/education_type/type.hpp"
@@ -10,7 +11,6 @@
 #include "models/subgroup/type.hpp"
 #include "models/substring/type.hpp"
 #include "models/timestring/type.hpp"
-#include "utils/convert/additional_properties.hpp"
 
 namespace timetable_vsu_backend::models
 {

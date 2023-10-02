@@ -10,12 +10,12 @@
 #include <userver/formats/yaml/serialize.hpp>
 #include <userver/logging/log_helper.hpp>
 #include <userver/utest/utest.hpp>
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
+#include <utils/tests_macros.hpp>
 #include <variant>
 #include <vector>
 
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
-#include "utils/tests_macros.hpp"
 #include "views/hello/view.hpp"
 
 using namespace timetable_vsu_backend::openapi;
@@ -30,13 +30,13 @@ struct Credentials
     String<Name<"login">, Pattern<"[a-z]*">> login;
     String<Name<"password">> password;
 };
-}  // namespace user
+}  // namespace tests
 
 UTEST(TestNameStruct, Basic)
 {
-    EXPECT_EQ(
-        timetable_vsu_backend::openapi::GetOpenApiTypeName<tests::Credentials>(),
-        "TestsCredentials");
+    EXPECT_EQ(timetable_vsu_backend::openapi::GetOpenApiTypeName<
+                  tests::Credentials>(),
+              "TestsCredentials");
 }
 
 namespace tests2
@@ -47,7 +47,7 @@ struct User
     Object<tests::Credentials, Name<"credentials">> user;
     String<Name<"id">> id;
 };
-}  // namespace server
+}  // namespace tests2
 
 UTEST(Openapi_Doc_Serialize, MoreOneNamespace)
 {
@@ -94,11 +94,13 @@ struct SomeStructure
     Object<tests2::User, Name<"user">> user;
     AdditionalProperties other;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace timetable_vsu_backend::tests
 
 UTEST(Openapi_Doc_Serialize, BasicAdditionalProperties)
 {
     timetable_vsu_backend::openapi::Doc doc;
+    Append(doc,
+           std::type_identity<timetable_vsu_backend::tests::SomeStructure>{});
     Append(doc,
            std::type_identity<timetable_vsu_backend::tests::SomeStructure>{});
     auto value = doc().ExtractValue();

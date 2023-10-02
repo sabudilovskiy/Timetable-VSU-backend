@@ -22,7 +22,12 @@ void AppendRequestField(DocHelper doc_helper,
     parameter_node["name"] = traits::GetName<Traits>().AsString();
     parameter_node["required"] = userver::meta::kIsOptional<T>;
     auto schema = parameter_node["schema"];
-    Append(DocHelper{doc_helper.root, schema}, std::type_identity<T>{});
+    if constexpr (userver::meta::kIsOptional<T>){
+        Append(DocHelper{doc_helper.root, schema}, std::type_identity<typename T::value_type>{});
+    }
+    else {
+        Append(DocHelper{doc_helper.root, schema}, std::type_identity<T>{});
+    }
     parameters_node.PushBack(std::move(parameter_node));
 }
 

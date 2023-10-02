@@ -21,8 +21,7 @@
 #include <userver/formats/parse/to.hpp>
 #include <userver/logging/log.hpp>
 #include <userver/utils/overloaded.hpp>
-
-#include "utils/constexpr_string.hpp"
+#include <utils/constexpr_string.hpp>
 
 namespace timetable_vsu_backend::openapi::detail
 {

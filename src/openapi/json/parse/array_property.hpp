@@ -8,8 +8,7 @@
 #include <userver/formats/json/value.hpp>
 #include <userver/formats/parse/to.hpp>
 #include <userver/logging/log.hpp>
-
-#include "utils/constexpr_string.hpp"
+#include <utils/constexpr_string.hpp>
 
 namespace userver::formats::parse
 {

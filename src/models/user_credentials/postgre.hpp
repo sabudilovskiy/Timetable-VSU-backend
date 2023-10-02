@@ -1,8 +1,8 @@
 #pragma once
 #include <userver/storages/postgres/io/composite_types.hpp>
+#include <utils/convert/drop_properties_ref.hpp>
 
 #include "models/user_credentials/type.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
 
 namespace timetable_vsu_backend::models
 {

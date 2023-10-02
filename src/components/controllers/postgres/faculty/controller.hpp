@@ -3,6 +3,7 @@
 #include <optional>
 #include <userver/components/loggable_component_base.hpp>
 #include <userver/storages/postgres/postgres_fwd.hpp>
+#include <utils/shared_transaction.hpp>
 #include <vector>
 
 #include "models/faculty/type.hpp"
@@ -11,7 +12,6 @@
 #include "models/teacher/type.hpp"
 #include "models/teacher_filter/type.hpp"
 #include "models/teacher_info/type.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::faculty
 {

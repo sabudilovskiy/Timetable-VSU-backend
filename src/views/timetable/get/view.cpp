@@ -11,6 +11,10 @@
 #include <userver/logging/log.hpp>
 #include <userver/storages/postgres/component.hpp>
 #include <userver/utils/datetime.hpp>
+#include <utils/convert/http_request_parse.hpp>
+#include <utils/convert/http_response_serialize.hpp>
+#include <utils/convert/json_parse.hpp>
+#include <utils/convert/json_serialize.hpp>
 
 #include "Request.hpp"
 #include "Responses.hpp"
@@ -21,10 +25,6 @@
 #include "models/lesson_v1/parse.hpp"
 #include "models/lesson_v1/serialize.hpp"
 #include "models/user_type/type.hpp"
-#include "utils/convert/http_request_parse.hpp"
-#include "utils/convert/http_response_serialize.hpp"
-#include "utils/convert/json_parse.hpp"
-#include "utils/convert/json_serialize.hpp"
 
 static_assert(userver::formats::common::impl::kHasSerialize<
               userver::formats::json::Value,

@@ -1,7 +1,6 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
-
-#include "utils/convert/base.hpp"
+#include <utils/convert/base.hpp>
 namespace timetable_vsu_backend::models
 {
 struct RequestPrivileges

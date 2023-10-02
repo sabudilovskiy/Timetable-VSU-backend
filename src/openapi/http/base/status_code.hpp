@@ -12,7 +12,7 @@ struct Code
 };
 
 template <size_t I>
-constexpr auto code_v = Code<I>::value;
+constexpr userver::server::http::HttpStatus code_v = Code<I>::value;
 
 #define CODE_IMPL(ENUM_VALUE, INDEX)                                          \
     template <>                                                               \

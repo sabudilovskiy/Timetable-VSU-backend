@@ -4,9 +4,9 @@
 
 #include <stdexcept>
 #include <userver/formats/json.hpp>
+#include <utils/json_type.hpp>
 
 #include "type.hpp"
-#include "utils/json_type.hpp"
 
 namespace timetable_vsu_backend::models
 {

@@ -2,9 +2,9 @@
 #include <userver/storages/postgres/io/composite_types.hpp>
 #include <userver/storages/postgres/io/uuid.hpp>
 #include <utility>
+#include <utils/convert/drop_properties_ref.hpp>
 
 #include "models/admin_account/type.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
 namespace timetable_vsu_backend::models
 {
 using AdminAccountTuple =

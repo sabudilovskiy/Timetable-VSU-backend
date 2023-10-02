@@ -1,10 +1,10 @@
 #pragma once
 #include <userver/storages/postgres/io/composite_types.hpp>
 #include <utility>
+#include <utils/convert/drop_properties_ref.hpp>
 
 #include "models/user/type.hpp"
 #include "models/user_type/postgre.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
 namespace timetable_vsu_backend::models
 {
 using TupleUserRaw =

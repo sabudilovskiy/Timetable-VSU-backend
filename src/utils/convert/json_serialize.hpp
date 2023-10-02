@@ -1,6 +1,7 @@
 #pragma once
+#include <utils/convert/base.hpp>
+
 #include "detail/serialize/converter_json.hpp"
-#include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::utils::convert
 {

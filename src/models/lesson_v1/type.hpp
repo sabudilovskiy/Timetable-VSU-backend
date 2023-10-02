@@ -1,6 +1,7 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
 #include <chrono>
+#include <utils/convert/base.hpp>
 
 #include "models/day/type.hpp"
 #include "models/education_type/type.hpp"
@@ -8,7 +9,6 @@
 #include "models/lesson_week_type/type.hpp"
 #include "models/subgroup/type.hpp"
 #include "models/timestring/type.hpp"
-#include "utils/convert/base.hpp"
 
 namespace convert = timetable_vsu_backend::utils::convert;
 

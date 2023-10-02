@@ -3,8 +3,7 @@
 #include <openapi/base/object_property.hpp>
 #include <openapi/base/preferences.hpp>
 #include <string_view>
-
-#include "utils/constexpr_optional.hpp"
+#include <utils/constexpr_optional.hpp>
 
 namespace timetable_vsu_backend::openapi
 {

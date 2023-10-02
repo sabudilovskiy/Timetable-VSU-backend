@@ -3,10 +3,10 @@
 #include <userver/formats/serialize/common_containers.hpp>
 #include <userver/formats/yaml/serialize.hpp>
 #include <userver/utest/utest.hpp>
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
+#include <utils/tests_macros.hpp>
 
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
-#include "utils/tests_macros.hpp"
 #include "views/hello/view.hpp"
 
 using namespace timetable_vsu_backend::openapi;
@@ -34,6 +34,7 @@ struct SomeRequest
 UTEST(Openapi_Doc_Serialize, BasicRequest)
 {
     timetable_vsu_backend::openapi::Doc doc;
+    AppendRequest(doc, std::type_identity<tests::SomeRequest>{});
     AppendRequest(doc, std::type_identity<tests::SomeRequest>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);

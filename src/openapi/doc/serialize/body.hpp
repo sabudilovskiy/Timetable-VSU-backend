@@ -15,7 +15,7 @@ void AppendRequestField(DocHelper doc_helper,
     {
         request_body_node = userver::formats::yaml::Type::kObject;
     }
-    request_body_node["required"] = userver::meta::kIsOptional<T>;
+    request_body_node["required"] = !userver::meta::kIsOptional<T>;
     auto content = request_body_node["content"];
     if (!content.IsObject())
     {

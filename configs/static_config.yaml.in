@@ -100,6 +100,14 @@ components_manager:
         handler-group-stage-list:
             path: /group-stage/list
             method: POST
+            task_processor: main-task-processor
+        test-login-view:
+            path: /test/login
+            method: POST
+            task_processor: main-task-processor
+        openapi-descriptor:
+            path: /openapi
+            method: GET
             task_processor: main-task-processor     
         postgres-db-1:
             dbconnection: $dbconnection

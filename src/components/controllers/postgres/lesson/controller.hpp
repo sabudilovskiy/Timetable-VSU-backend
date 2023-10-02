@@ -3,11 +3,11 @@
 #include <optional>
 #include <userver/components/loggable_component_base.hpp>
 #include <userver/storages/postgres/postgres_fwd.hpp>
+#include <utils/shared_transaction.hpp>
 #include <vector>
 
 #include "models/lesson_filter/fwd.hpp"
 #include "models/lesson_v1/type.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::lesson
 {

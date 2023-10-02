@@ -14,6 +14,7 @@
 #include <userver/utils/boost_uuid4.hpp>
 #include <userver/utils/datetime.hpp>
 #include <userver/utils/uuid4.hpp>
+#include <utils/shared_transaction.hpp>
 
 #include "Request.hpp"
 #include "components/controllers/postgres/token/controller.hpp"
@@ -23,7 +24,6 @@
 #include "models/user/serialize.hpp"
 #include "models/user_type/parse.hpp"
 #include "models/user_type/type.hpp"
-#include "utils/shared_transaction.hpp"
 #include "views/register/Responses.hpp"
 
 namespace timetable_vsu_backend::views::register_

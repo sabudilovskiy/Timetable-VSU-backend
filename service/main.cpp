@@ -17,6 +17,7 @@
 #include "components/controllers/postgres/teacher/fwd.hpp"
 #include "components/controllers/postgres/token/fwd.hpp"
 #include "components/controllers/postgres/user/fwd.hpp"
+#include "openapi/http/openapi_descriptor_fwd.hpp"
 #include "views/admin/create/view.hpp"
 #include "views/admin/list/view.hpp"
 #include "views/faculty/list/view.hpp"
@@ -29,6 +30,7 @@
 #include "views/teacher/request/approve/link/view.hpp"
 #include "views/teacher/request/approve/new/view.hpp"
 #include "views/teacher/request/list/view.hpp"
+#include "views/test-openapi-view/view.hpp"
 #include "views/timetable/get/view.hpp"
 
 using namespace timetable_vsu_backend;
@@ -60,6 +62,7 @@ void AppendViews(userver::components::ComponentList& component_list)
     teacher::requests::approve::new_::Append(component_list);
     faculty::list::Append(component_list);
     group::stage::list::Append(component_list);
+    test::login::Append(component_list);
 }
 
 int main(int argc, char* argv[])
@@ -73,6 +76,7 @@ int main(int argc, char* argv[])
             .Append<userver::clients::dns::Component>()
             .Append<userver::components::Postgres>("postgres-db-1")
             .Append<userver::server::handlers::TestsControl>();
+    openapi::http::AppendOpenApiDescriptor(component_list);
     service_template::AppendHello(component_list);
     AppendPgControllers(component_list);
     AppendViews(component_list);

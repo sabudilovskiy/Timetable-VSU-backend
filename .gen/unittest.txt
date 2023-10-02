@@ -5,9 +5,11 @@ utests/openapi/json/serialize/basic_array.cpp
 utests/openapi/json/parse/basic_string.cpp
 utests/openapi/json/parse/basic_object.cpp
 utests/openapi/json/parse/basic_array.cpp
-utests/openapi/http/basic_http.cpp
+utests/openapi/http/basic_http_response.cpp
+utests/openapi/http/basic_http_request.cpp
 utests/openapi/doc/serialize/basic_response.cpp
 utests/openapi/doc/serialize/basic_request.cpp
+utests/openapi/doc/serialize/basic_path.cpp
 utests/openapi/doc/serialize/basic.cpp
 utests/hello_test.cpp
 utests/dropper_additional.cpp

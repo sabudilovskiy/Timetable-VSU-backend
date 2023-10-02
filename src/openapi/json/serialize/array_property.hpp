@@ -10,8 +10,7 @@
 #include <userver/formats/parse/to.hpp>
 #include <userver/formats/serialize/to.hpp>
 #include <userver/logging/log.hpp>
-
-#include "utils/constexpr_string.hpp"
+#include <utils/constexpr_string.hpp>
 
 namespace timetable_vsu_backend::openapi
 {

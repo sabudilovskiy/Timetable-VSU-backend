@@ -1,8 +1,8 @@
 #include <userver/storages/postgres/io/composite_types.hpp>
+#include <utils/convert/drop_properties_ref.hpp>
 
 #include "models/admin_filter/type.hpp"
 #include "models/education_type/postgre.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
 namespace timetable_vsu_backend::models
 {
 using TupleAdminFilter =

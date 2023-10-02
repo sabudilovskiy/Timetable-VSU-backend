@@ -35,6 +35,8 @@
     }
   },
   "POSTGRES_CONNECTION_PIPELINE_ENABLED": false,
+  "POSTGRES_CONNECTION_PIPELINE_EXPERIMENT": 10,
+  "POSTGRES_CONNLIMIT_MODE_AUTO_ENABLED": false,
   "POSTGRES_CONNECTION_POOL_SETTINGS": {
     "postgres-db-1": {
       "max_pool_size": 15,
@@ -42,6 +44,15 @@
       "min_pool_size": 8
     }
   },
+  "POSTGRES_CONGESTION_CONTROL_SETTINGS": {
+
+  },
+  "POSTGRES_DEADLINE_PROPAGATION_VERSION": 1,
+  "USERVER_BAGGAGE_ENABLED": true,
+  "BAGGAGE_SETTINGS": {
+    "allowed_keys": []
+  },
+  "USERVER_DEADLINE_PROPAGATION_ENABLED" : false,
   "POSTGRES_DEFAULT_COMMAND_CONTROL": {
     "network_timeout_ms": 750,
     "statement_timeout_ms": 500

@@ -11,8 +11,7 @@
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/formats/parse/to.hpp>
 #include <userver/logging/log.hpp>
-
-#include "utils/constexpr_string.hpp"
+#include <utils/constexpr_string.hpp>
 
 namespace timetable_vsu_backend::openapi
 {

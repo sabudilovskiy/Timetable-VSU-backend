@@ -18,6 +18,9 @@
 #include <userver/storages/postgres/io/row_types.hpp>
 #include <userver/storages/postgres/io/type_traits.hpp>
 #include <userver/storages/postgres/query.hpp>
+#include <utils/convert/drop_properties_ref.hpp>
+#include <utils/postgres_helper.hpp>
+#include <utils/shared_transaction.hpp>
 
 #include "models/admin_account/postgre.hpp"
 #include "models/admin_filter/postgre.hpp"
@@ -28,9 +31,6 @@
 #include "models/substring/postgre.hpp"
 #include "models/user_credentials/postgre.hpp"
 #include "sql_queries.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
-#include "utils/postgres_helper.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::group_stage
 {

@@ -9,6 +9,7 @@
 #include <userver/formats/serialize/common_containers.hpp>
 #include <userver/storages/postgres/component.hpp>
 #include <userver/utils/datetime.hpp>
+#include <utils/parse/uuid/string.hpp>
 
 #include "Request.hpp"
 #include "Responses.hpp"
@@ -17,7 +18,6 @@
 #include "models/auth_token/serialize.hpp"
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
-#include "utils/parse/uuid/string.hpp"
 namespace timetable_vsu_backend::views::faculty::list
 {
 namespace

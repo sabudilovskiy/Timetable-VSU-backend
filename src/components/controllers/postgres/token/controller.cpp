@@ -13,13 +13,13 @@
 #include <userver/storages/postgres/component.hpp>
 #include <userver/storages/postgres/query.hpp>
 #include <userver/utils/datetime.hpp>
+#include <utils/postgres_helper.hpp>
+#include <utils/shared_transaction.hpp>
 
 #include "models/user/postgre.hpp"
 #include "models/user/type.hpp"
 #include "models/user_type/postgre.hpp"
 #include "sql_queries.hpp"
-#include "utils/postgres_helper.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::token
 {

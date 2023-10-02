@@ -12,8 +12,7 @@
 #include <type_traits>
 #include <userver/formats/json/value.hpp>
 #include <utility>
-
-#include "utils/compilers_macros.hpp"
+#include <utils/compilers_macros.hpp>
 
 namespace timetable_vsu_backend::openapi
 {

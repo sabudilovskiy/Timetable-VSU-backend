@@ -17,7 +17,7 @@ struct TestRequest
     std::string body;
 };
 
-inline RequestInfo MakeInfoFromRequest(
+inline RequestInfo MakeInfoFromRequest( const
     userver::server::http::HttpRequest& request)
 {
     return RequestInfo{.headers = request.RequestHeaders(),

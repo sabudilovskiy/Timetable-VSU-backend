@@ -3,11 +3,11 @@
 #include <optional>
 #include <userver/components/loggable_component_base.hpp>
 #include <userver/storages/postgres/postgres_fwd.hpp>
+#include <utils/shared_transaction.hpp>
 
 #include "models/user/type.hpp"
 #include "models/user_credentials/fwd.hpp"
 #include "models/user_type/type.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::user
 {

@@ -7,6 +7,7 @@
 #include <userver/formats/parse/to.hpp>
 #include <userver/storages/postgres/component.hpp>
 #include <userver/utils/datetime.hpp>
+#include <utils/convert/base.hpp>
 
 #include "Request.hpp"
 #include "Responses.hpp"
@@ -16,7 +17,6 @@
 #include "models/auth_token/serialize.hpp"
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
-#include "utils/convert/base.hpp"
 
 namespace timetable_vsu_backend::views::login
 {

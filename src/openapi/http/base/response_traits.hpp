@@ -7,6 +7,6 @@ namespace timetable_vsu_backend::openapi::http
 template <std::size_t CodeInt>
 struct ResponseTraits
 {
-    static constexpr auto code = code_v<CodeInt>;
+    static constexpr userver::server::http::HttpStatus code = code_v<CodeInt>;
 };
 }  // namespace timetable_vsu_backend::openapi::http

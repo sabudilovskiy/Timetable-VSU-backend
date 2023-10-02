@@ -2,8 +2,7 @@
 
 #include <openapi/doc/serialize/base.hpp>
 #include <openapi/http/base/cookie_property.hpp>
-
-#include "utils/compilers_macros.hpp"
+#include <utils/compilers_macros.hpp>
 
 namespace timetable_vsu_backend::openapi
 {

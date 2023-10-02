@@ -29,8 +29,7 @@
 #include <userver/logging/log.hpp>
 #include <userver/utils/overloaded.hpp>
 #include <utility>
-
-#include "utils/compilers_macros.hpp"
+#include <utils/compilers_macros.hpp>
 
 namespace timetable_vsu_backend::openapi
 {
@@ -110,7 +109,7 @@ std::string GetRawTypeName()
     return raw_name;
 }
 
-template <typename T>
+template <checks::IsReflective T>
 void PlaceRefToType(userver::formats::yaml::ValueBuilder& place)
 {
     if (!place.IsObject())
@@ -119,6 +118,30 @@ void PlaceRefToType(userver::formats::yaml::ValueBuilder& place)
     }
     auto ref_str =
         std::string(R"(#/components/schemas/)").append(GetOpenApiTypeName<T>());
+    place["$ref"] = std::move(ref_str);
+}
+
+template <checks::IsReflective T>
+void PlaceRefToResponse(userver::formats::yaml::ValueBuilder& place)
+{
+    if (!place.IsObject())
+    {
+        place = userver::formats::common::Type::kObject;
+    }
+    auto ref_str = std::string(R"(#/components/responses/)")
+                       .append(GetOpenApiTypeName<T>());
+    place["$ref"] = std::move(ref_str);
+}
+
+template <checks::IsReflective T>
+void PlaceRefToRequest(userver::formats::yaml::ValueBuilder& place)
+{
+    if (!place.IsObject())
+    {
+        place = userver::formats::common::Type::kObject;
+    }
+    auto ref_str =
+        std::string(R"(#/requests/)").append(GetOpenApiTypeName<T>());
     place["$ref"] = std::move(ref_str);
 }
 
@@ -153,12 +176,6 @@ inline void log_dock_helper_impl(DocHelper doc_helper,
     std::clog << ToString(root.ExtractValue()) << '\n';
 }
 
-template <typename T>
-void Append(DocHelper, std::type_identity<T>)
-{
-    STATIC_ASSERT_FALSE("You use unknowned type");
-}
-
 template <typename T, typename Traits>
 void Append(DocHelper doc_helper,
             std::type_identity<ObjectProperty<T, Traits>> = {})
@@ -166,7 +183,6 @@ void Append(DocHelper doc_helper,
     Append(doc_helper, std::type_identity<T>{});
 }
 
-template <>
 inline void Append(DocHelper doc_helper, std::type_identity<std::int32_t>)
 {
     auto& cur = doc_helper.cur_place;
@@ -178,7 +194,6 @@ inline void Append(DocHelper doc_helper, std::type_identity<std::int32_t>)
     cur["format"] = "int32";
 }
 
-template <>
 inline void Append(DocHelper doc_helper, std::type_identity<std::string>)
 {
     auto& cur = doc_helper.cur_place;

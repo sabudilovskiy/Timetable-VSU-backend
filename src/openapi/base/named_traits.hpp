@@ -1,10 +1,10 @@
 #pragma once
 #include <concepts>
 #include <type_traits>
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
 
 #include "property_base.hpp"
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
 
 namespace timetable_vsu_backend::openapi
 {

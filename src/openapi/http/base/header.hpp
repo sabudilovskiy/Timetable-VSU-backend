@@ -7,9 +7,8 @@
 #include <openapi/http/base/header_property.hpp>
 #include <openapi/types/optional_type.hpp>
 #include <type_traits>
-
-#include "utils/compilers_macros.hpp"
-#include "utils/constexpr_string.hpp"
+#include <utils/compilers_macros.hpp>
+#include <utils/constexpr_string.hpp>
 
 namespace timetable_vsu_backend::openapi::http
 {

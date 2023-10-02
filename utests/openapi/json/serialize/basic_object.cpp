@@ -8,12 +8,11 @@
 #include <userver/formats/serialize/common_containers.hpp>
 #include <userver/formats/serialize/to.hpp>
 #include <userver/utest/utest.hpp>
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
 #include <vector>
 
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
 #include "views/hello/view.hpp"
-
 using namespace timetable_vsu_backend::openapi;
 using namespace timetable_vsu_backend::openapi::types;
 using namespace timetable_vsu_backend::openapi::preferences;

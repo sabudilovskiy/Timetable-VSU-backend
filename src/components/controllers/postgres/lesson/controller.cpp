@@ -14,15 +14,15 @@
 #include <userver/storages/postgres/component.hpp>
 #include <userver/storages/postgres/io/row_types.hpp>
 #include <userver/storages/postgres/query.hpp>
+#include <utils/convert/drop_properties_ref.hpp>
+#include <utils/postgres_helper.hpp>
+#include <utils/shared_transaction.hpp>
 
 #include "models/lesson_filter/postgre.hpp"
 #include "models/lesson_v1/postgre.hpp"
 #include "models/lesson_v1/type.hpp"
 #include "models/subgroup/serialize.hpp"
 #include "sql_queries.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
-#include "utils/postgres_helper.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::lesson
 {

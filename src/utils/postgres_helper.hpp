@@ -7,10 +7,10 @@
 #include <userver/storages/postgres/query.hpp>
 #include <userver/storages/postgres/result_set.hpp>
 #include <userver/utils/meta.hpp>
+#include <utils/convert/drop_properties_ref.hpp>
+#include <utils/shared_transaction.hpp>
 
 #include "convert/base.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::utils
 {

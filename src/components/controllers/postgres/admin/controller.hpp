@@ -3,12 +3,12 @@
 #include <optional>
 #include <userver/components/loggable_component_base.hpp>
 #include <userver/storages/postgres/postgres_fwd.hpp>
+#include <utils/shared_transaction.hpp>
 #include <vector>
 
 #include "models/admin_account/type.hpp"
 #include "models/admin_filter/type.hpp"
 #include "models/user_credentials/type.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::admin
 {

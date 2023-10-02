@@ -14,8 +14,7 @@
 #include <userver/formats/parse/to.hpp>
 #include <userver/utils/meta.hpp>
 #include <userver/utils/overloaded.hpp>
-
-#include "utils/formated_exception.hpp"
+#include <utils/formated_exception.hpp>
 
 namespace timetable_vsu_backend::openapi::http
 {
@@ -38,8 +37,13 @@ T Parse(const RequestInfo& info, userver::formats::parse::To<T>)
             else
                 return;
         }
-        std::string_view founded = std::string_view{it->second};
-        item() = Parse(founded, userver::formats::parse::To<H>{});
+        const std::string& founded = it->second;
+        if constexpr (std::is_same_v<std::string, H> || std::is_same_v<std::optional<std::string>, H>){
+            item() = founded;
+        }
+        else {
+            item() = Parse(founded, userver::formats::parse::To<H>{});
+        }
     };
     auto matcher_cookie = [&]<typename C, typename Traits>(
                               CookieProperty<C, Traits>& item) {
@@ -56,12 +60,16 @@ T Parse(const RequestInfo& info, userver::formats::parse::To<T>)
             else
                 return;
         }
-        std::string_view founded = std::string_view{it->second};
-        item() = Parse(founded, userver::formats::parse::To<C>{});
+        const std::string& founded = it->second;
+        if constexpr (std::is_same_v<std::string, C> || std::is_same_v<std::optional<std::string>, C>){
+            item() = founded;
+        }
+        else {
+            item() = Parse(founded, userver::formats::parse::To<C>{});
+        }
     };
     auto matcher_json_body =
         [&]<typename B, typename Traits>(BodyProperty<B, Traits>& item) {
-            std::clog << "matcher_json_body\n";
             auto json = userver::formats::json::FromString(info.body);
             item() = Parse(json, userver::formats::parse::To<B>{});
         };

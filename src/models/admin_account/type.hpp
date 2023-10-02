@@ -1,8 +1,7 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
-
-#include "utils/convert/base.hpp"
-#include "utils/convert/json_serialize.hpp"
+#include <utils/convert/base.hpp>
+#include <utils/convert/json_serialize.hpp>
 
 namespace timetable_vsu_backend::models
 {

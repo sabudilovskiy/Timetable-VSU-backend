@@ -7,12 +7,12 @@
 #include <userver/formats/json/value.hpp>
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/utest/utest.hpp>
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
+#include <utils/tests_macros.hpp>
 #include <variant>
 #include <vector>
 
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
-#include "utils/tests_macros.hpp"
 #include "views/hello/view.hpp"
 
 using namespace timetable_vsu_backend::openapi::types;

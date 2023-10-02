@@ -3,16 +3,16 @@
 #include <userver/formats/json/value.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
 #include <userver/formats/serialize/common_containers.hpp>
+#include <utils/convert/additional_properties.hpp>
+#include <utils/convert/base.hpp>
+#include <utils/convert/http_response_serialize.hpp>
+#include <utils/convert/json_parse.hpp>
+#include <utils/convert/json_serialize.hpp>
 
 #include "http/ErrorV1.hpp"
 #include "models/lesson_v1/type.hpp"
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
-#include "utils/convert/additional_properties.hpp"
-#include "utils/convert/base.hpp"
-#include "utils/convert/http_response_serialize.hpp"
-#include "utils/convert/json_parse.hpp"
-#include "utils/convert/json_serialize.hpp"
 
 namespace timetable_vsu_backend::views::timetable::get
 {

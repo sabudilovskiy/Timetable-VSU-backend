@@ -1,8 +1,9 @@
 #pragma once
 
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
+
 #include "named_traits.hpp"
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
 namespace timetable_vsu_backend::openapi
 {
 namespace checks

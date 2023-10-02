@@ -18,14 +18,14 @@
 #include <userver/yaml_config/merge_schemas.hpp>
 #include <userver/yaml_config/schema.hpp>
 #include <utils/convert/drop_properties_ref.hpp>
+#include <utils/postgres_helper.hpp>
+#include <utils/shared_transaction.hpp>
 
 #include "components/controllers/postgres/user/sql_queries.hpp"
 #include "config_schema.hpp"
 #include "models/user/postgre.hpp"
 #include "models/user/type.hpp"
 #include "models/user_credentials/postgre.hpp"
-#include "utils/postgres_helper.hpp"
-#include "utils/shared_transaction.hpp"
 
 namespace timetable_vsu_backend::components::controllers::postgres::user
 {

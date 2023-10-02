@@ -1,9 +1,9 @@
 #pragma once
 #include <userver/storages/postgres/io/composite_types.hpp>
 #include <utility>
+#include <utils/convert/drop_properties_ref.hpp>
 
 #include "models/teacher/type.hpp"
-#include "utils/convert/drop_properties_ref.hpp"
 namespace timetable_vsu_backend::models
 {
 using ConstTupleTeacher =

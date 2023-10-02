@@ -2,12 +2,12 @@
 #include <algorithm>
 #include <iterator>
 #include <type_traits>
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
 
 #include "array_property.hpp"
 #include "named_traits.hpp"
 #include "preferences.hpp"
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
 namespace timetable_vsu_backend::openapi
 {
 namespace checks

@@ -1,11 +1,11 @@
 #pragma once
 #include <optional>
 #include <string>
+#include <utils/convert/additional_properties.hpp>
+#include <utils/convert/base.hpp>
 
 #include "models/user_credentials/type.hpp"
 #include "models/user_type/type.hpp"
-#include "utils/convert/additional_properties.hpp"
-#include "utils/convert/base.hpp"
 namespace timetable_vsu_backend::models
 {
 using namespace utils::convert;

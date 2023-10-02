@@ -3,13 +3,14 @@
 #include <boost/pfr/core.hpp>
 #include <exception>
 #include <openapi/all.hpp>
+#include <openapi/doc/serialize/path.hpp>
 #include <string_view>
 #include <userver/utest/utest.hpp>
+#include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
+#include <utils/tests_macros.hpp>
 #include <vector>
 
-#include "utils/constexpr_optional.hpp"
-#include "utils/constexpr_string.hpp"
-#include "utils/tests_macros.hpp"
 #include "views/hello/view.hpp"
 
 using namespace timetable_vsu_backend::openapi;
