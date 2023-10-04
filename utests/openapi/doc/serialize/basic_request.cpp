@@ -7,6 +7,7 @@
 #include <utils/constexpr_string.hpp>
 #include <utils/tests_macros.hpp>
 
+#include "openapi/doc/serialize/base.hpp"
 #include "views/hello/view.hpp"
 
 using namespace timetable_vsu_backend::openapi;
@@ -17,25 +18,26 @@ namespace tests
 {
 struct FindRequestBody
 {
-    REFLECTIVE_BASE(FindRequestBody);
     String<Name<"filter">, Pattern<"[a-z]*">> filter;
     Array<int, Name<"ids">> ids;
+    auto operator<=>(const FindRequestBody&) const = default;
 };
 
 struct SomeRequest
 {
-    REFLECTIVE_BASE(SomeRequest);
     http::Body<FindRequestBody> body;
     http::Header<std::string, Name<"some_header">> some_header;
     http::Cookie<std::string, Name<"some_cookie">> some_cookie;
+    auto operator<=>(const SomeRequest&) const = default;
 };
 }  // namespace tests
 
 UTEST(Openapi_Doc_Serialize, BasicRequest)
 {
     timetable_vsu_backend::openapi::Doc doc;
-    AppendRequest(doc, std::type_identity<tests::SomeRequest>{});
-    AppendRequest(doc, std::type_identity<tests::SomeRequest>{});
+    auto response = doc()["requests"][GetOpenApiTypeName<tests::SomeRequest>()];
+    AppendRequest(DocHelper{doc(), response}, std::type_identity<tests::SomeRequest>{});
+    AppendRequest(DocHelper{doc(), response}, std::type_identity<tests::SomeRequest>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
     EXPECT_EQ(result_schema, RAW_STRING(

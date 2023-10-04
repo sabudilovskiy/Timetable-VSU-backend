@@ -5,6 +5,9 @@ src/views/timetable/get/Request.hpp
 src/views/test-openapi-view/view.hpp
 src/views/test-openapi-view/view.cpp
 src/views/test-openapi-view/declarations.hpp
+src/views/test-openapi-view-register/view.hpp
+src/views/test-openapi-view-register/view.cpp
+src/views/test-openapi-view-register/declarations.hpp
 src/views/teacher/request/list/view.hpp
 src/views/teacher/request/list/view.cpp
 src/views/teacher/request/list/Responses.hpp
@@ -103,7 +106,8 @@ src/openapi/json/all.hpp
 src/openapi/http/serialize/response.hpp
 src/openapi/http/parse/request.hpp
 src/openapi/http/openapi_descriptor_fwd.hpp
-src/openapi/http/openapi_descriptor_append.cpp
+src/openapi/http/openapi_descriptor.hpp
+src/openapi/http/openapi_descriptor.cpp
 src/openapi/http/handler.hpp
 src/openapi/http/base/status_code.hpp
 src/openapi/http/base/response_traits.hpp
@@ -121,6 +125,7 @@ src/openapi/http/base/all.hpp
 src/openapi/http/all.hpp
 src/openapi/doc/serialize/response.hpp
 src/openapi/doc/serialize/request.hpp
+src/openapi/doc/serialize/remove_requests.hpp
 src/openapi/doc/serialize/reflective.hpp
 src/openapi/doc/serialize/path.hpp
 src/openapi/doc/serialize/header.hpp

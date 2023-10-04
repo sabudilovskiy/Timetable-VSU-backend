@@ -190,7 +190,7 @@ inline void Append(DocHelper doc_helper, std::type_identity<std::int32_t>)
     {
         cur = userver::formats::yaml::Type::kObject;
     }
-    cur["type"] = "Integer";
+    cur["type"] = "integer";
     cur["format"] = "int32";
 }
 

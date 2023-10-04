@@ -19,7 +19,7 @@ namespace
 {
 struct First
 {
-    REFLECTIVE_BASE(First);
+    auto operator<=>(const First&) const = default;
     String<Name<"field">> field;
     Array<std::int32_t, Name<"field2">> field2;
 };
@@ -52,7 +52,7 @@ namespace
 {
 struct Second
 {
-    REFLECTIVE_BASE(Second);
+    auto operator<=>(const Second&) const = default;
     String<Name<"field">> field;
     AdditionalProperties other;
 };

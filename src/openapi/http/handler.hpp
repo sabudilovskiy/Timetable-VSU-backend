@@ -16,38 +16,14 @@
 #include "openapi/http/base/response_info.hpp"
 #include "userver/formats/json/inline.hpp"
 #include "userver/formats/parse/to.hpp"
+#include "userver/http/content_type.hpp"
 #include "userver/logging/log.hpp"
 #include "userver/server/handlers/exceptions.hpp"
-#include "openapi/http/openapi_descriptor_fwd.hpp"
+#include "openapi/http/openapi_descriptor.hpp"
+#include "userver/yaml_config/schema.hpp"
 
 namespace timetable_vsu_backend::openapi::http
 {
-struct OpenApiDescriptor : public userver::server::handlers::HttpHandlerBase
-{
-    static constexpr std::string_view kName = "openapi-descriptor";
-    OpenApiDescriptor(const userver::components::ComponentConfig& cfg,
-                      const userver::components::ComponentContext& ctx)
-        : userver::server::handlers::HttpHandlerBase(cfg, ctx)
-    {
-    }
-    std::string HandleRequestThrow(const userver::server::http::HttpRequest & req, userver::server::request::RequestContext &) const override{
-        req.SetResponseStatus(userver::server::http::HttpStatus::kOk);
-        return schema;
-    }
-
-    void OnAllComponentsLoaded() override
-    {
-        schema = ToString(doc().ExtractValue());
-    }
-    Doc& GetDoc()
-    {
-        return doc;
-    }
-
-   private:
-    Doc doc;
-    std::string schema;
-};
 
 template <checks::IsReflective Req, typename... Responses>
 struct OpenApiHandler : public userver::server::handlers::HttpHandlerBase
@@ -57,7 +33,10 @@ struct OpenApiHandler : public userver::server::handlers::HttpHandlerBase
                    const userver::components::ComponentContext& ctx)
         : userver::server::handlers::HttpHandlerBase(cfg, ctx)
     {
-        AppendSchema(ctx.FindComponent<OpenApiDescriptor>().GetDoc());
+        auto descriptor = ctx.FindComponentOptional<OpenApiDescriptor>();
+        if (descriptor){
+            AppendSchema(descriptor->GetDoc());
+        }
     }
 
     static std::string DoHandleAfterParse(const userver::server::http::HttpRequest &http_req, ResponseInfo& resp_info){
@@ -115,6 +94,15 @@ struct OpenApiHandler : public userver::server::handlers::HttpHandlerBase
         for (auto& [key, value] : info.headers){
             req.GetHttpResponse().SetHeader(key, value);
         }
+        switch (info.response_body_type){
+            case ResponseBodyType::kText:
+                req.GetHttpResponse().SetContentType(userver::http::content_type::kTextPlain);
+                break;
+            case ResponseBodyType::kJson:
+                req.GetHttpResponse().SetContentType(userver::http::content_type::kApplicationJson);
+                break;
+        }
+        
     }
     
     static ResponseInfo SerializeResponse(const Resps& response){

@@ -12,16 +12,10 @@
 namespace timetable_vsu_backend::openapi
 {
 template <checks::IsReflective T>
-void AppendRequest(Doc& doc, std::type_identity<T>)
+void AppendRequest(DocHelper doc_helper, std::type_identity<T>)
 {
-    auto& root = doc.value_;
-    userver::formats::yaml::ValueBuilder requests =
-        root["requests"][GetOpenApiTypeName<T>()];
-    if (requests.IsObject())
-    {
-        return;
-    }
-    auto doc_helper = DocHelper{root, requests};
+    auto& [root, cur] = doc_helper;
+    cur["description"] = GetOpenApiTypeName<T>();
     CallAllFields<T>(
         [doc_helper](auto field) { AppendRequestField(doc_helper, field); });
 }

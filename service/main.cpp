@@ -32,6 +32,7 @@
 #include "views/teacher/request/list/view.hpp"
 #include "views/test-openapi-view/view.hpp"
 #include "views/timetable/get/view.hpp"
+#include "views/test-openapi-view-register/view.hpp"
 
 using namespace timetable_vsu_backend;
 
@@ -63,6 +64,7 @@ void AppendViews(userver::components::ComponentList& component_list)
     faculty::list::Append(component_list);
     group::stage::list::Append(component_list);
     test::login::Append(component_list);
+    test::sign_in::Append(component_list);
 }
 
 int main(int argc, char* argv[])

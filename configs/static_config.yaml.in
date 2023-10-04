@@ -105,9 +105,23 @@ components_manager:
             path: /test/login
             method: POST
             task_processor: main-task-processor
+        test-register-view:
+            path: /test/register
+            method: POST
+            task_processor: main-task-processor
         openapi-descriptor:
+            servers:
+                - description: dev
+                  url: http://158.160.44.177:8080
+                - description: stable
+                  url: http://51.250.86.220
+            load-enabled: true
             path: /openapi
-            method: GET
+            info:
+                title: Some Server Doc
+                description: Some server
+                version: 1.0.0
+            method: GET,POST
             task_processor: main-task-processor     
         postgres-db-1:
             dbconnection: $dbconnection

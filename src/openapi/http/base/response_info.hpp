@@ -7,11 +7,15 @@
 
 namespace timetable_vsu_backend::openapi::http
 {
+enum struct ResponseBodyType{
+    kText, kJson 
+};
 struct ResponseInfo
 {
     userver::server::http::HttpStatus userver_code;
     std::string body;
     userver::server::http::HttpRequest::HeadersMap headers;
+    ResponseBodyType response_body_type;
     std::partial_ordering operator<=>(const ResponseInfo& rhs) const
     {
         auto& lhs = *this;

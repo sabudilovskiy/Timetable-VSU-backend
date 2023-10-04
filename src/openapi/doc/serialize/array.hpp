@@ -14,15 +14,15 @@ void Append(DocHelper doc_helper,
     field_node["type"] = "array";
     if constexpr (traits.min.HasValue())
     {
-        field_node["min"] = traits.min.value();
+        field_node["minItems"] = traits.min.value();
     }
     if constexpr (traits.max.HasValue())
     {
-        field_node["max"] = traits.max.value();
+        field_node["maxItems"] = traits.max.value();
     }
     if constexpr (traits.unique_items.value_or(false))
     {
-        field_node["unique_item"] = true;
+        field_node["uniqueItems"] = true;
     }
     auto items_node = field_node["items"];
     Append(DocHelper{doc_helper.root, items_node}, std::type_identity<T>{});

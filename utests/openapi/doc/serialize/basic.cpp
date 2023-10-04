@@ -26,9 +26,9 @@ namespace tests
 {
 struct Credentials
 {
-    REFLECTIVE_BASE(Credentials);
     String<Name<"login">, Pattern<"[a-z]*">> login;
     String<Name<"password">> password;
+    auto operator<=>(const Credentials&) const = default;
 };
 }  // namespace tests
 
@@ -43,9 +43,9 @@ namespace tests2
 {
 struct User
 {
-    REFLECTIVE_BASE(tests2::User);
     Object<tests::Credentials, Name<"credentials">> user;
     String<Name<"id">> id;
+    auto operator<=>(const tests2::User&) const = default;
 };
 }  // namespace tests2
 
@@ -90,7 +90,7 @@ namespace timetable_vsu_backend::tests
 {
 struct SomeStructure
 {
-    REFLECTIVE_BASE(SomeStructure);
+    auto operator<=>(const SomeStructure&) const = default;
     Object<tests2::User, Name<"user">> user;
     AdditionalProperties other;
 };

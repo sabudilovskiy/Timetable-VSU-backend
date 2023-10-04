@@ -15,13 +15,15 @@ template <checks::IsReflective T>
 void AppendResponse(Doc& doc, std::type_identity<T>)
 {
     auto& root = doc.value_;
-    userver::formats::yaml::ValueBuilder responses =
+    userver::formats::yaml::ValueBuilder response =
         root["components"]["responses"][GetOpenApiTypeName<T>()];
-    if (responses.IsObject())
+    if (response.IsObject())
     {
         return;
     }
-    auto doc_helper = DocHelper{root, responses};
+    auto description = response["description"];
+    description = "";
+    auto doc_helper = DocHelper{root, response};
     CallAllFields<T>(
         [doc_helper](auto field) { AppendResponseField(doc_helper, field); });
 }

@@ -9,6 +9,7 @@
 #include <openapi/http/base/response_property.hpp>
 #include <string_view>
 #include <type_traits>
+#include "userver/logging/log.hpp"
 namespace timetable_vsu_backend::openapi
 {
 struct HandlerInfo
@@ -29,21 +30,37 @@ void AppendPathResponse(
     PlaceRefToResponse<Resp>(resp);
 }
 
+namespace impl{
+    inline std::vector<std::string> split_methods(HandlerInfo handler_info){
+        std::string method_low;
+        std::vector<std::string> methods;
+        for (auto ch : handler_info.method){
+            if (ch != ','){
+                method_low.append(1, tolower(ch));
+            }
+            else {
+                methods.emplace_back(std::move(method_low));
+            }
+        }
+        if (!method_low.empty()){
+            methods.emplace_back(std::move(method_low));
+        }
+        return methods;
+    }
+}
+
 template <typename Req, typename... Resp>
 void AppendPath(Doc& doc, HandlerInfo handler_info, std::type_identity<Req> req,
                 std::type_identity<Resp>... resp)
 {
     auto& root = doc();
-    auto& [path, method] = handler_info;
-    std::string path_low;
-    for (auto ch : path){
-        path_low.append(tolower(ch), 1);
+    auto& [path, method_raw] = handler_info;
+    auto methods = impl::split_methods(handler_info);
+    for (auto& method : methods){
+        auto view = root["paths"][path][method];
+        auto responses = view["responses"];
+        AppendRequest(DocHelper{doc(), view}, req);
+        (AppendPathResponse(doc, responses, resp), ...);
     }
-    auto view = root["paths"][path][method];
-    auto req_place = view["request"];
-    auto responses = view["responses"];
-    PlaceRefToRequest<Req>(req_place);
-    AppendRequest(doc, req);
-    (AppendPathResponse(doc, responses, resp), ...);
 }
 }  // namespace timetable_vsu_backend::openapi

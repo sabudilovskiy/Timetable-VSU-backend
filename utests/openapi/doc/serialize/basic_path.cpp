@@ -13,23 +13,23 @@ namespace tests_path
 {
 struct FindUserBody
 {
-    REFLECTIVE_BASE(FindUserBody);
     String<Name<"user">> user;
     String<Name<"password">> password;
+    auto operator<=>(const FindUserBody&) const = default;
 };
 struct SomeRequest
 {
-    REFLECTIVE_BASE(SomeRequest);
     Body<FindUserBody> body;
     Header<std::string, Name<"some_header_name">> some_header;
     Header<std::string, Name<"some_another_header">> some_another_header;
+    auto operator<=>(const SomeRequest&) const = default;
 };
 struct SomeResponse
 {
-    REFLECTIVE_BASE(SomeResponse);
     Body<FindUserBody> body;
     Header<std::string, Name<"some_header_name">> some_header;
     Header<std::string, Name<"some_another_header">> some_another_header;
+    auto operator<=>(const SomeResponse&) const = default;
 };
 }  // namespace tests_path
 

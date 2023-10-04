@@ -1,6 +1,5 @@
 #pragma once
 
-#include <openapi/base/reflective_base.hpp>
 #include <type_traits>
 
 #include "property_base.hpp"
@@ -13,8 +12,7 @@ template <typename T>
 concept IsReflective = requires
 {
     requires std::is_class_v<T>;
-    typename T::Reflective;
-    requires std::is_same_v<typename T::Reflective, Yes>;
+    requires std::is_aggregate_v<T>;
 };
 }  // namespace checks
 

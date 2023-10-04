@@ -15,16 +15,16 @@ using namespace std::literals;
 
 struct SomeBodyResponse
 {
-    REFLECTIVE_BASE(SomeBodyResponse);
     String<Name<"some_string">> some_string;
     Array<int, Name<"some_array">> some_array;
+    auto operator<=>(const SomeBodyResponse&) const = default;
 };
 
 struct SomeResponse
 {
-    REFLECTIVE_BASE(SomeResponse);
     Body<SomeBodyResponse> some_body;
     Header<std::string, Name<"some_header">> some_header;
+    auto operator<=>(const SomeResponse&) const = default;
 };
 
 UTEST(Openapi_http_response_serialize, Basic)

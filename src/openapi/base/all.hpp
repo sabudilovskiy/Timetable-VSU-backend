@@ -11,7 +11,6 @@
 #include <openapi/base/optional_traits.hpp>
 #include <openapi/base/preferences.hpp>
 #include <openapi/base/property_base.hpp>
-#include <openapi/base/reflective_base.hpp>
 #include <openapi/base/reflective_preferences.hpp>
 #include <openapi/base/reflective_utils.hpp>
 #include <openapi/base/string_property.hpp>

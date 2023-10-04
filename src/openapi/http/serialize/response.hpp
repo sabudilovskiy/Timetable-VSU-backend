@@ -25,7 +25,7 @@ template <checks::IsReflective T, typename Traits>
 ResponseInfo Serialize(const ResponseProperty<T, Traits>& item,
                         userver::formats::serialize::To<ResponseInfo>)
 {
-    ResponseInfo result;
+    ResponseInfo result{};
     result.userver_code = Traits::code;
     auto matcher_header = [&]<typename H, typename HTraits>(
                               const HeaderProperty<H, HTraits>& hitem) {
@@ -65,6 +65,7 @@ ResponseInfo Serialize(const ResponseProperty<T, Traits>& item,
         };
     auto matcher_json_body = [&]<typename B, typename BTraits>(
                                  const BodyProperty<B, BTraits>& bitem) {
+        result.response_body_type = ResponseBodyType::kJson;
         result.body = ToString(Serialize(
             bitem(),
             userver::formats::serialize::To<userver::formats::json::Value>{}));

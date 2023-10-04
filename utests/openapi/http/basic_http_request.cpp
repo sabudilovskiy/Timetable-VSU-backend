@@ -21,15 +21,15 @@ struct SomeBody
 {
     String<Name<"some_string">> some_string;
     Array<int, Name<"some_array">> some_array;
-    REFLECTIVE_BASE(SomeBody);
+    auto operator<=>(const SomeBody&) const = default;
 };
 
 struct SomeRequest
 {
-    REFLECTIVE_BASE(SomeRequest);
     Header<std::string, Name<"some_header">> some_header;
     Cookie<std::string, Name<"some_cookie">> some_cookie;
     Body<SomeBody> some_body;
+    auto operator<=>(const SomeRequest&) const = default;
 };
 
 UTEST(Openapi_http_request_parse, Basic)

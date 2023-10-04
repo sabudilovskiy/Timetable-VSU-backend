@@ -19,7 +19,7 @@ using namespace timetable_vsu_backend::openapi::preferences;
 
 struct First
 {
-    REFLECTIVE_BASE(First);
+    auto operator<=>(const First&) const = default;
     String<Name<"field">> field;
     Array<int, Name<"field2">> field2;
 };
@@ -36,7 +36,7 @@ UTEST(Openapi_Json_Serialize, BasicObject)
 
 struct Second
 {
-    REFLECTIVE_BASE(Second);
+    auto operator<=>(const Second&) const = default;
     String<Name<"field">> field;
     AdditionalProperties other_fields;
 };
