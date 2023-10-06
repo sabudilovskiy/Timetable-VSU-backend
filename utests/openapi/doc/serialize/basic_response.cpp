@@ -37,6 +37,7 @@ UTEST(Openapi_Doc_Serialize, BasicResponse)
 components:
   responses:
     TestsSomeResponse:
+      description: ""
       content:
         application/json:
           schema:

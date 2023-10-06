@@ -17,8 +17,8 @@ struct TestRequest
     std::string body;
 };
 
-inline RequestInfo MakeInfoFromRequest( const
-    userver::server::http::HttpRequest& request)
+inline RequestInfo MakeInfoFromRequest(
+    const userver::server::http::HttpRequest& request)
 {
     return RequestInfo{.headers = request.RequestHeaders(),
                        .cookies = request.RequestCookies(),

@@ -51,6 +51,15 @@ struct PropertyBase
     value_type value;
 };
 
+template <typename T>
+concept IsProperty = requires
+{
+    typename T::traits;
+    typename T::value_type;
+    std::is_base_of_v<PropertyBase<typename T::traits, typename T::value_type>,
+                      T>;
+};
+
 template <typename T, typename Traits = EmptyTraits>
 struct Property
 {

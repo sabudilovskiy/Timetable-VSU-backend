@@ -1,3 +1,4 @@
+#include <openapi/http/openapi_descriptor_fwd.hpp>
 #include <userver/clients/dns/component.hpp>
 #include <userver/clients/http/component.hpp>
 #include <userver/components/minimal_server_component_list.hpp>
@@ -17,7 +18,6 @@
 #include "components/controllers/postgres/teacher/fwd.hpp"
 #include "components/controllers/postgres/token/fwd.hpp"
 #include "components/controllers/postgres/user/fwd.hpp"
-#include "openapi/http/openapi_descriptor_fwd.hpp"
 #include "views/admin/create/view.hpp"
 #include "views/admin/list/view.hpp"
 #include "views/faculty/list/view.hpp"
@@ -30,9 +30,9 @@
 #include "views/teacher/request/approve/link/view.hpp"
 #include "views/teacher/request/approve/new/view.hpp"
 #include "views/teacher/request/list/view.hpp"
+#include "views/test-openapi-view-register/view.hpp"
 #include "views/test-openapi-view/view.hpp"
 #include "views/timetable/get/view.hpp"
-#include "views/test-openapi-view-register/view.hpp"
 
 using namespace timetable_vsu_backend;
 

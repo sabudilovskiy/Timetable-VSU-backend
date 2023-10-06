@@ -38,10 +38,13 @@ T Parse(const RequestInfo& info, userver::formats::parse::To<T>)
                 return;
         }
         const std::string& founded = it->second;
-        if constexpr (std::is_same_v<std::string, H> || std::is_same_v<std::optional<std::string>, H>){
+        if constexpr (std::is_same_v<std::string, H> ||
+                      std::is_same_v<std::optional<std::string>, H>)
+        {
             item() = founded;
         }
-        else {
+        else
+        {
             item() = Parse(founded, userver::formats::parse::To<H>{});
         }
     };
@@ -61,10 +64,13 @@ T Parse(const RequestInfo& info, userver::formats::parse::To<T>)
                 return;
         }
         const std::string& founded = it->second;
-        if constexpr (std::is_same_v<std::string, C> || std::is_same_v<std::optional<std::string>, C>){
+        if constexpr (std::is_same_v<std::string, C> ||
+                      std::is_same_v<std::optional<std::string>, C>)
+        {
             item() = founded;
         }
-        else {
+        else
+        {
             item() = Parse(founded, userver::formats::parse::To<C>{});
         }
     };

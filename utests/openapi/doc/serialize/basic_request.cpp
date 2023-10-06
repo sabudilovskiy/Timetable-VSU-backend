@@ -1,4 +1,5 @@
 #include <openapi/all.hpp>
+#include <openapi/doc/serialize/base.hpp>
 #include <string_view>
 #include <userver/formats/serialize/common_containers.hpp>
 #include <userver/formats/yaml/serialize.hpp>
@@ -7,7 +8,6 @@
 #include <utils/constexpr_string.hpp>
 #include <utils/tests_macros.hpp>
 
-#include "openapi/doc/serialize/base.hpp"
 #include "views/hello/view.hpp"
 
 using namespace timetable_vsu_backend::openapi;
@@ -36,16 +36,19 @@ UTEST(Openapi_Doc_Serialize, BasicRequest)
 {
     timetable_vsu_backend::openapi::Doc doc;
     auto response = doc()["requests"][GetOpenApiTypeName<tests::SomeRequest>()];
-    AppendRequest(DocHelper{doc(), response}, std::type_identity<tests::SomeRequest>{});
-    AppendRequest(DocHelper{doc(), response}, std::type_identity<tests::SomeRequest>{});
+    AppendRequest(DocHelper{doc(), response},
+                  std::type_identity<tests::SomeRequest>{});
+    AppendRequest(DocHelper{doc(), response},
+                  std::type_identity<tests::SomeRequest>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
     EXPECT_EQ(result_schema, RAW_STRING(
                                  R"(
 requests:
   TestsSomeRequest:
+    description: TestsSomeRequest
     requestBody:
-      required: false
+      required: true
       content:
         application/json:
           schema:
@@ -73,7 +76,7 @@ components:
         ids:
           type: array
           items:
-            type: Integer
+            type: integer
             format: int32
       required:
         - filter

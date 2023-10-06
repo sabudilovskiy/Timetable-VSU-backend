@@ -90,6 +90,12 @@ src/openapi/types/optional_type.hpp
 src/openapi/types/object_type.hpp
 src/openapi/types/array_type.hpp
 src/openapi/types/all.hpp
+src/openapi/raw/vector.hpp
+src/openapi/raw/reflective.hpp
+src/openapi/raw/property.hpp
+src/openapi/raw/optional.hpp
+src/openapi/raw/default.hpp
+src/openapi/raw/all.hpp
 src/openapi/json/serialize/string_property.hpp
 src/openapi/json/serialize/reflective.hpp
 src/openapi/json/serialize/optional_property.hpp
@@ -138,7 +144,6 @@ src/openapi/base/string_traits.hpp
 src/openapi/base/string_property.hpp
 src/openapi/base/reflective_utils.hpp
 src/openapi/base/reflective_preferences.hpp
-src/openapi/base/reflective_base.hpp
 src/openapi/base/property_base.hpp
 src/openapi/base/preferences.hpp
 src/openapi/base/optional_traits.hpp

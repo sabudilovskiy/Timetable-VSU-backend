@@ -46,10 +46,10 @@ UTEST(Openapi_http_response_serialize, Basic)
     ResponseInfo expected{
       .userver_code  = userver::server::http::HttpStatus::kOk,
       .body = R"({"some_string":"some_value_string","some_array":[1,2,3]})",
-      .headers = {{"some_header", "some_header_value"}}
+      .headers = {{"some_header", "some_header_value"}},
+      .response_body_type = ResponseBodyType::kJson
     };
     // clang-format on
-    auto got =
-        Serialize(resp, userver::formats::serialize::To<ResponseInfo>{});
-    EXPECT_EQ(expected, got);
+    auto got = Serialize(resp, userver::formats::serialize::To<ResponseInfo>{});
+    EXPECT_TRUE(expected == got);
 }

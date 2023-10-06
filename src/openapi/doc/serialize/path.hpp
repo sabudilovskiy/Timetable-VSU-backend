@@ -9,7 +9,7 @@
 #include <openapi/http/base/response_property.hpp>
 #include <string_view>
 #include <type_traits>
-#include "userver/logging/log.hpp"
+#include <userver/logging/log.hpp>
 namespace timetable_vsu_backend::openapi
 {
 struct HandlerInfo
@@ -30,24 +30,30 @@ void AppendPathResponse(
     PlaceRefToResponse<Resp>(resp);
 }
 
-namespace impl{
-    inline std::vector<std::string> split_methods(HandlerInfo handler_info){
-        std::string method_low;
-        std::vector<std::string> methods;
-        for (auto ch : handler_info.method){
-            if (ch != ','){
-                method_low.append(1, tolower(ch));
-            }
-            else {
-                methods.emplace_back(std::move(method_low));
-            }
+namespace impl
+{
+inline std::vector<std::string> split_methods(HandlerInfo handler_info)
+{
+    std::string method_low;
+    std::vector<std::string> methods;
+    for (auto ch : handler_info.method)
+    {
+        if (ch != ',')
+        {
+            method_low.append(1, tolower(ch));
         }
-        if (!method_low.empty()){
+        else
+        {
             methods.emplace_back(std::move(method_low));
         }
-        return methods;
     }
+    if (!method_low.empty())
+    {
+        methods.emplace_back(std::move(method_low));
+    }
+    return methods;
 }
+}  // namespace impl
 
 template <typename Req, typename... Resp>
 void AppendPath(Doc& doc, HandlerInfo handler_info, std::type_identity<Req> req,
@@ -56,10 +62,11 @@ void AppendPath(Doc& doc, HandlerInfo handler_info, std::type_identity<Req> req,
     auto& root = doc();
     auto& [path, method_raw] = handler_info;
     auto methods = impl::split_methods(handler_info);
-    for (auto& method : methods){
+    for (auto& method : methods)
+    {
         auto view = root["paths"][path][method];
-        auto responses = view["responses"];
         AppendRequest(DocHelper{doc(), view}, req);
+        auto responses = view["responses"];
         (AppendPathResponse(doc, responses, resp), ...);
     }
 }

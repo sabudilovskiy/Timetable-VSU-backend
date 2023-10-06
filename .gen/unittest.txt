@@ -1,3 +1,4 @@
+utests/openapi/raw/basic_reflective.cpp
 utests/openapi/json/serialize/basic_string.cpp
 utests/openapi/json/serialize/basic_optional.cpp
 utests/openapi/json/serialize/basic_object.cpp

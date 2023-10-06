@@ -7,6 +7,6 @@
 #include <openapi/doc/serialize/header.hpp>
 #include <openapi/doc/serialize/path.hpp>
 #include <openapi/doc/serialize/reflective.hpp>
+#include <openapi/doc/serialize/remove_requests.hpp>
 #include <openapi/doc/serialize/request.hpp>
 #include <openapi/doc/serialize/response.hpp>
-#include <openapi/doc/serialize/remove_requests.hpp>

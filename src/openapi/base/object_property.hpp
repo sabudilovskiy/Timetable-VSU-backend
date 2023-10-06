@@ -13,6 +13,7 @@ concept IsReflective = requires
 {
     requires std::is_class_v<T>;
     requires std::is_aggregate_v<T>;
+    requires !IsProperty<T>;
 };
 }  // namespace checks
 

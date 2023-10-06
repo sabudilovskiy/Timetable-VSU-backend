@@ -23,7 +23,7 @@ namespace timetable_vsu_backend::openapi::http
 {
 template <checks::IsReflective T, typename Traits>
 ResponseInfo Serialize(const ResponseProperty<T, Traits>& item,
-                        userver::formats::serialize::To<ResponseInfo>)
+                       userver::formats::serialize::To<ResponseInfo>)
 {
     ResponseInfo result{};
     result.userver_code = Traits::code;

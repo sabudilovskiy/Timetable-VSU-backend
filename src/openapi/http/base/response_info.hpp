@@ -2,13 +2,17 @@
 
 #include <compare>
 #include <cstddef>
+#include <iostream>
 #include <string>
 #include <userver/server/http/http_request.hpp>
+#include <utility>
 
 namespace timetable_vsu_backend::openapi::http
 {
-enum struct ResponseBodyType{
-    kText, kJson 
+enum struct ResponseBodyType
+{
+    kText,
+    kJson
 };
 struct ResponseInfo
 {
@@ -19,22 +23,25 @@ struct ResponseInfo
     std::partial_ordering operator<=>(const ResponseInfo& rhs) const
     {
         auto& lhs = *this;
-        if (auto cmp = (lhs.userver_code <=> rhs.userver_code);
+        if (auto cmp = lhs.userver_code <=> rhs.userver_code;
             cmp != std::strong_ordering::equal)
         {
             return cmp;
         }
-        if (auto cmp = (lhs.body <=> rhs.body);
+        if (auto cmp = lhs.body <=> rhs.body;
             cmp != std::strong_ordering::equal)
         {
             return cmp;
         }
-        auto cmp = lhs.headers == rhs.headers;
-        if (cmp)
-            return std::partial_ordering::equivalent;
-        else
+        if (auto cmp = lhs.headers == rhs.headers; !cmp)
+        {
             return std::partial_ordering::unordered;
+        }
+        if (auto cmp = lhs.response_body_type == rhs.response_body_type; !cmp){
+            return std::partial_ordering::unordered;
+        }
+        return std::partial_ordering::equivalent;
     }
-    bool operator==(const ResponseInfo&) const = default;
+    bool operator==(const ResponseInfo& rhs) const = default;
 };
 }  // namespace timetable_vsu_backend::openapi::http
