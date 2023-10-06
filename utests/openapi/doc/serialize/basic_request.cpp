@@ -45,14 +45,14 @@ UTEST(Openapi_Doc_Serialize, BasicRequest)
     EXPECT_EQ(result_schema, RAW_STRING(
                                  R"(
 requests:
-  TestsSomeRequest:
-    description: TestsSomeRequest
+  tests.SomeRequest:
+    description: tests.SomeRequest
     requestBody:
       required: true
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/TestsFindRequestBody"
+            $ref: "#/components/schemas/tests.FindRequestBody"
     parameters:
       - in: header
         name: some_header
@@ -66,7 +66,7 @@ requests:
           type: string
 components:
   schemas:
-    TestsFindRequestBody:
+    tests.FindRequestBody:
       type: object
       additionalProperties: false
       properties:

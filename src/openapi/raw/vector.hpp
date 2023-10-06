@@ -39,7 +39,7 @@ class Raw<std::vector<T>>
         {
             res.emplace_back(Raw<T>::Do(elem));
         }
-        return t;
+        return res;
     }
     static result_const Do(const Type& t)
     {
@@ -49,7 +49,7 @@ class Raw<std::vector<T>>
         {
             res.emplace_back(Raw<T>::Do(elem));
         }
-        return t;
+        return res;
     }
 };
 }  // namespace timetable_vsu_backend::openapi::raw

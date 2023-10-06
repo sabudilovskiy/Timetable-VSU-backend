@@ -36,7 +36,7 @@ UTEST(TestNameStruct, Basic)
 {
     EXPECT_EQ(timetable_vsu_backend::openapi::GetOpenApiTypeName<
                   tests::Credentials>(),
-              "TestsCredentials");
+              "tests.Credentials");
 }
 
 namespace tests2
@@ -59,18 +59,18 @@ UTEST(Openapi_Doc_Serialize, MoreOneNamespace)
         R"(
 components:
   schemas:
-    Tests2User:
+    tests2.User:
       type: object
       additionalProperties: false
       properties:
         credentials:
-          $ref: "#/components/schemas/TestsCredentials"
+          $ref: "#/components/schemas/tests.Credentials"
         id:
           type: string
       required:
         - credentials
         - id
-    TestsCredentials:
+    tests.Credentials:
       type: object
       additionalProperties: false
       properties:
@@ -109,26 +109,26 @@ UTEST(Openapi_Doc_Serialize, BasicAdditionalProperties)
                                  R"(
 components:
   schemas:
-    TimetableVsuBackendTestsSomeStructure:
+    timetable_vsu_backend.tests.SomeStructure:
       type: object
       additionalProperties: true
       properties:
         user:
-          $ref: "#/components/schemas/Tests2User"
+          $ref: "#/components/schemas/tests2.User"
       required:
         - user
-    Tests2User:
+    tests2.User:
       type: object
       additionalProperties: false
       properties:
         credentials:
-          $ref: "#/components/schemas/TestsCredentials"
+          $ref: "#/components/schemas/tests.Credentials"
         id:
           type: string
       required:
         - credentials
         - id
-    TestsCredentials:
+    tests.Credentials:
       type: object
       additionalProperties: false
       properties:

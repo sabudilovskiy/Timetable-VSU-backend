@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <boost/pfr/core.hpp>
 #include <boost/pfr/tuple_size.hpp>
 #include <cctype>
@@ -47,36 +48,22 @@ inline void log_yaml_impl(userver::formats::yaml::ValueBuilder yaml,
     timetable_vsu_backend::openapi::log_yaml_impl(yaml, __FILE__, __LINE__, \
                                                   __PRETTY_FUNCTION__)
 
+//some_namespace..some_class
+//precondition: string from demangle
 inline void RemoveNamespaces(std::string& name_class)
-{
-    auto write = name_class.begin();
-    auto read = name_class.begin();
-    *write = toupper(*read);
-    write++;
-    read++;
-    while (read != name_class.end())
-    {
-        if (*read == ':' || *read == '_')
-        {
-            while (read != name_class.end() && (*read == ':' || *read == '_'))
-            {
-                read++;
-            }
-            if (read != name_class.end())
-            {
-                *write = toupper(*read);
-                write++;
-                read++;
-            }
-        }
-        else
-        {
-            *write = *read;
-            write++;
+{   
+    auto read = std::find(name_class.begin(), name_class.end(), ':');
+    auto write = read;
+    while (read != name_class.end()){
+        if (*read == ':'){
             read++;
+            *read = '.';
         }
+        *write = *read;
+        read++;
+        write++;
     }
-    name_class.resize(write - name_class.begin());
+    name_class.erase(write, name_class.end());
 }
 /*
 это нужно для:

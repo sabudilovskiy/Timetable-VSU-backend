@@ -10,8 +10,8 @@ namespace timetable_vsu_backend::views::test::login
 {
 struct RequestBody
 {
-    String<Name<"login">> login;
-    String<Name<"password">> password;
+    String<Name<"asdasdasdas">> login;
+    String<Name<"passdasdasdaword_first">> password;
     Array<std::int32_t, Min<1>, Max<2>, UniqueItems, Name<"some_array">>
         some_array;
     auto operator<=>(const RequestBody&) const = default;

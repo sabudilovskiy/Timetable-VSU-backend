@@ -36,12 +36,12 @@ UTEST(Openapi_Doc_Serialize, BasicResponse)
                                  R"(
 components:
   responses:
-    TestsSomeResponse:
+    tests.SomeResponse:
       description: ""
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/TestsFindUserBody"
+            $ref: "#/components/schemas/tests.FindUserBody"
       headers:
         some_header_name:
           schema:
@@ -50,7 +50,7 @@ components:
           schema:
             type: string
   schemas:
-    TestsFindUserBody:
+    tests.FindUserBody:
       type: object
       additionalProperties: false
       properties:

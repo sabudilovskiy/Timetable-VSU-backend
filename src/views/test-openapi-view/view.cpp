@@ -16,10 +16,11 @@ namespace timetable_vsu_backend::views::test::login
 namespace
 {
 using Resp200 = Resp<Response, 200>;
-struct View final : openapi::http::OpenApiHandler<Request, Resp200>
+using Resp400 = Resp<Response, 400>;
+struct View final : public openapi::http::OpenApiHandler<Request, Resp200, Resp400>
 {
     static constexpr std::string_view kName = "test-login-view";
-    using Base = openapi::http::OpenApiHandler<Request, Resp200>;
+    using Base = openapi::http::OpenApiHandler<Request, Resp200, Resp400>;
     View(const userver::components::ComponentConfig& cfg,
          const userver::components::ComponentContext& ctx)
         : Base(cfg, ctx)

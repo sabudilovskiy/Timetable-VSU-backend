@@ -30,10 +30,7 @@ template <typename T>
 using raw_const_t = typename Raw<T>::result_const;
 
 template <typename T>
-concept IsDefault = requires
-{
-    requires std::is_same_v<raw_mut_t<T>, T&>;
-};
+concept IsDefault = std::is_same_v<raw_mut_t<T>, T&>;
 
 template <typename T>
 concept IsNotDefault = !IsDefault<T>;

@@ -47,56 +47,56 @@ UTEST(Openapi_Doc_Serialize, BasicPath)
     std::clog << result_schema << '\n';
     EXPECT_EQ(result_schema, RAW_STRING(
                                  R"(
- paths:
-   /login:
-     post:
-       description: TestsPathSomeRequest
-       requestBody:
-         required: true
-         content:
-           application/json:
-             schema:
-               $ref: "#/components/schemas/TestsPathFindUserBody"
-       parameters:
-         - in: header
-           name: some_header_name
-           required: false
-           schema:
-             type: string
-         - in: header
-           name: some_another_header
-           required: false
-           schema:
-             type: string
-       responses:
-         200:
-           $ref: "#/components/responses/TestsPathSomeResponse"
- components:
-   schemas:
-     TestsPathFindUserBody:
-       type: object
-       additionalProperties: false
-       properties:
-         user:
-           type: string
-         password:
-           type: string
-       required:
-         - user
-         - password
-   responses:
-     TestsPathSomeResponse:
-       description: ""
-       content:
-         application/json:
-           schema:
-             $ref: "#/components/schemas/TestsPathFindUserBody"
-       headers:
-         some_header_name:
-           schema:
-             type: string
-         some_another_header:
-           schema:
-             type: string
+paths:
+  /login:
+    post:
+      description: tests_path.SomeRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tests_path.FindUserBody"
+      parameters:
+        - in: header
+          name: some_header_name
+          required: false
+          schema:
+            type: string
+        - in: header
+          name: some_another_header
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: "#/components/responses/tests_path.SomeResponse"
+components:
+  schemas:
+    tests_path.FindUserBody:
+      type: object
+      additionalProperties: false
+      properties:
+        user:
+          type: string
+        password:
+          type: string
+      required:
+        - user
+        - password
+  responses:
+    tests_path.SomeResponse:
+      description: ""
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/tests_path.FindUserBody"
+      headers:
+        some_header_name:
+          schema:
+            type: string
+        some_another_header:
+          schema:
+            type: string
 )"));
 }
