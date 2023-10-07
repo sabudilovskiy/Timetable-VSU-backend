@@ -19,11 +19,11 @@
 namespace userver::formats::parse
 {
 template <typename T, typename Traits>
-timetable_vsu_backend::openapi::OptionalProperty<T, Traits> Parse(
+::openapi::OptionalProperty<T, Traits> Parse(
     const json::Value& item,
-    To<timetable_vsu_backend::openapi::OptionalProperty<T, Traits>>)
+    To<::openapi::OptionalProperty<T, Traits>>)
 {
-    using namespace timetable_vsu_backend::openapi::traits;
+    using namespace openapi::traits;
     constexpr OptionalHelperTraits<Traits> traits;
     if (item.IsMissing())
     {

@@ -1,7 +1,7 @@
 #pragma once
 #include <userver/storages/postgres/query.hpp>
 
-namespace timetable_vsu_backend::components::controllers::postgres::faculty::sql
+namespace components::controllers::postgres::faculty::sql
 {
 const userver::storages::postgres::Query qGetFacultiesByFilter(R"(
     SELECT 

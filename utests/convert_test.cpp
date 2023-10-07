@@ -12,7 +12,7 @@
 #include <utils/convert/json_parse.hpp>
 #include <utils/convert/json_serialize.hpp>
 
-namespace magic = timetable_vsu_backend::utils::convert;
+namespace magic = ::utils::convert;
 struct TestStruct
 {
     static constexpr auto kPolicyFields = magic::PolicyFields::ConvertAll;

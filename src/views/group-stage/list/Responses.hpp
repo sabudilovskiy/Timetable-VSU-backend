@@ -15,7 +15,7 @@
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::views::group::stage::list
+namespace views::group::stage::list
 {
 using namespace utils::convert;
 struct Response200
@@ -27,4 +27,4 @@ struct Response200
         userver::server::http::HttpStatus::kOk;
 };
 
-}  // namespace timetable_vsu_backend::views::group::stage::list
+}  // namespace views::group::stage::list

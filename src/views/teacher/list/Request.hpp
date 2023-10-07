@@ -8,7 +8,7 @@
 #include <utils/parse/uuid/string.hpp>
 
 #include "models/teacher_filter/type.hpp"
-namespace timetable_vsu_backend::views::teacher::list
+namespace views::teacher::list
 {
 using namespace utils::convert;
 struct Request
@@ -19,4 +19,4 @@ struct Request
         TypeOfBody::Json;  //открываем возможность использовать структуру, как
                            //запрос
 };
-}  // namespace timetable_vsu_backend::views::teacher::list
+}  // namespace views::teacher::list

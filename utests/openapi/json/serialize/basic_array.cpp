@@ -15,8 +15,8 @@
 
 #include "views/hello/view.hpp"
 
-using namespace timetable_vsu_backend::openapi::types;
-using namespace timetable_vsu_backend::openapi::preferences;
+using namespace openapi::types;
+using namespace openapi::preferences;
 
 UTEST(Openapi_Json_Serialize, BasicArray)
 {

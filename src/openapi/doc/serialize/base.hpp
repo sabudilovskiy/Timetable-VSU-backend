@@ -32,7 +32,7 @@
 #include <utility>
 #include <utils/compilers_macros.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 inline void log_yaml_impl(userver::formats::yaml::ValueBuilder yaml,
                           std::string_view file_name, int line,
@@ -45,7 +45,7 @@ inline void log_yaml_impl(userver::formats::yaml::ValueBuilder yaml,
 }
 
 #define log_yaml(yaml)                                                      \
-    timetable_vsu_backend::openapi::log_yaml_impl(yaml, __FILE__, __LINE__, \
+    ::openapi::log_yaml_impl(yaml, __FILE__, __LINE__, \
                                                   __PRETTY_FUNCTION__)
 
 //some_namespace..some_class
@@ -206,4 +206,4 @@ void Append(DocHelper doc_helper,
     }
 }
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

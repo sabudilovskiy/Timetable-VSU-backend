@@ -10,7 +10,7 @@
 #include <string_view>
 #include <type_traits>
 #include <userver/logging/log.hpp>
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 struct HandlerInfo
 {
@@ -70,4 +70,4 @@ void AppendPath(Doc& doc, HandlerInfo handler_info, std::type_identity<Req> req,
         (AppendPathResponse(doc, responses, resp), ...);
     }
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

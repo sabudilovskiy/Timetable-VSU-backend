@@ -4,7 +4,7 @@
 
 #include "property_base.hpp"
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 namespace checks
 {
@@ -27,4 +27,4 @@ struct Property<T, Traits> : public ObjectProperty<T, Traits>
 {
 };
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

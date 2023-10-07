@@ -19,9 +19,9 @@
 namespace userver::formats::parse
 {
 template <typename T, typename Traits>
-timetable_vsu_backend::openapi::ObjectProperty<T, Traits> Parse(
+::openapi::ObjectProperty<T, Traits> Parse(
     const json::Value& item,
-    To<timetable_vsu_backend::openapi::ObjectProperty<T, Traits>>)
+    To<::openapi::ObjectProperty<T, Traits>>)
 {
     T result;
     return {item.As<T>()};

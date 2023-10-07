@@ -7,9 +7,9 @@
 #include <userver/utest/utest.hpp>
 #include <utils/tests_macros.hpp>
 
-using namespace timetable_vsu_backend::openapi::http;
-using namespace timetable_vsu_backend::openapi::preferences;
-using namespace timetable_vsu_backend::openapi::types;
+using namespace openapi::http;
+using namespace openapi::preferences;
+using namespace openapi::types;
 using namespace std::literals;
 
 UTEST(Openapi_Doc_Serialize, BasicStatusCode)

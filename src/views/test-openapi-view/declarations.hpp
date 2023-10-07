@@ -3,10 +3,10 @@
 #include <openapi/all.hpp>
 #include <openapi/base/preferences.hpp>
 
-using namespace timetable_vsu_backend::openapi::types;
-using namespace timetable_vsu_backend::openapi::http;
-using namespace timetable_vsu_backend::openapi::preferences;
-namespace timetable_vsu_backend::views::test::login
+using namespace openapi::types;
+using namespace openapi::http;
+using namespace openapi::preferences;
+namespace views::test::login
 {
 struct RequestBody
 {
@@ -36,4 +36,4 @@ struct Response
     Header<std::string, Name<"some_header">> some_header;
     auto operator<=>(const Response&) const = default;
 };
-}  // namespace timetable_vsu_backend::views::test::login
+}  // namespace views::test::login

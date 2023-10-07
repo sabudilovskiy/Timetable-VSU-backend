@@ -17,14 +17,14 @@
 #include <userver/utils/overloaded.hpp>
 #include <utils/constexpr_string.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename T, typename Traits>
 userver::formats::json::Value Serialize(
-    const timetable_vsu_backend::openapi::ObjectProperty<T, Traits>& item,
+    const ::openapi::ObjectProperty<T, Traits>& item,
     userver::formats::serialize::To<userver::formats::json::Value>)
 {
     return userver::formats::json::ValueBuilder(item()).ExtractValue();
 }
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

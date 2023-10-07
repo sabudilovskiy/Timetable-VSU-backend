@@ -2,7 +2,7 @@
 
 #include <userver/formats/json/value_builder.hpp>
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 std::string Serialize(const Day& value,
                       userver::formats::serialize::To<std::string>)
@@ -31,4 +31,4 @@ userver::formats::json::Value Serialize(
         Serialize(value, userver::formats::serialize::To<std::string>{});
     return userver::formats::json::ValueBuilder(str).ExtractValue();
 }
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

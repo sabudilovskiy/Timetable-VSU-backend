@@ -14,7 +14,7 @@
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::views::timetable::get
+namespace views::timetable::get
 {
 using namespace utils::convert;
 struct Response200
@@ -31,4 +31,4 @@ static_assert(userver::formats::common::impl::kHasSerialize<
 static_assert(userver::formats::common::impl::kHasSerialize<
               userver::formats::json::Value, std::vector<models::LessonV1>>);
 
-}  // namespace timetable_vsu_backend::views::timetable::get
+}  // namespace views::timetable::get

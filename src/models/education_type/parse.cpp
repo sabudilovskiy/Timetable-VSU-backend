@@ -8,7 +8,7 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 EducationType Parse(std::string_view str,
                     userver::formats::parse::To<EducationType>)
@@ -44,4 +44,4 @@ EducationType Parse(const userver::formats::json::Value& value,
     auto raw_value = value.As<std::string>();
     return Parse(raw_value, userver::formats::parse::To<EducationType>{});
 }
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

@@ -22,7 +22,7 @@
 #include <userver/yaml_config/schema.hpp>
 #include <variant>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 template <checks::IsReflective Req, typename... Responses>
 struct OpenApiHandler : public userver::server::handlers::HttpHandlerBase
@@ -155,4 +155,4 @@ struct OpenApiHandler : public userver::server::handlers::HttpHandlerBase
                    std::type_identity<Responses>{}...);
     }
 };
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

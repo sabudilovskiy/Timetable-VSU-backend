@@ -27,7 +27,7 @@
 #include "models/user/type.hpp"
 #include "models/user_credentials/postgre.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::user
+namespace components::controllers::postgres::user
 {
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)
@@ -164,4 +164,4 @@ userver::yaml_config::Schema Controller::GetStaticConfigSchema()
     return userver::yaml_config::MergeSchemas<
         userver::components::LoggableComponentBase>(config::schema);
 }
-}  // namespace timetable_vsu_backend::components::controllers::postgres::user
+}  // namespace components::controllers::postgres::user

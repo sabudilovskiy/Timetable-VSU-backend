@@ -8,7 +8,7 @@
 #include <userver/storages/postgres/io/composite_types.hpp>
 #include <utility>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 namespace impl
 {
@@ -62,4 +62,4 @@ void CallAllFields(Callable&& callable)
     auto tuple_identity = MakeTypeTuple<T>();
     impl::CallAllFields(std::forward<Callable>(callable), tuple_identity);
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

@@ -3,10 +3,10 @@
 #include <cstddef>
 #include <openapi/base/doc.hpp>
 #include <string_view>
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 inline void RemoveRequests(Doc& doc)
 {
     auto root = doc().ExtractValue();
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

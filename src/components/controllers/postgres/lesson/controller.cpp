@@ -24,13 +24,13 @@
 #include "models/subgroup/serialize.hpp"
 #include "sql_queries.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::lesson
+namespace components::controllers::postgres::lesson
 {
 std::vector<models::LessonV1> Controller::Search(
     const std::optional<models::LessonFilter>& filter,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
-    timetable_vsu_backend::utils::FillSharedTransaction(transaction,
+    ::utils::FillSharedTransaction(transaction,
                                                         pg_cluster_);
     auto pg_result =
         utils::PgExecute(transaction, sql::qGetLessonsByFilter, filter);
@@ -44,4 +44,4 @@ Controller::Controller(const userver::components::ComponentConfig& config,
               .GetCluster())
 {
 }
-}  // namespace timetable_vsu_backend::components::controllers::postgres::lesson
+}  // namespace components::controllers::postgres::lesson

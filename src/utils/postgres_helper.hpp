@@ -12,7 +12,7 @@
 
 #include "convert/base.hpp"
 
-namespace timetable_vsu_backend::utils
+namespace utils
 {
 //Прямая конвертация используя встроенные методы pg_result не будет работать с
 //рефлективными типами. Использует промежуточные кортежи ссылок для перегона
@@ -120,7 +120,7 @@ decltype(auto) HelpForwardArg(const Arg& arg)
 //этого интерфейса достаточно
 template <typename... Args>
 userver::storages::postgres::ResultSet PgExecute(
-    const timetable_vsu_backend::utils::SharedTransaction& transaction,
+    const ::utils::SharedTransaction& transaction,
     const userver::storages::postgres::Query& query, const Args&... args)
 {
     return transaction->transaction_.Execute(query,
@@ -133,7 +133,7 @@ userver::storages::postgres::ResultSet PgExecute(
 //Ловит все исключения, если было брошено исключение, то вернет std::nullopt
 template <typename... Args>
 std::optional<userver::storages::postgres::ResultSet> PgSafeExecute(
-    const timetable_vsu_backend::utils::SharedTransaction& transaction,
+    const ::utils::SharedTransaction& transaction,
     const userver::storages::postgres::Query& query, const Args&... args)
 {
     try
@@ -148,4 +148,4 @@ std::optional<userver::storages::postgres::ResultSet> PgSafeExecute(
         return std::nullopt;
     }
 }
-}  // namespace timetable_vsu_backend::utils
+}  // namespace utils

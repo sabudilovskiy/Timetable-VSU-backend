@@ -33,11 +33,11 @@
 #include "models/user_credentials/postgre.hpp"
 #include "sql_queries.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::teacher
+namespace components::controllers::postgres::teacher
 {
-timetable_vsu_backend::utils::SharedTransaction Controller::CreateTransaction()
+::utils::SharedTransaction Controller::CreateTransaction()
 {
-    return timetable_vsu_backend::utils::MakeSharedTransaction(pg_cluster_);
+    return ::utils::MakeSharedTransaction(pg_cluster_);
 }
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)
@@ -49,9 +49,9 @@ Controller::Controller(const userver::components::ComponentConfig& config,
 }
 std::vector<models::Teacher> Controller::GetByFilter(
     std::optional<models::TeacherFilter>& filter,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
-    timetable_vsu_backend::utils::FillSharedTransaction(transaction,
+    ::utils::FillSharedTransaction(transaction,
                                                         pg_cluster_);
     auto pg_result =
         utils::PgExecute(transaction, sql::qGetTeachersByFilter, filter);
@@ -60,7 +60,7 @@ std::vector<models::Teacher> Controller::GetByFilter(
 
 std::optional<boost::uuids::uuid> Controller::CreateTeacher(
     const models::TeacherInfo& teacher_info,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
     try
     {
@@ -79,7 +79,7 @@ std::optional<boost::uuids::uuid> Controller::CreateTeacher(
 
 std::optional<boost::uuids::uuid> Controller::ApproveAndLink(
     const boost::uuids::uuid& request_id, const boost::uuids::uuid& teacher_id,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
     utils::FillSharedTransaction(transaction, pg_cluster_);
     auto id_user = utils::ConvertPgResultToOptionalItem<boost::uuids::uuid>(
@@ -98,7 +98,7 @@ std::optional<boost::uuids::uuid> Controller::ApproveAndLink(
 
 std::optional<boost::uuids::uuid> Controller::Link(
     const boost::uuids::uuid& user_id, const boost::uuids::uuid& teacher_id,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
     utils::FillSharedTransaction(transaction, pg_cluster_);
     auto created = utils::PgSafeExecute(transaction, sql::qCreateLink, user_id,
@@ -109,7 +109,7 @@ std::optional<boost::uuids::uuid> Controller::Link(
 std::optional<boost::uuids::uuid> Controller::ApproveAndCreateAccount(
     const boost::uuids::uuid& request_id,
     const models::TeacherInfo& teacher_info,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
     utils::FillSharedTransaction(transaction, pg_cluster_);
     auto id_user_result =
@@ -133,7 +133,7 @@ std::optional<boost::uuids::uuid> Controller::ApproveAndCreateAccount(
 }
 
 std::vector<models::RequestPrivileges> Controller::GetAllRequests(
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
     utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result = utils::PgExecute(transaction, sql::qGetAllRequests);
@@ -142,7 +142,7 @@ std::vector<models::RequestPrivileges> Controller::GetAllRequests(
 
 std::optional<boost::uuids::uuid> Controller::DropRequest(
     const boost::uuids::uuid& request_id,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
     utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result =
@@ -151,4 +151,4 @@ std::optional<boost::uuids::uuid> Controller::DropRequest(
 }
 
 }  // namespace
-   // timetable_vsu_backend::components::controllers::postgres::teacher
+   // ::components::controllers::postgres::teacher

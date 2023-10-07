@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
 #include <utils/convert/base.hpp>
-namespace timetable_vsu_backend::models
+namespace models
 {
 struct RequestPrivileges
 {
@@ -11,4 +11,4 @@ struct RequestPrivileges
     static constexpr utils::convert::PolicyFields kPolicyFields =
         utils::convert::PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

@@ -3,7 +3,7 @@
 #include <userver/formats/json.hpp>
 #include <userver/formats/json/impl/types.hpp>
 
-namespace timetable_vsu_backend::utils
+namespace utils
 {
 std::string_view GetType(const userver::formats::json::Value& value)
 {
@@ -46,4 +46,4 @@ std::string_view GetType(const userver::formats::json::Value& value)
     else
         return "Unknown";
 }
-}  // namespace timetable_vsu_backend::utils
+}  // namespace utils

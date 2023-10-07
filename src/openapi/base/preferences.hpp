@@ -1,7 +1,7 @@
 #pragma once
 #include <utils/constexpr_string.hpp>
 
-namespace timetable_vsu_backend::openapi::preferences
+namespace openapi::preferences
 {
 template <auto value>
 struct value_holder
@@ -37,4 +37,4 @@ struct UseNullOnFail
 {
 };
 
-}  // namespace timetable_vsu_backend::openapi::preferences
+}  // namespace openapi::preferences

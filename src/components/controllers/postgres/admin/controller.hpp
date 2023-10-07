@@ -10,7 +10,7 @@
 #include "models/admin_filter/type.hpp"
 #include "models/user_credentials/type.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::admin
+namespace components::controllers::postgres::admin
 {
 class Controller final : public userver::components::LoggableComponentBase
 {
@@ -33,4 +33,4 @@ class Controller final : public userver::components::LoggableComponentBase
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace timetable_vsu_backend::components::controllers::postgres::admin
+}  // namespace components::controllers::postgres::admin

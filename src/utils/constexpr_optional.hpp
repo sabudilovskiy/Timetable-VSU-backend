@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <optional>
 #include <string_view>
-namespace timetable_vsu_backend::utils
+namespace utils
 {
 struct AccessToNull : public std::exception
 {
@@ -98,4 +98,4 @@ struct ConstexprOptional
     }
 };
 
-}  // namespace timetable_vsu_backend::utils
+}  // namespace utils

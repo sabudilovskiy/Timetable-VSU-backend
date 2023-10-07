@@ -16,7 +16,7 @@
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::views::teacher::requests::list
+namespace views::teacher::requests::list
 {
 using namespace utils::convert;
 struct Response200
@@ -32,4 +32,4 @@ using Response401 = utils::common_errors::Response401;
 
 using Response403 = utils::common_errors::Response403;
 
-}  // namespace timetable_vsu_backend::views::teacher::requests::list
+}  // namespace views::teacher::requests::list

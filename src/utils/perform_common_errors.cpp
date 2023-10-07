@@ -1,6 +1,6 @@
 #include "perform_common_errors.hpp"
 
-namespace timetable_vsu_backend::utils::common_errors
+namespace utils::common_errors
 {
 Response400 PerformLoginTaken()
 {
@@ -30,4 +30,4 @@ Response400 PerformInvalidData(std::string_view message)
     resp.machine_id = "INVALID_DATA";
     return resp;
 }
-}  // namespace timetable_vsu_backend::utils::common_errors
+}  // namespace utils::common_errors

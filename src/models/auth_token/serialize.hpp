@@ -9,7 +9,7 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 inline userver::formats::json::Value Serialize(
     const AuthToken& token,
@@ -19,4 +19,4 @@ inline userver::formats::json::Value Serialize(
     json["token"] = boost::uuids::to_string(token.id);
     return json.ExtractValue();
 }
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

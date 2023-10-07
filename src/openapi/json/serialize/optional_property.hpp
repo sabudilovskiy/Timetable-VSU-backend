@@ -17,7 +17,7 @@
 #include <userver/utils/overloaded.hpp>
 #include <utils/constexpr_string.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename T, typename Traits>
 userver::formats::json::Value Serialize(
@@ -44,4 +44,4 @@ userver::formats::json::Value Serialize(
         throw;
     }
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

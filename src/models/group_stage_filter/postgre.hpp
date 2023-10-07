@@ -3,17 +3,17 @@
 
 #include "models/education_type/postgre.hpp"
 #include "models/group_stage_filter/type.hpp"
-namespace timetable_vsu_backend::models
+namespace models
 {
 using TupleGroupStageFilter =
-    timetable_vsu_backend::utils::convert::drop_properties_to_ref_const_t<
+    ::utils::convert::drop_properties_to_ref_const_t<
         GroupStageFilter>;
-}  // namespace timetable_vsu_backend::models
+}  // namespace models
 
 namespace userver::storages::postgres::io
 {
 template <>
-struct CppToUserPg<timetable_vsu_backend::models::TupleGroupStageFilter>
+struct CppToUserPg<::models::TupleGroupStageFilter>
 {
     static constexpr DBTypeName postgres_name =
         "timetable_vsu.group_stage_filter";

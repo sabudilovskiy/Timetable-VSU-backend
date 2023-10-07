@@ -6,7 +6,7 @@
 #include <userver/http/content_type.hpp>
 #include <userver/server/handlers/http_handler_base.hpp>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 struct OpenApiDescriptor : public userver::server::handlers::HttpHandlerBase
 {
@@ -44,4 +44,4 @@ struct OpenApiDescriptor : public userver::server::handlers::HttpHandlerBase
     Doc doc;
     std::string schema;
 };
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

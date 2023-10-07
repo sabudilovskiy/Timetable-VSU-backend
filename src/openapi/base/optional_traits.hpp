@@ -4,7 +4,7 @@
 #include <utils/constexpr_string.hpp>
 
 #include "named_traits.hpp"
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 namespace checks
 {
@@ -56,4 +56,4 @@ struct OptionalHelperTraits : NamedHelperTraits<Traits>
 };
 
 }  // namespace traits
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

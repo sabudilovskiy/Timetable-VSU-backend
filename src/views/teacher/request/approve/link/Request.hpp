@@ -6,7 +6,7 @@
 #include <utils/convert/http_request_parse.hpp>
 #include <utils/convert/json_parse.hpp>
 #include <utils/parse/uuid/string.hpp>
-namespace timetable_vsu_backend::views::teacher::requests::approve::link
+namespace views::teacher::requests::approve::link
 {
 using namespace utils::convert;
 struct Request
@@ -19,4 +19,4 @@ struct Request
         TypeOfBody::Json;  //открываем возможность использовать структуру, как
                            //запрос
 };
-}  // namespace timetable_vsu_backend::views::teacher::requests::approve::link
+}  // namespace views::teacher::requests::approve::link

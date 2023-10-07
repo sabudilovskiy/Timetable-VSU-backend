@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace timetable_vsu_backend::utils
+namespace utils
 {
 /*
 Небольшая обёртка, чтобы не писать каждый раз fmt::format()
@@ -21,4 +21,4 @@ struct formated_exception : std::runtime_error
     {
     }
 };
-}  // namespace timetable_vsu_backend::utils
+}  // namespace utils

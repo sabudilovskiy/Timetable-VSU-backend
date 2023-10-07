@@ -9,7 +9,7 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 SubString Parse(const std::string& str, userver::formats::parse::To<SubString>)
 {
@@ -29,4 +29,4 @@ SubString Parse(const userver::formats::json::Value& value,
     auto raw_value = value.As<std::string>();
     return Parse(raw_value, userver::formats::parse::To<SubString>{});
 }
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

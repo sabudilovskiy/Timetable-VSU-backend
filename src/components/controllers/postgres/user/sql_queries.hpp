@@ -2,7 +2,7 @@
 
 #include <userver/storages/postgres/query.hpp>
 
-namespace timetable_vsu_backend::components::controllers::postgres::user::sql
+namespace components::controllers::postgres::user::sql
 {
 const userver::storages::postgres::Query qGetUserByCredentials(R"(
     WITH all_user AS ( SELECT 

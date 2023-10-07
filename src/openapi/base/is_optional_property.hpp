@@ -3,7 +3,7 @@
 #include <optional>
 #include <type_traits>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename T>
 concept IsOptionalProperty = requires
@@ -16,4 +16,4 @@ concept IsOptionalProperty = requires
                      typename T::traits>,
         T>;
 };
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

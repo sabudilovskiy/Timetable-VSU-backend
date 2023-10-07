@@ -10,7 +10,7 @@
 
 #include "models/auth_token/type.hpp"
 #include "models/teacher_info/type.hpp"
-namespace timetable_vsu_backend::views::teacher::create
+namespace views::teacher::create
 {
 using namespace utils::convert;
 struct Request
@@ -22,4 +22,4 @@ struct Request
         TypeOfBody::Json;  //открываем возможность использовать структуру, как
                            //запрос
 };
-}  // namespace timetable_vsu_backend::views::teacher::create
+}  // namespace views::teacher::create

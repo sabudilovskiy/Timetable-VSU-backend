@@ -21,7 +21,7 @@
 #include "models/user_type/postgre.hpp"
 #include "sql_queries.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::token
+namespace components::controllers::postgres::token
 {
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)
@@ -52,4 +52,4 @@ std::optional<boost::uuids::uuid> Controller::CreateNew(
     auto result = utils::PgExecute(transaction, sql::qAddToken, user_id, time);
     return utils::ConvertPgResultToOptionalItem<boost::uuids::uuid>(result);
 }
-}  // namespace timetable_vsu_backend::components::controllers::postgres::token
+}  // namespace components::controllers::postgres::token

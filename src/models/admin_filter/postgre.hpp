@@ -3,17 +3,17 @@
 
 #include "models/admin_filter/type.hpp"
 #include "models/education_type/postgre.hpp"
-namespace timetable_vsu_backend::models
+namespace models
 {
 using TupleAdminFilter =
-    timetable_vsu_backend::utils::convert::drop_properties_to_ref_const_t<
+    ::utils::convert::drop_properties_to_ref_const_t<
         AdminFilter>;
-}  // namespace timetable_vsu_backend::models
+}  // namespace models
 
 namespace userver::storages::postgres::io
 {
 template <>
-struct CppToUserPg<timetable_vsu_backend::models::TupleAdminFilter>
+struct CppToUserPg<::models::TupleAdminFilter>
 {
     static constexpr DBTypeName postgres_name = "timetable_vsu.admin_filter_v2";
 };

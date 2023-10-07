@@ -10,7 +10,7 @@
 
 #include "views/hello/view.hpp"
 
-using namespace timetable_vsu_backend::openapi;
+using namespace openapi;
 using namespace types;
 using namespace preferences;
 
@@ -34,7 +34,7 @@ struct SomeRequest
 
 UTEST(Openapi_Doc_Serialize, BasicRequest)
 {
-    timetable_vsu_backend::openapi::Doc doc;
+    ::openapi::Doc doc;
     auto response = doc()["requests"][GetOpenApiTypeName<tests::SomeRequest>()];
     AppendRequest(DocHelper{doc(), response},
                   std::type_identity<tests::SomeRequest>{});

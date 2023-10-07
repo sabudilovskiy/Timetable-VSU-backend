@@ -18,7 +18,7 @@
 #include "models/auth_token/serialize.hpp"
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
-namespace timetable_vsu_backend::views::faculty::list
+namespace views::faculty::list
 {
 namespace
 {
@@ -53,4 +53,4 @@ void Append(userver::components::ComponentList& component_list)
     component_list.Append<Handler>();
 }
 
-}  // namespace timetable_vsu_backend::views::faculty::list
+}  // namespace views::faculty::list

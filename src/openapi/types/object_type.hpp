@@ -5,7 +5,7 @@
 #include <string_view>
 #include <utils/constexpr_optional.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 namespace detail
 {
@@ -95,4 +95,4 @@ using Object =
     decltype(detail::ObjectMagicHelper<T, Option...>::resolve_type());
 
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

@@ -3,7 +3,7 @@
 #include <utils/convert/json_parse.hpp>
 
 #include "models/register_request/type.hpp"
-namespace timetable_vsu_backend::views::register_
+namespace views::register_
 {
 using Request = models::RegisterRequest;
-}  // namespace timetable_vsu_backend::views::register_
+}  // namespace views::register_

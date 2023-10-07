@@ -14,16 +14,16 @@
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::views::teacher::list
+namespace views::teacher::list
 {
 using namespace utils::convert;
 struct Response200
 {
-    ArrayProperty<timetable_vsu_backend::models::Teacher, "teachers"> teachers;
+    ArrayProperty<::models::Teacher, "teachers"> teachers;
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
     static constexpr userver::server::http::HttpStatus kStatusCode =
         userver::server::http::HttpStatus::kOk;
 };
 
-}  // namespace timetable_vsu_backend::views::teacher::list
+}  // namespace views::teacher::list

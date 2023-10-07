@@ -10,13 +10,13 @@
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::views::register_
+namespace views::register_
 {
 using namespace utils::convert;
 struct Response200
 {
     Property<boost::uuids::uuid, "token"> id;
-    Property<timetable_vsu_backend::models::User, "user"> user;
+    Property<::models::User, "user"> user;
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
     static constexpr userver::server::http::HttpStatus kStatusCode =
@@ -31,4 +31,4 @@ struct Response500
     static constexpr userver::server::http::HttpStatus kStatusCode =
         userver::server::http::HttpStatus::kInternalServerError;
 };
-}  // namespace timetable_vsu_backend::views::register_
+}  // namespace views::register_

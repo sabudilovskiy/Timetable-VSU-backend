@@ -12,7 +12,7 @@
 
 #include "views/hello/view.hpp"
 
-using namespace timetable_vsu_backend::openapi;
+using namespace openapi;
 
 UTEST(Openapi_Json_Parse, BasicStringPattern)
 {

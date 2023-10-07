@@ -18,7 +18,7 @@
 
 #include "views/hello/view.hpp"
 
-using namespace timetable_vsu_backend::openapi;
+using namespace openapi;
 using namespace types;
 using namespace preferences;
 
@@ -34,7 +34,7 @@ struct Credentials
 
 UTEST(TestNameStruct, Basic)
 {
-    EXPECT_EQ(timetable_vsu_backend::openapi::GetOpenApiTypeName<
+    EXPECT_EQ(::openapi::GetOpenApiTypeName<
                   tests::Credentials>(),
               "tests.Credentials");
 }
@@ -51,7 +51,7 @@ struct User
 
 UTEST(Openapi_Doc_Serialize, MoreOneNamespace)
 {
-    timetable_vsu_backend::openapi::Doc doc;
+    ::openapi::Doc doc;
     Append(doc, std::type_identity<tests2::User>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
@@ -86,7 +86,7 @@ components:
     EXPECT_EQ(result_schema, expected_schema);
 }
 
-namespace timetable_vsu_backend::tests
+namespace tests
 {
 struct SomeStructure
 {
@@ -94,22 +94,22 @@ struct SomeStructure
     Object<tests2::User, Name<"user">> user;
     AdditionalProperties other;
 };
-}  // namespace timetable_vsu_backend::tests
+}  // namespace tests
 
 UTEST(Openapi_Doc_Serialize, BasicAdditionalProperties)
 {
-    timetable_vsu_backend::openapi::Doc doc;
+    ::openapi::Doc doc;
     Append(doc,
-           std::type_identity<timetable_vsu_backend::tests::SomeStructure>{});
+           std::type_identity<::tests::SomeStructure>{});
     Append(doc,
-           std::type_identity<timetable_vsu_backend::tests::SomeStructure>{});
+           std::type_identity<::tests::SomeStructure>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
     EXPECT_EQ(result_schema, RAW_STRING(
                                  R"(
 components:
   schemas:
-    timetable_vsu_backend.tests.SomeStructure:
+    tests.SomeStructure:
       type: object
       additionalProperties: true
       properties:

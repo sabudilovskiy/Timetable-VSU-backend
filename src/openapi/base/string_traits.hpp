@@ -8,7 +8,7 @@
 #include "array_property.hpp"
 #include "named_traits.hpp"
 #include "preferences.hpp"
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 namespace checks
 {
@@ -65,4 +65,4 @@ struct StringHelperTraits
 };
 
 }  // namespace traits
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

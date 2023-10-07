@@ -5,7 +5,7 @@
 #include <userver/storages/postgres/transaction.hpp>
 #include <userver/utils/make_intrusive_ptr.hpp>
 
-namespace timetable_vsu_backend::utils
+namespace utils
 {
 // thread unsafe
 // count owners
@@ -70,8 +70,8 @@ inline void FillSharedTransaction(
 {
     if (!transaction)
     {
-        transaction = timetable_vsu_backend::utils::MakeSharedTransaction(
+        transaction = ::utils::MakeSharedTransaction(
             ptr, name, auto_commit);
     }
 }
-}  // namespace timetable_vsu_backend::utils
+}  // namespace utils

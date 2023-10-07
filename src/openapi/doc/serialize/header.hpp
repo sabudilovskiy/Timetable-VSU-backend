@@ -3,7 +3,7 @@
 #include <openapi/base/named_traits.hpp>
 #include <openapi/doc/serialize/base.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename T, typename Traits>
 void AppendRequestField(DocHelper doc_helper,
@@ -45,4 +45,4 @@ void AppendResponseField(DocHelper doc_helper,
     auto header = cur["headers"][name_s]["schema"];
     Append(DocHelper{doc_helper.root, header}, std::type_identity<T>{});
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

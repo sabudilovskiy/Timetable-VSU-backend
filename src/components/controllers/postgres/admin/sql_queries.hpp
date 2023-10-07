@@ -1,7 +1,7 @@
 #pragma once
 #include <userver/storages/postgres/query.hpp>
 
-namespace timetable_vsu_backend::components::controllers::postgres::admin::sql
+namespace components::controllers::postgres::admin::sql
 {
 const userver::storages::postgres::Query qCreateAdminAccount(R"(
 WITH

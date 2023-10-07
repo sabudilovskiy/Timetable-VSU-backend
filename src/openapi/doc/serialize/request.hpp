@@ -9,7 +9,7 @@
 #include <userver/utils/meta.hpp>
 #include <userver/utils/overloaded.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <checks::IsReflective T>
 void AppendRequest(DocHelper doc_helper, std::type_identity<T>)
@@ -22,4 +22,4 @@ void AppendRequest(DocHelper doc_helper, std::type_identity<T>)
     CallAllFields<T>(
         [doc_helper](auto field) { AppendRequestField(doc_helper, field); });
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

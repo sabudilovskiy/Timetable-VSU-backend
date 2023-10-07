@@ -5,21 +5,21 @@
 
 #include "models/user/type.hpp"
 #include "models/user_type/postgre.hpp"
-namespace timetable_vsu_backend::models
+namespace models
 {
 using TupleUserRaw =
-    timetable_vsu_backend::utils::convert::drop_properties_to_ref_const_t<User>;
+    ::utils::convert::drop_properties_to_ref_const_t<User>;
 
 // using TupleUser =
 //     userver::utils::StrongTypedef<struct TupleLessonFilterTag,
 //                                   TupleUserRaw>;
 using TupleUser = TupleUserRaw;
-}  // namespace timetable_vsu_backend::models
+}  // namespace models
 
 namespace userver::storages::postgres::io
 {
 template <>
-struct CppToUserPg<timetable_vsu_backend::models::TupleUser>
+struct CppToUserPg<::models::TupleUser>
 {
     static constexpr DBTypeName postgres_name = "timetable_vsu.userV1";
 };

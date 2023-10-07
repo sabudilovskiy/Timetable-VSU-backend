@@ -12,7 +12,7 @@
 #include "models/substring/type.hpp"
 #include "models/timestring/type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 namespace convert = utils::convert;
 struct FacultyFilter
@@ -22,4 +22,4 @@ struct FacultyFilter
     static constexpr utils::convert::PolicyFields kPolicyFields =
         utils::convert::PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

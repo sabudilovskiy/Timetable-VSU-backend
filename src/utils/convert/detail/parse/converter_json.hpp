@@ -3,7 +3,7 @@
 #include <userver/formats/json.hpp>
 #include <utils/convert/base.hpp>
 
-namespace timetable_vsu_backend::utils::convert::detail::parse
+namespace utils::convert::detail::parse
 {
 template <typename T>
 struct ConverterJson
@@ -75,4 +75,4 @@ struct ConverterJson
         (ParseField(value, std::get<Indexes>(tuple)), ...);
     }
 };
-}  // namespace timetable_vsu_backend::utils::convert::detail::parse
+}  // namespace utils::convert::detail::parse

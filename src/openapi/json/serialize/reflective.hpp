@@ -18,7 +18,7 @@
 #include <userver/utils/overloaded.hpp>
 #include <utils/constexpr_string.hpp>
 
-namespace timetable_vsu_backend::openapi::detail
+namespace openapi::detail
 {
 template <checks::IsReflective T>
 inline void serialize_without_additional(
@@ -58,15 +58,15 @@ inline void serialize_additional(const T& item,
     boost::pfr::for_each_field(item, std::move(matcher_all));
 }
 
-}  // namespace timetable_vsu_backend::openapi::detail
+}  // namespace openapi::detail
 
 namespace userver::formats::serialize
 {
-template <timetable_vsu_backend::openapi::checks::IsReflective T>
+template <::openapi::checks::IsReflective T>
 userver::formats::json::Value Serialize(const T& item,
                                         To<userver::formats::json::Value>)
 {
-    using namespace timetable_vsu_backend::openapi;
+    using namespace openapi;
     userver::formats::json::ValueBuilder result{
         userver::formats::json::Type::kObject};
     detail::serialize_without_additional(item, result);

@@ -5,7 +5,7 @@
 #include <string_view>
 #include <utils/compilers_macros.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 namespace detail
 {
@@ -104,4 +104,4 @@ template <typename... Option>
 using String = StringProperty<detail::string_traits_helper_t<Option...>>;
 
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

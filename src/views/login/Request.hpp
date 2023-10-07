@@ -3,7 +3,7 @@
 #include <utils/convert/json_parse.hpp>
 
 #include "models/user_credentials/type.hpp"
-namespace timetable_vsu_backend::views::login
+namespace views::login
 {
 using Request = models::UserCredentials;
-}  // namespace timetable_vsu_backend::views::login
+}  // namespace views::login

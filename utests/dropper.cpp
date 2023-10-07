@@ -5,7 +5,7 @@
 #include <utils/convert/additional_properties.hpp>
 #include <utils/convert/drop_properties_ref.hpp>
 
-namespace magic = timetable_vsu_backend::utils::convert;
+namespace magic = ::utils::convert;
 namespace
 {
 struct TestStruct

@@ -4,7 +4,7 @@
 #include <userver/components/component_list.hpp>
 #include <userver/yaml_config/merge_schemas.hpp>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 void AppendOpenApiDescriptor(userver::components::ComponentList& list)
 {
@@ -43,4 +43,4 @@ properties:
     additionalProperties: true
 )");
 }
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

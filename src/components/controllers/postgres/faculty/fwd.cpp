@@ -4,11 +4,11 @@
 
 #include "controller.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::faculty
+namespace components::controllers::postgres::faculty
 {
 void Append(userver::components::ComponentList& component_list)
 {
     component_list.Append<Controller>();
 }
 }  // namespace
-   // timetable_vsu_backend::components::controllers::postgres::faculty
+   // ::components::controllers::postgres::faculty

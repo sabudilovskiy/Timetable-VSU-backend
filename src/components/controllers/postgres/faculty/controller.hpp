@@ -13,7 +13,7 @@
 #include "models/teacher_filter/type.hpp"
 #include "models/teacher_info/type.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::faculty
+namespace components::controllers::postgres::faculty
 {
 class Controller final : public userver::components::LoggableComponentBase
 {
@@ -29,10 +29,10 @@ class Controller final : public userver::components::LoggableComponentBase
         utils::SharedTransaction transaction = nullptr) const;
 
    public:
-    timetable_vsu_backend::utils::SharedTransaction CreateTransaction();
+    ::utils::SharedTransaction CreateTransaction();
 
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
 }  // namespace
-   // timetable_vsu_backend::components::controllers::postgres::faculty
+   // ::components::controllers::postgres::faculty

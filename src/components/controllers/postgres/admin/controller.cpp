@@ -26,11 +26,11 @@
 #include "models/user_credentials/postgre.hpp"
 #include "sql_queries.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::admin
+namespace components::controllers::postgres::admin
 {
 utils::SharedTransaction Controller::CreateTransaction() const
 {
-    return timetable_vsu_backend::utils::MakeSharedTransaction(pg_cluster_);
+    return ::utils::MakeSharedTransaction(pg_cluster_);
 }
 
 Controller::Controller(const userver::components::ComponentConfig& config,
@@ -44,9 +44,9 @@ Controller::Controller(const userver::components::ComponentConfig& config,
 
 std::optional<models::AdminAccount> Controller::GetAccountByAdminId(
     const boost::uuids::uuid& admin_id,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
-    timetable_vsu_backend::utils::FillSharedTransaction(transaction,
+    ::utils::FillSharedTransaction(transaction,
                                                         pg_cluster_);
     auto pg_result = transaction->transaction_.Execute(
         sql::qGetAdminAccountByAdminId, admin_id);
@@ -56,9 +56,9 @@ std::optional<models::AdminAccount> Controller::GetAccountByAdminId(
 
 std::optional<models::AdminAccount> Controller::CreateAdmin(
     const models::UserCredentials& user,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
-    timetable_vsu_backend::utils::FillSharedTransaction(transaction,
+    ::utils::FillSharedTransaction(transaction,
                                                         pg_cluster_);
     auto tuple_user = utils::convert::DropPropertiesToConstRefs(user);
     auto result_id =
@@ -73,13 +73,13 @@ std::optional<models::AdminAccount> Controller::CreateAdmin(
 
 std::vector<models::AdminAccount> Controller::GetByFilter(
     std::optional<models::AdminFilter>& filter,
-    timetable_vsu_backend::utils::SharedTransaction transaction) const
+    ::utils::SharedTransaction transaction) const
 {
-    timetable_vsu_backend::utils::FillSharedTransaction(transaction,
+    ::utils::FillSharedTransaction(transaction,
                                                         pg_cluster_);
     auto pg_result =
         utils::PgExecute(transaction, sql::qGetAdminsByFilter, filter);
     return utils::ConvertPgResultToArray<models::AdminAccount>(pg_result);
 }
 
-}  // namespace timetable_vsu_backend::components::controllers::postgres::admin
+}  // namespace components::controllers::postgres::admin

@@ -7,7 +7,7 @@
 #include <userver/server/http/http_request.hpp>
 #include <utility>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 enum struct ResponseBodyType
 {
@@ -44,4 +44,4 @@ struct ResponseInfo
     }
     bool operator==(const ResponseInfo& rhs) const = default;
 };
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

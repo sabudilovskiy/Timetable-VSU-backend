@@ -7,7 +7,7 @@
 
 #include "models/user/type.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::token
+namespace components::controllers::postgres::token
 {
 class Controller final : public userver::components::LoggableComponentBase
 {
@@ -31,4 +31,4 @@ class Controller final : public userver::components::LoggableComponentBase
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace timetable_vsu_backend::components::controllers::postgres::token
+}  // namespace components::controllers::postgres::token

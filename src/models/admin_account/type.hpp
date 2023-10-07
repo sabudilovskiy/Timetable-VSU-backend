@@ -3,7 +3,7 @@
 #include <utils/convert/base.hpp>
 #include <utils/convert/json_serialize.hpp>
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 using namespace utils::convert;
 struct AdminAccount
@@ -14,4 +14,4 @@ struct AdminAccount
     static constexpr auto kPolicyFields = PolicyFields::ConvertAll;
 };
 static_assert(JsonSeriazable<AdminAccount>);
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

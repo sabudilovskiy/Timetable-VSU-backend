@@ -3,7 +3,7 @@ namespace userver::components
 {
 class ComponentList;
 }
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 void AppendOpenApiDescriptor(userver::components::ComponentList& list);
 }

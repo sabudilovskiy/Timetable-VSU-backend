@@ -1,12 +1,11 @@
 #include <openapi/all.hpp>
 #include <openapi/http/handler.hpp>
-#include <openapi/raw/optional.hpp>
 #include <type_traits>
 #include <userver/utest/utest.hpp>
 #include <utils/tests_macros.hpp>
 
-using namespace timetable_vsu_backend::openapi;
-using namespace timetable_vsu_backend::openapi::http;
+using namespace openapi;
+using namespace openapi::http;
 using namespace types;
 using namespace preferences;
 
@@ -44,7 +43,6 @@ UTEST(Openapi_Doc_Serialize, BasicPath)
                std::type_identity<Resp<tests_path::SomeResponse, 200>>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
-    std::clog << result_schema << '\n';
     EXPECT_EQ(result_schema, RAW_STRING(
                                  R"(
 paths:

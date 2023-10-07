@@ -13,9 +13,9 @@
 #include <vector>
 
 #include "views/hello/view.hpp"
-using namespace timetable_vsu_backend::openapi;
-using namespace timetable_vsu_backend::openapi::types;
-using namespace timetable_vsu_backend::openapi::preferences;
+using namespace openapi;
+using namespace openapi::types;
+using namespace openapi::preferences;
 
 struct First
 {

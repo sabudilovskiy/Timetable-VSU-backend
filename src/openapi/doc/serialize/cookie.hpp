@@ -4,7 +4,7 @@
 #include <openapi/http/base/cookie_property.hpp>
 #include <utils/compilers_macros.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename T, typename Traits>
 void AppendRequestField(DocHelper doc_helper,
@@ -35,4 +35,4 @@ void AppendResponseField(DocHelper,
         "OpenApi 3.0 doesnt support cookie in reponse. Sorry :(");
 }
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

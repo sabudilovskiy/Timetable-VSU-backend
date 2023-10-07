@@ -6,7 +6,7 @@
 
 #include "property_base.hpp"
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <utils::ConstexprString Name>
 struct NamedTraits
@@ -76,4 +76,4 @@ struct NamedHelperTraits
     static constexpr auto name = traits::GetName<Traits>();
 };
 }  // namespace traits
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

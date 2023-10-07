@@ -1,6 +1,6 @@
 #pragma once
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 struct AdminFilter;
 }

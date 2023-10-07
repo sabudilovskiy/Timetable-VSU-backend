@@ -7,7 +7,7 @@
 
 namespace userver::storages::postgres::io
 {
-using timetable_vsu_backend::models::UserType;
+using ::models::UserType;
 template <>
 struct CppToUserPg<UserType> : EnumMappingBase<UserType>
 {

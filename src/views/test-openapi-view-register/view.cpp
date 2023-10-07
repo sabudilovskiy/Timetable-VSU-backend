@@ -11,7 +11,7 @@
 
 #include "declarations.hpp"
 
-namespace timetable_vsu_backend::views::test::sign_in
+namespace views::test::sign_in
 {
 namespace
 {
@@ -42,4 +42,4 @@ void Append(userver::components::ComponentList& component_list)
     component_list.Append<View>();
 }
 
-}  // namespace timetable_vsu_backend::views::test::sign_in
+}  // namespace views::test::sign_in

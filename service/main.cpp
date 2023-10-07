@@ -34,7 +34,6 @@
 #include "views/test-openapi-view/view.hpp"
 #include "views/timetable/get/view.hpp"
 
-using namespace timetable_vsu_backend;
 
 void AppendPgControllers(userver::components::ComponentList& component_list)
 {
@@ -69,7 +68,6 @@ void AppendViews(userver::components::ComponentList& component_list)
 
 int main(int argc, char* argv[])
 {
-    using namespace timetable_vsu_backend;
     auto component_list =
         userver::components::MinimalServerComponentList()
             .Append<userver::server::handlers::Ping>()

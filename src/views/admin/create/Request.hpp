@@ -9,7 +9,7 @@
 #include <utils/parse/uuid/string.hpp>
 
 #include "models/user_credentials/type.hpp"
-namespace timetable_vsu_backend::views::admin::create
+namespace views::admin::create
 {
 using namespace utils::convert;
 struct Request
@@ -21,4 +21,4 @@ struct Request
         TypeOfBody::Json;  //открываем возможность использовать структуру, как
                            //запрос
 };
-}  // namespace timetable_vsu_backend::views::admin::create
+}  // namespace views::admin::create

@@ -8,7 +8,7 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 LessonWeekType Parse(std::string_view str,
                      userver::formats::parse::To<LessonWeekType>)
@@ -40,4 +40,4 @@ LessonWeekType Parse(const userver::formats::json::Value& value,
     auto raw_value = value.As<std::string>();
     return Parse(raw_value, userver::formats::parse::To<LessonWeekType>{});
 }
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

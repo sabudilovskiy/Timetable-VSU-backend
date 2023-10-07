@@ -6,7 +6,7 @@
 
 #include "models/user_credentials/type.hpp"
 #include "models/user_type/type.hpp"
-namespace timetable_vsu_backend::models
+namespace models
 {
 using namespace utils::convert;
 struct RegisterRequest
@@ -19,4 +19,4 @@ struct RegisterRequest
                            //запрос
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

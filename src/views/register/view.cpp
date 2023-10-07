@@ -26,7 +26,7 @@
 #include "models/user_type/type.hpp"
 #include "views/register/Responses.hpp"
 
-namespace timetable_vsu_backend::views::register_
+namespace views::register_
 {
 namespace
 {
@@ -113,4 +113,4 @@ void Append(userver::components::ComponentList& component_list)
     component_list.Append<Handler>();
 }
 
-}  // namespace timetable_vsu_backend::views::register_
+}  // namespace views::register_

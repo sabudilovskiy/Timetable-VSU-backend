@@ -6,7 +6,7 @@
 #include "base.hpp"
 #include "detail/drop_properties/const_dropper_to_ref.hpp"
 #include "detail/drop_properties/mut_dropper_to_ref.hpp"
-namespace timetable_vsu_backend::utils::convert
+namespace utils::convert
 {
 //данный концепт лишь активирует перегрузки, но не проверяет все требования для
 //типа
@@ -73,12 +73,12 @@ auto DropPropertiesToConstRefs(const T& t)
 
 template <DroppableToTupleRef T>
 using drop_properties_to_ref_const_t =
-    decltype(timetable_vsu_backend::utils::convert::DropPropertiesToConstRefs(
+    decltype(::utils::convert::DropPropertiesToConstRefs(
         std::declval<const T&>()));
 
 template <DroppableToTupleRef T>
 using drop_properties_to_ref_mut_t =
-    decltype(timetable_vsu_backend::utils::convert::DropPropertiesToMutRefs(
+    decltype(::utils::convert::DropPropertiesToMutRefs(
         std::declval<T&>()));
 
-}  // namespace timetable_vsu_backend::utils::convert
+}  // namespace utils::convert

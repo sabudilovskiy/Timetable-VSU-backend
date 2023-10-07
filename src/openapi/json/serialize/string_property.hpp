@@ -13,14 +13,14 @@
 #include <userver/logging/log.hpp>
 #include <utils/constexpr_string.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename Traits>
 userver::formats::json::Value Serialize(
     const StringProperty<Traits>& item,
     userver::formats::serialize::To<userver::formats::json::Value>)
 {
-    using namespace timetable_vsu_backend::openapi;
+    using namespace openapi;
 
     constexpr traits::StringHelperTraits<Traits> traits;
 
@@ -39,4 +39,4 @@ userver::formats::json::Value Serialize(
     return userver::formats::json::ValueBuilder{value}.ExtractValue();
 }
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

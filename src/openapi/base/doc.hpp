@@ -7,7 +7,7 @@
 #include <userver/formats/yaml/value_builder.hpp>
 #include <userver/utils/strong_typedef.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 // OpenApi описание типа
 struct Doc
@@ -22,4 +22,4 @@ struct Doc
         return value_;
     }
 };
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

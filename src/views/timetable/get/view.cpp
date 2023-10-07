@@ -28,8 +28,8 @@
 
 static_assert(userver::formats::common::impl::kHasSerialize<
               userver::formats::json::Value,
-              timetable_vsu_backend::models::LessonType>);
-namespace timetable_vsu_backend::views::timetable::get
+              ::models::LessonType>);
+namespace views::timetable::get
 {
 namespace
 {
@@ -72,4 +72,4 @@ void Append(userver::components::ComponentList& component_list)
     component_list.Append<Handler>();
 }
 
-}  // namespace timetable_vsu_backend::views::timetable::get
+}  // namespace views::timetable::get

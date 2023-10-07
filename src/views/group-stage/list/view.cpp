@@ -20,7 +20,7 @@
 #include "models/education_type/all.hpp"
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
-namespace timetable_vsu_backend::views::group::stage::list
+namespace views::group::stage::list
 {
 namespace
 {
@@ -57,4 +57,4 @@ void Append(userver::components::ComponentList& component_list)
     component_list.Append<Handler>();
 }
 
-}  // namespace timetable_vsu_backend::views::group::stage::list
+}  // namespace views::group::stage::list

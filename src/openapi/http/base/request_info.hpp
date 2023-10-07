@@ -1,7 +1,7 @@
 #pragma once
 #include <userver/server/http/http_request.hpp>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 struct RequestInfo
 {
@@ -31,4 +31,4 @@ inline RequestInfo MakeInfoFromRequest(const TestRequest& request)
                        .cookies = request.cookies,
                        .body = request.body};
 }
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

@@ -1,7 +1,7 @@
 #pragma once
 #include <userver/storages/postgres/query.hpp>
 
-namespace timetable_vsu_backend::components::controllers::postgres::teacher::sql
+namespace components::controllers::postgres::teacher::sql
 {
 const userver::storages::postgres::Query qGetTeachersByFilter(R"(
     WITH teacher_info as (SELECT

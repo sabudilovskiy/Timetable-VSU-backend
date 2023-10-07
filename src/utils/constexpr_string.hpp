@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string_view>
 
-namespace timetable_vsu_backend::utils
+namespace utils
 {
 template <std::size_t Size = 1>
 struct ConstexprString
@@ -82,4 +82,4 @@ auto consteval MakeConstexprString()
     return utils::ConstexprString<len + 1>{buffer};
 }
 
-}  // namespace timetable_vsu_backend::utils
+}  // namespace utils

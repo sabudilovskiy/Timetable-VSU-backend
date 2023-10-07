@@ -19,7 +19,7 @@
 #include <utils/compilers_macros.hpp>
 #include <utils/formated_exception.hpp>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 template <checks::IsReflective T, typename Traits>
 ResponseInfo Serialize(const ResponseProperty<T, Traits>& item,
@@ -76,4 +76,4 @@ ResponseInfo Serialize(const ResponseProperty<T, Traits>& item,
     boost::pfr::for_each_field(item(), std::move(matcher_all));
     return result;
 }
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

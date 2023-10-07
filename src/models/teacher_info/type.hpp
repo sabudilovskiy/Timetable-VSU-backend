@@ -5,7 +5,7 @@
 
 #include "models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 namespace convert = utils::convert;
 struct TeacherInfo
@@ -16,4 +16,4 @@ struct TeacherInfo
     static constexpr convert::PolicyFields kPolicyFields =
         convert::PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

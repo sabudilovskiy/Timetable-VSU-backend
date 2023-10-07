@@ -3,7 +3,7 @@
 #include <openapi/doc/serialize/base.hpp>
 #include <type_traits>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename T>
 void AppendField(DocHelper doc_helper, std::type_identity<T> type = {})
@@ -66,4 +66,4 @@ void Append(Doc& doc, std::type_identity<T>)
     Append(DocHelper{root, root}, std::type_identity<T>{}, false);
 }
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

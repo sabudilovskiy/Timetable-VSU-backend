@@ -10,7 +10,7 @@
 #include <utils/compilers_macros.hpp>
 #include <utils/constexpr_string.hpp>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 struct HeaderTraitsHolder
 {
@@ -79,4 +79,4 @@ Header<std::optional<T>>
 */
 template <typename T, typename... Options>
 using Header = decltype(HeaderTraitsHelper<T, Options...>::resolve_type());
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

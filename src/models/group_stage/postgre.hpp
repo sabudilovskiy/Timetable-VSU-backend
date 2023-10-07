@@ -3,17 +3,17 @@
 
 #include "models/education_type/postgre.hpp"
 #include "models/group_stage/type.hpp"
-namespace timetable_vsu_backend::models
+namespace models
 {
 using TupleGroupStage =
-    timetable_vsu_backend::utils::convert::drop_properties_to_ref_const_t<
+    ::utils::convert::drop_properties_to_ref_const_t<
         GroupStage>;
-}  // namespace timetable_vsu_backend::models
+}  // namespace models
 
 namespace userver::storages::postgres::io
 {
 template <>
-struct CppToUserPg<timetable_vsu_backend::models::TupleGroupStage>
+struct CppToUserPg<::models::TupleGroupStage>
 {
     static constexpr DBTypeName postgres_name =
         "timetable_vsu.group_stage_tuple";

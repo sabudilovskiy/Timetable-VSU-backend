@@ -23,7 +23,7 @@
 #include <userver/utils/overloaded.hpp>
 #include <utils/constexpr_string.hpp>
 
-namespace timetable_vsu_backend::openapi::detail
+namespace openapi::detail
 {
 inline userver::formats::json::Value collect_additional_properties(
     const userver::formats::json::Value& item,
@@ -78,14 +78,14 @@ void parse_additional_properties(
         std::move(matcher_all_noop), std::move(matcher_additional_properies)};
     boost::pfr::for_each_field(result, matcher_all);
 }
-}  // namespace timetable_vsu_backend::openapi::detail
+}  // namespace openapi::detail
 
 namespace userver::formats::parse
 {
-template <timetable_vsu_backend::openapi::checks::IsReflective T>
+template <::openapi::checks::IsReflective T>
 T Parse(const json::Value& item, To<T>)
 {
-    using namespace timetable_vsu_backend::openapi;
+    using namespace openapi;
     T result;
     constexpr checks::ReflectivePreferences<T> preferences{};
     if constexpr (preferences.additional_properties_status ==

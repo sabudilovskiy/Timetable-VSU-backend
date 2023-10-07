@@ -3,8 +3,8 @@
 #include <userver/utest/utest.hpp>
 #include <utils/tests_macros.hpp>
 
-using namespace timetable_vsu_backend::openapi;
-using namespace timetable_vsu_backend::openapi::http;
+using namespace openapi;
+using namespace openapi::http;
 using namespace types;
 using namespace preferences;
 

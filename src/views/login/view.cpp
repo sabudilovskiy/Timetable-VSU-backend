@@ -18,11 +18,11 @@
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
 
-namespace timetable_vsu_backend::views::login
+namespace views::login
 {
 static_assert(
     userver::formats::common::impl::kHasSerialize<
-        userver::formats::json::Value, timetable_vsu_backend::models::User>);
+        userver::formats::json::Value, ::models::User>);
 namespace
 {
 namespace pg = components::controllers::postgres;
@@ -81,4 +81,4 @@ void Append(userver::components::ComponentList& component_list)
     component_list.Append<Handler>();
 }
 
-}  // namespace timetable_vsu_backend::views::login
+}  // namespace views::login

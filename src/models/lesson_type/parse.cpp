@@ -8,7 +8,7 @@
 
 #include "type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 LessonType Parse(std::string_view str, userver::formats::parse::To<LessonType>)
 {
@@ -40,4 +40,4 @@ LessonType Parse(const userver::formats::json::Value& value,
     return Parse(std::string_view{raw_value},
                  userver::formats::parse::To<LessonType>{});
 }
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

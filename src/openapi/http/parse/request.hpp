@@ -16,7 +16,7 @@
 #include <userver/utils/overloaded.hpp>
 #include <utils/formated_exception.hpp>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 template <checks::IsReflective T>
 T Parse(const RequestInfo& info, userver::formats::parse::To<T>)
@@ -85,4 +85,4 @@ T Parse(const RequestInfo& info, userver::formats::parse::To<T>)
     boost::pfr::for_each_field(t, std::move(matcher_all));
     return t;
 }
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

@@ -22,7 +22,7 @@
 #include "models/user/serialize.hpp"
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
-namespace timetable_vsu_backend::views::teacher::requests::approve::new_
+namespace views::teacher::requests::approve::new_
 {
 namespace
 {
@@ -76,4 +76,4 @@ void Append(userver::components::ComponentList& component_list)
     component_list.Append<Handler>();
 }
 
-}  // namespace timetable_vsu_backend::views::teacher::requests::approve::new_
+}  // namespace views::teacher::requests::approve::new_

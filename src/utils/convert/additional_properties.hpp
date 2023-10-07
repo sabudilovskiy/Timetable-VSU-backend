@@ -7,7 +7,7 @@ template <typename T>
 class optional;
 }
 
-namespace timetable_vsu_backend::utils::convert
+namespace utils::convert
 {
 template <typename T, ConstexprString name>
 using OptionalProperty =
@@ -91,4 +91,4 @@ concept IsUsualProperty =
     IsAnyProperty<T> && !IsOptionalProperty<T> && !IsOptionalArrayProperty<T> &&
     !IsArrayProperty<T> && !IsStructuralProperty<T>;
 
-}  // namespace timetable_vsu_backend::utils::convert
+}  // namespace utils::convert

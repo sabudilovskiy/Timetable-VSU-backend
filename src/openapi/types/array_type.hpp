@@ -5,7 +5,7 @@
 #include <string_view>
 #include <utils/constexpr_optional.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 namespace detail
 {
@@ -138,4 +138,4 @@ template <typename T, typename... Option>
 using Array = decltype(detail::ArrayMagicHelper<T, Option...>::resolve_type());
 
 }  // namespace types
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

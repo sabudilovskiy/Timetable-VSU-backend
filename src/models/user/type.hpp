@@ -5,7 +5,7 @@
 
 #include "models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 namespace convert = utils::convert;
 struct User
@@ -17,4 +17,4 @@ struct User
 };
 
 static_assert(utils::convert::IsConvertAll<User>);
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

@@ -7,7 +7,7 @@
 
 namespace userver::storages::postgres::io
 {
-using timetable_vsu_backend::models::Day;
+using ::models::Day;
 template <>
 struct CppToUserPg<Day> : EnumMappingBase<Day>
 {

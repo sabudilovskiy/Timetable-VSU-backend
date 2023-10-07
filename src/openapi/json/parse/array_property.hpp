@@ -13,11 +13,11 @@
 namespace userver::formats::parse
 {
 template <typename T, typename Traits>
-timetable_vsu_backend::openapi::ArrayProperty<T, Traits> Parse(
+::openapi::ArrayProperty<T, Traits> Parse(
     const json::Value& item,
-    To<timetable_vsu_backend::openapi::ArrayProperty<T, Traits>>)
+    To<::openapi::ArrayProperty<T, Traits>>)
 {
-    using namespace timetable_vsu_backend::openapi;
+    using namespace openapi;
 
     constexpr traits::ArrayHelperTraits<Traits> traits;
 

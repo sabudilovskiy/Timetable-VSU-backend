@@ -9,7 +9,7 @@
 #include "models/user_credentials/fwd.hpp"
 #include "models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::user
+namespace components::controllers::postgres::user
 {
 class Controller final : public userver::components::LoggableComponentBase
 {
@@ -61,4 +61,4 @@ class Controller final : public userver::components::LoggableComponentBase
     std::optional<boost::uuids::uuid> root_id;
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace timetable_vsu_backend::components::controllers::postgres::user
+}  // namespace components::controllers::postgres::user

@@ -11,7 +11,7 @@
 #include "models/lesson_filter/type.hpp"
 #include "models/substring/parse.hpp"
 
-namespace timetable_vsu_backend::views::timetable::get
+namespace views::timetable::get
 {
 using namespace utils::convert;
 struct Request
@@ -20,4 +20,4 @@ struct Request
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::views::timetable::get
+}  // namespace views::timetable::get

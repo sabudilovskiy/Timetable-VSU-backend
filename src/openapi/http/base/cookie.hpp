@@ -10,7 +10,7 @@
 #include <utils/compilers_macros.hpp>
 #include <utils/constexpr_string.hpp>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 struct CookieTraitsHolder
 {
@@ -79,4 +79,4 @@ Cookie<std::optional<T>>
 */
 template <typename T, typename... Options>
 using Cookie = decltype(CookieTraitsHelper<T, Options...>::resolve_type());
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

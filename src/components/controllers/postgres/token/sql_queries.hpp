@@ -1,5 +1,5 @@
 #include <userver/storages/postgres/query.hpp>
-namespace timetable_vsu_backend::components::controllers::postgres::token::sql
+namespace components::controllers::postgres::token::sql
 {
 const userver::storages::postgres::Query qGetUserByTokenId(R"(
    WITH found_token AS (select id_user

@@ -5,7 +5,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 struct EmptyTraits
 {
@@ -65,4 +65,4 @@ struct Property
 {
 };
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

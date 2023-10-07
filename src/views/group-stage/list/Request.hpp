@@ -8,7 +8,7 @@
 #include <utils/parse/uuid/string.hpp>
 
 #include "models/group_stage_filter/type.hpp"
-namespace timetable_vsu_backend::views::group::stage::list
+namespace views::group::stage::list
 {
 using namespace utils::convert;
 struct Request
@@ -19,4 +19,4 @@ struct Request
         TypeOfBody::Json;  //открываем возможность использовать структуру, как
                            //запрос
 };
-}  // namespace timetable_vsu_backend::views::group::stage::list
+}  // namespace views::group::stage::list

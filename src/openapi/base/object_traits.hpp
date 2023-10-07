@@ -10,7 +10,7 @@
 #include "named_traits.hpp"
 #include "object_property.hpp"
 #include "preferences.hpp"
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 namespace traits
 {
@@ -20,4 +20,4 @@ struct ObjectHelperTraits : NamedHelperTraits<Traits>
 };
 
 }  // namespace traits
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

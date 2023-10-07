@@ -8,7 +8,7 @@
 #include <utils/parse/uuid/string.hpp>
 
 #include "models/admin_filter/postgre.hpp"
-namespace timetable_vsu_backend::views::admin::list
+namespace views::admin::list
 {
 using namespace utils::convert;
 struct Request
@@ -20,4 +20,4 @@ struct Request
         TypeOfBody::Json;  //открываем возможность использовать структуру, как
                            //запрос
 };
-}  // namespace timetable_vsu_backend::views::admin::list
+}  // namespace views::admin::list

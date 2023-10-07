@@ -14,7 +14,7 @@
 #include <utility>
 #include <utils/compilers_macros.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 /* Добавьте это поле в свою структуру, чтобы её схема была с
 AddditionalProperties: true */
@@ -124,4 +124,4 @@ struct ReflectivePreferences
 };
 }  // namespace checks
 
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

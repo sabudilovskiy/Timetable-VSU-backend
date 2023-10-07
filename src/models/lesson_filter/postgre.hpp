@@ -3,17 +3,17 @@
 
 #include "models/education_type/postgre.hpp"
 #include "models/lesson_filter/type.hpp"
-namespace timetable_vsu_backend::models
+namespace models
 {
 using TupleLessonFilter =
-    timetable_vsu_backend::utils::convert::drop_properties_to_ref_const_t<
+    ::utils::convert::drop_properties_to_ref_const_t<
         LessonFilter>;
-}  // namespace timetable_vsu_backend::models
+}  // namespace models
 
 namespace userver::storages::postgres::io
 {
 template <>
-struct CppToUserPg<timetable_vsu_backend::models::TupleLessonFilter>
+struct CppToUserPg<::models::TupleLessonFilter>
 {
     static constexpr DBTypeName postgres_name =
         "timetable_vsu.lesson_filter_v2";

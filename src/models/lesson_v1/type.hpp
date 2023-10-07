@@ -10,9 +10,9 @@
 #include "models/subgroup/type.hpp"
 #include "models/timestring/type.hpp"
 
-namespace convert = timetable_vsu_backend::utils::convert;
+namespace convert = ::utils::convert;
 
-namespace timetable_vsu_backend::models
+namespace models
 {
 //Пара со всей дополнительной информацией
 struct LessonV1
@@ -43,4 +43,4 @@ struct LessonV1
     static constexpr utils::convert::PolicyFields kPolicyFields =
         utils::convert::PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

@@ -1,7 +1,7 @@
 #pragma once
 #include <openapi/doc/serialize/base.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename T, typename Traits>
 void Append(DocHelper doc_helper,
@@ -27,4 +27,4 @@ void Append(DocHelper doc_helper,
     auto items_node = field_node["items"];
     Append(DocHelper{doc_helper.root, items_node}, std::type_identity<T>{});
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi

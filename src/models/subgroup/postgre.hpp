@@ -7,7 +7,7 @@
 
 namespace userver::storages::postgres::io
 {
-using timetable_vsu_backend::models::Subgroup;
+using ::models::Subgroup;
 template <>
 struct CppToUserPg<Subgroup> : EnumMappingBase<Subgroup>
 {

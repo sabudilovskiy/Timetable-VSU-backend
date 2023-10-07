@@ -14,7 +14,7 @@
 #include <utils/type_holder.hpp>
 
 #include "../../base.hpp"
-namespace timetable_vsu_backend::utils::convert::detail::drop_properties
+namespace utils::convert::detail::drop_properties
 {
 template <typename T>
 struct MutDropperToRef final
@@ -156,4 +156,4 @@ struct MutDropperToRef final
         return ConstructResult(HelpHandleMember<Tuple, Indexes>(tuple)...);
     }
 };
-}  // namespace timetable_vsu_backend::utils::convert::detail::drop_properties
+}  // namespace utils::convert::detail::drop_properties

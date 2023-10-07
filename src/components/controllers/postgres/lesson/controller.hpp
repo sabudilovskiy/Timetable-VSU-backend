@@ -9,7 +9,7 @@
 #include "models/lesson_filter/fwd.hpp"
 #include "models/lesson_v1/type.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::lesson
+namespace components::controllers::postgres::lesson
 {
 class Controller final : public userver::components::LoggableComponentBase
 {
@@ -19,7 +19,7 @@ class Controller final : public userver::components::LoggableComponentBase
         "lesson_details_controller";
     std::vector<models::LessonV1> Search(
         const std::optional<models::LessonFilter>& filter,
-        timetable_vsu_backend::utils::SharedTransaction transaction =
+        ::utils::SharedTransaction transaction =
             nullptr) const;
     Controller(const userver::components::ComponentConfig& config,
                const userver::components::ComponentContext& context);
@@ -27,4 +27,4 @@ class Controller final : public userver::components::LoggableComponentBase
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace timetable_vsu_backend::components::controllers::postgres::lesson
+}  // namespace components::controllers::postgres::lesson

@@ -12,12 +12,12 @@
 #include "models/user/type.hpp"
 #include "models/user_type/serialize.hpp"
 #include "models/user_type/type.hpp"
-namespace timetable_vsu_backend::views::admin::create
+namespace views::admin::create
 {
 using namespace utils::convert;
 struct Response200
 {
-    Property<timetable_vsu_backend::models::AdminAccount, "created_account">
+    Property<::models::AdminAccount, "created_account">
         created_account;
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
@@ -33,4 +33,4 @@ using Response403 = utils::common_errors::Response403;
 
 using Response500 = utils::common_errors::Response500;
 
-}  // namespace timetable_vsu_backend::views::admin::create
+}  // namespace views::admin::create

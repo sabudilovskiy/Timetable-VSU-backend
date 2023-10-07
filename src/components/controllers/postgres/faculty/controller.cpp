@@ -32,11 +32,11 @@
 #include "models/user_credentials/postgre.hpp"
 #include "sql_queries.hpp"
 
-namespace timetable_vsu_backend::components::controllers::postgres::faculty
+namespace components::controllers::postgres::faculty
 {
-timetable_vsu_backend::utils::SharedTransaction Controller::CreateTransaction()
+::utils::SharedTransaction Controller::CreateTransaction()
 {
-    return timetable_vsu_backend::utils::MakeSharedTransaction(pg_cluster_);
+    return ::utils::MakeSharedTransaction(pg_cluster_);
 }
 Controller::Controller(const userver::components::ComponentConfig& config,
                        const userver::components::ComponentContext& context)
@@ -58,4 +58,4 @@ std::vector<models::Faculty> Controller::GetByFilter(
 }
 
 }  // namespace
-   // timetable_vsu_backend::components::controllers::postgres::faculty
+   // ::components::controllers::postgres::faculty

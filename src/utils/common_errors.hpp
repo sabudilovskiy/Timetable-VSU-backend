@@ -2,7 +2,7 @@
 #include "http/ErrorV1.hpp"
 
 //Для большинства ошибок данного этого формата будет за глаза
-namespace timetable_vsu_backend::utils::common_errors
+namespace utils::common_errors
 {
 using Response400 =
     http::ErrorV1<userver::server::http::HttpStatus::kBadRequest>;
@@ -22,4 +22,4 @@ struct Response500
     static constexpr userver::server::http::HttpStatus kStatusCode =
         userver::server::http::HttpStatus::kInternalServerError;
 };
-}  // namespace timetable_vsu_backend::utils::common_errors
+}  // namespace utils::common_errors

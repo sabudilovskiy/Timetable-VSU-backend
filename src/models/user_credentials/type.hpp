@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <utils/convert/base.hpp>
-namespace timetable_vsu_backend::models
+namespace models
 {
 using namespace utils::convert;
 struct UserCredentials
@@ -13,4 +13,4 @@ struct UserCredentials
                            //запрос
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

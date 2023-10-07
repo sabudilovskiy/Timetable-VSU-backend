@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <userver/server/http/http_status.hpp>
 
-namespace timetable_vsu_backend::openapi::http
+namespace openapi::http
 {
 template <size_t I>
 struct Code
@@ -87,4 +87,4 @@ CODE_IMPL(kLoopDetected, 508);
 CODE_IMPL(kNotExtended, 510);
 CODE_IMPL(kNetworkAuthenticationRequired, 511);
 
-}  // namespace timetable_vsu_backend::openapi::http
+}  // namespace openapi::http

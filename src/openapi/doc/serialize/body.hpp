@@ -3,7 +3,7 @@
 #include <openapi/doc/serialize/base.hpp>
 #include <openapi/http/base/body_property.hpp>
 
-namespace timetable_vsu_backend::openapi
+namespace openapi
 {
 template <typename T, typename Traits>
 void AppendRequestField(DocHelper doc_helper,
@@ -38,4 +38,4 @@ void AppendResponseField(DocHelper doc_helper,
     auto schema = cur["content"]["application/json"]["schema"];
     Append(DocHelper{doc_helper.root, schema}, std::type_identity<T>{});
 }
-}  // namespace timetable_vsu_backend::openapi
+}  // namespace openapi
