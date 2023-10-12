@@ -10,5 +10,5 @@ void Append(userver::components::ComponentList& component_list)
 {
     component_list.Append<Controller>();
 }
-}  // namespace
+}  // namespace components::controllers::postgres::teacher
    // ::components::controllers::postgres::teacher

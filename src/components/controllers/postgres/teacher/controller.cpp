@@ -51,8 +51,7 @@ std::vector<models::Teacher> Controller::GetByFilter(
     std::optional<models::TeacherFilter>& filter,
     ::utils::SharedTransaction transaction) const
 {
-    ::utils::FillSharedTransaction(transaction,
-                                                        pg_cluster_);
+    ::utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result =
         utils::PgExecute(transaction, sql::qGetTeachersByFilter, filter);
     return utils::ConvertPgResultToArray<models::Teacher>(pg_result);
@@ -150,5 +149,5 @@ std::optional<boost::uuids::uuid> Controller::DropRequest(
     return utils::ConvertPgResultToOptionalItem<boost::uuids::uuid>(pg_result);
 }
 
-}  // namespace
+}  // namespace components::controllers::postgres::teacher
    // ::components::controllers::postgres::teacher

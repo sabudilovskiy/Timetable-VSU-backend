@@ -19,9 +19,8 @@
 #include "models/user_type/serialize.hpp"
 namespace views::admin::create
 {
-static_assert(
-    userver::formats::common::impl::kHasSerialize<
-        userver::formats::json::Value, ::models::User>);
+static_assert(userver::formats::common::impl::kHasSerialize<
+              userver::formats::json::Value, ::models::User>);
 namespace
 {
 namespace pg = components::controllers::postgres;

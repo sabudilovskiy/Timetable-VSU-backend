@@ -17,8 +17,7 @@ namespace views::admin::create
 using namespace utils::convert;
 struct Response200
 {
-    Property<::models::AdminAccount, "created_account">
-        created_account;
+    Property<::models::AdminAccount, "created_account"> created_account;
     static constexpr TypeOfBody kTypeOfBody = TypeOfBody::Json;
     static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
     static constexpr userver::server::http::HttpStatus kStatusCode =

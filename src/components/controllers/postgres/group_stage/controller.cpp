@@ -57,5 +57,5 @@ std::vector<models::GroupStage> Controller::GetByFilter(
     return utils::ConvertPgResultToArray<models::GroupStage>(pg_result);
 }
 
-}  // namespace
+}  // namespace components::controllers::postgres::group_stage
    // ::components::controllers::postgres::group_stage

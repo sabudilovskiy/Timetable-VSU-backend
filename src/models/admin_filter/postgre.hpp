@@ -6,8 +6,7 @@
 namespace models
 {
 using TupleAdminFilter =
-    ::utils::convert::drop_properties_to_ref_const_t<
-        AdminFilter>;
+    ::utils::convert::drop_properties_to_ref_const_t<AdminFilter>;
 }  // namespace models
 
 namespace userver::storages::postgres::io

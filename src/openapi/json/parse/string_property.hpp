@@ -15,9 +15,8 @@
 namespace userver::formats::parse
 {
 template <typename Traits>
-::openapi::StringProperty<Traits> Parse(
-    const json::Value& item,
-    To<::openapi::StringProperty<Traits>>)
+::openapi::StringProperty<Traits> Parse(const json::Value& item,
+                                        To<::openapi::StringProperty<Traits>>)
 {
     using namespace openapi;
 

@@ -10,7 +10,5 @@
 #include "models/timestring/postgre.hpp"
 namespace models
 {
-using TupleLessonV1 =
-    ::utils::convert::drop_properties_to_ref_mut_t<
-        LessonV1>;
+using TupleLessonV1 = ::utils::convert::drop_properties_to_ref_mut_t<LessonV1>;
 }

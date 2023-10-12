@@ -15,8 +15,7 @@ template <::utils::convert::HttpRequestParsable T>
 T Parse(const userver::server::http::HttpRequest& value, formats::parse::To<T>)
 {
     T t;
-    ::utils::convert::detail::parse::ConverterHttpRequest<
-        T>::Do(t, value);
+    ::utils::convert::detail::parse::ConverterHttpRequest<T>::Do(t, value);
     return t;
 }
 }  // namespace userver::formats::parse

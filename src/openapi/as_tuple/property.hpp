@@ -1,7 +1,7 @@
 #pragma once
 
-#include <openapi/base/property_base.hpp>
 #include <openapi/as_tuple/default.hpp>
+#include <openapi/base/property_base.hpp>
 namespace openapi::raw
 {
 template <IsProperty U>

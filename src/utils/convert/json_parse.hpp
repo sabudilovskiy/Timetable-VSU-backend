@@ -24,8 +24,7 @@ template <::utils::convert::JsonParsable T>
 T Parse(const json::Value& value, To<T>)
 {
     T t;
-    ::utils::convert::detail::parse::ConverterJson<T>::Do(
-        t, value);
+    ::utils::convert::detail::parse::ConverterJson<T>::Do(t, value);
     return t;
 }
 

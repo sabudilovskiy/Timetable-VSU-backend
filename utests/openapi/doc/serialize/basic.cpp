@@ -34,8 +34,7 @@ struct Credentials
 
 UTEST(TestNameStruct, Basic)
 {
-    EXPECT_EQ(::openapi::GetOpenApiTypeName<
-                  tests::Credentials>(),
+    EXPECT_EQ(::openapi::GetOpenApiTypeName<tests::Credentials>(),
               "tests.Credentials");
 }
 
@@ -99,10 +98,8 @@ struct SomeStructure
 UTEST(Openapi_Doc_Serialize, BasicAdditionalProperties)
 {
     ::openapi::Doc doc;
-    Append(doc,
-           std::type_identity<::tests::SomeStructure>{});
-    Append(doc,
-           std::type_identity<::tests::SomeStructure>{});
+    Append(doc, std::type_identity<::tests::SomeStructure>{});
+    Append(doc, std::type_identity<::tests::SomeStructure>{});
     auto value = doc().ExtractValue();
     auto result_schema = ToString(value);
     EXPECT_EQ(result_schema, RAW_STRING(

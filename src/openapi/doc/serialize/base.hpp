@@ -44,18 +44,19 @@ inline void log_yaml_impl(userver::formats::yaml::ValueBuilder yaml,
     std::clog << ToString(yaml.ExtractValue()) << '\n';
 }
 
-#define log_yaml(yaml)                                                      \
-    ::openapi::log_yaml_impl(yaml, __FILE__, __LINE__, \
-                                                  __PRETTY_FUNCTION__)
+#define log_yaml(yaml) \
+    ::openapi::log_yaml_impl(yaml, __FILE__, __LINE__, __PRETTY_FUNCTION__)
 
-//some_namespace..some_class
-//precondition: string from demangle
+// some_namespace..some_class
+// precondition: string from demangle
 inline void RemoveNamespaces(std::string& name_class)
-{   
+{
     auto read = std::find(name_class.begin(), name_class.end(), ':');
     auto write = read;
-    while (read != name_class.end()){
-        if (*read == ':'){
+    while (read != name_class.end())
+    {
+        if (*read == ':')
+        {
             read++;
             *read = '.';
         }

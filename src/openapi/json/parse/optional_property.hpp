@@ -20,8 +20,7 @@ namespace userver::formats::parse
 {
 template <typename T, typename Traits>
 ::openapi::OptionalProperty<T, Traits> Parse(
-    const json::Value& item,
-    To<::openapi::OptionalProperty<T, Traits>>)
+    const json::Value& item, To<::openapi::OptionalProperty<T, Traits>>)
 {
     using namespace openapi::traits;
     constexpr OptionalHelperTraits<Traits> traits;

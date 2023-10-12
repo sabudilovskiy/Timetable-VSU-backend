@@ -27,8 +27,7 @@
 #include "models/user_type/type.hpp"
 
 static_assert(userver::formats::common::impl::kHasSerialize<
-              userver::formats::json::Value,
-              ::models::LessonType>);
+              userver::formats::json::Value, ::models::LessonType>);
 namespace views::timetable::get
 {
 namespace

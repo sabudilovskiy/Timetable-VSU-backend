@@ -30,8 +30,7 @@ std::vector<models::LessonV1> Controller::Search(
     const std::optional<models::LessonFilter>& filter,
     ::utils::SharedTransaction transaction) const
 {
-    ::utils::FillSharedTransaction(transaction,
-                                                        pg_cluster_);
+    ::utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result =
         utils::PgExecute(transaction, sql::qGetLessonsByFilter, filter);
     return utils::ConvertPgResultToArray<models::LessonV1>(pg_result);

@@ -7,8 +7,7 @@
 namespace models
 {
 using TupleUserCredentialsRaw =
-    ::utils::convert::drop_properties_to_ref_const_t<
-        UserCredentials>;
+    ::utils::convert::drop_properties_to_ref_const_t<UserCredentials>;
 using TupleUserCredentials = TupleUserCredentialsRaw;
 }  // namespace models
 

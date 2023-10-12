@@ -7,8 +7,7 @@
 namespace models
 {
 using ConstTupleTeacherInfo =
-    ::utils::convert::drop_properties_to_ref_const_t<
-        TeacherInfo>;
+    ::utils::convert::drop_properties_to_ref_const_t<TeacherInfo>;
 
 }  // namespace models
 

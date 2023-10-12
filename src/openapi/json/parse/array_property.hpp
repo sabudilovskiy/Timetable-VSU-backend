@@ -14,8 +14,7 @@ namespace userver::formats::parse
 {
 template <typename T, typename Traits>
 ::openapi::ArrayProperty<T, Traits> Parse(
-    const json::Value& item,
-    To<::openapi::ArrayProperty<T, Traits>>)
+    const json::Value& item, To<::openapi::ArrayProperty<T, Traits>>)
 {
     using namespace openapi;
 

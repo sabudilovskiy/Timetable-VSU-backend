@@ -25,42 +25,35 @@ class Controller final : public userver::components::LoggableComponentBase
    public:
     std::optional<boost::uuids::uuid> DropRequest(
         const boost::uuids::uuid& request_id,
-        ::utils::SharedTransaction transaction =
-            nullptr) const;
+        ::utils::SharedTransaction transaction = nullptr) const;
     std::vector<models::RequestPrivileges> GetAllRequests(
-        ::utils::SharedTransaction transaction =
-            nullptr) const;
+        ::utils::SharedTransaction transaction = nullptr) const;
     std::optional<boost::uuids::uuid> ApproveAndLink(
         const boost::uuids::uuid& request_id,
         const boost::uuids::uuid& teacher_id,
-        ::utils::SharedTransaction transaction =
-            nullptr) const;
+        ::utils::SharedTransaction transaction = nullptr) const;
 
     std::optional<boost::uuids::uuid> ApproveAndCreateAccount(
         const boost::uuids::uuid& request_id,
         const models::TeacherInfo& teacher_info,
-        ::utils::SharedTransaction transaction =
-            nullptr) const;
+        ::utils::SharedTransaction transaction = nullptr) const;
 
     std::optional<boost::uuids::uuid> Link(
         const boost::uuids::uuid& user_id, const boost::uuids::uuid& teacher_id,
-        ::utils::SharedTransaction transaction =
-            nullptr) const;
+        ::utils::SharedTransaction transaction = nullptr) const;
 
     std::vector<models::Teacher> GetByFilter(
         std::optional<models::TeacherFilter>& filter,
-        ::utils::SharedTransaction transaction =
-            nullptr) const;
+        ::utils::SharedTransaction transaction = nullptr) const;
 
     std::optional<boost::uuids::uuid> CreateTeacher(
         const models::TeacherInfo& teacher_info,
-        ::utils::SharedTransaction transaction =
-            nullptr) const;
+        ::utils::SharedTransaction transaction = nullptr) const;
 
     ::utils::SharedTransaction CreateTransaction();
 
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace
+}  // namespace components::controllers::postgres::teacher
    // ::components::controllers::postgres::teacher

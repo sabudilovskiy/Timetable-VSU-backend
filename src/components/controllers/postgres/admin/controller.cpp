@@ -46,8 +46,7 @@ std::optional<models::AdminAccount> Controller::GetAccountByAdminId(
     const boost::uuids::uuid& admin_id,
     ::utils::SharedTransaction transaction) const
 {
-    ::utils::FillSharedTransaction(transaction,
-                                                        pg_cluster_);
+    ::utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result = transaction->transaction_.Execute(
         sql::qGetAdminAccountByAdminId, admin_id);
     return utils::ConvertPgResultToOptionalItem<models::AdminAccount>(
@@ -58,8 +57,7 @@ std::optional<models::AdminAccount> Controller::CreateAdmin(
     const models::UserCredentials& user,
     ::utils::SharedTransaction transaction) const
 {
-    ::utils::FillSharedTransaction(transaction,
-                                                        pg_cluster_);
+    ::utils::FillSharedTransaction(transaction, pg_cluster_);
     auto tuple_user = utils::convert::DropPropertiesToConstRefs(user);
     auto result_id =
         transaction->transaction_.Execute(sql::qCreateAdminAccount, tuple_user);
@@ -75,8 +73,7 @@ std::vector<models::AdminAccount> Controller::GetByFilter(
     std::optional<models::AdminFilter>& filter,
     ::utils::SharedTransaction transaction) const
 {
-    ::utils::FillSharedTransaction(transaction,
-                                                        pg_cluster_);
+    ::utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result =
         utils::PgExecute(transaction, sql::qGetAdminsByFilter, filter);
     return utils::ConvertPgResultToArray<models::AdminAccount>(pg_result);

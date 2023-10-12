@@ -6,8 +6,7 @@
 namespace models
 {
 using TupleGroupStage =
-    ::utils::convert::drop_properties_to_ref_const_t<
-        GroupStage>;
+    ::utils::convert::drop_properties_to_ref_const_t<GroupStage>;
 }  // namespace models
 
 namespace userver::storages::postgres::io

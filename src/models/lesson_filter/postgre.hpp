@@ -6,8 +6,7 @@
 namespace models
 {
 using TupleLessonFilter =
-    ::utils::convert::drop_properties_to_ref_const_t<
-        LessonFilter>;
+    ::utils::convert::drop_properties_to_ref_const_t<LessonFilter>;
 }  // namespace models
 
 namespace userver::storages::postgres::io

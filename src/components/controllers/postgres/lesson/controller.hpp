@@ -19,8 +19,7 @@ class Controller final : public userver::components::LoggableComponentBase
         "lesson_details_controller";
     std::vector<models::LessonV1> Search(
         const std::optional<models::LessonFilter>& filter,
-        ::utils::SharedTransaction transaction =
-            nullptr) const;
+        ::utils::SharedTransaction transaction = nullptr) const;
     Controller(const userver::components::ComponentConfig& config,
                const userver::components::ComponentContext& context);
 

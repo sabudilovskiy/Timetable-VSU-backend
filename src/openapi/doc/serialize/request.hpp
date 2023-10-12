@@ -15,7 +15,8 @@ template <checks::IsReflective T>
 void AppendRequest(DocHelper doc_helper, std::type_identity<T>)
 {
     auto& [root, cur] = doc_helper;
-    if (cur.IsObject()){
+    if (cur.IsObject())
+    {
         return;
     }
     cur["description"] = GetOpenApiTypeName<T>();

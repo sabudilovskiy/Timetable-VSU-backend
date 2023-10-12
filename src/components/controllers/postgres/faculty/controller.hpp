@@ -34,5 +34,5 @@ class Controller final : public userver::components::LoggableComponentBase
    protected:
     userver::storages::postgres::ClusterPtr pg_cluster_;
 };
-}  // namespace
+}  // namespace components::controllers::postgres::faculty
    // ::components::controllers::postgres::faculty

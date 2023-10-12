@@ -8,8 +8,7 @@
 namespace models
 {
 using AdminAccountTuple =
-    ::utils::convert::drop_properties_to_ref_mut_t<
-        AdminAccount>;
+    ::utils::convert::drop_properties_to_ref_mut_t<AdminAccount>;
 }  // namespace models
 
 namespace userver::storages::postgres::io

@@ -72,13 +72,11 @@ auto DropPropertiesToConstRefs(const T& t)
 }
 
 template <DroppableToTupleRef T>
-using drop_properties_to_ref_const_t =
-    decltype(::utils::convert::DropPropertiesToConstRefs(
-        std::declval<const T&>()));
+using drop_properties_to_ref_const_t = decltype(
+    ::utils::convert::DropPropertiesToConstRefs(std::declval<const T&>()));
 
 template <DroppableToTupleRef T>
 using drop_properties_to_ref_mut_t =
-    decltype(::utils::convert::DropPropertiesToMutRefs(
-        std::declval<T&>()));
+    decltype(::utils::convert::DropPropertiesToMutRefs(std::declval<T&>()));
 
 }  // namespace utils::convert

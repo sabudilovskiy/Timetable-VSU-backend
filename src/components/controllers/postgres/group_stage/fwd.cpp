@@ -10,5 +10,5 @@ void Append(userver::components::ComponentList& component_list)
 {
     component_list.Append<Controller>();
 }
-}  // namespace
+}  // namespace components::controllers::postgres::group_stage
    // ::components::controllers::postgres::group_stage

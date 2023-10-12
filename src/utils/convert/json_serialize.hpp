@@ -23,8 +23,7 @@ template <::utils::convert::JsonSeriazable T>
 json::Value Serialize(const T& t, To<json::Value>)
 {
     json::ValueBuilder json;
-    ::utils::convert::detail::serialize::ConverterJson<
-        T>::Do(t, json);
+    ::utils::convert::detail::serialize::ConverterJson<T>::Do(t, json);
     return json.ExtractValue();
 }
 }  // namespace userver::formats::serialize

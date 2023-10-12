@@ -34,7 +34,6 @@
 #include "views/test-openapi-view/view.hpp"
 #include "views/timetable/get/view.hpp"
 
-
 void AppendPgControllers(userver::components::ComponentList& component_list)
 {
     using namespace components::controllers::postgres;

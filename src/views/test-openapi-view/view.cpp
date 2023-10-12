@@ -17,7 +17,8 @@ namespace
 {
 using Resp200 = Resp<Response, 200>;
 using Resp400 = Resp<Response, 400>;
-struct View final : public openapi::http::OpenApiHandler<Request, Resp200, Resp400>
+struct View final
+    : public openapi::http::OpenApiHandler<Request, Resp200, Resp400>
 {
     static constexpr std::string_view kName = "test-login-view";
     using Base = openapi::http::OpenApiHandler<Request, Resp200, Resp400>;
@@ -26,13 +27,9 @@ struct View final : public openapi::http::OpenApiHandler<Request, Resp200, Resp4
         : Base(cfg, ctx)
     {
     }
-    Resps Handle(Request&& req) const override
+    Resps Handle(Request&&) const override
     {
         Resp200 resp200;
-        resp200().body().some_string() =
-            fmt::format("login: {}, password: {}", req.body().login(),
-                        req.body().password());
-        resp200().some_header() = req.some_token().value_or("empty");
         return resp200;
     }
 };

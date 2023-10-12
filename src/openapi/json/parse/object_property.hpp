@@ -20,8 +20,7 @@ namespace userver::formats::parse
 {
 template <typename T, typename Traits>
 ::openapi::ObjectProperty<T, Traits> Parse(
-    const json::Value& item,
-    To<::openapi::ObjectProperty<T, Traits>>)
+    const json::Value& item, To<::openapi::ObjectProperty<T, Traits>>)
 {
     T result;
     return {item.As<T>()};

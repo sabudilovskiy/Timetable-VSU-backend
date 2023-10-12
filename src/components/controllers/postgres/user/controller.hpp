@@ -57,6 +57,7 @@ class Controller final : public userver::components::LoggableComponentBase
    protected:
     std::optional<models::User> HandleUserFromPg(
         userver::storages::postgres::ResultSet& result) const;
+
    private:
     std::optional<boost::uuids::uuid> root_id;
     userver::storages::postgres::ClusterPtr pg_cluster_;

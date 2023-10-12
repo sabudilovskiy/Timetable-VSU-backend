@@ -7,8 +7,7 @@
 #include "models/user_type/postgre.hpp"
 namespace models
 {
-using TupleUserRaw =
-    ::utils::convert::drop_properties_to_ref_const_t<User>;
+using TupleUserRaw = ::utils::convert::drop_properties_to_ref_const_t<User>;
 
 // using TupleUser =
 //     userver::utils::StrongTypedef<struct TupleLessonFilterTag,

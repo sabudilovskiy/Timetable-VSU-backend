@@ -1,8 +1,7 @@
 #pragma once
 #include <userver/storages/postgres/query.hpp>
 
-namespace components::controllers::postgres::
-    group_stage::sql
+namespace components::controllers::postgres::group_stage::sql
 {
 const userver::storages::postgres::Query qGetGroupStages(R"(
     WITH group_stages_info AS(SELECT

@@ -8,6 +8,7 @@
 #include <cstddef>
 #include <openapi/base/object_property.hpp>
 #include <openapi/base/property_base.hpp>
+#include <openapi/base/reflective_checks.hpp>
 #include <tuple>
 #include <type_traits>
 #include <userver/formats/json/value.hpp>
@@ -19,30 +20,17 @@ namespace openapi
 /* Добавьте это поле в свою структуру, чтобы её схема была с
 AddditionalProperties: true */
 
-struct AdditionalProperties
+struct AdditionalProperties : PropertyBase<userver::formats::json::Value>
 {
-    userver::formats::json::Value value_;
-    userver::formats::json::Value& operator()() &
-    {
-        return value_;
-    }
-    const userver::formats::json::Value& operator()() const&
-    {
-        return value_;
-    }
-    userver::formats::json::Value operator()() &&
-    {
-        return std::move(value_);
-    }
     std::partial_ordering operator<=>(const AdditionalProperties& rhs) const
     {
-        return *this <=> rhs.value_;
+        return *this <=> rhs.value;
     }
     std::partial_ordering operator<=>(
         const userver::formats::json::Value& rhs) const
     {
         auto& lhs = *this;
-        if (lhs.value_ == rhs)
+        if (lhs.value == rhs)
             return std::partial_ordering::equivalent;
         return std::partial_ordering::unordered;
     }

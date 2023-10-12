@@ -57,5 +57,5 @@ std::vector<models::Faculty> Controller::GetByFilter(
     return utils::ConvertPgResultToArray<models::Faculty>(pg_result);
 }
 
-}  // namespace
+}  // namespace components::controllers::postgres::faculty
    // ::components::controllers::postgres::faculty

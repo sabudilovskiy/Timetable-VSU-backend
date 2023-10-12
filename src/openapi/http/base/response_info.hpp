@@ -37,7 +37,8 @@ struct ResponseInfo
         {
             return std::partial_ordering::unordered;
         }
-        if (auto cmp = lhs.response_body_type == rhs.response_body_type; !cmp){
+        if (auto cmp = lhs.response_body_type == rhs.response_body_type; !cmp)
+        {
             return std::partial_ordering::unordered;
         }
         return std::partial_ordering::equivalent;

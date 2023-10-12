@@ -5,9 +5,7 @@
 #include "models/faculty/type.hpp"
 namespace models
 {
-using TupleFaculty =
-    ::utils::convert::drop_properties_to_ref_const_t<
-        Faculty>;
+using TupleFaculty = ::utils::convert::drop_properties_to_ref_const_t<Faculty>;
 }  // namespace models
 
 namespace userver::storages::postgres::io

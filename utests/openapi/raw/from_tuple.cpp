@@ -1,12 +1,12 @@
+#include <boost/pfr/core.hpp>
 #include <concepts>
 #include <openapi/all.hpp>
+#include <openapi/from_tuple/default.hpp>
 #include <tuple>
 #include <type_traits>
 #include <userver/storages/postgres/io/composite_types.hpp>
 #include <userver/utest/utest.hpp>
 #include <utility>
-#include "boost/pfr/core.hpp"
-#include "openapi/from_tuple/default.hpp"
 
 using namespace openapi;
 
@@ -27,7 +27,8 @@ struct TestClass
 
 }  // namespace
 
-UTEST(OpenApiFromTuple, BasicString){
+UTEST(OpenApiFromTuple, BasicString)
+{
     using T = String<Name<"test">>;
     static_assert(std::is_same_v<src_t<T>, std::string>);
     std::string raw = "value";
@@ -37,7 +38,8 @@ UTEST(OpenApiFromTuple, BasicString){
 
 UTEST(OpenApiFromTuple, BasicStirngReflective)
 {
-    static_assert(std::is_same_v<src_t<TestClass>, std::tuple<std::string, std::string>>);
+    static_assert(
+        std::is_same_v<src_t<TestClass>, std::tuple<std::string, std::string>>);
     std::tuple<std::string, std::string> tuple;
     std::get<0>(tuple) = "first";
     std::get<1>(tuple) = "second";
@@ -46,19 +48,16 @@ UTEST(OpenApiFromTuple, BasicStirngReflective)
     EXPECT_EQ(result.value(), "second");
 }
 
-UTEST(OpenApiFromTuple, BasicArrayReflective){
+UTEST(OpenApiFromTuple, BasicArrayReflective)
+{
     using Raw = std::vector<std::tuple<std::string, std::string>>;
     using T = Array<TestClass, Name<"some_array">>;
-    static_assert(std::is_same_v<src_t<T>, std::vector<std::tuple<std::string, std::string>>>);
+    static_assert(
+        std::is_same_v<src_t<T>,
+                       std::vector<std::tuple<std::string, std::string>>>);
     T expected;
-    expected().emplace_back(TestClass{
-        .test = {"first"},
-        .value = {"second"}
-    });
-    expected().emplace_back(TestClass{
-        .test = {"third"},
-        .value = {"fourth"}
-    });
+    expected().emplace_back(TestClass{.test = {"first"}, .value = {"second"}});
+    expected().emplace_back(TestClass{.test = {"third"}, .value = {"fourth"}});
     Raw raw;
     raw.emplace_back(std::pair{"first", "second"});
     raw.emplace_back(std::pair{"third", "fourth"});
@@ -70,8 +69,8 @@ UTEST(OpenApiFromTuple, BasicArrayReflective){
     EXPECT_EQ(expected()[1].value(), got()[1].value());
 }
 
-namespace {
-
+namespace
+{
 struct TestClass2
 {
     Object<TestClass, Name<"some_field">> some_field;
@@ -87,24 +86,30 @@ struct SomeRequest
 };
 
 template <size_t Head, size_t... Indexes>
-decltype(auto) Get(auto&& tuple){
+decltype(auto) Get(auto&& tuple)
+{
     auto& head = std::get<Head>(tuple);
-    if constexpr (sizeof...(Indexes) != 0){
+    if constexpr (sizeof...(Indexes) != 0)
+    {
         return Get<Indexes...>(head);
     }
-    else {
+    else
+    {
         return head;
     }
 }
 
-}
+}  // namespace
 
-UTEST(OpenApiFromTuple, BasicRequest){
-    static_assert(std::is_same_v<src_t<SomeRequest>, std::tuple<std::tuple<std::string, std::string>, std::string, std::string>>);
-    std::tuple<std::tuple<std::string, std::string>, std::string, std::string> tuple{
-        {"first", "second"}, "third", "fourth"
-    };
-    //clang-format off
+UTEST(OpenApiFromTuple, BasicRequest)
+{
+    static_assert(
+        std::is_same_v<src_t<SomeRequest>,
+                       std::tuple<std::tuple<std::string, std::string>,
+                                  std::string, std::string>>);
+    std::tuple<std::tuple<std::string, std::string>, std::string, std::string>
+        tuple{{"first", "second"}, "third", "fourth"};
+    // clang-format off
     SomeRequest expected{
         .body = {TestClass{
             .test = {"first"},
@@ -113,7 +118,7 @@ UTEST(OpenApiFromTuple, BasicRequest){
         .some_header = {"third"},
         .some_cookie = {"fourth"}
     };
-    //clang-format on
+    // clang-format on
     auto got = FromTuple<SomeRequest>::Do(tuple);
     EXPECT_EQ(expected, got);
 }

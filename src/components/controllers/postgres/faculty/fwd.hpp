@@ -5,5 +5,5 @@ namespace components::controllers::postgres::faculty
 {
 class Controller;
 void Append(userver::components::ComponentList& component_list);
-}  // namespace
+}  // namespace components::controllers::postgres::faculty
    // ::components::controllers::postgres::faculty
