@@ -30,7 +30,6 @@
 #include "views/teacher/request/approve/link/view.hpp"
 #include "views/teacher/request/approve/new/view.hpp"
 #include "views/teacher/request/list/view.hpp"
-#include "views/test-openapi-view-register/view.hpp"
 #include "views/test-openapi-view/view.hpp"
 #include "views/timetable/get/view.hpp"
 
@@ -62,7 +61,6 @@ void AppendViews(userver::components::ComponentList& component_list)
     faculty::list::Append(component_list);
     group::stage::list::Append(component_list);
     test::login::Append(component_list);
-    test::sign_in::Append(component_list);
 }
 
 int main(int argc, char* argv[])

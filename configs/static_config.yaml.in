@@ -105,10 +105,6 @@ components_manager:
             path: /test/login
             method: POST
             task_processor: main-task-processor
-        test-register-view:
-            path: /test/register
-            method: POST
-            task_processor: main-task-processor
         openapi-descriptor:
             servers:
                 - description: dev

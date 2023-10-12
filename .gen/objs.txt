@@ -5,9 +5,6 @@ src/views/timetable/get/Request.hpp
 src/views/test-openapi-view/view.hpp
 src/views/test-openapi-view/view.cpp
 src/views/test-openapi-view/declarations.hpp
-src/views/test-openapi-view-register/view.hpp
-src/views/test-openapi-view-register/view.cpp
-src/views/test-openapi-view-register/declarations.hpp
 src/views/teacher/request/list/view.hpp
 src/views/teacher/request/list/view.cpp
 src/views/teacher/request/list/Responses.hpp
@@ -96,6 +93,7 @@ src/openapi/to_tuple/property.hpp
 src/openapi/to_tuple/optional.hpp
 src/openapi/to_tuple/default.hpp
 src/openapi/to_tuple/all.hpp
+src/openapi/postgres/mapping.hpp
 src/openapi/json/serialize/string_property.hpp
 src/openapi/json/serialize/reflective.hpp
 src/openapi/json/serialize/optional_property.hpp
@@ -150,6 +148,7 @@ src/openapi/base/string_traits.hpp
 src/openapi/base/string_property.hpp
 src/openapi/base/reflective_utils.hpp
 src/openapi/base/reflective_preferences.hpp
+src/openapi/base/reflective_checks.hpp
 src/openapi/base/property_base.hpp
 src/openapi/base/preferences.hpp
 src/openapi/base/optional_traits.hpp
