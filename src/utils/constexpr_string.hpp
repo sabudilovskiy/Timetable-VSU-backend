@@ -72,7 +72,9 @@ struct ConstexprString
 template <std::size_t n>
 ConstexprString(char const (&)[n]) -> ConstexprString<n>;
 
-template <std::array<char, 256> arr_>
+using FixedString = std::array<char, 256>;
+
+template <FixedString arr_>
 auto consteval MakeConstexprString()
 {
     constexpr auto real_end_it = std::find(begin(arr_), end(arr_), '\0');

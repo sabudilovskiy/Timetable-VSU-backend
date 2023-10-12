@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 #include <utils/constexpr_string.hpp>
 
 namespace openapi::preferences
@@ -9,12 +10,12 @@ struct value_holder
     static auto constexpr kValue = value;
 };
 
-template <size_t value>
+template <std::int64_t value>
 struct Min : value_holder<value>
 {
 };
 
-template <size_t value>
+template <std::int64_t value>
 struct Max : value_holder<value>
 {
 };

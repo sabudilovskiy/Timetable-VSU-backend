@@ -16,7 +16,7 @@ concept HasMin = requires
     {
         T::kMin
     }
-    ->std::convertible_to<utils::ConstexprOptional<size_t>>;
+    ->std::convertible_to<utils::ConstexprOptional<std::int64_t>>;
 };
 
 template <typename T>
@@ -25,7 +25,7 @@ concept HasMax = requires
     {
         T::kMax
     }
-    ->std::convertible_to<utils::ConstexprOptional<size_t>>;
+    ->std::convertible_to<utils::ConstexprOptional<std::int64_t>>;
 };
 
 template <typename T>
@@ -58,7 +58,7 @@ constexpr auto _getMin()
 template <checks::HasNotMin T>
 constexpr auto _getMin()
 {
-    return utils::ConstexprOptional<size_t>{utils::kNull};
+    return utils::ConstexprOptional<std::int64_t>{utils::kNull};
 }
 
 template <checks::HasMax T>
@@ -70,7 +70,7 @@ constexpr auto _getMax()
 template <checks::HasNotMax T>
 constexpr auto _getMax()
 {
-    return utils::ConstexprOptional<size_t>{utils::kNull};
+    return utils::ConstexprOptional<std::int64_t>{utils::kNull};
 }
 
 template <checks::HasUniqueItems T>
@@ -89,12 +89,12 @@ constexpr auto _getUniqueItems()
 namespace traits
 {
 template <typename T>
-constexpr utils::ConstexprOptional<size_t> GetMin()
+constexpr utils::ConstexprOptional<std::int64_t> GetMin()
 {
     return detail::_getMin<T>();
 }
 template <typename T>
-constexpr utils::ConstexprOptional<size_t> GetMax()
+constexpr utils::ConstexprOptional<std::int64_t> GetMax()
 {
     return detail::_getMax<T>();
 }
@@ -107,9 +107,9 @@ constexpr utils::ConstexprOptional<bool> GetUniqueItems()
 template <typename Traits>
 struct ArrayHelperTraits : NamedHelperTraits<Traits>
 {
-    static constexpr utils::ConstexprOptional<size_t> min =
+    static constexpr utils::ConstexprOptional<std::int64_t> min =
         traits::GetMin<Traits>();
-    static constexpr utils::ConstexprOptional<size_t> max =
+    static constexpr utils::ConstexprOptional<std::int64_t> max =
         traits::GetMax<Traits>();
     static constexpr utils::ConstexprOptional<bool> unique_items =
         traits::GetUniqueItems<Traits>();

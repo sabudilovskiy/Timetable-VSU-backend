@@ -10,8 +10,8 @@ namespace openapi
 namespace detail
 {
 template <utils::ConstexprString Name,
-          utils::ConstexprOptional<size_t> Min = utils::kNull,
-          utils::ConstexprOptional<size_t> Max = utils::kNull,
+          utils::ConstexprOptional<std::int64_t> Min = utils::kNull,
+          utils::ConstexprOptional<std::int64_t> Max = utils::kNull,
           utils::ConstexprOptional<bool> UniqueItems = utils::kNull>
 struct ArrayTraits : NamedTraits<Name>
 {
@@ -31,9 +31,9 @@ struct ArrayTraitsHolder
 {
     std::array<char, 256> Name{};
     size_t Name_was_changed = 0;
-    utils::ConstexprOptional<size_t> Min = utils::kNull;
+    utils::ConstexprOptional<std::int64_t> Min = utils::kNull;
     size_t Min_was_changed = 0;
-    utils::ConstexprOptional<size_t> Max = utils::kNull;
+    utils::ConstexprOptional<std::int64_t> Max = utils::kNull;
     size_t Max_was_changed = 0;
     utils::ConstexprOptional<bool> UniqueItems = utils::kNull;
     size_t UniqueItems_was_changed = 0;
@@ -61,14 +61,14 @@ void consteval Apply(ArrayTraitsHolder&, const T&)
         ![] {}, "You are used unknown option");
 }
 
-template <size_t value>
+template <std::int64_t value>
 void consteval Apply(ArrayTraitsHolder& traits, preferences::Min<value>)
 {
     traits.Min = value;
     traits.Min_was_changed++;
 }
 
-template <size_t value>
+template <std::int64_t value>
 void consteval Apply(ArrayTraitsHolder& traits, preferences::Max<value>)
 {
     traits.Max = value;
