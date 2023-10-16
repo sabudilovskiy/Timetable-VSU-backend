@@ -10,8 +10,6 @@
 #include <utils/tests_macros.hpp>
 #include <vector>
 
-#include "views/hello/view.hpp"
-
 using namespace openapi;
 
 UTEST(Openapi_Json_Parse, BasicStringPattern)

@@ -1,7 +1,7 @@
 #include <userver/utest/utest.hpp>
 #include <vector>
 
-#include "views/hello/view.hpp"
+#include "legacy/views/hello/view.hpp"
 
 UTEST(SayHelloTo, Basic)
 {

@@ -13,8 +13,6 @@
 #include <variant>
 #include <vector>
 
-#include "views/hello/view.hpp"
-
 using namespace openapi::types;
 using namespace openapi::preferences;
 

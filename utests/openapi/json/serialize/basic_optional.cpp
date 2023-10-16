@@ -20,7 +20,6 @@
 // #include <utils/constexpr_string.hpp>
 // #include <utils/tests_macros.hpp>
 // #include <userver/formats/serialize/common_containers.hpp>
-// #include "views/hello/view.hpp"
 
 // using namespace openapi::types;
 // using namespace openapi::preferences;

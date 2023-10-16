@@ -40,4 +40,4 @@ void Append(userver::components::ComponentList& component_list)
     component_list.Append<View>();
 }
 
-}  // namespace views::test::login
+}  // namespace legacy::views::test::login

@@ -5,7 +5,7 @@
 #include <string_view>
 #include <userver/engine/run_standalone.hpp>
 
-#include "views/hello/view.hpp"
+#include "legacy/views/hello/view.hpp"
 
 void HelloBenchmark(benchmark::State& state)
 {

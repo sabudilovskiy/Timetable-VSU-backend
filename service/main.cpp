@@ -11,31 +11,31 @@
 #include <userver/utils/daemon_run.hpp>
 #include <utility>
 
-#include "components/controllers/postgres/admin/fwd.hpp"
-#include "components/controllers/postgres/faculty/fwd.hpp"
-#include "components/controllers/postgres/group_stage/fwd.hpp"
-#include "components/controllers/postgres/lesson/fwd.hpp"
-#include "components/controllers/postgres/teacher/fwd.hpp"
-#include "components/controllers/postgres/token/fwd.hpp"
-#include "components/controllers/postgres/user/fwd.hpp"
-#include "views/admin/create/view.hpp"
-#include "views/admin/list/view.hpp"
-#include "views/faculty/list/view.hpp"
-#include "views/group-stage/list/view.hpp"
-#include "views/hello/view.hpp"
-#include "views/login/view.hpp"
-#include "views/register/view.hpp"
-#include "views/teacher/create/view.hpp"
-#include "views/teacher/list/view.hpp"
-#include "views/teacher/request/approve/link/view.hpp"
-#include "views/teacher/request/approve/new/view.hpp"
-#include "views/teacher/request/list/view.hpp"
+#include "legacy/components/controllers/postgres/admin/fwd.hpp"
+#include "legacy/components/controllers/postgres/faculty/fwd.hpp"
+#include "legacy/components/controllers/postgres/group_stage/fwd.hpp"
+#include "legacy/components/controllers/postgres/lesson/fwd.hpp"
+#include "legacy/components/controllers/postgres/teacher/fwd.hpp"
+#include "legacy/components/controllers/postgres/token/fwd.hpp"
+#include "legacy/components/controllers/postgres/user/fwd.hpp"
+#include "legacy/views/admin/create/view.hpp"
+#include "legacy/views/admin/list/view.hpp"
+#include "legacy/views/faculty/list/view.hpp"
+#include "legacy/views/group-stage/list/view.hpp"
+#include "legacy/views/hello/view.hpp"
+#include "legacy/views/login/view.hpp"
+#include "legacy/views/register/view.hpp"
+#include "legacy/views/teacher/create/view.hpp"
+#include "legacy/views/teacher/list/view.hpp"
+#include "legacy/views/teacher/request/approve/link/view.hpp"
+#include "legacy/views/teacher/request/approve/new/view.hpp"
+#include "legacy/views/teacher/request/list/view.hpp"
 #include "views/test-openapi-view/view.hpp"
-#include "views/timetable/get/view.hpp"
+#include "legacy/views/timetable/get/view.hpp"
 
 void AppendPgControllers(userver::components::ComponentList& component_list)
 {
-    using namespace components::controllers::postgres;
+    using namespace legacy::components::controllers::postgres;
     user::Append(component_list);
     token::Append(component_list);
     lesson::Append(component_list);
@@ -47,6 +47,7 @@ void AppendPgControllers(userver::components::ComponentList& component_list)
 
 void AppendViews(userver::components::ComponentList& component_list)
 {
+    using namespace legacy::views;
     using namespace views;
     login::Append(component_list);
     register_::Append(component_list);

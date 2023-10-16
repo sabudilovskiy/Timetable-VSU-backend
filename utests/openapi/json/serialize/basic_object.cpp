@@ -12,7 +12,6 @@
 #include <utils/constexpr_string.hpp>
 #include <vector>
 
-#include "views/hello/view.hpp"
 using namespace openapi;
 using namespace openapi::types;
 using namespace openapi::preferences;

@@ -16,8 +16,6 @@
 #include <variant>
 #include <vector>
 
-#include "views/hello/view.hpp"
-
 using namespace openapi;
 using namespace types;
 using namespace preferences;
