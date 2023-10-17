@@ -12,17 +12,17 @@ namespace openapi
 {
 namespace impl
 {
-template <checks::IsReflective T, std::size_t... I>
-auto MakeTypeTupleHelper(std::type_identity<T>,
-                         std::integer_sequence<size_t, I...>)
+template <typename T, std::size_t... I>
+requires checks::is_reflective_v<T> auto MakeTypeTupleHelper(
+    std::type_identity<T>, std::integer_sequence<size_t, I...>)
 {
     using Type =
         std::tuple<std::remove_cvref_t<boost::pfr::tuple_element_t<I, T>>...>;
     return std::type_identity<Type>{};
 }
 }  // namespace impl
-template <checks::IsReflective T>
-auto MakeSequence()
+template <typename T>
+requires checks::is_reflective_v<T> auto MakeSequence()
 {
     return std::make_index_sequence<boost::pfr::tuple_size<T>::value>();
 }
@@ -32,8 +32,8 @@ auto MakeSequence()
 
 Используйте для быстрого разбинда рефлективных структур в вариадик пак
 */
-template <checks::IsReflective T>
-auto MakeTypeTuple()
+template <typename T>
+requires checks::is_reflective_v<T> auto MakeTypeTuple()
 {
     auto seq = MakeSequence<T>();
     return impl::MakeTypeTupleHelper(std::type_identity<T>{}, seq);
@@ -56,8 +56,8 @@ void CallAllFields(Callable&& callable,
 
 Callable должна принимать std::type_identity<T>
 */
-template <checks::IsReflective T, typename Callable>
-void CallAllFields(Callable&& callable)
+template <typename T, typename Callable>
+requires checks::is_reflective_v<T> void CallAllFields(Callable&& callable)
 {
     auto tuple_identity = MakeTypeTuple<T>();
     impl::CallAllFields(std::forward<Callable>(callable), tuple_identity);

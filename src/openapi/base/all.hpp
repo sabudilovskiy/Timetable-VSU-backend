@@ -2,6 +2,7 @@
 #include <openapi/base/array_property.hpp>
 #include <openapi/base/array_traits.hpp>
 #include <openapi/base/doc.hpp>
+#include <openapi/base/holder.hpp>
 #include <openapi/base/is_optional_property.hpp>
 #include <openapi/base/named_traits.hpp>
 #include <openapi/base/object_field_names.hpp>
@@ -13,5 +14,7 @@
 #include <openapi/base/property_base.hpp>
 #include <openapi/base/reflective_preferences.hpp>
 #include <openapi/base/reflective_utils.hpp>
+#include <openapi/base/reflective_uuid_fix.hpp>
 #include <openapi/base/string_property.hpp>
 #include <openapi/base/string_traits.hpp>
+#include <openapi/base/uuid_property.hpp>

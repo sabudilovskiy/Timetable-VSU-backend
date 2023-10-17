@@ -8,6 +8,7 @@
 #include <userver/formats/json/value.hpp>
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/formats/parse/to.hpp>
+#include <userver/formats/serialize/common_containers.hpp>
 #include <userver/formats/serialize/to.hpp>
 #include <userver/logging/log.hpp>
 #include <utils/constexpr_string.hpp>
@@ -63,10 +64,6 @@ userver::formats::json::Value Serialize(
             index++;
         }
     }
-    for (auto& elem : serialized_value)
-    {
-        result.PushBack(elem);
-    }
-    return result.ExtractValue();
+    return userver::formats::json::ValueBuilder{item()}.ExtractValue();
 }
 }  // namespace openapi

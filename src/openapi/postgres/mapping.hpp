@@ -2,84 +2,91 @@
 
 #include <openapi/base/property_base.hpp>
 #include <openapi/base/reflective_checks.hpp>
+#include <userver/storages/postgres/io/buffer_io_base.hpp>
 #include <userver/storages/postgres/io/io_fwd.hpp>
 #include <userver/storages/postgres/io/pg_types.hpp>
-#include <userver/storages/postgres/io/buffer_io_base.hpp>
 namespace userver::storages::postgres::io
 {
-
-namespace detail{
-
+namespace detail
+{
 template <openapi::IsProperty T>
-struct OpenapiPropertyFormatter : BufferFormatterBase<T> {
-  using Inner = typename T::value_type;
-  using BaseType = BufferFormatterBase<T>;
-  using ValueFormatter = typename traits::IO<Inner>::FormatterType;
+struct OpenapiPropertyFormatter : BufferFormatterBase<T>
+{
+    using Inner = typename T::value_type;
+    using BaseType = BufferFormatterBase<T>;
+    using ValueFormatter = typename traits::IO<Inner>::FormatterType;
 
-  using BaseType::BaseType;
+    using BaseType::BaseType;
 
-  template <typename Buffer>
-  void operator()(const UserTypes& types, Buffer& buffer) const {
-    ValueFormatter{this->value()}(types, buffer);
-  }
+    template <typename Buffer>
+    void operator()(const UserTypes& types, Buffer& buffer) const
+    {
+        ValueFormatter{this->value()}(types, buffer);
+    }
 };
 
 template <openapi::IsProperty T>
-struct OpenapiPropertyParser : BufferParserBase<T> {
-  using BaseType = BufferParserBase<T>;
-  using Inner = typename T::value_type;
-  using ValueParser = typename traits::IO<Inner>::ParserType;
+struct OpenapiPropertyParser : BufferParserBase<T>
+{
+    using BaseType = BufferParserBase<T>;
+    using Inner = typename T::value_type;
+    using ValueParser = typename traits::IO<Inner>::ParserType;
 
-  using BaseType::BaseType;
+    using BaseType::BaseType;
 
-  void operator()(const FieldBuffer& buffer) {
-    Inner val;
-    ValueParser{val}(buffer);
-    this->value() = std::move(val);
-  }
+    void operator()(const FieldBuffer& buffer)
+    {
+        Inner val;
+        ValueParser{val}(buffer);
+        this->value() = std::move(val);
+    }
 };
-}
+}  // namespace detail
 
 /*
 Formatter specialization for openapi::Property
 */
 template <openapi::IsProperty T>
-struct BufferFormatter<T,
-                       std::enable_if_t<traits::kHasFormatter<typename T::value_type>>>
-    : detail::OpenapiPropertyFormatter<T> {
-  using BaseType = detail::OpenapiPropertyFormatter<T>;
-  using BaseType::BaseType;
+struct BufferFormatter<
+    T, std::enable_if_t<traits::kHasFormatter<typename T::value_type>>>
+    : detail::OpenapiPropertyFormatter<T>
+{
+    using BaseType = detail::OpenapiPropertyFormatter<T>;
+    using BaseType::BaseType;
 };
 
 /*
 Parser specialization for openapi::Property
 */
 template <openapi::IsProperty T>
-struct BufferParser<T, std::enable_if_t<traits::kHasParser<typename T::value_type>>>
-    : detail::OpenapiPropertyParser<T> {
-  using BaseType = detail::OpenapiPropertyParser<T>;
-  using BaseType::BaseType;
+struct BufferParser<
+    T, std::enable_if_t<traits::kHasParser<typename T::value_type>>>
+    : detail::OpenapiPropertyParser<T>
+{
+    using BaseType = detail::OpenapiPropertyParser<T>;
+    using BaseType::BaseType;
 };
 
-template <openapi::checks::IsReflectiveProperty T>
-struct CppToUserPg<T>
+template <typename T>
+requires openapi::checks::is_reflective_property_v<T> struct CppToUserPg<T>
 {
-    private:
+   private:
     using Inner = typename T::value_type;
-    public:
+
+   public:
     static constexpr DBTypeName postgres_name =
-    CppToUserPg<Inner>::postgres_name;
+        CppToUserPg<Inner>::postgres_name;
 };
 
-template <openapi::checks::IsNotReflectiveProperty T>
-struct CppToSystemPg<T>
+template <typename T>
+requires openapi::checks::is_not_reflective_property_v<T> struct CppToSystemPg<
+    T>
 {
-    private:
+   private:
     using Inner = typename T::value_type;
-    public:
-    static constexpr auto value =
-    CppToSystemPg<Inner>::value;
-};
 
+   public:
+    static constexpr auto value = CppToSystemPg<Inner>::value;
+};
 
 }  // namespace userver::storages::postgres::io

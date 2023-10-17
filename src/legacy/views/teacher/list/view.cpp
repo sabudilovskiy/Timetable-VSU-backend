@@ -13,8 +13,8 @@
 
 #include "Request.hpp"
 #include "Responses.hpp"
-#include "legacy/components/controllers/postgres/teacher/controller.hpp"
 #include "http/handler_parsed.hpp"
+#include "legacy/components/controllers/postgres/teacher/controller.hpp"
 #include "legacy/models/auth_token/serialize.hpp"
 #include "legacy/models/user/serialize.hpp"
 #include "legacy/models/user_type/serialize.hpp"

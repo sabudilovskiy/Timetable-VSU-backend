@@ -30,8 +30,8 @@
 #include "legacy/views/teacher/request/approve/link/view.hpp"
 #include "legacy/views/teacher/request/approve/new/view.hpp"
 #include "legacy/views/teacher/request/list/view.hpp"
-#include "views/test-openapi-view/view.hpp"
 #include "legacy/views/timetable/get/view.hpp"
+#include "views/test-openapi-view/view.hpp"
 
 void AppendPgControllers(userver::components::ComponentList& component_list)
 {

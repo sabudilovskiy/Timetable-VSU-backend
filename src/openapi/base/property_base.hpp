@@ -28,8 +28,8 @@ struct PropertyBase
     {
     }
 
-    auto operator<=>(const PropertyBase<T, Traits>& r) const = default;
-    auto operator<=>(const T& r) const
+    auto operator<=>(const PropertyBase<value_type, Traits>& r) const = default;
+    auto operator<=>(const value_type& r) const
     {
         return value <=> r;
     }

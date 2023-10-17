@@ -17,9 +17,9 @@
 #include <utils/shared_transaction.hpp>
 
 #include "Request.hpp"
+#include "http/handler_parsed.hpp"
 #include "legacy/components/controllers/postgres/token/controller.hpp"
 #include "legacy/components/controllers/postgres/user/controller.hpp"
-#include "http/handler_parsed.hpp"
 #include "legacy/models/auth_token/serialize.hpp"
 #include "legacy/models/user/serialize.hpp"
 #include "legacy/models/user_type/parse.hpp"
@@ -97,8 +97,8 @@ class Handler final
         HandleDesiredType(transaction, request, user_id.value());
         Response200 resp;
         resp.id() = *id;
-        resp.user() =
-            legacy::models::User{.id = {*user_id}, .type = {legacy::models::UserType::kUser}};
+        resp.user() = legacy::models::User{
+            .id = {*user_id}, .type = {legacy::models::UserType::kUser}};
         return resp;
     }
 

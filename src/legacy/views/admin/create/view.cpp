@@ -11,9 +11,9 @@
 
 #include "Request.hpp"
 #include "Responses.hpp"
+#include "http/handler_parsed.hpp"
 #include "legacy/components/controllers/postgres/admin/controller.hpp"
 #include "legacy/components/controllers/postgres/user/controller.hpp"
-#include "http/handler_parsed.hpp"
 #include "legacy/models/auth_token/serialize.hpp"
 #include "legacy/models/user/serialize.hpp"
 #include "legacy/models/user_type/serialize.hpp"

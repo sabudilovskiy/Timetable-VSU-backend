@@ -9,8 +9,8 @@
 
 namespace openapi::raw
 {
-template <checks::IsReflective T>
-class FromTuple<T>
+template <typename T>
+requires checks::is_reflective_v<T> class FromTuple<T>
 {
    public:
     using Src = to_tuple_t<T>;

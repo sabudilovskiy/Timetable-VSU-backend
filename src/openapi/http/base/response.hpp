@@ -7,6 +7,7 @@
 
 namespace openapi::http
 {
-template <checks::IsReflective T, std::size_t Code>
-using Resp = ResponseProperty<T, ResponseTraits<Code>>;
+template <typename T, std::size_t Code>
+requires checks::is_reflective_v<T> using Resp =
+    ResponseProperty<T, ResponseTraits<Code>>;
 }

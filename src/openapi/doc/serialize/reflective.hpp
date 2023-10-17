@@ -33,9 +33,10 @@ inline void AppendField(DocHelper, std::type_identity<AdditionalProperties>)
 {
 }
 
-template <checks::IsReflective T>
-void Append(DocHelper doc_helper, std::type_identity<T>,
-            bool append_cur_place = true)
+template <typename T>
+requires checks::is_reflective_v<T> void Append(DocHelper doc_helper,
+                                                std::type_identity<T>,
+                                                bool append_cur_place = true)
 {
     std::string name_type = GetOpenApiTypeName<T>();
     if (append_cur_place)
@@ -59,8 +60,8 @@ void Append(DocHelper doc_helper, std::type_identity<T>,
     }
 }
 
-template <checks::IsReflective T>
-void Append(Doc& doc, std::type_identity<T>)
+template <typename T>
+requires checks::is_reflective_v<T> void Append(Doc& doc, std::type_identity<T>)
 {
     auto& root = doc.value_;
     Append(DocHelper{root, root}, std::type_identity<T>{}, false);

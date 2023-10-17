@@ -76,7 +76,8 @@ std::vector<legacy::models::AdminAccount> Controller::GetByFilter(
     ::utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result =
         utils::PgExecute(transaction, sql::qGetAdminsByFilter, filter);
-    return utils::ConvertPgResultToArray<legacy::models::AdminAccount>(pg_result);
+    return utils::ConvertPgResultToArray<legacy::models::AdminAccount>(
+        pg_result);
 }
 
 }  // namespace legacy::components::controllers::postgres::admin

@@ -2,13 +2,17 @@ utests/remove_namespace.cpp
 utests/openapi/raw/to_tuple.cpp
 utests/openapi/raw/from_tuple.cpp
 utests/openapi/raw/as_tuple.cpp
+utests/openapi/json/serialize/uuid.cpp
 utests/openapi/json/serialize/basic_string.cpp
 utests/openapi/json/serialize/basic_optional.cpp
 utests/openapi/json/serialize/basic_object.cpp
 utests/openapi/json/serialize/basic_array.cpp
+utests/openapi/json/parse/uuid.cpp
 utests/openapi/json/parse/basic_string.cpp
 utests/openapi/json/parse/basic_object.cpp
 utests/openapi/json/parse/basic_array.cpp
+utests/openapi/http/uuid_response.cpp
+utests/openapi/http/uuid_request.cpp
 utests/openapi/http/basic_http_response.cpp
 utests/openapi/http/basic_http_request.cpp
 utests/openapi/doc/serialize/basic_response.cpp

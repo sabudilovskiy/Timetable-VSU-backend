@@ -35,4 +35,4 @@ struct Response
     auto operator<=>(const Response&) const = default;
 };
 
-}  // namespace legacy::views::test::login
+}  // namespace views::test::login

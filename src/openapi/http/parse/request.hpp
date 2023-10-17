@@ -18,8 +18,9 @@
 
 namespace openapi::http
 {
-template <checks::IsReflective T>
-T Parse(const RequestInfo& info, userver::formats::parse::To<T>)
+template <typename T>
+requires checks::is_reflective_v<T> T Parse(const RequestInfo& info,
+                                            userver::formats::parse::To<T>)
 {
     T t;
     auto matcher_header = [&]<typename H, typename Traits>(

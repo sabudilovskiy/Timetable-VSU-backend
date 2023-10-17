@@ -4,6 +4,8 @@ src/views/test-openapi-view/declarations.hpp
 src/utils/type_holder.hpp
 src/utils/tests_macros.hpp
 src/utils/shared_transaction.hpp
+src/utils/serialize/uuid/string.hpp
+src/utils/serialize/uuid/string.cpp
 src/utils/postgres_helper.hpp
 src/utils/perform_common_errors.hpp
 src/utils/perform_common_errors.cpp
@@ -32,6 +34,7 @@ src/utils/constexpr_optional.hpp
 src/utils/component_list_fwd.hpp
 src/utils/compilers_macros.hpp
 src/utils/common_errors.hpp
+src/openapi/types/uuid_type.hpp
 src/openapi/types/string_type.hpp
 src/openapi/types/optional_type.hpp
 src/openapi/types/object_type.hpp
@@ -48,12 +51,14 @@ src/openapi/json/serialize/string_property.hpp
 src/openapi/json/serialize/reflective.hpp
 src/openapi/json/serialize/optional_property.hpp
 src/openapi/json/serialize/object_property.hpp
+src/openapi/json/serialize/base_property.hpp
 src/openapi/json/serialize/array_property.hpp
 src/openapi/json/serialize/all.hpp
 src/openapi/json/parse/string_property.hpp
 src/openapi/json/parse/reflective.hpp
 src/openapi/json/parse/optional_property.hpp
 src/openapi/json/parse/object_property.hpp
+src/openapi/json/parse/base_property.hpp
 src/openapi/json/parse/array_property.hpp
 src/openapi/json/parse/all.hpp
 src/openapi/json/all.hpp
@@ -83,6 +88,7 @@ src/openapi/from_tuple/property.hpp
 src/openapi/from_tuple/optional.hpp
 src/openapi/from_tuple/default.hpp
 src/openapi/from_tuple/all.hpp
+src/openapi/doc/serialize/uuid.hpp
 src/openapi/doc/serialize/response.hpp
 src/openapi/doc/serialize/request.hpp
 src/openapi/doc/serialize/remove_requests.hpp
@@ -94,8 +100,11 @@ src/openapi/doc/serialize/body.hpp
 src/openapi/doc/serialize/base.hpp
 src/openapi/doc/serialize/array.hpp
 src/openapi/doc/serialize/all.hpp
+src/openapi/base/uuid_traits.hpp
+src/openapi/base/uuid_property.hpp
 src/openapi/base/string_traits.hpp
 src/openapi/base/string_property.hpp
+src/openapi/base/reflective_uuid_fix.hpp
 src/openapi/base/reflective_utils.hpp
 src/openapi/base/reflective_preferences.hpp
 src/openapi/base/reflective_checks.hpp
@@ -108,6 +117,7 @@ src/openapi/base/object_property.hpp
 src/openapi/base/object_field_names.hpp
 src/openapi/base/named_traits.hpp
 src/openapi/base/is_optional_property.hpp
+src/openapi/base/holder.hpp
 src/openapi/base/doc.hpp
 src/openapi/base/array_traits.hpp
 src/openapi/base/array_property.hpp

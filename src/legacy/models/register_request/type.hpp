@@ -11,7 +11,8 @@ namespace legacy::models
 using namespace utils::convert;
 struct RegisterRequest
 {
-    Property<legacy::models::UserCredentials, "user_credentials"> user_credentials;
+    Property<legacy::models::UserCredentials, "user_credentials">
+        user_credentials;
     OptionalProperty<std::string, "description"> description;
     OptionalProperty<UserType, "desired_type"> desired_type;
     static constexpr TypeOfBody kTypeOfBody =

@@ -11,8 +11,9 @@
 
 namespace openapi
 {
-template <checks::IsReflective T>
-void AppendResponse(Doc& doc, std::type_identity<T>)
+template <typename T>
+requires checks::is_reflective_v<T> void AppendResponse(Doc& doc,
+                                                        std::type_identity<T>)
 {
     auto& root = doc.value_;
     userver::formats::yaml::ValueBuilder response =

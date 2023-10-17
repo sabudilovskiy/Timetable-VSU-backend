@@ -8,7 +8,6 @@
 #include <utils/constexpr_string.hpp>
 #include <utils/tests_macros.hpp>
 
-
 using namespace openapi;
 using namespace types;
 using namespace preferences;

@@ -136,7 +136,8 @@ std::vector<legacy::models::RequestPrivileges> Controller::GetAllRequests(
 {
     utils::FillSharedTransaction(transaction, pg_cluster_);
     auto pg_result = utils::PgExecute(transaction, sql::qGetAllRequests);
-    return utils::ConvertPgResultToArray<legacy::models::RequestPrivileges>(pg_result);
+    return utils::ConvertPgResultToArray<legacy::models::RequestPrivileges>(
+        pg_result);
 }
 
 std::optional<boost::uuids::uuid> Controller::DropRequest(

@@ -28,7 +28,8 @@ struct Response200
 
 static_assert(userver::formats::common::impl::kHasSerialize<
               userver::formats::json::Value, legacy::models::LessonV1>);
-static_assert(userver::formats::common::impl::kHasSerialize<
-              userver::formats::json::Value, std::vector<legacy::models::LessonV1>>);
+static_assert(
+    userver::formats::common::impl::kHasSerialize<
+        userver::formats::json::Value, std::vector<legacy::models::LessonV1>>);
 
 }  // namespace legacy::views::timetable::get

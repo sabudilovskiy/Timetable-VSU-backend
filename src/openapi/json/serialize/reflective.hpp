@@ -7,6 +7,7 @@
 #include <openapi/base/object_property.hpp>
 #include <openapi/base/object_traits.hpp>
 #include <openapi/base/optional_property.hpp>
+#include <openapi/base/reflective_checks.hpp>
 #include <openapi/base/reflective_preferences.hpp>
 #include <stdexcept>
 #include <string_view>
@@ -20,8 +21,8 @@
 
 namespace openapi::detail
 {
-template <checks::IsReflective T>
-inline void serialize_without_additional(
+template <typename T>
+requires checks::is_reflective_v<T> inline void serialize_without_additional(
     const T& item, userver::formats::json::ValueBuilder& result)
 {
     auto matcher_common = [&result]<typename F>(const F& field) {
@@ -36,9 +37,9 @@ inline void serialize_without_additional(
     boost::pfr::for_each_field(item, std::move(matcher_all));
 }
 
-template <checks::IsReflective T>
-inline void serialize_additional(const T& item,
-                                 userver::formats::json::ValueBuilder& result)
+template <typename T>
+requires checks::is_reflective_v<T> inline void serialize_additional(
+    const T& item, userver::formats::json::ValueBuilder& result)
 {
     // noop
     auto matcher_common = []<typename F>(const F&) {};
@@ -62,9 +63,9 @@ inline void serialize_additional(const T& item,
 
 namespace userver::formats::serialize
 {
-template <::openapi::checks::IsReflective T>
-userver::formats::json::Value Serialize(const T& item,
-                                        To<userver::formats::json::Value>)
+template <typename T>
+requires openapi::checks::is_reflective_v<T> userver::formats::json::Value
+Serialize(const T& item, To<userver::formats::json::Value>)
 {
     using namespace openapi;
     userver::formats::json::ValueBuilder result{

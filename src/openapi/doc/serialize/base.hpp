@@ -5,7 +5,6 @@
 #include <cctype>
 #include <concepts>
 #include <cstdint>
-#include <experimental/source_location>
 #include <iostream>
 #include <openapi/base/array_property.hpp>
 #include <openapi/base/array_traits.hpp>
@@ -97,8 +96,9 @@ std::string GetRawTypeName()
     return raw_name;
 }
 
-template <checks::IsReflective T>
-void PlaceRefToType(userver::formats::yaml::ValueBuilder& place)
+template <typename T>
+requires checks::is_reflective_v<T> void PlaceRefToType(
+    userver::formats::yaml::ValueBuilder& place)
 {
     if (!place.IsObject())
     {
@@ -109,8 +109,9 @@ void PlaceRefToType(userver::formats::yaml::ValueBuilder& place)
     place["$ref"] = std::move(ref_str);
 }
 
-template <checks::IsReflective T>
-void PlaceRefToResponse(userver::formats::yaml::ValueBuilder& place)
+template <typename T>
+requires checks::is_reflective_v<T> void PlaceRefToResponse(
+    userver::formats::yaml::ValueBuilder& place)
 {
     if (!place.IsObject())
     {
@@ -121,8 +122,9 @@ void PlaceRefToResponse(userver::formats::yaml::ValueBuilder& place)
     place["$ref"] = std::move(ref_str);
 }
 
-template <checks::IsReflective T>
-void PlaceRefToRequest(userver::formats::yaml::ValueBuilder& place)
+template <typename T>
+requires checks::is_reflective_v<T> void PlaceRefToRequest(
+    userver::formats::yaml::ValueBuilder& place)
 {
     if (!place.IsObject())
     {

@@ -67,17 +67,18 @@ consteval void resolve_fields(ReflectivePreferencesHelper& helper,
     (apply<Field>(helper), ...);
 }
 
-template <IsReflective T, size_t... I>
-consteval void resolve_tuple(ReflectivePreferencesHelper& helper,
-                             std::integer_sequence<size_t, I...>)
+template <typename T, size_t... I>
+requires checks::is_reflective_v<T> consteval void resolve_tuple(
+    ReflectivePreferencesHelper& helper, std::integer_sequence<size_t, I...>)
 {
     using Tuple =
         std::tuple<std::remove_cvref_t<boost::pfr::tuple_element_t<I, T>>...>;
     resolve_fields(helper, std::type_identity<Tuple>{});
 }
 
-template <IsReflective T>
-consteval ReflectivePreferencesHelper resolve_helper()
+template <typename T>
+requires checks::is_reflective_v<T> consteval ReflectivePreferencesHelper
+resolve_helper()
 {
     ReflectivePreferencesHelper helper{};
     constexpr size_t size = boost::pfr::tuple_size_v<T>;
@@ -86,8 +87,9 @@ consteval ReflectivePreferencesHelper resolve_helper()
     return helper;
 }
 
-template <IsReflective T>
-AdditionalPropertiesStatus consteval resolve_additional_properties_status()
+template <typename T>
+requires checks::is_reflective_v<T>
+    AdditionalPropertiesStatus consteval resolve_additional_properties_status()
 {
     constexpr ReflectivePreferencesHelper helper = resolve_helper<T>();
     if constexpr (helper.counter_additional_properties == 0)
@@ -104,8 +106,8 @@ AdditionalPropertiesStatus consteval resolve_additional_properties_status()
     }
 }
 }  // namespace impl
-template <IsReflective T>
-struct ReflectivePreferences
+template <typename T>
+requires checks::is_reflective_v<T> struct ReflectivePreferences
 {
     static constexpr AdditionalPropertiesStatus additional_properties_status =
         impl::resolve_additional_properties_status<T>();

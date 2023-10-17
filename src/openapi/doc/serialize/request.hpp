@@ -11,8 +11,9 @@
 
 namespace openapi
 {
-template <checks::IsReflective T>
-void AppendRequest(DocHelper doc_helper, std::type_identity<T>)
+template <typename T>
+requires checks::is_reflective_v<T> void AppendRequest(DocHelper doc_helper,
+                                                       std::type_identity<T>)
 {
     auto& [root, cur] = doc_helper;
     if (cur.IsObject())

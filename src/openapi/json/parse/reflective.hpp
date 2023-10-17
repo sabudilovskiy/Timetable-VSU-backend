@@ -82,8 +82,9 @@ void parse_additional_properties(
 
 namespace userver::formats::parse
 {
-template <::openapi::checks::IsReflective T>
-T Parse(const json::Value& item, To<T>)
+template <typename T>
+requires openapi::checks::is_reflective_v<T> T Parse(const json::Value& item,
+                                                     To<T>)
 {
     using namespace openapi;
     T result;

@@ -6,11 +6,10 @@
 #include <openapi/base/object_property.hpp>
 #include <type_traits>
 #include <utility>
-
 namespace openapi::raw
 {
-template <checks::IsReflective T>
-class AsTuple<T>
+template <typename T>
+requires checks::is_reflective_v<T> class AsTuple<T>
 {
    private:
     using Type = T;

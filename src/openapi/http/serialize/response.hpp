@@ -21,9 +21,10 @@
 
 namespace openapi::http
 {
-template <checks::IsReflective T, typename Traits>
-ResponseInfo Serialize(const ResponseProperty<T, Traits>& item,
-                       userver::formats::serialize::To<ResponseInfo>)
+template <typename T, typename Traits>
+requires checks::is_reflective_v<T> ResponseInfo
+Serialize(const ResponseProperty<T, Traits>& item,
+          userver::formats::serialize::To<ResponseInfo>)
 {
     ResponseInfo result{};
     result.userver_code = Traits::code;

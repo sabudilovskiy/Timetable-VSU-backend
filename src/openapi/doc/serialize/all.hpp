@@ -10,3 +10,4 @@
 #include <openapi/doc/serialize/remove_requests.hpp>
 #include <openapi/doc/serialize/request.hpp>
 #include <openapi/doc/serialize/response.hpp>
+#include <openapi/doc/serialize/uuid.hpp>

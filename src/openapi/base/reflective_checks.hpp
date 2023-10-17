@@ -15,19 +15,25 @@ concept IsReflectiveHelper = requires
 };
 
 template <typename T>
-concept IsReflective = requires
-{
-    requires std::is_class_v<T>;
-    requires std::is_aggregate_v<T>;
-
-    requires !IsProperty<T>;
-};
+concept IsReflective =
+    std::is_class_v<T>&& std::is_aggregate_v<T> && !IsProperty<T>;
 
 template <typename T>
-concept IsReflectiveProperty = IsProperty<T> && IsReflective<typename T::value_type>;
+constexpr bool is_reflective_v = IsReflective<T>;
 
 template <typename T>
-concept IsNotReflectiveProperty = IsProperty<T> && !IsReflective<typename T::value_type>;
+concept IsReflectiveProperty =
+    IsProperty<T>&& IsReflective<typename T::value_type>;
+
+template <typename T>
+constexpr bool is_reflective_property_v = IsReflectiveProperty<T>;
+
+template <typename T>
+concept IsNotReflectiveProperty =
+    IsProperty<T> && !IsReflective<typename T::value_type>;
+
+template <typename T>
+constexpr bool is_not_reflective_property_v = IsNotReflectiveProperty<T>;
 
 }  // namespace checks
 }  // namespace openapi
