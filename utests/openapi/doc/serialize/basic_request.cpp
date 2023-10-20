@@ -1,5 +1,5 @@
 #include <openapi/all.hpp>
-#include <openapi/doc/serialize/base.hpp>
+#include <openapi/doc/base.hpp>
 #include <string_view>
 #include <userver/formats/serialize/common_containers.hpp>
 #include <userver/formats/yaml/serialize.hpp>

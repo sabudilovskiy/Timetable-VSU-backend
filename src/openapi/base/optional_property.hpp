@@ -9,7 +9,8 @@ struct OptionalProperty : public PropertyBase<std::optional<T>, Traits>
 };
 
 template <typename T, typename Traits>
-struct Property<std::optional<T>, Traits> : public OptionalProperty<T, Traits>
+struct types::Property<std::optional<T>, Traits>
+    : public OptionalProperty<T, Traits>
 {
 };
 

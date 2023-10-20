@@ -4,7 +4,7 @@
 #include <functional>
 #include <openapi/base/doc.hpp>
 #include <openapi/base/object_property.hpp>
-#include <openapi/doc/serialize/path.hpp>
+#include <openapi/doc/path.hpp>
 #include <openapi/http/base/request_info.hpp>
 #include <openapi/http/base/response_info.hpp>
 #include <openapi/http/openapi_descriptor.hpp>
@@ -20,13 +20,16 @@
 #include <userver/server/handlers/exceptions.hpp>
 #include <userver/server/handlers/http_handler_base.hpp>
 #include <userver/yaml_config/schema.hpp>
+#include <utils/constexpr_string.hpp>
 #include <variant>
 
 namespace openapi::http
 {
-template <checks::IsReflective Req, typename... Responses>
+template <utils::ConstexprString Name, checks::IsReflective Req,
+          typename... Responses>
 struct OpenApiHandler : public userver::server::handlers::HttpHandlerBase
 {
+    [[maybe_unused]] static constexpr auto kName = Name;
     using Resps = std::variant<Responses...>;
     OpenApiHandler(const userver::components::ComponentConfig& cfg,
                    const userver::components::ComponentContext& ctx)

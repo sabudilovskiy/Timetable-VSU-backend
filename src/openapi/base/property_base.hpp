@@ -35,10 +35,15 @@ struct PropertyBase
     }
 
     template <class Arg>
-    value_type& operator=(Arg&& arg)
+    auto& operator=(Arg&& arg)
     {
         value = std::forward<Arg>(arg);
         return value;
+    }
+    auto& operator=(value_type rhs)
+    {
+        value = std::move(rhs);
+        return *this;
     }
     value_type& operator()()
     {
@@ -60,9 +65,13 @@ concept IsProperty = requires
                       T>;
 };
 
+namespace types
+{
 template <typename T, typename Traits = EmptyTraits>
-struct Property
+struct Property : PropertyBase<T, Traits>
 {
 };
+
+}  // namespace types
 
 }  // namespace openapi

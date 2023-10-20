@@ -56,10 +56,12 @@ components_manager:
         handler-login: 
             path: /login
             method: POST
+            load-enabled: false
             task_processor: main-task-processor
         handler-register: 
             path: /register
-            method: POST                
+            method: POST     
+            load-enabled: false           
             task_processor: main-task-processor  
         handler-timetable-get: 
             path: /timetable/get
@@ -101,8 +103,12 @@ components_manager:
             path: /group-stage/list
             method: POST
             task_processor: main-task-processor
-        test-login-view:
-            path: /test/login
+        login-view:
+            path: /login
+            method: POST
+            task_processor: main-task-processor
+        register-view:
+            path: /register
             method: POST
             task_processor: main-task-processor
         openapi-descriptor:
@@ -133,6 +139,12 @@ components_manager:
                 password: $root_password
                 id: $root_id
         token_controller: {}
+        new-token-controller: {}
+        new-user-controller:
+            root:
+                login: $root_login
+                password: $root_password
+                id: $root_id
         lesson_details_controller : {}
         teacher_controller : {}
         handler-ping:

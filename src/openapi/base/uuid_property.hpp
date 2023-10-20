@@ -62,7 +62,7 @@ struct UuidProperty : PropertyBase<boost::uuids::uuid, Traits>
 };
 
 template <typename Traits>
-struct Property<boost::uuids::uuid, Traits> : UuidProperty<Traits>
+struct types::Property<boost::uuids::uuid, Traits> : UuidProperty<Traits>
 {
 };
 }  // namespace openapi

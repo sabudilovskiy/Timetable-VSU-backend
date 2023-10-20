@@ -1,4 +1,4 @@
-#include <openapi/doc/serialize/base.hpp>
+#include <openapi/doc/base.hpp>
 #include <userver/utest/utest.hpp>
 
 UTEST(RemoveNamespace, Basic)

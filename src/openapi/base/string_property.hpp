@@ -12,7 +12,7 @@ struct StringProperty : public PropertyBase<std::string, Traits>
 };
 
 template <typename Traits>
-struct Property<std::string, Traits> : public StringProperty<Traits>
+struct types::Property<std::string, Traits> : public StringProperty<Traits>
 {
 };
 

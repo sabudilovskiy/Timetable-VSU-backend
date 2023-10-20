@@ -14,7 +14,7 @@ requires checks::is_reflective_v<T> struct ObjectProperty
 };
 
 template <typename T, typename Traits>
-requires checks::is_reflective_v<T> struct Property<T, Traits>
+requires checks::is_reflective_v<T> struct types::Property<T, Traits>
     : public ObjectProperty<T, Traits>
 {
 };

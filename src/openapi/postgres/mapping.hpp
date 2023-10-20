@@ -2,9 +2,23 @@
 
 #include <openapi/base/property_base.hpp>
 #include <openapi/base/reflective_checks.hpp>
+#include <type_traits>
 #include <userver/storages/postgres/io/buffer_io_base.hpp>
 #include <userver/storages/postgres/io/io_fwd.hpp>
 #include <userver/storages/postgres/io/pg_types.hpp>
+#include <utils/is_complete_type.hpp>
+
+namespace openapi
+{
+template <typename T>
+concept IsPgUserProperty = IsProperty<T>&& utils::is_complete_type<
+    userver::storages::postgres::io::CppToUserPg<typename T::value_type>>;
+
+template <typename T>
+concept IsPgSystemProperty = IsProperty<T>&& utils::is_complete_type<
+    userver::storages::postgres::io::CppToSystemPg<typename T::value_type>>;
+}  // namespace openapi
+
 namespace userver::storages::postgres::io
 {
 namespace detail
@@ -68,7 +82,7 @@ struct BufferParser<
 };
 
 template <typename T>
-requires openapi::checks::is_reflective_property_v<T> struct CppToUserPg<T>
+requires openapi::IsPgUserProperty<T> struct CppToUserPg<T>
 {
    private:
     using Inner = typename T::value_type;
@@ -79,8 +93,7 @@ requires openapi::checks::is_reflective_property_v<T> struct CppToUserPg<T>
 };
 
 template <typename T>
-requires openapi::checks::is_not_reflective_property_v<T> struct CppToSystemPg<
-    T>
+requires openapi::IsPgSystemProperty<T> struct CppToSystemPg<T>
 {
    private:
     using Inner = typename T::value_type;

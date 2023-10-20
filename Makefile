@@ -2,7 +2,8 @@ CMAKE_COMMON_FLAGS ?= -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 CMAKE_DEBUG_FLAGS ?= -DUSERVER_SANITIZE='addr ub'
 CMAKE_RELEASE_FLAGS ?=
 CMAKE_OS_FLAGS ?= -DUSERVER_FEATURE_CRYPTOPP_BLAKE2=0 -DUSERVER_FEATURE_REDIS_HI_MALLOC=1
-FORMAT_INCLUDES_FLAGS ?= userver boost gtest openapi utils
+FORMAT_INCLUDES_FLAGS ?= userver boost gtest openapi utils codegen
+GENERATE_SQL_QUERIES_FLAGS ?= src/sql src/codegen sql sql
 NPROCS ?= $(shell nproc)
 CLANG_FORMAT ?= clang-format-11
 
@@ -161,8 +162,9 @@ check-format-cpp:
 	@find service -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
 	@find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
 	@find utests -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
-.PHONY: gen
-gen:
+
+.PHONY: gen-sources
+gen-sources:
 	@rm -rf .gen
 	@mkdir -p .gen
 
@@ -182,6 +184,15 @@ gen:
 .PHONY: unite-api
 unite-api:
 	@python3 scripts/merge_yaml.py api/api.yaml united_api.yaml
+
+.PHONY: gen-queries
+gen-queries:
+	@python3 scripts/generate_sql_queries.py $(GENERATE_SQL_QUERIES_FLAGS)
+
+.PHONY: gen
+gen:
+	$(MAKE) gen-queries
+	$(MAKE) gen-sources
 
 # # Internal hidden targets that are used only in docker environment
 # --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%

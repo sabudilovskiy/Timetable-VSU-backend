@@ -3,7 +3,7 @@
 #include <boost/pfr/core.hpp>
 #include <exception>
 #include <openapi/all.hpp>
-#include <openapi/doc/serialize/path.hpp>
+#include <openapi/doc/path.hpp>
 #include <string_view>
 #include <userver/utest/utest.hpp>
 #include <utils/constexpr_optional.hpp>

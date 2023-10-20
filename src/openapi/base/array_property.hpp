@@ -13,7 +13,7 @@ struct ArrayProperty : public PropertyBase<std::vector<T>, Traits>
 };
 
 template <typename T, typename Traits>
-struct Property<std::vector<T>, Traits> : public ArrayProperty<T, Traits>
+struct types::Property<std::vector<T>, Traits> : public ArrayProperty<T, Traits>
 {
 };
 
