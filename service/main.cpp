@@ -27,8 +27,6 @@
 #include "legacy/views/faculty/list/view.hpp"
 #include "legacy/views/group-stage/list/view.hpp"
 #include "legacy/views/hello/view.hpp"
-#include "legacy/views/login/view.hpp"
-#include "legacy/views/register/view.hpp"
 #include "legacy/views/teacher/create/view.hpp"
 #include "legacy/views/teacher/list/view.hpp"
 #include "legacy/views/teacher/request/approve/link/view.hpp"
@@ -55,8 +53,6 @@ void AppendPgControllers(userver::components::ComponentList& component_list)
 void AppendLegacyViews(userver::components::ComponentList& component_list)
 {
     using namespace legacy::views;
-    login::Append(component_list);
-    register_::Append(component_list);
     timetable::get::Append(component_list);
     admin::create::Append(component_list);
     admin::list::Append(component_list);

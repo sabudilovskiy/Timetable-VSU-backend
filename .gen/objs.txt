@@ -101,6 +101,7 @@ src/openapi/doc/request.hpp
 src/openapi/doc/reflective.hpp
 src/openapi/doc/property.hpp
 src/openapi/doc/path.hpp
+src/openapi/doc/optional.hpp
 src/openapi/doc/int.hpp
 src/openapi/doc/header.hpp
 src/openapi/doc/cookie.hpp
@@ -166,14 +167,6 @@ src/legacy/views/teacher/create/view.hpp
 src/legacy/views/teacher/create/view.cpp
 src/legacy/views/teacher/create/Responses.hpp
 src/legacy/views/teacher/create/Request.hpp
-src/legacy/views/register/view.hpp
-src/legacy/views/register/view.cpp
-src/legacy/views/register/Responses.hpp
-src/legacy/views/register/Request.hpp
-src/legacy/views/login/view.hpp
-src/legacy/views/login/view.cpp
-src/legacy/views/login/Responses.hpp
-src/legacy/views/login/Request.hpp
 src/legacy/views/hello/view.hpp
 src/legacy/views/hello/view.cpp
 src/legacy/views/group-stage/list/view.hpp
