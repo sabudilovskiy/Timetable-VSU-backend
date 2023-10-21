@@ -12,9 +12,7 @@ namespace checks
 template <typename T>
 concept HasPattern = requires
 {
-    {
-        T::kPattern
-    };
+    {T::kPattern};
 };
 }  // namespace checks
 
@@ -23,10 +21,12 @@ namespace traits
 template <typename T>
 constexpr auto GetPattern()
 {
-    if constexpr (checks::HasPattern<T>){
+    if constexpr (checks::HasPattern<T>)
+    {
         return T::kPattern;
     }
-    else return utils::kEmptyString;
+    else
+        return utils::kEmptyString;
 }
 
 template <typename Traits>

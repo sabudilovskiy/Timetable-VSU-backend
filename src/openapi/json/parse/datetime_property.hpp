@@ -10,14 +10,14 @@
 #include <userver/formats/json/value.hpp>
 #include <userver/formats/parse/to.hpp>
 #include <userver/logging/log.hpp>
+#include <userver/utils/datetime.hpp>
 #include <utils/constexpr_string.hpp>
-#include "userver/utils/datetime.hpp"
 
 namespace userver::formats::parse
 {
 template <typename Traits>
-::openapi::DateTimeProperty<Traits> Parse(const json::Value& item,
-                                        To<::openapi::DateTimeProperty<Traits>>)
+::openapi::DateTimeProperty<Traits> Parse(
+    const json::Value& item, To<::openapi::DateTimeProperty<Traits>>)
 {
     using namespace openapi;
 

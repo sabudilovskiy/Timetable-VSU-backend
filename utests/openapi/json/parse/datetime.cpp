@@ -14,8 +14,8 @@ using namespace openapi;
 
 UTEST(Openapi_Json_Parse, BasicDatetime)
 {
-    //2011-08-12T20:17:46.384Z
-    
+    // 2011-08-12T20:17:46.384Z
+
     // using Type = types::Date<>;
     // constexpr auto jsonString = R"(
     //     {

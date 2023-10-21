@@ -1,9 +1,9 @@
 #pragma once
 
+#include <openapi/base/properties/datetime.hpp>
 #include <userver/formats/json/value.hpp>
 #include <userver/formats/json/value_builder.hpp>
-#include "openapi/base/properties/datetime.hpp"
-#include "userver/utils/datetime.hpp"
+#include <userver/utils/datetime.hpp>
 
 namespace openapi
 {
@@ -16,7 +16,9 @@ userver::formats::json::Value Serialize(
 
     auto& value = item();
 
-    return userver::formats::json::ValueBuilder{userver::utils::datetime::Timestring(value)}.ExtractValue();
+    return userver::formats::json::ValueBuilder{
+        userver::utils::datetime::Timestring(value)}
+        .ExtractValue();
 }
 
 }  // namespace openapi

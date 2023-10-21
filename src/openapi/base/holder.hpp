@@ -7,28 +7,24 @@ namespace openapi::traits
 template <typename T>
 struct HolderField
 {
-    T value_{};
-    size_t counter_changes{};
     constexpr void operator=(const T& t)
     {
         value_ = t;
         counter_changes++;
     }
-    constexpr T& operator()()
-    {
-        return value_;
-    }
     constexpr const T& operator()() const
     {
         return value_;
     }
+
+   public:
+    T value_{};
+    size_t counter_changes{};
 };
 
 template <>
 struct HolderField<utils::FixedString>
 {
-    utils::FixedString value_{};
-    size_t counter_changes{};
     template <size_t Size>
     constexpr void operator=(const utils::ConstexprString<Size>& t)
     {
@@ -46,28 +42,37 @@ struct HolderField<utils::FixedString>
     {
         return value_;
     }
+
+   public:
+    utils::FixedString value_{};
+    size_t counter_changes{};
 };
 
-// namespace detail{
-//     template <typename Holder, typename Option>
-//     concept has_apply = requires (Holder& h){
-//         Apply(h, Option{});
-//     };
-//     template <typename Holder, typename Option>
-//     consteval void CheckedApply(Holder& holder){
-//         static_assert(has_apply<Holder, Option>, "You use unknown option");
-//         Apply(holder, Option{});
-//     }
-//     template <typename Holder, typename... Option>
-//     consteval void ApplyAll(Holder& holder){
-//         (CheckedApply<Option>(holder), ...);
-//     }
-// }
+namespace detail
+{
+template <typename Holder, typename Option>
+concept has_apply = requires(Holder& h)
+{
+    Apply(h, Option{});
+};
+template <typename Holder, typename Option>
+consteval void CheckedApply(Holder& holder)
+{
+    static_assert(has_apply<Holder, Option>, "You use unknown option");
+    Apply(holder, Option{});
+}
+template <typename Holder, typename... Option>
+consteval void ApplyAll(Holder& holder)
+{
+    (CheckedApply<Holder, Option>(holder), ...);
+}
+}  // namespace detail
 
-// template <typename Holder, typename... Option>
-// consteval Holder ResolveHolder(){
-//     Holder holder{};
-//     detail::ApplyAll<Option...>(holder);
-//     return holder;
-// }
+template <typename Holder, typename... Option>
+consteval Holder ResolveHolder()
+{
+    Holder holder{};
+    detail::ApplyAll<Holder, Option...>(holder);
+    return holder;
+}
 }  // namespace openapi::traits

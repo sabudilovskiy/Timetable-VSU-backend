@@ -1,2 +1,2 @@
 #pragma once
-#include "openapi/postgres/mapping.hpp"
+#include <openapi/postgres/mapping.hpp>

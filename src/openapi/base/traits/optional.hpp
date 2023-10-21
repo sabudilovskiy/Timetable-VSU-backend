@@ -10,9 +10,7 @@ namespace checks
 template <typename T>
 concept HasUseNullOnFail = requires
 {
-    {
-        T::kUseNullOnFail
-    };
+    {T::kUseNullOnFail};
 };
 
 }  // namespace checks
@@ -22,10 +20,12 @@ namespace traits
 template <typename T>
 constexpr utils::ConstexprOptional<bool> GetUseNullOnFail()
 {
-    if constexpr (checks::HasUseNullOnFail<T>){
+    if constexpr (checks::HasUseNullOnFail<T>)
+    {
         return T::kUseNullOnFail;
     }
-    else return utils::kNull;
+    else
+        return utils::kNull;
 }
 
 template <typename Traits>

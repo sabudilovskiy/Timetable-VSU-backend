@@ -29,8 +29,7 @@ struct ConstexprOptional
     using value_type = T;
     T value_;
     bool has_value_;
-    constexpr ConstexprOptional() noexcept
-        : value_(T{}), has_value_(false)
+    constexpr ConstexprOptional() noexcept : value_(T{}), has_value_(false)
     {
     }
     constexpr ConstexprOptional(const T& value) noexcept

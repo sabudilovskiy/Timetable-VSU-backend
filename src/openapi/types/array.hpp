@@ -1,10 +1,12 @@
 #pragma once
+#include <openapi/base/holder.hpp>
 #include <openapi/base/named_traits.hpp>
 #include <openapi/base/preferences.hpp>
 #include <openapi/base/properties/array.hpp>
 #include <openapi/base/traits/array.hpp>
 #include <string_view>
 #include <utils/constexpr_optional.hpp>
+#include <utils/constexpr_string.hpp>
 
 namespace openapi
 {
@@ -21,96 +23,58 @@ struct ArrayTraits : NamedTraits<Name>
     static constexpr auto kUniqueItems = UniqueItems;
 };
 
-/*вся эта структура нужна для того, чтобы работать с трейтами как с значением и
-применять поэтапно опции
-
-у меня нет иного выбора, кроме как стереть информацию о
-реальном размере строки, так как мне нельзя менять тип.
-
-256 должно хватить*/
-struct ArrayTraitsHolder
+struct ArrayHolder
 {
-    std::array<char, 256> Name{};
-    size_t Name_was_changed = 0;
-    utils::ConstexprOptional<std::int64_t> Min = utils::kNull;
-    size_t Min_was_changed = 0;
-    utils::ConstexprOptional<std::int64_t> Max = utils::kNull;
-    size_t Max_was_changed = 0;
-    utils::ConstexprOptional<bool> UniqueItems = utils::kNull;
-    size_t UniqueItems_was_changed = 0;
+    traits::HolderField<utils::FixedString> name;
+    traits::HolderField<utils::ConstexprOptional<std::int64_t>> min;
+    traits::HolderField<utils::ConstexprOptional<std::int64_t>> max;
+    traits::HolderField<bool> unique_items;
 };
 
 template <utils::ConstexprString value>
-void consteval Apply(ArrayTraitsHolder& traits, preferences::Name<value> name)
+void consteval Apply(ArrayHolder& traits, preferences::Name<value>)
 {
-    size_t Size = name.kValue.kSize;
-    for (size_t index = 0; index < Size; index++)
-    {
-        traits.Name[index] = name.kValue[index];
-    }
-    for (size_t index = Size; index < 256; index++)
-    {
-        traits.Name[index] = '\0';
-    }
-    traits.Name_was_changed++;
-}
-
-template <typename T>
-void consteval Apply(ArrayTraitsHolder&, const T&)
-{
-    static_assert(
-        ![] {}, "You are used unknown option");
+    traits.name = value;
 }
 
 template <std::int64_t value>
-void consteval Apply(ArrayTraitsHolder& traits, preferences::Min<value>)
+void consteval Apply(ArrayHolder& traits, preferences::Min<value>)
 {
-    traits.Min = value;
-    traits.Min_was_changed++;
+    traits.min = value;
 }
 
 template <std::int64_t value>
-void consteval Apply(ArrayTraitsHolder& traits, preferences::Max<value>)
+void consteval Apply(ArrayHolder& traits, preferences::Max<value>)
 {
-    traits.Max = value;
-    traits.Max_was_changed++;
+    traits.max = value;
 }
 
-void consteval Apply(ArrayTraitsHolder& traits, preferences::UniqueItems)
+void consteval Apply(ArrayHolder& traits, preferences::UniqueItems)
 {
-    traits.UniqueItems = true;
-    traits.UniqueItems_was_changed++;
-}
-
-template <typename... Option>
-void consteval ApplyAll(ArrayTraitsHolder& traits, Option... option)
-{
-    (Apply(traits, option), ...);
+    traits.unique_items = true;
 }
 
 template <typename T, typename... Option>
 struct ArrayMagicHelper
 {
-    consteval static auto resolve_holder()
+    consteval static ArrayHolder resolve_holder()
     {
-        ArrayTraitsHolder helper{};
-        ApplyAll(helper, Option{}...);
-        return helper;
+        return traits::ResolveHolder<ArrayHolder, Option...>();
     }
     consteval static auto resolve_type()
     {
-        constexpr ArrayTraitsHolder traits = resolve_holder();
-        constexpr auto name = utils::MakeConstexprString<traits.Name>();
-        static_assert(traits.Name_was_changed <= 1,
+        constexpr ArrayHolder traits = resolve_holder();
+        static_assert(traits.name.counter_changes <= 1,
                       "Don't use more 1 Name in template args");
-        static_assert(traits.Max_was_changed <= 1,
+        static_assert(traits.max.counter_changes <= 1,
                       "Don't use more 1 Max in template args");
-        static_assert(traits.Min_was_changed <= 1,
+        static_assert(traits.min.counter_changes <= 1,
                       "Don't use more 1 Min in template args");
-        static_assert(traits.UniqueItems_was_changed <= 1,
+        static_assert(traits.unique_items.counter_changes <= 1,
                       "Don't use more 1 UniqueItems in template args");
-        using Traits =
-            ArrayTraits<name, traits.Min, traits.Max, traits.UniqueItems>;
+        constexpr auto name = utils::MakeConstexprString<traits.name()>();
+        using Traits = ArrayTraits<name, traits.min(), traits.max(),
+                                   traits.unique_items()>;
         return ArrayProperty<T, Traits>{};
     }
 };
@@ -136,7 +100,8 @@ Name<"FieldName"> -> имя поля в объекте
 UniqueItems -> добавлять только уникальные итемы
 */
 template <typename T, typename... Option>
-using Array = decltype(::openapi::detail::ArrayMagicHelper<T, Option...>::resolve_type());
+using Array =
+    decltype(::openapi::detail::ArrayMagicHelper<T, Option...>::resolve_type());
 
 }  // namespace types
 }  // namespace openapi

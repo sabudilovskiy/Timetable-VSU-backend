@@ -11,55 +11,54 @@ namespace checks
 template <typename T>
 concept HasMin = requires
 {
-    {
-        T::kMin
-    };
+    {T::kMin};
 };
 
 template <typename T>
 concept HasMax = requires
 {
-    {
-        T::kMax
-    };
+    {T::kMax};
 };
 
 template <typename T>
 concept HasUniqueItems = requires
 {
-    {
-        T::kUniqueItems
-    };
+    {T::kUniqueItems};
 };
 
 }  // namespace checks
-
 
 namespace traits
 {
 template <typename T>
 constexpr utils::ConstexprOptional<std::int64_t> GetMin()
 {
-    if constexpr (checks::HasMin<T>){
+    if constexpr (checks::HasMin<T>)
+    {
         return T::kMin;
     }
-    else return utils::kNull;
+    else
+        return utils::kNull;
 }
 template <typename T>
 constexpr utils::ConstexprOptional<std::int64_t> GetMax()
 {
-    if constexpr (checks::HasMax<T>){
-      return T::kMax;
+    if constexpr (checks::HasMax<T>)
+    {
+        return T::kMax;
     }
-    else return utils::kNull;
+    else
+        return utils::kNull;
 }
 template <typename T>
 constexpr utils::ConstexprOptional<bool> GetUniqueItems()
 {
-    if constexpr (checks::HasUniqueItems<T>){
+    if constexpr (checks::HasUniqueItems<T>)
+    {
         return T::kUniqueItems;
     }
-    else return utils::kNull;
+    else
+        return utils::kNull;
 }
 
 template <typename Traits>

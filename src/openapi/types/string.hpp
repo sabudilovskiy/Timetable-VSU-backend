@@ -1,9 +1,11 @@
 #pragma once
+#include <openapi/base/holder.hpp>
 #include <openapi/base/preferences.hpp>
 #include <openapi/base/properties/string.hpp>
 #include <openapi/base/traits/string.hpp>
 #include <string_view>
 #include <utils/compilers_macros.hpp>
+#include <utils/constexpr_string.hpp>
 
 namespace openapi
 {
@@ -20,55 +22,22 @@ struct StringTraits : NamedTraits<Name>
 //у меня нет иного выбора, кроме как стереть информацию о
 //реальном размере строки, так как мне нельзя менять тип.
 // 256 должно хватить
-struct StringTraitsHolder
+struct StringHolder
 {
-    std::array<char, 256> Pattern{};
-    size_t Pattern_was_changed = 0;
-    std::array<char, 256> Name{};
-    size_t Name_was_changed = 0;
+    traits::HolderField<utils::FixedString> name;
+    traits::HolderField<utils::FixedString> pattern;
 };
 
 template <utils::ConstexprString value>
-void consteval Apply(StringTraitsHolder& traits, preferences::Name<value> name)
+void consteval Apply(StringHolder& traits, preferences::Name<value>)
 {
-    size_t Size = name.kValue.kSize;
-    for (size_t index = 0; index < Size; index++)
-    {
-        traits.Name[index] = name.kValue[index];
-    }
-    for (size_t index = Size; index < 256; index++)
-    {
-        traits.Name[index] = '\0';
-    }
-    traits.Name_was_changed++;
+    traits.name = value;
 }
 
 template <utils::ConstexprString value>
-void consteval Apply(StringTraitsHolder& traits,
-                     preferences::Pattern<value> name)
+void consteval Apply(StringHolder& traits, preferences::Pattern<value>)
 {
-    size_t Size = name.kValue.kSize;
-    for (size_t index = 0; index < Size; index++)
-    {
-        traits.Pattern[index] = name.kValue[index];
-    }
-    for (size_t index = Size; index < 256; index++)
-    {
-        traits.Pattern[index] = '\0';
-    }
-    traits.Pattern_was_changed++;
-}
-
-template <typename T>
-void consteval Apply(StringTraitsHolder&, const T&)
-{
-    STATIC_ASSERT_FALSE("You are used unknown option");
-}
-
-template <typename... Option>
-void consteval ApplyAll(StringTraitsHolder& traits, Option... option)
-{
-    (Apply(traits, option), ...);
+    traits.pattern = value;
 }
 
 template <typename... Option>
@@ -76,19 +45,17 @@ struct StringMagicHelper
 {
     consteval static auto resolve_holder()
     {
-        StringTraitsHolder helper{};
-        ApplyAll(helper, Option{}...);
-        return helper;
+        return traits::ResolveHolder<StringHolder, Option...>();
     }
     consteval static auto resolve_traits()
     {
-        constexpr StringTraitsHolder traits = resolve_holder();
-        static_assert(traits.Name_was_changed <= 1,
+        constexpr StringHolder traits = resolve_holder();
+        static_assert(traits.name.counter_changes <= 1,
                       "Don't use more 1 Name in template args");
-        static_assert(traits.Pattern_was_changed <= 1,
+        static_assert(traits.pattern.counter_changes <= 1,
                       "Don't use more 1 Pattern in template args");
-        constexpr auto name = utils::MakeConstexprString<traits.Name>();
-        constexpr auto pattern = utils::MakeConstexprString<traits.Pattern>();
+        constexpr auto name = utils::MakeConstexprString<traits.name()>();
+        constexpr auto pattern = utils::MakeConstexprString<traits.pattern()>();
         return StringTraits<name, pattern>{};
     }
 };
@@ -101,7 +68,8 @@ using string_traits_helper_t =
 namespace types
 {
 template <typename... Option>
-using String = StringProperty<::openapi::detail::string_traits_helper_t<Option...>>;
+using String =
+    StringProperty<::openapi::detail::string_traits_helper_t<Option...>>;
 
 }
 }  // namespace openapi

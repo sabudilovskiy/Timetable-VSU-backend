@@ -10,16 +10,20 @@ namespace openapi
 template <typename Traits>
 struct PropertyBase<boost::uuids::uuid, Traits>
 {
-    using T =  boost::uuids::uuid;
+    using T = boost::uuids::uuid;
     using value_type = T;
     using traits = Traits;
 
     template <typename... Args>
-    PropertyBase(Args&&... args) noexcept(std::is_nothrow_constructible_v<T, Args&&...>) : value(std::forward<Args>(args)...)
-    {}
+    PropertyBase(Args&&... args) noexcept(
+        std::is_nothrow_constructible_v<T, Args&&...>)
+        : value(std::forward<Args>(args)...)
+    {
+    }
 
     template <typename Arg>
-    PropertyBase(std::initializer_list<Arg> init_list)  noexcept(std::is_nothrow_constructible_v<T, std::initializer_list<Arg>>)
+    PropertyBase(std::initializer_list<Arg> init_list) noexcept(
+        std::is_nothrow_constructible_v<T, std::initializer_list<Arg>>)
         : value(std::move(init_list))
     {
     }
