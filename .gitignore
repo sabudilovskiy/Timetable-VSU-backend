@@ -13,3 +13,4 @@ Makefile.local
 merged_api.yaml
 tests/results
 Makefile.local
+log_build.txt

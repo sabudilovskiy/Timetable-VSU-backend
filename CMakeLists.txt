@@ -23,6 +23,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
 )
 target_include_directories(${PROJECT_NAME}_objs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql)
+# target_compile_options(${PROJECT_NAME}_objs PRIVATE -Wfatal-errors)
 
 
 # The Service

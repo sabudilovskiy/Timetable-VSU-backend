@@ -12,7 +12,7 @@
 
 using namespace openapi;
 
-UTEST(Openapi_Json_Parse, BasicUuid)
+UTEST(Openapi_Json_Parse, BasicDatetime)
 {
     //2011-08-12T20:17:46.384Z
     

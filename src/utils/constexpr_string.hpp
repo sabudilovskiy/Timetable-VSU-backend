@@ -69,6 +69,9 @@ struct ConstexprString
         return string == lhs;
     }
 };
+
+constexpr ConstexprString<1> kEmptyString{};
+
 template <std::size_t n>
 ConstexprString(char const (&)[n]) -> ConstexprString<n>;
 

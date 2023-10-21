@@ -12,36 +12,20 @@ concept HasUseNullOnFail = requires
 {
     {
         T::kUseNullOnFail
-    }
-    ->std::convertible_to<utils::ConstexprOptional<bool>>;
+    };
 };
 
 }  // namespace checks
-
-namespace detail
-{
-template <typename T>
-requires checks::HasUseNullOnFail<T> constexpr utils::ConstexprOptional<bool>
-_getUseNullOnFail()
-{
-    return T::kUseNullOnFail;
-}
-
-template <typename T>
-requires(!checks::HasUseNullOnFail<T>) constexpr utils::ConstexprOptional<
-    bool> _getUseNullOnFail()
-{
-    return utils::kNull;
-}
-
-}  // namespace detail
 
 namespace traits
 {
 template <typename T>
 constexpr utils::ConstexprOptional<bool> GetUseNullOnFail()
 {
-    return detail::_getUseNullOnFail<T>();
+    if constexpr (checks::HasUseNullOnFail<T>){
+        return T::kUseNullOnFail;
+    }
+    else return utils::kNull;
 }
 
 template <typename Traits>

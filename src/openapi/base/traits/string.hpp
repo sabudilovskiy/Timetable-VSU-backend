@@ -13,41 +13,20 @@ template <typename T>
 concept HasPattern = requires
 {
     {
-        decltype(T::kPattern)::kSize
-    }
-    ->std::convertible_to<std::size_t>;
-    requires std::is_same_v<
-        utils::ConstexprString<decltype(T::kPattern)::kSize>,
-        std::remove_cv_t<decltype(T::kPattern)>>;
-    {
         T::kPattern
-    }
-    ->std::convertible_to<utils::ConstexprString<decltype(T::kPattern)::kSize>>;
+    };
 };
 }  // namespace checks
-
-namespace detail
-{
-template <typename T>
-requires checks::HasPattern<T> constexpr auto _getPattern()
-{
-    return T::kPattern;
-}
-
-template <typename T>
-requires(!checks::HasPattern<T>) constexpr auto _getPattern()
-{
-    using Type = utils::ConstexprString<1>;
-    return Type{""};
-}
-}  // namespace detail
 
 namespace traits
 {
 template <typename T>
 constexpr auto GetPattern()
 {
-    return detail::_getPattern<T>();
+    if constexpr (checks::HasPattern<T>){
+        return T::kPattern;
+    }
+    else return utils::kEmptyString;
 }
 
 template <typename Traits>

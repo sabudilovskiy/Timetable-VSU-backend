@@ -200,6 +200,10 @@ gen:
 	$(MAKE) gen-sources
 	$(MAKE) gen-all-headers
 
+.PHONY: build-log
+build-log:
+	$(MAKE) -s test-debug > log_build.txt 2>&1
+
 # # Internal hidden targets that are used only in docker environment
 # --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
 # 	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/timetable_vsu_backend/static_config.yaml

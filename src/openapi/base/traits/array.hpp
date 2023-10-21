@@ -13,8 +13,7 @@ concept HasMin = requires
 {
     {
         T::kMin
-    }
-    ->std::convertible_to<utils::ConstexprOptional<std::int64_t>>;
+    };
 };
 
 template <typename T>
@@ -22,8 +21,7 @@ concept HasMax = requires
 {
     {
         T::kMax
-    }
-    ->std::convertible_to<utils::ConstexprOptional<std::int64_t>>;
+    };
 };
 
 template <typename T>
@@ -31,75 +29,37 @@ concept HasUniqueItems = requires
 {
     {
         T::kUniqueItems
-    }
-    ->std::convertible_to<utils::ConstexprOptional<bool>>;
+    };
 };
 
-template <typename T>
-concept HasNotMin = !HasMin<T>;
-
-template <typename T>
-concept HasNotMax = !HasMax<T>;
-
-template <typename T>
-concept HasNotUniqueItems = !HasUniqueItems<T>;
 }  // namespace checks
 
-namespace detail
-{
-template <checks::HasMin T>
-constexpr auto _getMin()
-{
-    return T::kMin;
-}
-
-template <checks::HasNotMin T>
-constexpr auto _getMin()
-{
-    return utils::ConstexprOptional<std::int64_t>{utils::kNull};
-}
-
-template <checks::HasMax T>
-constexpr auto _getMax()
-{
-    return T::kMax;
-}
-
-template <checks::HasNotMax T>
-constexpr auto _getMax()
-{
-    return utils::ConstexprOptional<std::int64_t>{utils::kNull};
-}
-
-template <checks::HasUniqueItems T>
-constexpr auto _getUniqueItems()
-{
-    return T::kUniqueItems;
-}
-
-template <checks::HasNotUniqueItems T>
-constexpr auto _getUniqueItems()
-{
-    return utils::ConstexprOptional<bool>{utils::kNull};
-}
-}  // namespace detail
 
 namespace traits
 {
 template <typename T>
 constexpr utils::ConstexprOptional<std::int64_t> GetMin()
 {
-    return detail::_getMin<T>();
+    if constexpr (checks::HasMin<T>){
+        return T::kMin;
+    }
+    else return utils::kNull;
 }
 template <typename T>
 constexpr utils::ConstexprOptional<std::int64_t> GetMax()
 {
-    return detail::_getMax<T>();
+    if constexpr (checks::HasMax<T>){
+      return T::kMax;
+    }
+    else return utils::kNull;
 }
 template <typename T>
 constexpr utils::ConstexprOptional<bool> GetUniqueItems()
 {
-    return detail::_getUniqueItems<T>();
+    if constexpr (checks::HasUniqueItems<T>){
+        return T::kUniqueItems;
+    }
+    else return utils::kNull;
 }
 
 template <typename Traits>
