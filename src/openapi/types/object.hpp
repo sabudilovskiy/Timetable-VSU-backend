@@ -22,20 +22,12 @@ void consteval Apply(ObjectHolder& traits, preferences::Name<value>)
     traits.name = value;
 }
 
-template <typename... Option>
-void consteval ApplyAll(ObjectHolder& traits, Option... option)
-{
-    (Apply(traits, option), ...);
-}
-
 template <typename T, typename... Option>
-struct ObjectMagicHelper
+struct ObjectHelper
 {
     consteval static auto resolve_holder()
     {
-        ObjectHolder helper{};
-        ApplyAll(helper, Option{}...);
-        return helper;
+        return traits::ResolveHolder<ObjectHolder, Option...>();
     }
     consteval static auto resolve_type()
     {
@@ -54,7 +46,7 @@ namespace types
 {
 template <typename T, typename... Option>
 using Object = decltype(
-    ::openapi::detail::ObjectMagicHelper<T, Option...>::resolve_type());
+    ::openapi::detail::ObjectHelper<T, Option...>::resolve_type());
 
 }
 }  // namespace openapi

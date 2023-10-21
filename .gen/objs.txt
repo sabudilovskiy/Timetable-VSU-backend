@@ -44,6 +44,7 @@ src/openapi/types/uuid.hpp
 src/openapi/types/string.hpp
 src/openapi/types/optional.hpp
 src/openapi/types/object.hpp
+src/openapi/types/field.hpp
 src/openapi/types/datetime.hpp
 src/openapi/types/array.hpp
 src/openapi/types/all.hpp
