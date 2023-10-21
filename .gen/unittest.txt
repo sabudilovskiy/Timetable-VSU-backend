@@ -8,6 +8,7 @@ utests/openapi/json/serialize/basic_optional.cpp
 utests/openapi/json/serialize/basic_object.cpp
 utests/openapi/json/serialize/basic_array.cpp
 utests/openapi/json/parse/uuid.cpp
+utests/openapi/json/parse/datetime.cpp
 utests/openapi/json/parse/basic_string.cpp
 utests/openapi/json/parse/basic_object.cpp
 utests/openapi/json/parse/basic_array.cpp

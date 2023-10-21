@@ -1,8 +1,8 @@
 #pragma once
 
 #include <openapi/base/named_traits.hpp>
-#include <openapi/base/string_property.hpp>
-#include <openapi/base/string_traits.hpp>
+#include <openapi/base/properties/string.hpp>
+#include <openapi/base/traits/string.hpp>
 #include <regex>
 #include <stdexcept>
 #include <string_view>

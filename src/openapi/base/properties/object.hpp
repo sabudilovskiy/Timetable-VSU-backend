@@ -1,9 +1,8 @@
 #pragma once
 
-#include <openapi/base/reflective_checks.hpp>
+#include <openapi/base/property_base.hpp>
+#include <openapi/base/reflective/checks.hpp>
 #include <type_traits>
-
-#include "property_base.hpp"
 
 namespace openapi
 {

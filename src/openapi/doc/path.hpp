@@ -1,7 +1,7 @@
 #pragma once
 
 #include <openapi/base/doc.hpp>
-#include <openapi/base/object_property.hpp>
+#include <openapi/base/properties/object.hpp>
 #include <openapi/doc/base.hpp>
 #include <openapi/doc/body.hpp>
 #include <openapi/doc/request.hpp>

@@ -6,6 +6,9 @@
 
 namespace sql{
 
+//Generated from: src/sql/get_lessons_by_filter.sql
+extern const userver::storages::postgres::Query get_lessons_by_filter;
+
 //Generated from: src/sql/token/get_user_id_by_token.sql
 extern const userver::storages::postgres::Query get_user_id_by_token;
 

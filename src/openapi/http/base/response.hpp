@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstddef>
-#include <openapi/base/object_property.hpp>
+#include <openapi/base/reflective/checks.hpp>
 #include <openapi/http/base/response_property.hpp>
 #include <openapi/http/base/response_traits.hpp>
 

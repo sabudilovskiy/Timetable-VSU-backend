@@ -2,7 +2,7 @@
 
 #include <boost/pfr/core.hpp>
 #include <boost/pfr/tuple_size.hpp>
-#include <openapi/base/object_property.hpp>
+#include <openapi/base/properties/object.hpp>
 #include <openapi/to_tuple/default.hpp>
 #include <type_traits>
 #include <utility>

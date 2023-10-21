@@ -17,4 +17,4 @@ struct Controller : Base
         const boost::uuids::uuid& id_user,
         utils::SharedTransaction transaction = nullptr) const;
 };
-}  // namespace controllers::token
+}  // namespace controllers::lesson

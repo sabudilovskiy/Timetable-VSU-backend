@@ -37,4 +37,4 @@ boost::uuids::uuid Controller::CreateNew(
         userver::utils::datetime::Now() + std::chrono::hours(24));
     return pg_result.AsSingleRow<boost::uuids::uuid>();
 }
-}  // namespace controllers::token
+}  // namespace controllers::lesson

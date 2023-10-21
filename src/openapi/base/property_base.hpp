@@ -18,12 +18,11 @@ struct PropertyBase
     using traits = Traits;
 
     template <typename... Args>
-    PropertyBase(Args&&... args) : value(std::forward<Args>(args)...)
-    {
-    }
+    PropertyBase(Args&&... args) noexcept(std::is_nothrow_constructible_v<T, Args&&...>) : value(std::forward<Args>(args)...)
+    {}
 
     template <typename Arg>
-    PropertyBase(std::initializer_list<Arg> init_list)
+    PropertyBase(std::initializer_list<Arg> init_list)  noexcept(std::is_nothrow_constructible_v<T, std::initializer_list<Arg>>)
         : value(std::move(init_list))
     {
     }
@@ -45,11 +44,11 @@ struct PropertyBase
         value = std::move(rhs);
         return *this;
     }
-    value_type& operator()()
+    value_type& operator()() noexcept
     {
         return value;
     }
-    const value_type& operator()() const
+    const value_type& operator()() const noexcept
     {
         return value;
     }

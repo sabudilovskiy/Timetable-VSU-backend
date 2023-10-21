@@ -1,7 +1,7 @@
 #pragma once
 #include <openapi/base/preferences.hpp>
-#include <openapi/base/string_property.hpp>
-#include <openapi/base/string_traits.hpp>
+#include <openapi/base/properties/string.hpp>
+#include <openapi/base/traits/string.hpp>
 #include <string_view>
 #include <utils/compilers_macros.hpp>
 
@@ -101,7 +101,7 @@ using string_traits_helper_t =
 namespace types
 {
 template <typename... Option>
-using String = StringProperty<detail::string_traits_helper_t<Option...>>;
+using String = StringProperty<::openapi::detail::string_traits_helper_t<Option...>>;
 
 }
 }  // namespace openapi

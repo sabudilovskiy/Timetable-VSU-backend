@@ -5,7 +5,7 @@
 #include <openapi/base/named_traits.hpp>
 #include <openapi/base/preferences.hpp>
 #include <openapi/http/base/header_property.hpp>
-#include <openapi/types/optional_type.hpp>
+#include <openapi/types/optional.hpp>
 #include <type_traits>
 #include <utils/compilers_macros.hpp>
 #include <utils/constexpr_string.hpp>
@@ -62,12 +62,6 @@ struct HeaderTraitsHelper
         return HeaderProperty<T, NamedTraits<name>>();
     }
 };
-
-// template <typename T, typename... Options> requires IsOptionalProperty<T>
-// struct HeaderTraitsHelper{
-//    STATIC_ASSERT_FALSE("Не используйте Optional<...> из-за особенностей
-//    парсинга. Используйте явный std::optional<T>");
-// };
 
 /*
 Данное поле в запросе будет взято из cookie.

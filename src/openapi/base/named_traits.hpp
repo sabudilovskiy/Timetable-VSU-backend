@@ -1,10 +1,9 @@
 #pragma once
 #include <concepts>
+#include <openapi/base/property_base.hpp>
 #include <type_traits>
 #include <utils/constexpr_optional.hpp>
 #include <utils/constexpr_string.hpp>
-
-#include "property_base.hpp"
 
 namespace openapi
 {

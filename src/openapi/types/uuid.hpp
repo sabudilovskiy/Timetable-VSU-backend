@@ -2,7 +2,7 @@
 #include <openapi/base/holder.hpp>
 #include <openapi/base/named_traits.hpp>
 #include <openapi/base/preferences.hpp>
-#include <openapi/base/uuid_property.hpp>
+#include <openapi/base/properties/uuid.hpp>
 #include <string_view>
 #include <utils/compilers_macros.hpp>
 #include <utils/constexpr_string.hpp>
@@ -65,7 +65,7 @@ using uuid_traits_helper_t = decltype(UuidHelper<Option...>::resolve_traits());
 namespace types
 {
 template <typename... Option>
-using Uuid = UuidProperty<detail::uuid_traits_helper_t<Option...>>;
+using Uuid = UuidProperty<::openapi::detail::uuid_traits_helper_t<Option...>>;
 
 }
 }  // namespace openapi

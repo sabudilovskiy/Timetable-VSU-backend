@@ -1,12 +1,7 @@
 #pragma once
 #include <boost/pfr.hpp>
-#include <cstddef>
-#include <openapi/base/object_property.hpp>
-#include <openapi/base/property_base.hpp>
-#include <tuple>
+#include <openapi/base/reflective/checks.hpp>
 #include <type_traits>
-#include <userver/storages/postgres/io/composite_types.hpp>
-#include <utility>
 
 namespace openapi
 {

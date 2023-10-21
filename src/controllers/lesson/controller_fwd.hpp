@@ -5,4 +5,4 @@ namespace controllers::lesson
 {
 struct Controller;
 void Append(userver::components::ComponentList& list);
-}  // namespace controllers::token
+}  // namespace controllers::lesson

@@ -1,6 +1,5 @@
 #pragma once
 #include <openapi/base/named_traits.hpp>
-#include <openapi/base/reflective_utils.hpp>
 #include <openapi/doc/base.hpp>
 #include <openapi/http/base/body_property.hpp>
 #include <type_traits>

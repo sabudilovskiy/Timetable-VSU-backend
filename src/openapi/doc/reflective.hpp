@@ -1,5 +1,7 @@
 #pragma once
-#include <openapi/base/reflective_utils.hpp>
+#include <openapi/base/properties/optional.hpp>
+#include <openapi/base/reflective/preferences.hpp>
+#include <openapi/base/reflective/utils.hpp>
 #include <openapi/doc/base.hpp>
 #include <type_traits>
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <openapi/base/named_traits.hpp>
-#include <openapi/types/uuid_type.hpp>
+#include <openapi/types/uuid.hpp>
 
 #include "legacy/models/user_type/type.hpp"
 

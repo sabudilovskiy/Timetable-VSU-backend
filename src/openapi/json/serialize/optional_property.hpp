@@ -5,8 +5,8 @@
 #include <boost/pfr/core.hpp>
 #include <exception>
 #include <openapi/base/named_traits.hpp>
-#include <openapi/base/optional_property.hpp>
-#include <openapi/base/optional_traits.hpp>
+#include <openapi/base/properties/optional.hpp>
+#include <openapi/base/traits/optional.hpp>
 #include <optional>
 #include <stdexcept>
 #include <string_view>

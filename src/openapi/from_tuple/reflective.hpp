@@ -1,6 +1,6 @@
 #pragma once
 #include <boost/pfr/core.hpp>
-#include <openapi/base/object_property.hpp>
+#include <openapi/base/properties/object.hpp>
 #include <openapi/base/property_base.hpp>
 #include <openapi/from_tuple/default.hpp>
 #include <tuple>

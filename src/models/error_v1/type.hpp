@@ -1,6 +1,6 @@
 #pragma once
 #include <openapi/http/base/body.hpp>
-#include <openapi/types/string_type.hpp>
+#include <openapi/types/string.hpp>
 
 namespace models
 {

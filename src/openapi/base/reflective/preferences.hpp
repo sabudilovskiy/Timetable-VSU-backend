@@ -6,9 +6,8 @@
 #include <boost/pfr/tuple_size.hpp>
 #include <compare>
 #include <cstddef>
-#include <openapi/base/object_property.hpp>
 #include <openapi/base/property_base.hpp>
-#include <openapi/base/reflective_checks.hpp>
+#include <openapi/base/reflective/checks.hpp>
 #include <tuple>
 #include <type_traits>
 #include <userver/formats/json/value.hpp>

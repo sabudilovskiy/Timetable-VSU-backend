@@ -4,9 +4,9 @@
 #include <boost/pfr.hpp>
 #include <boost/pfr/core.hpp>
 #include <openapi/base/named_traits.hpp>
-#include <openapi/base/object_property.hpp>
-#include <openapi/base/object_traits.hpp>
-#include <openapi/base/optional_property.hpp>
+#include <openapi/base/properties/object.hpp>
+#include <openapi/base/properties/optional.hpp>
+#include <openapi/base/traits/object.hpp>
 #include <stdexcept>
 #include <string_view>
 #include <unordered_map>

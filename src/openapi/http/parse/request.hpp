@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/pfr/core.hpp>
 #include <openapi/base/named_traits.hpp>
-#include <openapi/base/object_property.hpp>
+#include <openapi/base/properties/object.hpp>
 #include <openapi/http/base/body.hpp>
 #include <openapi/http/base/cookie_property.hpp>
 #include <openapi/http/base/header_property.hpp>

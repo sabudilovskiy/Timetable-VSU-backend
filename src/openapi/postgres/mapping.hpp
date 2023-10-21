@@ -1,7 +1,7 @@
 #pragma once
 
 #include <openapi/base/property_base.hpp>
-#include <openapi/base/reflective_checks.hpp>
+#include <openapi/base/reflective/checks.hpp>
 #include <type_traits>
 #include <userver/storages/postgres/io/buffer_io_base.hpp>
 #include <userver/storages/postgres/io/io_fwd.hpp>

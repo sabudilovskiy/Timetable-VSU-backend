@@ -1,9 +1,11 @@
 #pragma once
 
+#include <fmt/core.h>
+
 #include <exception>
-#include <functional>
 #include <openapi/base/doc.hpp>
-#include <openapi/base/object_property.hpp>
+#include <openapi/base/properties/object.hpp>
+#include <openapi/base/reflective/checks.hpp>
 #include <openapi/doc/path.hpp>
 #include <openapi/http/base/request_info.hpp>
 #include <openapi/http/base/response_info.hpp>

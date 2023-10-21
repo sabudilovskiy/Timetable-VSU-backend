@@ -1,9 +1,8 @@
 #pragma once
 
+#include <openapi/base/property_base.hpp>
 #include <optional>
 #include <vector>
-
-#include "property_base.hpp"
 
 namespace openapi
 {

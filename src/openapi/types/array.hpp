@@ -1,7 +1,8 @@
 #pragma once
-#include <openapi/base/array_property.hpp>
-#include <openapi/base/array_traits.hpp>
+#include <openapi/base/named_traits.hpp>
 #include <openapi/base/preferences.hpp>
+#include <openapi/base/properties/array.hpp>
+#include <openapi/base/traits/array.hpp>
 #include <string_view>
 #include <utils/constexpr_optional.hpp>
 
@@ -135,7 +136,7 @@ Name<"FieldName"> -> имя поля в объекте
 UniqueItems -> добавлять только уникальные итемы
 */
 template <typename T, typename... Option>
-using Array = decltype(detail::ArrayMagicHelper<T, Option...>::resolve_type());
+using Array = decltype(::openapi::detail::ArrayMagicHelper<T, Option...>::resolve_type());
 
 }  // namespace types
 }  // namespace openapi

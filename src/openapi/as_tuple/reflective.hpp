@@ -3,7 +3,7 @@
 #include <boost/pfr/core.hpp>
 #include <boost/pfr/tuple_size.hpp>
 #include <openapi/as_tuple/default.hpp>
-#include <openapi/base/object_property.hpp>
+#include <openapi/base/properties/object.hpp>
 #include <type_traits>
 #include <utility>
 namespace openapi::raw

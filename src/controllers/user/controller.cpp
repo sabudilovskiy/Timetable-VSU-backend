@@ -133,8 +133,11 @@ Controller::Controller(const userver::components::ComponentConfig& cfg,
 {
 }
 
-namespace {
-    const userver::storages::postgres::Query* GetRequestRihtsType(legacy::models::UserType user_type){
+namespace
+{
+const userver::storages::postgres::Query* GetRequestRihtsType(
+    legacy::models::UserType user_type)
+{
     switch (user_type)
     {
         case legacy::models::UserType::kUser:
@@ -146,8 +149,8 @@ namespace {
         case legacy::models::UserType::kTeacher:
             return &sql::create_teacher_request;
     }
-   }
 }
+}  // namespace
 
 std::optional<boost::uuids::uuid> Controller::CreateRequestRights(
     const boost::uuids::uuid& user_id, const std::string& description,
@@ -159,9 +162,10 @@ std::optional<boost::uuids::uuid> Controller::CreateRequestRights(
     if (query)
     {
         return transaction->Execute_R<std::optional<boost::uuids::uuid>>(
-                *query, user_id, description);
+            *query, user_id, description);
     }
-    else {
+    else
+    {
         return std::nullopt;
     }
 }

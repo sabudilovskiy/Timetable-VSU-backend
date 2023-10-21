@@ -1,8 +1,7 @@
 #pragma once
 
-#include <openapi/base/array_property.hpp>
-#include <openapi/base/array_traits.hpp>
-#include <openapi/base/named_traits.hpp>
+#include <openapi/base/properties/array.hpp>
+#include <openapi/base/traits/array.hpp>
 #include <stdexcept>
 #include <unordered_map>
 #include <userver/formats/json/value.hpp>

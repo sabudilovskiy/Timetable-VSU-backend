@@ -1,6 +1,6 @@
 #pragma once
-#include <openapi/base/uuid_property.hpp>
-#include <openapi/base/uuid_traits.hpp>
+#include <openapi/base/properties/uuid.hpp>
+#include <openapi/base/traits/uuid.hpp>
 #include <openapi/doc/base.hpp>
 
 namespace openapi

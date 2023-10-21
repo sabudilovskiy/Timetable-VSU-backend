@@ -1,8 +1,7 @@
 #pragma once
-#include <openapi/base/object_property.hpp>
-#include <openapi/base/optional_property.hpp>
-#include <openapi/base/optional_traits.hpp>
 #include <openapi/base/preferences.hpp>
+#include <openapi/base/properties/optional.hpp>
+#include <openapi/base/traits/optional.hpp>
 #include <string_view>
 #include <utils/constexpr_optional.hpp>
 
@@ -93,7 +92,7 @@ namespace types
 {
 template <typename T, typename... Option>
 using Optional =
-    decltype(detail::OptionalMagicHelper<T, Option...>::resolve_type());
+    decltype(::openapi::detail::OptionalMagicHelper<T, Option...>::resolve_type());
 
 }
 }  // namespace openapi

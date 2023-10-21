@@ -9,16 +9,16 @@ struct HolderField
 {
     T value_{};
     size_t counter_changes{};
-    void operator=(const T& t)
+    constexpr void operator=(const T& t)
     {
         value_ = t;
         counter_changes++;
     }
-    T& operator()()
+    constexpr T& operator()()
     {
         return value_;
     }
-    const T& operator()() const
+    constexpr const T& operator()() const
     {
         return value_;
     }
@@ -47,4 +47,27 @@ struct HolderField<utils::FixedString>
         return value_;
     }
 };
+
+// namespace detail{
+//     template <typename Holder, typename Option>
+//     concept has_apply = requires (Holder& h){
+//         Apply(h, Option{});
+//     };
+//     template <typename Holder, typename Option>
+//     consteval void CheckedApply(Holder& holder){
+//         static_assert(has_apply<Holder, Option>, "You use unknown option");
+//         Apply(holder, Option{});
+//     }
+//     template <typename Holder, typename... Option>
+//     consteval void ApplyAll(Holder& holder){
+//         (CheckedApply<Option>(holder), ...);
+//     }
+// }
+
+// template <typename Holder, typename... Option>
+// consteval Holder ResolveHolder(){
+//     Holder holder{};
+//     detail::ApplyAll<Option...>(holder);
+//     return holder;
+// }
 }  // namespace openapi::traits

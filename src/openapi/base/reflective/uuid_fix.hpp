@@ -1,6 +1,6 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
-#include <openapi/base/reflective_checks.hpp>
+#include <openapi/base/reflective/checks.hpp>
 
 namespace openapi
 {

@@ -1,9 +1,8 @@
 #pragma once
 
+#include <openapi/base/named_traits.hpp>
 #include <utils/constexpr_optional.hpp>
 #include <utils/constexpr_string.hpp>
-
-#include "named_traits.hpp"
 namespace openapi
 {
 namespace checks

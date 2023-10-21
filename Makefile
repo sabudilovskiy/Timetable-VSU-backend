@@ -4,6 +4,7 @@ CMAKE_RELEASE_FLAGS ?=
 CMAKE_OS_FLAGS ?= -DUSERVER_FEATURE_CRYPTOPP_BLAKE2=0 -DUSERVER_FEATURE_REDIS_HI_MALLOC=1
 FORMAT_INCLUDES_FLAGS ?= userver boost gtest openapi utils codegen
 GENERATE_SQL_QUERIES_FLAGS ?= src/sql src/codegen sql sql
+GENERATE_ALL_HEADERS_FLAGS ?= src/openapi openapi
 NPROCS ?= $(shell nproc)
 CLANG_FORMAT ?= clang-format-11
 
@@ -189,10 +190,15 @@ unite-api:
 gen-queries:
 	@python3 scripts/generate_sql_queries.py $(GENERATE_SQL_QUERIES_FLAGS)
 
+.PHONY: gen-all-headers
+gen-all-headers:
+	@python3 scripts/generate_all_headers.py $(GENERATE_ALL_HEADERS_FLAGS)
+
 .PHONY: gen
 gen:
 	$(MAKE) gen-queries
 	$(MAKE) gen-sources
+	$(MAKE) gen-all-headers
 
 # # Internal hidden targets that are used only in docker environment
 # --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
