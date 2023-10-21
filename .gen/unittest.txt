@@ -3,6 +3,7 @@ utests/openapi/raw/to_tuple.cpp
 utests/openapi/raw/from_tuple.cpp
 utests/openapi/raw/as_tuple.cpp
 utests/openapi/json/serialize/uuid.cpp
+utests/openapi/json/serialize/datetime.cpp
 utests/openapi/json/serialize/basic_string.cpp
 utests/openapi/json/serialize/basic_optional.cpp
 utests/openapi/json/serialize/basic_object.cpp

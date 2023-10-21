@@ -16,8 +16,8 @@ userver::formats::json::Value Serialize(
 
     auto& value = item();
 
-    return userver::formats::json::ValueBuilder{
-        userver::utils::datetime::Timestring(value)}
+    auto string = userver::utils::datetime::Timestring(value.GetUnderlying());
+    return userver::formats::json::ValueBuilder{string}
         .ExtractValue();
 }
 

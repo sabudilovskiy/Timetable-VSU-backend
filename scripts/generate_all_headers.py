@@ -14,14 +14,14 @@ def create_all_hpp(prefix_path, folder_path, root):
         all_hpp_file.write('#pragma once\n')
         for hpp_file in hpp_files:
             path_hpp_file = path(prefix_path, root, os.path.join(folder_path, hpp_file))
-            all_hpp_file.write(f'#include "{path_hpp_file}"\n')
+            all_hpp_file.write(f'#include <{path_hpp_file}>\n')
 
         # Поиск вложенных папок
         sub_folders = [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
 
         for sub_folder in sub_folders:
             path_sub_folder = path(prefix_path, root, os.path.join(folder_path, sub_folder))
-            all_hpp_file.write(f'#include "{path_sub_folder}/all.hpp"\n')
+            all_hpp_file.write(f'#include <{path_sub_folder}/all.hpp>\n')
 
 
 def create_all_hpp_in_directory(prefix_path, root):
