@@ -1,6 +1,6 @@
 #pragma once
 #include <limits>
-#include <openapi/base/enum/introspector.hpp>
+#include <openapi/enum/introspector.hpp>
 #include <string_view>
 #include <type_traits>
 #include <utils/constexpr_string.hpp>

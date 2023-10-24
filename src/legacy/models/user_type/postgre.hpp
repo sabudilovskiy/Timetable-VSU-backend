@@ -1,5 +1,5 @@
 #pragma once
-#include <openapi/base/enum/pg_mapper.hpp>
+#include <openapi/enum/pg_mapper.hpp>
 #include <userver/storages/postgres/io/enum_types.hpp>
 #include <userver/storages/postgres/io/type_mapping.hpp>
 #include <userver/utils/trivial_map.hpp>

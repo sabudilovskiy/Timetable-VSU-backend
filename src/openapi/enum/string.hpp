@@ -1,5 +1,5 @@
 #pragma once
-#include <openapi/base/enum/introspector.hpp>
+#include <openapi/enum/introspector.hpp>
 #include <optional>
 #include <string_view>
 

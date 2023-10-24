@@ -1,5 +1,5 @@
 #pragma once
-#include <openapi/base/enum/enumerator_func.hpp>
+#include <openapi/enum/enumerator_func.hpp>
 #include <userver/storages/postgres/io/enum_types.hpp>
 #include <userver/storages/postgres/io/pg_types.hpp>
 #include <utils/constexpr_string.hpp>

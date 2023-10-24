@@ -1,6 +1,6 @@
 #pragma once
-#include <openapi/base/enum/declare.hpp>
 #include <openapi/doc/base.hpp>
+#include <openapi/enum/declare.hpp>
 
 namespace openapi
 {

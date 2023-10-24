@@ -1,5 +1,5 @@
 #pragma once
-#include <openapi/base/enum/declare.hpp>
+#include <openapi/enum/declare.hpp>
 #include <userver/utils/trivial_map.hpp>
 #include <utility>
 

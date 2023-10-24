@@ -1,6 +1,6 @@
 #pragma once
 
-#include <openapi/base/enum/string.hpp>
+#include <openapi/enum/string.hpp>
 #include <stdexcept>
 #include <userver/formats/json/value.hpp>
 #include <userver/logging/log.hpp>

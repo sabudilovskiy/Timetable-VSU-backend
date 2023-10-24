@@ -2,14 +2,14 @@
 
 #include <legacy/models/user_type/postgre.hpp>
 #include <openapi/all.hpp>
-#include <openapi/base/enum/enumerator_func.hpp>
 #include <openapi/doc/base.hpp>
+#include <openapi/enum/enumerator_func.hpp>
 #include <openapi/json/serialize/enum.hpp>
 #include <optional>
 #include <type_traits>
+#include <userver/formats/json/value_builder.hpp>
 #include <userver/utest/utest.hpp>
 #include <utils/tests_macros.hpp>
-#include "userver/formats/json/value_builder.hpp"
 
 namespace test_models
 {

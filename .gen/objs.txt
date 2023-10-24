@@ -102,6 +102,12 @@ src/openapi/from_tuple/property.hpp
 src/openapi/from_tuple/optional.hpp
 src/openapi/from_tuple/default.hpp
 src/openapi/from_tuple/all.hpp
+src/openapi/enum/string.hpp
+src/openapi/enum/pg_mapper.hpp
+src/openapi/enum/introspector.hpp
+src/openapi/enum/enumerator_func.hpp
+src/openapi/enum/declare.hpp
+src/openapi/enum/all.hpp
 src/openapi/doc/uuid.hpp
 src/openapi/doc/string.hpp
 src/openapi/doc/response.hpp
@@ -142,12 +148,6 @@ src/openapi/base/preferences.hpp
 src/openapi/base/named_traits.hpp
 src/openapi/base/holder_named.hpp
 src/openapi/base/holder.hpp
-src/openapi/base/enum/string.hpp
-src/openapi/base/enum/pg_mapper.hpp
-src/openapi/base/enum/introspector.hpp
-src/openapi/base/enum/enumerator_func.hpp
-src/openapi/base/enum/declare.hpp
-src/openapi/base/enum/all.hpp
 src/openapi/base/doc.hpp
 src/openapi/base/all.hpp
 src/openapi/as_tuple/vector.hpp
