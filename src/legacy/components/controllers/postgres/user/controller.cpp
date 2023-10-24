@@ -110,7 +110,7 @@ std::optional<legacy::models::User> Controller::HandleUserFromPg(
     }
     if (user && user->id() == root_id)
     {
-        user->type() = legacy::models::UserType::kRoot;
+        user->type() = legacy::models::UserType::root;
     }
     return user;
 }

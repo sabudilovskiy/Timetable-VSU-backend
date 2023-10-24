@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <exception>
+#include <openapi/json/serialize/enum.hpp>
 #include <userver/components/component_context.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/formats/parse/boost_uuid.hpp>
@@ -18,7 +19,6 @@
 #include "legacy/components/controllers/postgres/user/controller.hpp"
 #include "legacy/models/auth_token/serialize.hpp"
 #include "legacy/models/user/serialize.hpp"
-#include "legacy/models/user_type/serialize.hpp"
 #include "legacy/models/user_type/type.hpp"
 namespace legacy::views::teacher::create
 {
@@ -47,8 +47,8 @@ class Handler final
         {
             return utils::common_errors::PerformInvalidToken();
         }
-        if (user->type() == legacy::models::UserType::kUser ||
-            user->type() == legacy::models::UserType::kTeacher)
+        if (user->type() == legacy::models::UserType::user ||
+            user->type() == legacy::models::UserType::teacher)
         {
             return utils::common_errors::PerformForbidden();
         }

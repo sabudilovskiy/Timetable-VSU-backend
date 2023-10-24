@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <exception>
+#include <openapi/json/serialize/enum.hpp>
 #include <userver/components/component_context.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/formats/parse/to.hpp>
@@ -16,7 +17,6 @@
 #include "legacy/components/controllers/postgres/user/controller.hpp"
 #include "legacy/models/auth_token/serialize.hpp"
 #include "legacy/models/user/serialize.hpp"
-#include "legacy/models/user_type/serialize.hpp"
 namespace legacy::views::admin::create
 {
 static_assert(userver::formats::common::impl::kHasSerialize<
@@ -46,7 +46,7 @@ class Handler final
         {
             return utils::common_errors::PerformInvalidToken();
         }
-        if (user->type() != legacy::models::UserType::kRoot)
+        if (user->type() != legacy::models::UserType::root)
         {
             return utils::common_errors::PerformForbidden();
         }

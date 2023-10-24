@@ -1,4 +1,3 @@
 #pragma once
+#include <openapi/json/serialize/enum.hpp>
 #include <utils/convert/json_serialize.hpp>
-
-#include "legacy/models/user_type/serialize.hpp"

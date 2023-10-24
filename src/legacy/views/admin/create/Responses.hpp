@@ -1,5 +1,6 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
+#include <openapi/json/serialize/enum.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
 #include <userver/server/http/http_status.hpp>
 #include <utils/convert/base.hpp>
@@ -10,7 +11,6 @@
 #include "http/ErrorV1.hpp"
 #include "legacy/models/admin_account/type.hpp"
 #include "legacy/models/user/type.hpp"
-#include "legacy/models/user_type/serialize.hpp"
 #include "legacy/models/user_type/type.hpp"
 namespace legacy::views::admin::create
 {

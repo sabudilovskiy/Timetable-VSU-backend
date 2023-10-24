@@ -143,8 +143,9 @@ src/openapi/base/named_traits.hpp
 src/openapi/base/holder_named.hpp
 src/openapi/base/holder.hpp
 src/openapi/base/enum/string.hpp
-src/openapi/base/enum/postgres.hpp
+src/openapi/base/enum/pg_mapper.hpp
 src/openapi/base/enum/introspector.hpp
+src/openapi/base/enum/enumerator_func.hpp
 src/openapi/base/enum/declare.hpp
 src/openapi/base/enum/all.hpp
 src/openapi/base/doc.hpp
@@ -206,12 +207,7 @@ src/legacy/views/admin/create/view.cpp
 src/legacy/views/admin/create/Responses.hpp
 src/legacy/views/admin/create/Request.hpp
 src/legacy/models/user_type/type.hpp
-src/legacy/models/user_type/serialize.hpp
-src/legacy/models/user_type/serialize.cpp
 src/legacy/models/user_type/postgre.hpp
-src/legacy/models/user_type/parse.hpp
-src/legacy/models/user_type/parse.cpp
-src/legacy/models/user_type/doc.hpp
 src/legacy/models/user_credentials/type.hpp
 src/legacy/models/user_credentials/postgre.hpp
 src/legacy/models/user_credentials/fwd.hpp

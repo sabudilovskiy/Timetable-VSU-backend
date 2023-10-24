@@ -87,7 +87,7 @@ std::optional<models::User> Controller::HandleUserFromPg(
         result.AsSingleRow<models::User>(userver::storages::postgres::kRowTag);
     if (user.id == root_id)
     {
-        user.type() = legacy::models::UserType::kRoot;
+        user.type() = legacy::models::UserType::root;
     }
     return user;
 }
@@ -140,13 +140,13 @@ const userver::storages::postgres::Query* GetRequestRihtsType(
 {
     switch (user_type)
     {
-        case legacy::models::UserType::kUser:
+        case legacy::models::UserType::user:
             return nullptr;
-        case legacy::models::UserType::kAdmin:
+        case legacy::models::UserType::admin:
             return &sql::create_admin_request;
-        case legacy::models::UserType::kRoot:
+        case legacy::models::UserType::root:
             return nullptr;
-        case legacy::models::UserType::kTeacher:
+        case legacy::models::UserType::teacher:
             return &sql::create_teacher_request;
     }
 }

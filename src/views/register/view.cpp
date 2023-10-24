@@ -55,7 +55,7 @@ struct View final : Base
         user_controller.CreateRequestRights(
             *user_id, 
             req.body().description().value_or(""),
-            req.body().desired_type().value_or(legacy::models::UserType::kUser),
+            req.body().desired_type().value_or(legacy::models::UserType::user),
             transaction
         );
         transaction->Commit();
@@ -63,7 +63,7 @@ struct View final : Base
         resp().body().token() = id;
         resp().body().user() = models::User{
             .id = {*user_id},
-            .type = {legacy::models::UserType::kUser}
+            .type = {legacy::models::UserType::user}
         };
         // clang-format on
         return resp;

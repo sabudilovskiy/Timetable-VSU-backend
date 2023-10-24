@@ -2,13 +2,11 @@
 #include <boost/uuid/uuid.hpp>
 #include <cstdint>
 #include <openapi/all.hpp>
+#include <openapi/json/parse/enum.hpp>
+#include <openapi/json/serialize/enum.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
-#include <userver/storages/postgres/io/io_fwd.hpp>
 
-#include "legacy/models/user_type/doc.hpp"
-#include "legacy/models/user_type/parse.hpp"
 #include "legacy/models/user_type/postgre.hpp"
-#include "legacy/models/user_type/serialize.hpp"
 #include "models/user/type.hpp"
 #include "models/user_credentials/type.hpp"
 

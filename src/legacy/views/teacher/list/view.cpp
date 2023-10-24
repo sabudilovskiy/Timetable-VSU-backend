@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <exception>
+#include <openapi/json/serialize/enum.hpp>
 #include <userver/components/component_context.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/formats/parse/boost_uuid.hpp>
@@ -17,7 +18,6 @@
 #include "legacy/components/controllers/postgres/teacher/controller.hpp"
 #include "legacy/models/auth_token/serialize.hpp"
 #include "legacy/models/user/serialize.hpp"
-#include "legacy/models/user_type/serialize.hpp"
 namespace legacy::views::teacher::list
 {
 namespace

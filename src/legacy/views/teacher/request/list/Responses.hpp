@@ -1,5 +1,6 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
+#include <openapi/json/serialize/enum.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
 #include <userver/server/http/http_status.hpp>
 #include <utils/common_errors.hpp>
@@ -13,7 +14,6 @@
 #include "legacy/models/request_privileges/type.hpp"
 #include "legacy/models/teacher/type.hpp"
 #include "legacy/models/user/type.hpp"
-#include "legacy/models/user_type/serialize.hpp"
 #include "legacy/models/user_type/type.hpp"
 
 namespace legacy::views::teacher::requests::list

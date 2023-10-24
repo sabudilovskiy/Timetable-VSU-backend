@@ -1,5 +1,6 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
+#include <openapi/json/serialize/enum.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
 #include <userver/server/http/http_status.hpp>
 #include <utils/convert/additional_properties.hpp>
@@ -11,7 +12,6 @@
 #include "legacy/models/admin_account/type.hpp"
 #include "legacy/models/faculty/type.hpp"
 #include "legacy/models/user/type.hpp"
-#include "legacy/models/user_type/serialize.hpp"
 #include "legacy/models/user_type/type.hpp"
 
 namespace legacy::views::faculty::list

@@ -26,5 +26,5 @@ UTEST(Openapi_Json_Serialize, BasicDatetime)
             "2011-08-12T20:17:46.384Z")};
     userver::formats::json::ValueBuilder json{serializable};
     auto json_text = ToString(json.ExtractValue());
-    EXPECT_EQ(json_text, "\"2011-08-12T20:17:46.384+0000\"");
+    EXPECT_EQ(json_text, "\"2011-08-12T20:17:46.384+00:00\"");
 }

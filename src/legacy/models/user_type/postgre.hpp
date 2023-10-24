@@ -1,4 +1,5 @@
 #pragma once
+#include <openapi/base/enum/pg_mapper.hpp>
 #include <userver/storages/postgres/io/enum_types.hpp>
 #include <userver/storages/postgres/io/type_mapping.hpp>
 #include <userver/utils/trivial_map.hpp>
@@ -9,16 +10,8 @@ namespace userver::storages::postgres::io
 {
 using ::legacy::models::UserType;
 template <>
-struct CppToUserPg<UserType> : EnumMappingBase<UserType>
+struct CppToUserPg<UserType>
+    : openapi::PgMapper<legacy::models::UserType, "timetable_vsu.user_type">
 {
-    static constexpr userver::storages::postgres::DBTypeName postgres_name =
-        "timetable_vsu.user_type";
-    static constexpr userver::utils::TrivialBiMap enumerators =
-        [](auto selector) {
-            return selector()
-                .Case("user", UserType::kUser)
-                .Case("admin", UserType::kAdmin)
-                .Case("teacher", UserType::kTeacher);
-        };
 };
 }  // namespace userver::storages::postgres::io

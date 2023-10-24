@@ -1,2 +1,2 @@
 #pragma once
-#include "legacy/models/user_type/parse.hpp"
+#include <openapi/json/parse/enum.hpp>

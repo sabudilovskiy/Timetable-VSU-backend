@@ -1,5 +1,6 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
+#include <openapi/json/serialize/enum.hpp>
 #include <userver/formats/json/value.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
 #include <userver/formats/serialize/common_containers.hpp>
@@ -11,7 +12,6 @@
 
 #include "http/ErrorV1.hpp"
 #include "legacy/models/lesson_v1/type.hpp"
-#include "legacy/models/user_type/serialize.hpp"
 #include "legacy/models/user_type/type.hpp"
 
 namespace legacy::views::timetable::get
