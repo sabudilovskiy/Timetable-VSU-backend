@@ -37,11 +37,10 @@ inline void AppendField(DocHelper, std::type_identity<AdditionalProperties>)
 
 template <typename T>
 requires checks::is_reflective_v<T> void Append(DocHelper doc_helper,
-                                                std::type_identity<T>,
-                                                bool append_cur_place = true)
+                                                std::type_identity<T>)
 {
     std::string name_type = GetOpenApiTypeName<T>();
-    if (append_cur_place)
+    if (&doc_helper.cur_place != &doc_helper.root)
     {
         PlaceRefToType<T>(doc_helper.cur_place);
     }
@@ -66,7 +65,7 @@ template <typename T>
 requires checks::is_reflective_v<T> void Append(Doc& doc, std::type_identity<T>)
 {
     auto& root = doc.value_;
-    Append(DocHelper{root, root}, std::type_identity<T>{}, false);
+    Append(DocHelper{root, root}, std::type_identity<T>{});
 }
 
 }  // namespace openapi

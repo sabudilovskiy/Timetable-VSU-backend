@@ -30,7 +30,7 @@ struct SomeRequest
 };
 }  // namespace tests
 
-UTEST(Openapi_Doc_Serialize, BasicRequest)
+UTEST(Openapi_Doc, BasicRequest)
 {
     ::openapi::Doc doc;
     auto response = doc()["requests"][GetOpenApiTypeName<tests::SomeRequest>()];

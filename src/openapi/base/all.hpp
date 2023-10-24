@@ -1,5 +1,6 @@
 #pragma once
 #include <openapi/base/doc.hpp>
+#include <openapi/base/enum/all.hpp>
 #include <openapi/base/holder.hpp>
 #include <openapi/base/holder_named.hpp>
 #include <openapi/base/named_traits.hpp>

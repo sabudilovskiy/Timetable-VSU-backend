@@ -4,6 +4,7 @@
 #include <openapi/doc/body.hpp>
 #include <openapi/doc/cookie.hpp>
 #include <openapi/doc/datetime.hpp>
+#include <openapi/doc/enum.hpp>
 #include <openapi/doc/header.hpp>
 #include <openapi/doc/int.hpp>
 #include <openapi/doc/optional.hpp>

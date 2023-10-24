@@ -12,6 +12,8 @@
 #include <vector>
 
 using namespace openapi;
+using namespace openapi::types;
+using namespace openapi::preferences;
 
 UTEST(Openapi_Json_Parse, BasicArrayProperty)
 {
@@ -43,10 +45,10 @@ UTEST(Openapi_Json_Parse, BasicArrayPropertyMin)
 
 UTEST(Openapi_Json_Parse, BasicArrayPropertyMax)
 {
-    using Type = types::Array<int, preferences::Max<2>, preferences::Min<1>>;
+    using Type = Array<int, Max<2>, Min<1>, UniqueItems>;
     constexpr auto jsonString = R"(
         {
-            "test" : [1,2,2]
+            "test" : [1,2,3]
         }
     )";
     auto json = userver::formats::json::FromString(jsonString);

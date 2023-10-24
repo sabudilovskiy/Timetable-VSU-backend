@@ -46,7 +46,7 @@ struct User
 };
 }  // namespace tests2
 
-UTEST(Openapi_Doc_Serialize, MoreOneNamespace)
+UTEST(Openapi_Doc, MoreOneNamespace)
 {
     ::openapi::Doc doc;
     Append(doc, std::type_identity<tests2::User>{});
@@ -93,7 +93,7 @@ struct SomeStructure
 };
 }  // namespace tests
 
-UTEST(Openapi_Doc_Serialize, BasicAdditionalProperties)
+UTEST(Openapi_Doc, BasicAdditionalProperties)
 {
     ::openapi::Doc doc;
     Append(doc, std::type_identity<::tests::SomeStructure>{});

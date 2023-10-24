@@ -12,7 +12,7 @@ using namespace openapi::preferences;
 using namespace openapi::types;
 using namespace std::literals;
 
-UTEST(Openapi_Doc_Serialize, BasicStatusCode)
+UTEST(Openapi_Doc, BasicStatusCode)
 {
     EXPECT_EQ(Code<200>::value, userver::server::http::HttpStatus::kOk);
 }

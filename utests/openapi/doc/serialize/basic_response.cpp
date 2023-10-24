@@ -25,7 +25,7 @@ struct SomeResponse
 };
 }  // namespace tests
 
-UTEST(Openapi_Doc_Serialize, BasicResponse)
+UTEST(Openapi_Doc, BasicResponse)
 {
     Doc doc;
     AppendResponse(doc, std::type_identity<tests::SomeResponse>{});

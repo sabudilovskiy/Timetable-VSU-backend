@@ -1,7 +1,9 @@
 #pragma once
 #include <boost/uuid/uuid.hpp>
+#include <exception>
 #include <string_view>
 #include <type_traits>
+#include <userver/logging/log.hpp>
 #include <userver/storages/postgres/cluster.hpp>
 #include <userver/storages/postgres/cluster_types.hpp>
 #include <userver/storages/postgres/io/row_types.hpp>
@@ -137,16 +139,24 @@ struct SafeTranscaction
     }
     ~SafeTranscaction()
     {
-        switch (action_on_death)
+        try
         {
-            case ActionOnDeath::kCommit:
-                transaction_.Commit();
-                return;
-            case ActionOnDeath::kRollback:
-                transaction_.Rollback();
-                return;
-            case ActionOnDeath::kNone:
-                return;
+            switch (action_on_death)
+            {
+                case ActionOnDeath::kCommit:
+                    transaction_.Commit();
+                    return;
+                case ActionOnDeath::kRollback:
+                    transaction_.Rollback();
+                    return;
+                case ActionOnDeath::kNone:
+                    return;
+            }
+        }
+        catch (std::exception& exc)
+        {
+            LOG_ERROR() << "Error while do action in SafeTransaction: "
+                        << exc.what();
         }
     }
 

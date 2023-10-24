@@ -1,7 +1,6 @@
 #pragma once
 #include <algorithm>
 #include <array>
-#include <iostream>
 #include <string_view>
 
 namespace utils
@@ -35,7 +34,7 @@ struct ConstexprString
 
     constexpr std::string_view AsStringView() const
     {
-        return {contents.begin(), contents.begin() + Size - 1};
+        return std::string_view{contents.data(), Size - 1};
     }
 
     std::string AsString() const
@@ -51,6 +50,11 @@ struct ConstexprString
     constexpr bool empty() const
     {
         return Size == 1;
+    }
+
+    constexpr auto size() const
+    {
+        return Size;
     }
 
     constexpr auto c_str() const -> const char*

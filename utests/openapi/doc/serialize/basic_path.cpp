@@ -33,7 +33,7 @@ struct SomeResponse
 };
 }  // namespace tests_path
 
-UTEST(Openapi_Doc_Serialize, BasicPath)
+UTEST(Openapi_Doc, BasicPath)
 {
     Doc doc;
     std::string path = "/login";
