@@ -7,6 +7,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <exception>
+#include <openapi/json/serialize/enum.hpp>
 #include <optional>
 #include <type_traits>
 #include <userver/components/component_context.hpp>
@@ -27,7 +28,6 @@
 #include "legacy/models/faculty/type.hpp"
 #include "legacy/models/faculty_filter/postgre.hpp"
 #include "legacy/models/request_privileges/type.hpp"
-#include "legacy/models/subgroup/serialize.hpp"
 #include "legacy/models/substring/postgre.hpp"
 #include "legacy/models/user_credentials/postgre.hpp"
 #include "sql_queries.hpp"

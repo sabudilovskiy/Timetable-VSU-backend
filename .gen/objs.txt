@@ -243,11 +243,7 @@ src/legacy/models/substring/parse.cpp
 src/legacy/models/substring/fwd.hpp
 src/legacy/models/substring/all.hpp
 src/legacy/models/subgroup/type.hpp
-src/legacy/models/subgroup/serialize.hpp
-src/legacy/models/subgroup/serialize.cpp
 src/legacy/models/subgroup/postgre.hpp
-src/legacy/models/subgroup/parse.hpp
-src/legacy/models/subgroup/parse.cpp
 src/legacy/models/subgroup/all.hpp
 src/legacy/models/request_privileges/type.hpp
 src/legacy/models/request_privileges/fwd.hpp

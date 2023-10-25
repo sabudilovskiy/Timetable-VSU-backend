@@ -5,6 +5,7 @@
 
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <openapi/json/serialize/enum.hpp>
 #include <optional>
 #include <type_traits>
 #include <userver/components/component_context.hpp>
@@ -21,7 +22,6 @@
 #include "legacy/models/lesson_filter/postgre.hpp"
 #include "legacy/models/lesson_v1/postgre.hpp"
 #include "legacy/models/lesson_v1/type.hpp"
-#include "legacy/models/subgroup/serialize.hpp"
 #include "sql_queries.hpp"
 
 namespace legacy::components::controllers::postgres::lesson

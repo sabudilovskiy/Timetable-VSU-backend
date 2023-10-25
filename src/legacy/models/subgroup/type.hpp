@@ -1,11 +1,7 @@
 #pragma once
 
+#include <openapi/enum/declare.hpp>
 namespace legacy::models
 {
-enum struct Subgroup
-{
-    kAll,
-    kFirst,
-    kSecond
-};
+DECLARE_OPENAPI_ENUM(Subgroup, int, all, first, second);
 }
