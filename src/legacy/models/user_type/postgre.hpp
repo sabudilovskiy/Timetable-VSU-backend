@@ -8,9 +8,8 @@
 
 namespace userver::storages::postgres::io
 {
-using ::legacy::models::UserType;
 template <>
-struct CppToUserPg<UserType>
+struct CppToUserPg<legacy::models::UserType>
     : openapi::PgMapper<legacy::models::UserType, "timetable_vsu.user_type">
 {
 };

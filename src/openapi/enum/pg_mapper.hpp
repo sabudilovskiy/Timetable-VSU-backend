@@ -7,6 +7,7 @@
 namespace openapi
 {
 // should be in namespace userver::storages::postgres::io
+// use with CppToUserPg
 template <typename T, utils::ConstexprString str>
 requires HasIntrospector<T> struct PgMapper
     : userver::storages::postgres::io::EnumMappingBase<T>

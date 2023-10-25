@@ -1,12 +1,8 @@
 #pragma once
+#include <openapi/enum/declare.hpp>
 
 namespace legacy::models
 {
-enum struct EducationType
-{
-    kUndergraduate,
-    kMagistracy,
-    kPostgraduate,
-    kSpecialty
-};
+DECLARE_OPENAPI_ENUM(EducationType, int, undergraduate, magistracy,
+                     postgraduate, specialty);
 }

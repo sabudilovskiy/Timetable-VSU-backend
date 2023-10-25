@@ -3,6 +3,7 @@
 #include <chrono>
 #include <exception>
 #include <openapi/json/serialize/enum.hpp>
+#include <openapi/json/parse/enum.hpp>
 #include <userver/components/component_context.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/formats/parse/boost_uuid.hpp>

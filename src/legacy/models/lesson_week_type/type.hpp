@@ -1,11 +1,7 @@
 #pragma once
+#include <openapi/enum/declare.hpp>
 
 namespace legacy::models
 {
-enum struct LessonWeekType
-{
-    kAll,
-    kEven,
-    kOdd
-};
+DECLARE_OPENAPI_ENUM(LessonWeekType, int, all, even, odd);
 }

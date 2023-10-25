@@ -1,14 +1,8 @@
 #pragma once
+#include <openapi/enum/declare.hpp>
 
 namespace legacy::models
 {
-enum struct Day
-{
-    kMonday,
-    kTuesday,
-    kWednesday,
-    kThursday,
-    kFriday,
-    kSaturday
-};
+DECLARE_OPENAPI_ENUM(Day, int, monday, tuesday, wednesday, thursday, friday,
+                     saturday);
 }
