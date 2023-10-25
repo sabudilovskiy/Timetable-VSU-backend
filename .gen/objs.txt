@@ -261,11 +261,7 @@ src/legacy/models/lesson_v1/serialize.hpp
 src/legacy/models/lesson_v1/postgre.hpp
 src/legacy/models/lesson_v1/parse.hpp
 src/legacy/models/lesson_type/type.hpp
-src/legacy/models/lesson_type/serialize.hpp
-src/legacy/models/lesson_type/serialize.cpp
 src/legacy/models/lesson_type/postgre.hpp
-src/legacy/models/lesson_type/parse.hpp
-src/legacy/models/lesson_type/parse.cpp
 src/legacy/models/lesson_type/all.hpp
 src/legacy/models/lesson_filter/type.hpp
 src/legacy/models/lesson_filter/postgre.hpp

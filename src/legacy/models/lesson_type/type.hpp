@@ -1,11 +1,7 @@
 #pragma once
 
+#include <openapi/enum/declare.hpp>
 namespace legacy::models
 {
-enum struct LessonType
-{
-    kLabaratory,
-    kLection,
-    kPractice
-};
+DECLARE_OPENAPI_ENUM(LessonType, int, labaratory, lection, practice);
 }
