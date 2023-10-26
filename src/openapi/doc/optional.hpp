@@ -1,4 +1,5 @@
 #pragma once
+#include <openapi/base/properties/optional.hpp>
 #include <openapi/doc/base.hpp>
 
 namespace openapi

@@ -1,3 +1,6 @@
+src/views/timetable/view.hpp
+src/views/timetable/view.cpp
+src/views/timetable/declarations.hpp
 src/views/register/view.hpp
 src/views/register/view.cpp
 src/views/register/declarations.hpp
@@ -19,6 +22,7 @@ src/utils/meta.hpp
 src/utils/json_type.hpp
 src/utils/json_type.cpp
 src/utils/is_complete_type.hpp
+src/utils/initialize_dependents.hpp
 src/utils/formated_exception.hpp
 src/utils/convert/json_serialize.hpp
 src/utils/convert/json_parse.hpp
@@ -44,6 +48,7 @@ src/openapi/types/uuid.hpp
 src/openapi/types/string.hpp
 src/openapi/types/optional.hpp
 src/openapi/types/object.hpp
+src/openapi/types/field.hpp
 src/openapi/types/datetime.hpp
 src/openapi/types/array.hpp
 src/openapi/types/all.hpp
@@ -162,7 +167,8 @@ src/models/user_credentials/postgres.hpp
 src/models/user/type.hpp
 src/models/user/postgres.hpp
 src/models/lesson_v1/type.hpp
-src/models/lesson_v1/postgres.hpp
+src/models/lesson_filter/type.hpp
+src/models/lesson_filter/postgres.hpp
 src/models/error_v1/type.hpp
 src/legacy/views/timetable/get/view.hpp
 src/legacy/views/timetable/get/view.cpp
@@ -241,6 +247,7 @@ src/legacy/models/substring/postgre.hpp
 src/legacy/models/substring/parse.hpp
 src/legacy/models/substring/parse.cpp
 src/legacy/models/substring/fwd.hpp
+src/legacy/models/substring/doc.hpp
 src/legacy/models/substring/all.hpp
 src/legacy/models/subgroup/type.hpp
 src/legacy/models/subgroup/postgre.hpp

@@ -54,6 +54,7 @@ components_manager:
             method: POST
             task_processor: main-task-processor
         handler-timetable-get: 
+            load-enabled: false
             path: /timetable/get
             method: POST                
             task_processor: main-task-processor
@@ -137,6 +138,11 @@ components_manager:
                 id: $root_id
         lesson_details_controller : {}
         teacher_controller : {}
+        new-lesson-controller: {}
+        timetable-view:
+            path: /timetable/get
+            method: POST                
+            task_processor: main-task-processor
         handler-ping:
             path: /ping
             method: GET

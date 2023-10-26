@@ -26,7 +26,7 @@ struct PropertyBase
 
     template <typename Arg>
     PropertyBase(std::initializer_list<Arg> init_list) noexcept(
-        std::is_nothrow_constructible_v<T, std::initializer_list<Arg>>)
+        std::is_nothrow_constructible_v<value_type, std::initializer_list<Arg>>)
         : value(std::move(init_list))
     {
     }

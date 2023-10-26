@@ -8,7 +8,7 @@
 namespace openapi
 {
 template <typename T>
-void AppendField(DocHelper doc_helper, std::type_identity<T> type = {})
+void AppendField(DocHelper doc_helper, std::type_identity<T> type)
 {
     using Traits = typename T::traits;
     constexpr auto name_ce = traits::GetName<Traits>();

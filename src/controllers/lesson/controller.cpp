@@ -3,17 +3,29 @@
 #include <boost/uuid/uuid.hpp>
 #include <chrono>
 #include <codegen/sql.hpp>
+#include <cstdint>
+#include <models/lesson_filter/postgres.hpp>
 #include <openapi/postgres/mapping.hpp>
 #include <userver/components/component_config.hpp>
 #include <userver/components/component_context.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/components/loggable_component_base.hpp>
 #include <userver/storages/postgres/component.hpp>
+#include <userver/storages/postgres/io/array_types.hpp>
+#include <userver/storages/postgres/io/integral_types.hpp>
+#include <userver/storages/postgres/io/optional.hpp>
+#include <userver/storages/postgres/io/type_mapping.hpp>
+#include <userver/storages/postgres/io/type_traits.hpp>
 #include <userver/storages/postgres/io/uuid.hpp>
 #include <userver/utils/datetime.hpp>
 #include <utils/shared_transaction.hpp>
 
 #include "controller_fwd.hpp"
+#include "legacy/models/day/postgre.hpp"
+#include "legacy/models/education_type/postgre.hpp"
+#include "legacy/models/lesson_type/postgre.hpp"
+#include "legacy/models/lesson_week_type/postgre.hpp"
+#include "legacy/models/subgroup/postgre.hpp"
 #include "models/user_credentials/postgres.hpp"
 
 namespace controllers::lesson
@@ -27,14 +39,12 @@ Controller::Controller(const userver::components::ComponentConfig& cfg,
     : Base(cfg, ctx)
 {
 }
-boost::uuids::uuid Controller::CreateNew(
-    const boost::uuids::uuid& id_user,
+std::vector<models::LessonV1> Controller::FindLessons(
+    const std::optional<models::LessonFilter>& filter,
     utils::SharedTransaction transaction) const
 {
-    utils::FillSharedTransaction(transaction, pg_cluster_);
-    auto pg_result = transaction->transaction_.Execute(
-        sql::add_token_to_user, id_user,
-        userver::utils::datetime::Now() + std::chrono::hours(24));
-    return pg_result.AsSingleRow<boost::uuids::uuid>();
+    FillTransaction(transaction);
+    return transaction->Execute_R<std::vector<models::LessonV1>>(
+        sql::get_lessons_by_filter, filter);
 }
 }  // namespace controllers::lesson

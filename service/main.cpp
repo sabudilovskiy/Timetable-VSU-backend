@@ -12,6 +12,7 @@
 #include <userver/utils/daemon_run.hpp>
 #include <utility>
 
+#include "controllers/lesson/controller_fwd.hpp"
 #include "controllers/token/controller_fwd.hpp"
 #include "controllers/user/controller.hpp"
 #include "controllers/user/controller_fwd.hpp"
@@ -35,8 +36,10 @@
 #include "legacy/views/timetable/get/view.hpp"
 #include "views/login/view.hpp"
 #include "views/register/view.hpp"
+#include "views/timetable/view.hpp"
 
-void AppendPgControllers(userver::components::ComponentList& component_list)
+void AppendLegacyPgControllers(
+    userver::components::ComponentList& component_list)
 {
     using namespace legacy::components::controllers::postgres;
     user::Append(component_list);
@@ -46,8 +49,6 @@ void AppendPgControllers(userver::components::ComponentList& component_list)
     teacher::Append(component_list);
     faculty::Append(component_list);
     group_stage::Append(component_list);
-    controllers::token::Append(component_list);
-    controllers::user::Append(component_list);
 }
 
 void AppendLegacyViews(userver::components::ComponentList& component_list)
@@ -70,6 +71,15 @@ void AppendViews(userver::components::ComponentList& component_list)
     using namespace views;
     login::Append(component_list);
     Register::Append(component_list);
+    timetable::Append(component_list);
+}
+
+void AppendControllers(userver::components::ComponentList& component_list)
+{
+    using namespace controllers;
+    token::Append(component_list);
+    user::Append(component_list);
+    lesson::Append(component_list);
 }
 
 int main(int argc, char* argv[])
@@ -84,7 +94,8 @@ int main(int argc, char* argv[])
             .Append<userver::server::handlers::TestsControl>();
     openapi::http::AppendOpenApiDescriptor(component_list);
     service_template::AppendHello(component_list);
-    AppendPgControllers(component_list);
+    AppendLegacyPgControllers(component_list);
+    AppendControllers(component_list);
     AppendLegacyViews(component_list);
     AppendViews(component_list);
     return userver::utils::DaemonMain(argc, argv, component_list);

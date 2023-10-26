@@ -5,26 +5,28 @@
 #include <type_traits>
 #include <userver/storages/postgres/io/buffer_io_base.hpp>
 #include <userver/storages/postgres/io/io_fwd.hpp>
+#include <userver/storages/postgres/io/nullable_traits.hpp>
 #include <userver/storages/postgres/io/pg_types.hpp>
+#include <userver/storages/postgres/io/type_mapping.hpp>
+#include <userver/storages/postgres/io/type_traits.hpp>
 #include <utils/is_complete_type.hpp>
 
 namespace openapi
 {
 template <typename T>
-concept IsPgUserProperty = IsProperty<T>&& utils::is_complete_type<
-    userver::storages::postgres::io::CppToUserPg<typename T::value_type>>;
+concept IsPgProperty =
+    IsProperty<T>&& userver::storages::postgres::io::traits::kIsMappedToPg<
+        typename T::value_type>;
 
-template <typename T>
-concept IsPgSystemProperty = IsProperty<T>&& utils::is_complete_type<
-    userver::storages::postgres::io::CppToSystemPg<typename T::value_type>>;
 }  // namespace openapi
 
 namespace userver::storages::postgres::io
 {
 namespace detail
 {
-template <openapi::IsProperty T>
-struct OpenapiPropertyFormatter : BufferFormatterBase<T>
+template <typename T>
+requires openapi::IsProperty<T> struct OpenapiPropertyFormatter
+    : BufferFormatterBase<T>
 {
     using Inner = typename T::value_type;
     using BaseType = BufferFormatterBase<T>;
@@ -39,8 +41,9 @@ struct OpenapiPropertyFormatter : BufferFormatterBase<T>
     }
 };
 
-template <openapi::IsProperty T>
-struct OpenapiPropertyParser : BufferParserBase<T>
+template <typename T>
+requires openapi::IsProperty<T> struct OpenapiPropertyParser
+    : BufferParserBase<T>
 {
     using BaseType = BufferParserBase<T>;
     using Inner = typename T::value_type;
@@ -60,9 +63,9 @@ struct OpenapiPropertyParser : BufferParserBase<T>
 /*
 Formatter specialization for openapi::Property
 */
-template <openapi::IsProperty T>
-struct BufferFormatter<
-    T, std::enable_if_t<traits::kHasFormatter<typename T::value_type>>>
+template <typename T>
+requires openapi::IsProperty<T>&&
+    traits::kHasFormatter<typename T::value_type> struct BufferFormatter<T>
     : detail::OpenapiPropertyFormatter<T>
 {
     using BaseType = detail::OpenapiPropertyFormatter<T>;
@@ -72,9 +75,9 @@ struct BufferFormatter<
 /*
 Parser specialization for openapi::Property
 */
-template <openapi::IsProperty T>
-struct BufferParser<
-    T, std::enable_if_t<traits::kHasParser<typename T::value_type>>>
+template <typename T>
+requires openapi::IsProperty<T>&&
+    traits::kHasParser<typename T::value_type> struct BufferParser<T>
     : detail::OpenapiPropertyParser<T>
 {
     using BaseType = detail::OpenapiPropertyParser<T>;
@@ -82,24 +85,47 @@ struct BufferParser<
 };
 
 template <typename T>
-requires openapi::IsPgUserProperty<T> struct CppToUserPg<T>
+requires openapi::IsProperty<T>&&
+    traits::kIsNullable<typename T::value_type> struct traits::IsNullable<T>
+    : traits::IsNullable<typename T::value_type>
 {
-   private:
-    using Inner = typename T::value_type;
-
-   public:
-    static constexpr DBTypeName postgres_name =
-        CppToUserPg<Inner>::postgres_name;
 };
 
 template <typename T>
-requires openapi::IsPgSystemProperty<T> struct CppToSystemPg<T>
+requires openapi::IsProperty<T>&&
+    traits::kIsNullable<typename T::value_type> struct traits::GetSetNull<T>
 {
-   private:
-    using Inner = typename T::value_type;
+    using inner_get_set = traits::GetSetNull<typename T::value_type>;
+    inline static bool IsNull(const T& v)
+    {
+        return inner_get_set::IsNull(v());
+    }
+    inline static void SetNull(T& v)
+    {
+        inner_get_set::SetNull(v());
+    }
+    inline static void SetDefault(T& v)
+    {
+        inner_get_set::SetDefault(v());
+    }
+};
 
-   public:
-    static constexpr auto value = CppToSystemPg<Inner>::value;
+template <typename T>
+requires openapi::IsPgProperty<T> struct CppToPg<T>
+    : CppToPg<typename T::value_type>
+{
+};
+
+template <typename T>
+requires openapi::IsPgProperty<T> struct traits::IsMappedToPg<T>
+    : traits::IsMappedToPg<typename T::value_type>
+{
+};
+
+template <typename T>
+requires openapi::IsPgProperty<T> struct traits::IsSpecialMapping<T>
+    : traits::IsMappedToPg<typename T::value_type>
+{
 };
 
 }  // namespace userver::storages::postgres::io

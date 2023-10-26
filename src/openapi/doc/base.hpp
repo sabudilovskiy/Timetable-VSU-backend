@@ -132,4 +132,10 @@ inline void log_dock_helper_impl(DocHelper doc_helper,
     std::clog << ToString(root.ExtractValue()) << '\n';
 }
 
+template <typename T>
+concept HasAppend = requires(DocHelper doc_helper, std::type_identity<T> t)
+{
+    Append(doc_helper, t);
+};
+
 }  // namespace openapi
