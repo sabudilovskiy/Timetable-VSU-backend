@@ -20,6 +20,7 @@
 #include "legacy/models/user/type.hpp"
 #include "legacy/models/user_type/postgre.hpp"
 #include "sql_queries.hpp"
+#include "legacy/models/substring/postgre.hpp"
 
 namespace legacy::components::controllers::postgres::token
 {

@@ -200,8 +200,8 @@ gen:
 	$(MAKE) gen-sources
 	$(MAKE) gen-all-headers
 
-.PHONY: build-log
-build-log:
+.PHONY: log-build
+log-build:
 	$(MAKE) -s test-debug > log_build.txt 2>&1
 
 # # Internal hidden targets that are used only in docker environment

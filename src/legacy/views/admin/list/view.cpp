@@ -18,6 +18,7 @@
 #include "legacy/components/controllers/postgres/admin/controller.hpp"
 #include "legacy/components/controllers/postgres/user/controller.hpp"
 #include "legacy/models/auth_token/serialize.hpp"
+#include "legacy/models/substring/parse.hpp"
 #include "legacy/models/user/serialize.hpp"
 namespace legacy::views::admin::list
 {

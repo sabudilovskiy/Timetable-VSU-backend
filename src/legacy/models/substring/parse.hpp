@@ -7,7 +7,7 @@
 
 namespace legacy::models
 {
-SubString Parse(const std::string& str, userver::formats::parse::To<SubString>);
+// SubString Parse(const std::string& str, userver::formats::parse::To<SubString>);
 SubString Parse(const userver::formats::json::Value& value,
                 userver::formats::parse::To<SubString>);
 }  // namespace legacy::models

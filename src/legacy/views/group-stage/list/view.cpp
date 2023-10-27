@@ -21,6 +21,7 @@
 #include "legacy/models/auth_token/serialize.hpp"
 #include "legacy/models/education_type/all.hpp"
 #include "legacy/models/user/serialize.hpp"
+#include "legacy/models/substring/parse.hpp"
 namespace legacy::views::group::stage::list
 {
 namespace
