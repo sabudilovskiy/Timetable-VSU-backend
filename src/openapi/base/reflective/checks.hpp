@@ -3,20 +3,35 @@
 #include <boost/pfr/core.hpp>
 #include <boost/pfr/tuple_size.hpp>
 #include <openapi/base/property_base.hpp>
+#include <type_traits>
+#include <utility>
 
 namespace openapi
 {
 namespace checks
 {
-template <typename T, std::size_t... Indexes>
-concept IsReflectiveHelper = requires
+namespace details
 {
-    requires(IsProperty<boost::pfr::tuple_element_t<Indexes, T>> && ...);
-};
+template <typename T, std::size_t... I>
+consteval bool is_fields_property_idxs(std::integer_sequence<std::size_t, I...>)
+{
+    return (IsProperty<boost::pfr::tuple_element_t<I, T>> && ...);
+}
 
 template <typename T>
-concept IsReflective =
-    std::is_class_v<T>&& std::is_aggregate_v<T> && !IsProperty<T>;
+requires std::is_aggregate_v<T> consteval bool is_fields_property_helper()
+{
+    auto seq = std::make_index_sequence<boost::pfr::tuple_size_v<T>>{};
+    return is_fields_property_idxs<T>(seq);
+}
+}  // namespace details
+
+template <typename T>
+concept is_fields_property = details::is_fields_property_helper<T>();
+
+template <typename T>
+concept IsReflective = std::is_class_v<T>&& std::is_aggregate_v<T> &&
+                       !IsProperty<T> && is_fields_property<T>;
 
 template <typename T>
 constexpr bool is_reflective_v = IsReflective<T>;

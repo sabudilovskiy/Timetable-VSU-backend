@@ -232,4 +232,42 @@ FROM all_user;
     userver::storages::postgres::Query::Name("get_user_by_credentials"),
     userver::storages::postgres::Query::LogMode::kFull};
 
+// Generated from: src/sql/admin/get_admins_by_filter.sql
+const userver::storages::postgres::Query get_admins_by_filter = {
+    R"-(
+WITH admin_info as (SELECT
+        a.id AS admin_id,
+        a.id_user AS user_id,
+        u.login AS login
+    FROM timetable_vsu.admin AS a
+        LEFT JOIN timetable_vsu.user AS u ON a.id_user = u.id
+    )
+    SELECT 
+        user_id,
+        admin_id,
+        login
+    FROM admin_info
+    WHERE 
+    ($1.admin_ids IS null OR admin_id::text ILIKE ANY($1.admin_ids)) and
+	($1.user_ids IS null OR user_id::text ILIKE ANY($1.user_ids)) and
+	($1.logins IS null OR login ILIKE ANY($1.logins))
+ ;)-",
+    userver::storages::postgres::Query::Name("get_admins_by_filter"),
+    userver::storages::postgres::Query::LogMode::kFull};
+
+// Generated from: src/sql/admin/get_admin_account_by_admin_id.sql
+const userver::storages::postgres::Query get_admin_account_by_admin_id = {
+    R"-(
+SELECT 
+    u.id AS user_id,
+    a.id AS admin_id,
+    u.login AS user_login
+FROM  timetable_vsu."admin" AS a
+LEFT JOIN timetable_vsu."user" AS u ON u.id = a.id_user
+WHERE a.id = $1
+;
+)-",
+    userver::storages::postgres::Query::Name("get_admin_account_by_admin_id"),
+    userver::storages::postgres::Query::LogMode::kFull};
+
 }  // namespace sql

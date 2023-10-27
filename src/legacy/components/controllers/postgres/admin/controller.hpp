@@ -20,14 +20,18 @@ class Controller final : public userver::components::LoggableComponentBase
     std::optional<legacy::models::AdminAccount> GetAccountByAdminId(
         const boost::uuids::uuid& admin_id,
         utils::SharedTransaction transaction = nullptr) const;
+
     std::optional<legacy::models::AdminAccount> CreateAdmin(
         const legacy::models::UserCredentials& user,
         utils::SharedTransaction transaction = nullptr) const;
+
     Controller(const userver::components::ComponentConfig& config,
                const userver::components::ComponentContext& context);
+
     std::vector<legacy::models::AdminAccount> GetByFilter(
         std::optional<legacy::models::AdminFilter>& filter,
         utils::SharedTransaction transaction = nullptr) const;
+
     utils::SharedTransaction CreateTransaction() const;
 
    protected:

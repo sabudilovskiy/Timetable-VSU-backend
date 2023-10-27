@@ -39,4 +39,10 @@ extern const userver::storages::postgres::Query add_user;
 // Generated from: src/sql/user/get_user_by_credentials.sql
 extern const userver::storages::postgres::Query get_user_by_credentials;
 
+// Generated from: src/sql/admin/get_admins_by_filter.sql
+extern const userver::storages::postgres::Query get_admins_by_filter;
+
+// Generated from: src/sql/admin/get_admin_account_by_admin_id.sql
+extern const userver::storages::postgres::Query get_admin_account_by_admin_id;
+
 }  // namespace sql

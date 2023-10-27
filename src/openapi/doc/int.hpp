@@ -1,13 +1,13 @@
 #pragma once
 #include <fmt/core.h>
+
 #include <limits>
 #include <openapi/doc/base.hpp>
 #include <type_traits>
 
 namespace openapi
 {
-inline void Append(
-    DocHelper doc_helper, std::type_identity<std::int32_t>)
+inline void Append(DocHelper doc_helper, std::type_identity<std::int32_t>)
 {
     auto& cur = doc_helper.cur_place;
     if (cur.IsObject())

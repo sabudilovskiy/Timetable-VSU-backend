@@ -170,10 +170,6 @@ src/models/lesson_v1/type.hpp
 src/models/lesson_filter/type.hpp
 src/models/lesson_filter/postgres.hpp
 src/models/error_v1/type.hpp
-src/legacy/views/timetable/get/view.hpp
-src/legacy/views/timetable/get/view.cpp
-src/legacy/views/timetable/get/Responses.hpp
-src/legacy/views/timetable/get/Request.hpp
 src/legacy/views/teacher/request/list/view.hpp
 src/legacy/views/teacher/request/list/view.cpp
 src/legacy/views/teacher/request/list/Responses.hpp

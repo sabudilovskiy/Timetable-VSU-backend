@@ -33,7 +33,6 @@
 #include "legacy/views/teacher/request/approve/link/view.hpp"
 #include "legacy/views/teacher/request/approve/new/view.hpp"
 #include "legacy/views/teacher/request/list/view.hpp"
-#include "legacy/views/timetable/get/view.hpp"
 #include "views/login/view.hpp"
 #include "views/register/view.hpp"
 #include "views/timetable/view.hpp"
@@ -54,7 +53,6 @@ void AppendLegacyPgControllers(
 void AppendLegacyViews(userver::components::ComponentList& component_list)
 {
     using namespace legacy::views;
-    timetable::get::Append(component_list);
     admin::create::Append(component_list);
     admin::list::Append(component_list);
     teacher::list::Append(component_list);
