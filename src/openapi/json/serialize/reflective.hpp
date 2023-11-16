@@ -28,7 +28,10 @@ requires checks::is_reflective_v<T> inline void serialize_without_additional(
     auto matcher_common = [&result]<typename F>(const F& field) {
         constexpr auto name = traits::GetName<typename F::traits>();
         static_assert(!name.empty(), "Common field must have name");
-        result[name.AsString()] = field();
+        userver::formats::json::ValueBuilder field_json{field()};
+        if (!field_json.IsNull()){
+            result.EmplaceNocheck(name.AsStringView(), field_json.ExtractValue());
+        }
     };
     // noop
     auto matcher_additional_properties = [](const AdditionalProperties&) {};

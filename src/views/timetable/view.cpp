@@ -38,42 +38,12 @@ struct View final : Base
           dependends_(utils::initialize_dependends<Dependends>(ctx))
     {
     }
-    static void LogLessondIds(const RequestBody& body)
-    {
-        if (!body.filter().has_value())
-        {
-            LOG_DEBUG() << "lesson_ids : null";
-            return;
-        }
-        if (!body.filter()->lesson_ids().has_value())
-        {
-            LOG_DEBUG() << "lesson_ids : null";
-            return;
-        }
-        if (body.filter()->lesson_ids().value().empty())
-        {
-            LOG_DEBUG() << "lesson_ids : []";
-            return;
-        }
-        std::string log_str = "[";
-        log_str.append(
-            body.filter()->lesson_ids().value().front().GetUnderlying());
-        for (auto it = body.filter()->lesson_ids().value().begin() + 1,
-                  end = body.filter()->lesson_ids().value().end();
-             it != end; it++)
-        {
-            log_str.append(it->GetUnderlying());
-        }
-        log_str.append("]");
-        LOG_DEBUG() << log_str;
-    }
     Resps Handle(Request&& req) const override
     {
         auto& filter = req.body().filter();
         LOG_DEBUG() << "parsed: "
                     << ToString(userver::formats::json::ValueBuilder(filter)
                                     .ExtractValue());
-        LogLessondIds(req.body());
         Resp200 resp200;
         resp200().body().lessons() =
             dependends_.lesson_controller.FindLessons(filter);

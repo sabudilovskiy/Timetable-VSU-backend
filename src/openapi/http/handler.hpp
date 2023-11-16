@@ -102,7 +102,7 @@ struct OpenApiHandler : public userver::server::handlers::HttpHandlerBase
     static ResponseInfo Perform500(std::string msg)
     {
         return ResponseInfo{
-            .userver_code = userver::server::http::HttpStatus::kBadRequest,
+            .userver_code = userver::server::http::HttpStatus::kInternalServerError,
             .body = std::move(msg)};
     }
 

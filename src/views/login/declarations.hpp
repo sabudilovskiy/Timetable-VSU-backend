@@ -5,7 +5,7 @@
 #include <openapi/json/parse/enum.hpp>
 #include <openapi/json/serialize/enum.hpp>
 #include <userver/formats/serialize/boost_uuid.hpp>
-
+#include <variant>
 #include "legacy/models/user_type/postgre.hpp"
 #include "models/user/type.hpp"
 #include "models/user_credentials/type.hpp"
