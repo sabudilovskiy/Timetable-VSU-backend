@@ -10,31 +10,30 @@ namespace openapi
 namespace checks
 {
 template <typename T>
-concept HasPattern = requires
+concept HasPattern = requires(const T& t)
 {
-    {T::kPattern};
+    t.pattern;
 };
 }  // namespace checks
 
 namespace traits
 {
 template <typename T>
-constexpr auto GetPattern()
+constexpr utils::FixedString GetPattern(const T& t)
 {
     if constexpr (checks::HasPattern<T>)
     {
-        return T::kPattern;
+        return t.pattern;
     }
     else
-        return utils::kEmptyString;
+        return utils::k_empty_fixed_string;
 }
 
-template <typename Traits>
+template <auto traits>
 struct StringHelperTraits
 {
-    static constexpr utils::ConstexprString name = traits::GetName<Traits>();
-    static constexpr utils::ConstexprString pattern =
-        traits::GetPattern<Traits>();
+    static constexpr utils::FixedString name = traits::GetName(traits);
+    static constexpr utils::FixedString pattern = traits::GetPattern(traits);
     constexpr StringHelperTraits()
     {
     }

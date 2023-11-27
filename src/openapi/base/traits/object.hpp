@@ -13,8 +13,8 @@ namespace openapi
 {
 namespace traits
 {
-template <typename Traits>
-struct ObjectHelperTraits : NamedHelperTraits<Traits>
+template <auto traits>
+struct ObjectHelperTraits : NamedHelperTraits<traits>
 {
 };
 

@@ -65,7 +65,7 @@ UTEST(Openapi_Json_Parse, BasicArrayPropertyUnique)
             "test" : [1,2,2]
         }
     )";
-    ::openapi::http::HeaderProperty<int, EmptyTraits> h{1};
+    ::openapi::http::HeaderProperty<int, EmptyTraits{}> h{1};
     EXPECT_EQ(h(), 1);
     auto json = userver::formats::json::FromString(jsonString);
     EXPECT_THROW_MSG(json["test"].As<Type>(), std::runtime_error,

@@ -8,7 +8,7 @@ template <IsProperty U>
 class ToTuple<U>
 {
     using T = typename U::value_type;
-    using Traits = typename U::traits;
+    static constexpr auto& Traits = U::traits;
     using Type = PropertyBase<T, Traits>;
     using Raw = to_tuple_t<T>;
 

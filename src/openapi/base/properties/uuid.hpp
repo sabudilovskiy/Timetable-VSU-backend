@@ -7,12 +7,12 @@
 
 namespace openapi
 {
-template <typename Traits>
+template <auto Traits>
 struct PropertyBase<boost::uuids::uuid, Traits>
 {
     using T = boost::uuids::uuid;
     using value_type = T;
-    using traits = Traits;
+    static constexpr auto traits = Traits;
 
     template <typename... Args>
     PropertyBase(Args&&... args) noexcept(
@@ -63,13 +63,13 @@ struct PropertyBase<boost::uuids::uuid, Traits>
     value_type value;
 };
 
-template <typename Traits>
-struct UuidProperty : PropertyBase<boost::uuids::uuid, Traits>
+template <auto traits>
+struct UuidProperty : PropertyBase<boost::uuids::uuid, traits>
 {
 };
 
-template <typename Traits>
-struct types::Property<boost::uuids::uuid, Traits> : UuidProperty<Traits>
+template <auto traits>
+struct types::Property<boost::uuids::uuid, traits> : UuidProperty<traits>
 {
 };
 }  // namespace openapi

@@ -9,6 +9,6 @@
 namespace openapi::types
 {
 template <typename... Option>
-using Datetime = DateTimeProperty<named_traits_from_options_t<Option...>>;
+using Datetime = DateTimeProperty<named_traits_from_options_v<Option...>>;
 
 }  // namespace openapi::types

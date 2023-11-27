@@ -5,11 +5,11 @@
 
 namespace openapi
 {
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 struct PropertyBase<std::optional<T>, Traits>
 {
     using value_type = std::optional<T>;
-    using traits = Traits;
+    static constexpr auto traits = Traits;
 
     template <typename... Args>
     PropertyBase(Args&&... args) noexcept(
@@ -61,12 +61,12 @@ struct PropertyBase<std::optional<T>, Traits>
     value_type value;
 };
 
-template <typename T, typename Traits = EmptyTraits>
+template <typename T, auto Traits = EmptyTraits{}>
 struct OptionalProperty : public PropertyBase<std::optional<T>, Traits>
 {
 };
 
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 struct types::Property<std::optional<T>, Traits>
     : public OptionalProperty<T, Traits>
 {

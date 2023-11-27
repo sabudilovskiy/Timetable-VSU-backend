@@ -5,7 +5,7 @@
 
 namespace openapi
 {
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 void AppendRequestField(DocHelper doc_helper,
                         std::type_identity<http::HeaderProperty<T, Traits>>)
 {
@@ -15,11 +15,11 @@ void AppendRequestField(DocHelper doc_helper,
     {
         parameters_node = userver::formats::yaml::Type::kArray;
     }
-    static_assert(!traits::GetName<Traits>().empty(), "Header must have name");
+    static_assert(!traits::GetName(Traits).empty(), "Header must have name");
     userver::formats::yaml::ValueBuilder parameter_node =
         userver::formats::yaml::Type::kObject;
     parameter_node["in"] = "header";
-    parameter_node["name"] = traits::GetName<Traits>().AsString();
+    parameter_node["name"] = traits::GetName(Traits).AsString();
     parameter_node["required"] = userver::meta::kIsOptional<T>;
     auto schema = parameter_node["schema"];
     if constexpr (userver::meta::kIsOptional<T>)
@@ -34,12 +34,12 @@ void AppendRequestField(DocHelper doc_helper,
     parameters_node.PushBack(std::move(parameter_node));
 }
 
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 void AppendResponseField(DocHelper doc_helper,
                          std::type_identity<http::HeaderProperty<T, Traits>>)
 {
     auto& [root, cur] = doc_helper;
-    constexpr auto name = traits::GetName<Traits>();
+    constexpr auto name = traits::GetName(Traits);
     static_assert(!name.empty(), "Header must have name");
     auto name_s = name.AsString();
     auto header = cur["headers"][name_s]["schema"];

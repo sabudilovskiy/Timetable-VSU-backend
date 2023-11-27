@@ -11,7 +11,7 @@
 
 namespace openapi
 {
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 userver::formats::json::Value Serialize(
     const PropertyBase<T, Traits>& value,
     userver::formats::serialize::To<userver::formats::json::Value> s)

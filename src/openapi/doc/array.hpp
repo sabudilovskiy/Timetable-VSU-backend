@@ -3,7 +3,7 @@
 
 namespace openapi
 {
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 void Append(DocHelper doc_helper,
             std::type_identity<ArrayProperty<T, Traits>> = {})
 {

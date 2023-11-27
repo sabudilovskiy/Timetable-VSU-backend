@@ -5,5 +5,5 @@
 namespace openapi::http
 {
 template <typename T, typename... Options>
-using Body = BodyProperty<T, EmptyTraits>;
+using Body = BodyProperty<T, EmptyTraits{}>;
 }

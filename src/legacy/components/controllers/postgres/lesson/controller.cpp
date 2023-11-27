@@ -22,8 +22,8 @@
 #include "legacy/models/lesson_filter/postgre.hpp"
 #include "legacy/models/lesson_v1/postgre.hpp"
 #include "legacy/models/lesson_v1/type.hpp"
-#include "sql_queries.hpp"
 #include "legacy/models/substring/postgre.hpp"
+#include "sql_queries.hpp"
 
 namespace legacy::components::controllers::postgres::lesson
 {

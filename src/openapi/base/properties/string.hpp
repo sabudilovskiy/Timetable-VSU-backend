@@ -5,12 +5,12 @@
 
 namespace openapi
 {
-template <typename Traits = EmptyTraits>
+template <auto Traits = EmptyTraits{}>
 struct StringProperty : public PropertyBase<std::string, Traits>
 {
 };
 
-template <typename Traits>
+template <auto Traits>
 struct types::Property<std::string, Traits> : public StringProperty<Traits>
 {
 };

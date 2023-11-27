@@ -15,7 +15,7 @@
 
 namespace userver::formats::parse
 {
-template <typename Traits>
+template <auto Traits>
 ::openapi::DateTimeProperty<Traits> Parse(
     const json::Value& item, To<::openapi::DateTimeProperty<Traits>>)
 {

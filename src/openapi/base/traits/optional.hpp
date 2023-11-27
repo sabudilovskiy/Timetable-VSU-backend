@@ -8,9 +8,9 @@ namespace openapi
 namespace checks
 {
 template <typename T>
-concept HasUseNullOnFail = requires
+concept HasUseNullOnFail = requires(const T& t)
 {
-    {T::kUseNullOnFail};
+    t.use_null_on_fail;
 };
 
 }  // namespace checks
@@ -18,21 +18,21 @@ concept HasUseNullOnFail = requires
 namespace traits
 {
 template <typename T>
-constexpr utils::ConstexprOptional<bool> GetUseNullOnFail()
+constexpr utils::ConstexprOptional<bool> GetUseNullOnFail(const T& t)
 {
     if constexpr (checks::HasUseNullOnFail<T>)
     {
-        return T::kUseNullOnFail;
+        return t.use_null_on_fail;
     }
     else
         return utils::kNull;
 }
 
-template <typename Traits>
-struct OptionalHelperTraits : NamedHelperTraits<Traits>
+template <auto traits>
+struct OptionalHelperTraits : NamedHelperTraits<traits>
 {
     static constexpr utils::ConstexprOptional<bool> null_on_failure =
-        traits::GetUseNullOnFail<Traits>();
+        traits::GetUseNullOnFail(traits);
     constexpr OptionalHelperTraits()
     {
     }

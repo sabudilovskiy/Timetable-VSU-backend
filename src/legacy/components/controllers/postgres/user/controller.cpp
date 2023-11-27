@@ -23,10 +23,10 @@
 
 #include "config_schema.hpp"
 #include "legacy/components/controllers/postgres/user/sql_queries.hpp"
+#include "legacy/models/substring/postgre.hpp"
 #include "legacy/models/user/postgre.hpp"
 #include "legacy/models/user/type.hpp"
 #include "legacy/models/user_credentials/postgre.hpp"
-#include "legacy/models/substring/postgre.hpp"
 
 namespace legacy::components::controllers::postgres::user
 {

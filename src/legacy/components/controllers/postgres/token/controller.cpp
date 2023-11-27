@@ -16,11 +16,11 @@
 #include <utils/postgres_helper.hpp>
 #include <utils/shared_transaction.hpp>
 
+#include "legacy/models/substring/postgre.hpp"
 #include "legacy/models/user/postgre.hpp"
 #include "legacy/models/user/type.hpp"
 #include "legacy/models/user_type/postgre.hpp"
 #include "sql_queries.hpp"
-#include "legacy/models/substring/postgre.hpp"
 
 namespace legacy::components::controllers::postgres::token
 {

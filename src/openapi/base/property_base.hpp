@@ -11,11 +11,11 @@ struct EmptyTraits
 {
 };
 
-template <typename T, typename Traits = EmptyTraits>
+template <typename T, auto Traits = EmptyTraits{}>
 struct PropertyBase
 {
     using value_type = T;
-    using traits = Traits;
+    static constexpr auto traits = Traits;
 
     template <typename... Args>
     PropertyBase(Args&&... args) noexcept(
@@ -62,15 +62,15 @@ struct PropertyBase
 template <typename T>
 concept IsProperty = requires
 {
-    typename T::traits;
     typename T::value_type;
-    std::is_base_of_v<PropertyBase<typename T::traits, typename T::value_type>,
-                      T>;
+    {T::traits};
+    requires std::is_base_of_v<PropertyBase<typename T::value_type, T::traits>,
+                               T>;
 };
 
 namespace types
 {
-template <typename T, typename Traits = EmptyTraits>
+template <typename T, auto Traits = EmptyTraits{}>
 struct Property : PropertyBase<T, Traits>
 {
 };

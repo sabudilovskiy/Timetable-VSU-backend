@@ -22,5 +22,5 @@ namespace openapi::http
 Cookie<std::optional<T>>
 */
 template <typename T, typename... Options>
-using Cookie = CookieProperty<T, named_traits_from_options_t<Options...>>;
+using Cookie = CookieProperty<T, named_traits_from_options_v<Options...>>;
 }  // namespace openapi::http

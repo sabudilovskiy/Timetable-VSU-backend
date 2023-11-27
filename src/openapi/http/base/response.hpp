@@ -9,5 +9,5 @@ namespace openapi::http
 {
 template <typename T, std::size_t Code>
 requires checks::is_reflective_v<T> using Resp =
-    ResponseProperty<T, ResponseTraits<Code>>;
+    ResponseProperty<T, response_traits_v<Code>>;
 }

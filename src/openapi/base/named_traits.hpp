@@ -7,18 +7,17 @@
 
 namespace openapi
 {
-template <utils::ConstexprString Name>
 struct NamedTraits
 {
-    static constexpr auto kName = Name;
+    utils::FixedString name;
 };
 
 namespace checks
 {
 template <typename T>
-concept HasName = requires
+concept HasName = requires(T& t)
 {
-    {T::kName};
+    t.name;
 };
 
 }  // namespace checks
@@ -27,20 +26,20 @@ namespace traits
 {
 // returns ConstexprString
 template <typename T>
-constexpr auto GetName()
+constexpr utils::FixedString GetName(const T& t)
 {
     if constexpr (checks::HasName<T>)
     {
-        return T::kName;
+        return t.name;
     }
     else
-        return utils::kEmptyString;
+        return utils::k_empty_fixed_string;
 }
 
-template <typename Traits>
+template <auto Traits>
 struct NamedHelperTraits
 {
-    static constexpr auto name = traits::GetName<Traits>();
+    static constexpr auto name = traits::GetName(Traits);
 };
 }  // namespace traits
 }  // namespace openapi

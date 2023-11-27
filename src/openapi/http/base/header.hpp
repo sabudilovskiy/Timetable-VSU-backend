@@ -22,5 +22,5 @@ namespace openapi::http
 Header<std::optional<T>>
 */
 template <typename T, typename... Options>
-using Header = HeaderProperty<T, named_traits_from_options_t<Options...>>;
+using Header = HeaderProperty<T, named_traits_from_options_v<Options...>>;
 }  // namespace openapi::http

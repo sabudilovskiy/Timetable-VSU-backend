@@ -9,21 +9,21 @@ namespace openapi
 namespace checks
 {
 template <typename T>
-concept HasMin = requires
+concept HasMin = requires(const T& t)
 {
-    {T::kMin};
+    t.min;
 };
 
 template <typename T>
-concept HasMax = requires
+concept HasMax = requires(const T& t)
 {
-    {T::kMax};
+    t.max;
 };
 
 template <typename T>
-concept HasUniqueItems = requires
+concept HasUniqueItems = requires(const T& t)
 {
-    {T::kUniqueItems};
+    t.unique_items;
 };
 
 }  // namespace checks
@@ -31,45 +31,45 @@ concept HasUniqueItems = requires
 namespace traits
 {
 template <typename T>
-constexpr utils::ConstexprOptional<std::int64_t> GetMin()
+constexpr utils::ConstexprOptional<std::int64_t> GetMin(const T& t)
 {
     if constexpr (checks::HasMin<T>)
     {
-        return T::kMin;
+        return t.min;
     }
     else
         return utils::kNull;
 }
 template <typename T>
-constexpr utils::ConstexprOptional<std::int64_t> GetMax()
+constexpr utils::ConstexprOptional<std::int64_t> GetMax(const T& t)
 {
     if constexpr (checks::HasMax<T>)
     {
-        return T::kMax;
+        return t.max;
     }
     else
         return utils::kNull;
 }
 template <typename T>
-constexpr utils::ConstexprOptional<bool> GetUniqueItems()
+constexpr utils::ConstexprOptional<bool> GetUniqueItems(const T& t)
 {
     if constexpr (checks::HasUniqueItems<T>)
     {
-        return T::kUniqueItems;
+        return t.unique_items;
     }
     else
         return utils::kNull;
 }
 
-template <typename Traits>
-struct ArrayHelperTraits : NamedHelperTraits<Traits>
+template <auto traits>
+struct ArrayHelperTraits : NamedHelperTraits<traits>
 {
     static constexpr utils::ConstexprOptional<std::int64_t> min =
-        traits::GetMin<Traits>();
+        traits::GetMin(traits);
     static constexpr utils::ConstexprOptional<std::int64_t> max =
-        traits::GetMax<Traits>();
+        traits::GetMax(traits);
     static constexpr utils::ConstexprOptional<bool> unique_items =
-        traits::GetUniqueItems<Traits>();
+        traits::GetUniqueItems(traits);
     constexpr ArrayHelperTraits()
     {
     }

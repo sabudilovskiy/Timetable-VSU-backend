@@ -20,18 +20,17 @@ consteval void Apply(HolderNamed& holder, preferences::Name<value>)
 namespace details
 {
 template <typename... Option>
-auto resolve_named_traits()
+constexpr auto resolve_named_traits()
 {
     constexpr HolderNamed holder =
         traits::ResolveHolder<HolderNamed, Option...>();
     static_assert(holder.name.counter_changes <= 1,
                   "Don't use more 1 Name in template args");
-    constexpr auto name = utils::MakeConstexprString<holder.name()>();
-    return NamedTraits<name>{};
+    return NamedTraits{.name = holder.name()};
 }
 }  // namespace details
 
 template <typename... Option>
-using named_traits_from_options_t =
-    decltype(details::resolve_named_traits<Option...>());
+constexpr NamedTraits named_traits_from_options_v =
+    details::resolve_named_traits<Option...>();
 }  // namespace openapi

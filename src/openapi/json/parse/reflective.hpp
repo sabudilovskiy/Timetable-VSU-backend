@@ -51,7 +51,7 @@ inline std::unordered_set<std::string> parse_without_additional_properties(
     std::unordered_set<std::string> used_keys;
     //запоминаем ключи, которые были использованы
     auto matcher_common_type = [&item, &used_keys]<typename F>(F& field) {
-        constexpr auto name = traits::GetName<typename F::traits>();
+        constexpr auto name = traits::GetName(F::traits);
         static_assert(!name.empty(), "Common field must have name");
         field = item[name.AsStringView()].template As<F>();
         used_keys.emplace(name);
@@ -102,7 +102,7 @@ requires openapi::checks::is_reflective_v<T> T Parse(const json::Value& item,
     else
     {
         auto matcher_common_type = [&item]<typename F>(F& field) {
-            constexpr auto name = traits::GetName<typename F::traits>();
+            constexpr auto name = traits::GetName(F::traits);
             static_assert(!name.empty(), "Common field must have name");
             field = item[name.AsStringView()].template As<F>();
         };

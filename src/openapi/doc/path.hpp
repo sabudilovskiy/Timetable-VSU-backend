@@ -18,12 +18,12 @@ struct HandlerInfo
     const std::string& method;
 };
 
-template <typename Resp, typename Traits>
+template <typename Resp, auto Traits>
 void AppendPathResponse(
     Doc& doc, userver::formats::yaml::ValueBuilder& view,
     std::type_identity<http::ResponseProperty<Resp, Traits>>)
 {
-    auto status_code = static_cast<int>(Traits::code);
+    auto status_code = static_cast<int>(Traits.code);
     std::string code_str = std::to_string(status_code);
     auto resp = view[code_str];
     AppendResponse(doc, std::type_identity<Resp>{});

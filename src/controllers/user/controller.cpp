@@ -149,6 +149,7 @@ const userver::storages::postgres::Query* GetRequestRihtsType(
         case legacy::models::UserType::teacher:
             return &sql::create_teacher_request;
     }
+    return nullptr;
 }
 }  // namespace
 

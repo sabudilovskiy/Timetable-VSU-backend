@@ -21,6 +21,8 @@ file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/unittest.txt unittest_src)
 add_library(${PROJECT_NAME}_objs OBJECT
 	${objs_src}
 )
+target_compile_options(${PROJECT_NAME}_objs PRIVATE -Wno-missing-field-initializers
+)
 target_include_directories(${PROJECT_NAME}_objs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql)
 # target_compile_options(${PROJECT_NAME}_objs PRIVATE -Wfatal-errors)

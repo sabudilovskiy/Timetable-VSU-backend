@@ -6,13 +6,13 @@
 
 namespace openapi
 {
-template <typename T, typename Traits = EmptyTraits>
+template <typename T, auto Traits = EmptyTraits{}>
 requires checks::is_reflective_v<T> struct ObjectProperty
     : public PropertyBase<T, Traits>
 {
 };
 
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 requires checks::is_reflective_v<T> struct types::Property<T, Traits>
     : public ObjectProperty<T, Traits>
 {

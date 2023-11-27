@@ -251,7 +251,8 @@ WITH admin_info as (SELECT
     ($1.admin_ids IS null OR admin_id::text ILIKE ANY($1.admin_ids)) and
 	($1.user_ids IS null OR user_id::text ILIKE ANY($1.user_ids)) and
 	($1.logins IS null OR login ILIKE ANY($1.logins))
- ;)-",
+ ;
+)-",
     userver::storages::postgres::Query::Name("get_admins_by_filter"),
     userver::storages::postgres::Query::LogMode::kFull};
 

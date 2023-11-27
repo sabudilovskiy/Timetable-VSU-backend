@@ -11,17 +11,12 @@ namespace openapi
 {
 namespace detail
 {
-template <utils::ConstexprString Name, utils::ConstexprString Pattern>
-struct StringTraits : NamedTraits<Name>
+struct StringTraits
 {
-    static constexpr auto kPattern = Pattern;
+    utils::FixedString name;
+    utils::FixedString pattern;
 };
 
-//вся эта структура нужна для того, чтобы работать с трейтами как с значением и
-//применять поэтапно опции
-//у меня нет иного выбора, кроме как стереть информацию о
-//реальном размере строки, так как мне нельзя менять тип.
-// 256 должно хватить
 struct StringHolder
 {
     traits::HolderField<utils::FixedString> name;
@@ -54,22 +49,18 @@ struct StringMagicHelper
                       "Don't use more 1 Name in template args");
         static_assert(traits.pattern.counter_changes <= 1,
                       "Don't use more 1 Pattern in template args");
-        constexpr auto name = utils::MakeConstexprString<traits.name()>();
-        constexpr auto pattern = utils::MakeConstexprString<traits.pattern()>();
-        return StringTraits<name, pattern>{};
+        return StringTraits{.name = traits.name(), .pattern = traits.pattern()};
     }
 };
 
 template <typename... Option>
-using string_traits_helper_t =
-    decltype(StringMagicHelper<Option...>::resolve_traits());
+constexpr StringTraits string_traits_helper_v =
+    StringMagicHelper<Option...>::resolve_traits();
 }  // namespace detail
 
 namespace types
 {
 template <typename... Option>
-using String =
-    StringProperty<::openapi::detail::string_traits_helper_t<Option...>>;
-
+using String = StringProperty<detail::string_traits_helper_v<Option...>>;
 }
 }  // namespace openapi

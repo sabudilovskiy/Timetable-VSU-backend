@@ -23,9 +23,10 @@ requires checks::is_reflective_v<T> T Parse(const RequestInfo& info,
                                             userver::formats::parse::To<T>)
 {
     T t;
-    auto matcher_header = [&]<typename H, typename Traits>(
-                              HeaderProperty<H, Traits>& item) {
-        constexpr auto name = traits::GetName<Traits>();
+    auto matcher_header = [&]<typename H, auto Traits>(
+        HeaderProperty<H, Traits> & item)
+    {
+        constexpr auto name = traits::GetName(Traits);
         static_assert(!name.empty(), "header must have name");
         std::string_view name_sv = name.AsStringView();
         auto it = info.headers.find(name_sv);
@@ -49,9 +50,10 @@ requires checks::is_reflective_v<T> T Parse(const RequestInfo& info,
             item() = Parse(founded, userver::formats::parse::To<H>{});
         }
     };
-    auto matcher_cookie = [&]<typename C, typename Traits>(
-                              CookieProperty<C, Traits>& item) {
-        constexpr auto name = traits::GetName<Traits>();
+    auto matcher_cookie = [&]<typename C, auto Traits>(
+        CookieProperty<C, Traits> & item)
+    {
+        constexpr auto name = traits::GetName(Traits);
         static_assert(!name.empty(), "cookie must have name");
         std::string name_sv = name.AsString();
         auto it = info.cookies.find(name_sv);
@@ -75,11 +77,12 @@ requires checks::is_reflective_v<T> T Parse(const RequestInfo& info,
             item() = Parse(founded, userver::formats::parse::To<C>{});
         }
     };
-    auto matcher_json_body =
-        [&]<typename B, typename Traits>(BodyProperty<B, Traits>& item) {
-            auto json = userver::formats::json::FromString(info.body);
-            item() = Parse(json, userver::formats::parse::To<B>{});
-        };
+    auto matcher_json_body = [&]<typename B, auto Traits>(
+        BodyProperty<B, Traits> & item)
+    {
+        auto json = userver::formats::json::FromString(info.body);
+        item() = Parse(json, userver::formats::parse::To<B>{});
+    };
     auto matcher_all = userver::utils::Overloaded{std::move(matcher_header),
                                                   std::move(matcher_cookie),
                                                   std::move(matcher_json_body)};

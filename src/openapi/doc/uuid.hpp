@@ -5,7 +5,7 @@
 
 namespace openapi
 {
-template <typename Traits>
+template <auto Traits>
 void Append(DocHelper doc_helper, std::type_identity<UuidProperty<Traits>> = {})
 {
     auto& field_node = doc_helper.cur_place;

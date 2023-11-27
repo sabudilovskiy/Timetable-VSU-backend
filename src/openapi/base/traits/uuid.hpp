@@ -4,8 +4,8 @@
 
 namespace openapi::traits
 {
-template <typename Traits>
-struct UuidHelperTraits : NamedHelperTraits<Traits>
+template <auto traits>
+struct UuidHelperTraits : NamedHelperTraits<traits>
 {
 };
 

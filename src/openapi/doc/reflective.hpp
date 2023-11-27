@@ -10,8 +10,8 @@ namespace openapi
 template <typename T>
 void AppendField(DocHelper doc_helper, std::type_identity<T> type)
 {
-    using Traits = typename T::traits;
-    constexpr auto name_ce = traits::GetName<Traits>();
+    constexpr auto& Traits = T::traits;
+    constexpr auto name_ce = traits::GetName(Traits);
     constexpr auto name_ce_empty = name_ce.empty();
     static_assert(!name_ce_empty, "Field must have name");
     std::string name{name_ce.AsStringView()};
@@ -23,8 +23,8 @@ void AppendField(DocHelper doc_helper, std::type_identity<T> type)
                 required = userver::formats::common::Type::kArray;
             required.PushBack(name);
         },
-        []<typename U, typename Traits>(
-            std::type_identity<OptionalProperty<U, Traits>>) {}};
+        []<typename U, auto Traits>(
+            std::type_identity<OptionalProperty<U, Traits>>){}};
     matcher(type);
     Append(DocHelper{doc_helper.root, field_node}, std::type_identity<T>{});
 }

@@ -13,7 +13,7 @@ namespace openapi
 namespace types
 {
 template <typename... Option>
-using Uuid = UuidProperty<::openapi::named_traits_from_options_t<Option...>>;
+using Uuid = UuidProperty<::openapi::named_traits_from_options_v<Option...>>;
 
 }
 }  // namespace openapi

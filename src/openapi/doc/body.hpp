@@ -5,7 +5,7 @@
 
 namespace openapi
 {
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 void AppendRequestField(DocHelper doc_helper,
                         std::type_identity<http::BodyProperty<T, Traits>>)
 {
@@ -30,7 +30,7 @@ void AppendRequestField(DocHelper doc_helper,
     Append(DocHelper{doc_helper.root, schema}, std::type_identity<T>{});
 }
 
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 void AppendResponseField(DocHelper doc_helper,
                          std::type_identity<http::BodyProperty<T, Traits>>)
 {

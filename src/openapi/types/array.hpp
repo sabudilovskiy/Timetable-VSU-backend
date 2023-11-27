@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #include <openapi/base/holder.hpp>
 #include <openapi/base/named_traits.hpp>
 #include <openapi/base/preferences.hpp>
@@ -12,15 +13,12 @@ namespace openapi
 {
 namespace detail
 {
-template <utils::ConstexprString Name,
-          utils::ConstexprOptional<std::int64_t> Min = utils::kNull,
-          utils::ConstexprOptional<std::int64_t> Max = utils::kNull,
-          utils::ConstexprOptional<bool> UniqueItems = utils::kNull>
-struct ArrayTraits : NamedTraits<Name>
+struct ArrayTraits
 {
-    static constexpr auto kMin = Min;
-    static constexpr auto kMax = Max;
-    static constexpr auto kUniqueItems = UniqueItems;
+    utils::FixedString name;
+    utils::ConstexprOptional<std::int64_t> min;
+    utils::ConstexprOptional<std::int64_t> max;
+    utils::ConstexprOptional<bool> unique_items;
 };
 
 struct ArrayHolder
@@ -72,10 +70,11 @@ struct ArrayMagicHelper
                       "Don't use more 1 Min in template args");
         static_assert(traits.unique_items.counter_changes <= 1,
                       "Don't use more 1 UniqueItems in template args");
-        constexpr auto name = utils::MakeConstexprString<traits.name()>();
-        using Traits = ArrayTraits<name, traits.min(), traits.max(),
-                                   traits.unique_items()>;
-        return ArrayProperty<T, Traits>{};
+        return ArrayProperty<T, ArrayTraits{
+                                    .name = traits.name(),
+                                    .min = traits.min(),
+                                    .max = traits.max(),
+                                    .unique_items = traits.unique_items()}>{};
     }
 };
 

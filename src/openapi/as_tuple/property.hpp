@@ -8,7 +8,7 @@ template <IsProperty U>
 class AsTuple<U>
 {
     using T = typename U::value_type;
-    using Traits = typename U::traits;
+    static constexpr auto& Traits = U::traits;
     using Type = PropertyBase<T, Traits>;
     using RawMut = typename AsTuple<T>::result_mut;
     using RawConst = typename AsTuple<T>::result_const;

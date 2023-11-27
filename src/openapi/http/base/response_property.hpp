@@ -4,7 +4,7 @@
 
 namespace openapi::http
 {
-template <typename T, typename Traits = EmptyTraits>
+template <typename T, auto Traits = EmptyTraits{}>
 struct ResponseProperty : PropertyBase<T, Traits>
 {
 };

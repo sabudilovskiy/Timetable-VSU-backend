@@ -1,4 +1,5 @@
 #pragma once
+#include <openapi/base/field.hpp>
 #include <openapi/base/named_traits.hpp>
 #include <openapi/types/uuid.hpp>
 
@@ -11,7 +12,7 @@ using namespace openapi::preferences;
 struct User
 {
     Uuid<Name<"id">> id;
-    Property<legacy::models::UserType, openapi::NamedTraits<"type">> type;
+    FIELD(type, legacy::models::UserType);
     auto operator<=>(const User&) const = default;
 };
 

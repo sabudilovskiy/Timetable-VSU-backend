@@ -17,8 +17,8 @@
 #include "http/handler_parsed.hpp"
 #include "legacy/components/controllers/postgres/teacher/controller.hpp"
 #include "legacy/models/auth_token/serialize.hpp"
-#include "legacy/models/user/serialize.hpp"
 #include "legacy/models/substring/parse.hpp"
+#include "legacy/models/user/serialize.hpp"
 namespace legacy::views::teacher::list
 {
 namespace

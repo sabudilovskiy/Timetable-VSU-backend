@@ -26,11 +26,13 @@ requires checks::is_reflective_v<T> inline void serialize_without_additional(
     const T& item, userver::formats::json::ValueBuilder& result)
 {
     auto matcher_common = [&result]<typename F>(const F& field) {
-        constexpr auto name = traits::GetName<typename F::traits>();
+        constexpr auto name = traits::GetName(F::traits);
         static_assert(!name.empty(), "Common field must have name");
         userver::formats::json::ValueBuilder field_json{field()};
-        if (!field_json.IsNull()){
-            result.EmplaceNocheck(name.AsStringView(), field_json.ExtractValue());
+        if (!field_json.IsNull())
+        {
+            result.EmplaceNocheck(name.AsStringView(),
+                                  field_json.ExtractValue());
         }
     };
     // noop

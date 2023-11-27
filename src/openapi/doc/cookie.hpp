@@ -6,7 +6,7 @@
 
 namespace openapi
 {
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 void AppendRequestField(DocHelper doc_helper,
                         std::type_identity<http::CookieProperty<T, Traits>>)
 {
@@ -16,18 +16,18 @@ void AppendRequestField(DocHelper doc_helper,
     {
         parameters_node = userver::formats::yaml::Type::kArray;
     }
-    static_assert(!traits::GetName<Traits>().empty(), "Cookie must have name");
+    static_assert(!traits::GetName(Traits).empty(), "Cookie must have name");
     userver::formats::yaml::ValueBuilder parameter_node =
         userver::formats::yaml::Type::kObject;
     parameter_node["in"] = "cookie";
-    parameter_node["name"] = traits::GetName<Traits>().AsString();
+    parameter_node["name"] = traits::GetName(Traits).AsString();
     parameter_node["required"] = userver::meta::kIsOptional<T>;
     auto schema = parameter_node["schema"];
     Append(DocHelper{doc_helper.root, schema}, std::type_identity<T>{});
     parameters_node.PushBack(std::move(parameter_node));
 }
 
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 void AppendResponseField(DocHelper,
                          std::type_identity<http::CookieProperty<T, Traits>>)
 {

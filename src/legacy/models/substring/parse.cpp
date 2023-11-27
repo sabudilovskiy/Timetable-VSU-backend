@@ -11,7 +11,8 @@
 
 namespace legacy::models
 {
-// SubString Parse(const std::string& str, userver::formats::parse::To<SubString>)
+// SubString Parse(const std::string& str,
+// userver::formats::parse::To<SubString>)
 // {
 //     SubString result;
 //     result.GetUnderlying().reserve(str.size() + 2);

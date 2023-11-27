@@ -13,7 +13,7 @@ namespace openapi
 namespace types
 {
 template <typename T, typename... Option>
-using Object = ObjectProperty<T, named_traits_from_options_t<Option...>>;
+using Object = ObjectProperty<T, named_traits_from_options_v<Option...>>;
 
 }
 }  // namespace openapi

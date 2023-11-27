@@ -48,7 +48,6 @@ src/openapi/types/uuid.hpp
 src/openapi/types/string.hpp
 src/openapi/types/optional.hpp
 src/openapi/types/object.hpp
-src/openapi/types/field.hpp
 src/openapi/types/datetime.hpp
 src/openapi/types/array.hpp
 src/openapi/types/all.hpp
@@ -170,6 +169,8 @@ src/models/lesson_v1/type.hpp
 src/models/lesson_filter/type.hpp
 src/models/lesson_filter/postgres.hpp
 src/models/error_v1/type.hpp
+src/models/admin_account/type.hpp
+src/models/admin_account/postgre.hpp
 src/legacy/views/teacher/request/list/view.hpp
 src/legacy/views/teacher/request/list/view.cpp
 src/legacy/views/teacher/request/list/Responses.hpp

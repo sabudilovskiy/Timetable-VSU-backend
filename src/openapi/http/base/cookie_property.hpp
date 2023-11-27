@@ -4,7 +4,7 @@
 
 namespace openapi::http
 {
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 struct CookieProperty : PropertyBase<T, Traits>
 {
 };

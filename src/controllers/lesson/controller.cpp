@@ -26,8 +26,8 @@
 #include "legacy/models/lesson_type/postgre.hpp"
 #include "legacy/models/lesson_week_type/postgre.hpp"
 #include "legacy/models/subgroup/postgre.hpp"
-#include "models/user_credentials/postgres.hpp"
 #include "legacy/models/substring/postgre.hpp"
+#include "models/user_credentials/postgres.hpp"
 
 namespace controllers::lesson
 {

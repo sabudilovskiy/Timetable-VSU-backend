@@ -6,12 +6,12 @@
 
 namespace openapi
 {
-template <typename T, typename Traits = EmptyTraits>
+template <typename T, auto Traits = EmptyTraits{}>
 struct ArrayProperty : public PropertyBase<std::vector<T>, Traits>
 {
 };
 
-template <typename T, typename Traits>
+template <typename T, auto Traits>
 struct types::Property<std::vector<T>, Traits> : public ArrayProperty<T, Traits>
 {
 };

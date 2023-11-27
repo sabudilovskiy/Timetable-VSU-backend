@@ -14,7 +14,7 @@
 
 namespace userver::formats::parse
 {
-template <typename Traits>
+template <auto Traits>
 ::openapi::StringProperty<Traits> Parse(const json::Value& item,
                                         To<::openapi::StringProperty<Traits>>)
 {

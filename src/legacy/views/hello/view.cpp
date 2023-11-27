@@ -31,7 +31,7 @@ struct Hello final : userver::server::handlers::HttpHandlerBase
         const userver::server::http::HttpRequest& request,
         userver::server::request::RequestContext&) const override
     {
-        const auto& name = request.GetArg("name");
+        auto name = request.GetArg("name");
 
         auto user_type = UserType::kFirstTime;
         if (!name.empty())

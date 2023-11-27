@@ -6,12 +6,12 @@
 
 namespace openapi
 {
-template <typename Traits>
+template <auto Traits>
 struct PropertyBase<userver::storages::postgres::TimePointTz, Traits>
 {
     using T = userver::storages::postgres::TimePointTz;
     using value_type = T;
-    using traits = Traits;
+    static constexpr auto traits = Traits;
 
     template <typename... Args>
     PropertyBase(Args&&... args) noexcept(
@@ -67,13 +67,13 @@ struct PropertyBase<userver::storages::postgres::TimePointTz, Traits>
     value_type value;
 };
 
-template <typename Traits>
+template <auto Traits>
 struct DateTimeProperty
     : PropertyBase<userver::storages::postgres::TimePointTz, Traits>
 {
 };
 
-template <typename Traits>
+template <auto Traits>
 struct types::Property<userver::storages::postgres::TimePointTz, Traits>
     : DateTimeProperty<Traits>
 {

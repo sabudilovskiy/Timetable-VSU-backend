@@ -14,6 +14,7 @@ userver::formats::json::Value Serialize(
     const SubString& value,
     userver::formats::serialize::To<userver::formats::json::Value>)
 {
-   return userver::formats::json::ValueBuilder{value.GetUnderlying()}.ExtractValue();
+    return userver::formats::json::ValueBuilder{value.GetUnderlying()}
+        .ExtractValue();
 }
 }  // namespace legacy::models

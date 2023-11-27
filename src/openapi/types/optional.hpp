@@ -11,11 +11,10 @@ namespace openapi
 {
 namespace detail
 {
-template <utils::ConstexprString Name,
-          utils::ConstexprOptional<bool> useNullOnFail>
-struct OptionalTraits : NamedTraits<Name>
+struct OptionalTraits
 {
-    static constexpr auto kUseNullOnFail = useNullOnFail;
+    utils::FixedString name;
+    utils::ConstexprOptional<bool> use_null_non_fail;
 };
 
 struct OptionalHolder
@@ -49,9 +48,10 @@ struct OptionalHelper
                       "Don't use more 1 Name in template args");
         static_assert(traits.use_null_non_fail.counter_changes <= 1,
                       "Don't use more 1 UseNullOnFail in template args");
-        constexpr auto name = utils::MakeConstexprString<traits.name()>();
-        using Traits = OptionalTraits<name, traits.use_null_non_fail()>;
-        return OptionalProperty<T, Traits>{};
+        return OptionalProperty<T, OptionalTraits{
+                                       .name = traits.name(),
+                                       .use_null_non_fail =
+                                           traits.use_null_non_fail()}>{};
     }
 };
 

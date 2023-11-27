@@ -23,7 +23,7 @@ struct HolderField
 };
 
 template <>
-struct HolderField<utils::FixedString>
+struct HolderField<utils::LegacyFixedString>
 {
     template <size_t Size>
     constexpr void operator=(const utils::ConstexprString<Size>& t)
@@ -36,6 +36,33 @@ struct HolderField<utils::FixedString>
         {
             value_[index] = '\0';
         }
+        counter_changes++;
+    }
+    constexpr const utils::LegacyFixedString& operator()() const
+    {
+        return value_;
+    }
+
+   public:
+    utils::LegacyFixedString value_{};
+    size_t counter_changes{};
+};
+
+template <>
+struct HolderField<utils::FixedString>
+{
+    template <size_t Size>
+    constexpr void operator=(const utils::ConstexprString<Size>& t)
+    {
+        for (size_t index = 0; index < Size; index++)
+        {
+            value_.data_[index] = t[index];
+        }
+        for (size_t index = Size; index < value_.len; index++)
+        {
+            value_.data_[index] = '\0';
+        }
+        value_.len = Size - 1;
         counter_changes++;
     }
     constexpr const utils::FixedString& operator()() const

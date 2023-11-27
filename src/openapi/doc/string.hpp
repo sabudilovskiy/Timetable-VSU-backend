@@ -1,4 +1,6 @@
 #pragma once
+#include <openapi/base/properties/string.hpp>
+#include <openapi/base/traits/string.hpp>
 #include <openapi/doc/base.hpp>
 
 namespace openapi
@@ -13,7 +15,7 @@ inline void Append(DocHelper doc_helper, std::type_identity<std::string>)
     cur["type"] = "string";
 }
 
-template <typename Traits>
+template <auto Traits>
 void Append(DocHelper doc_helper,
             std::type_identity<StringProperty<Traits>> = {})
 {
