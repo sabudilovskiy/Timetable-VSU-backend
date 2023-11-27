@@ -1,2 +1,3 @@
 psycopg2
 autopep8
+websockets
