@@ -6,43 +6,43 @@
 
 namespace sql
 {
+// Generated from: src/sql/admin/get_admin_account_by_admin_id.sql
+extern const userver::storages::postgres::Query get_admin_account_by_admin_id;
+
+// Generated from: src/sql/admin/get_admins_by_filter.sql
+extern const userver::storages::postgres::Query get_admins_by_filter;
+
 // Generated from: src/sql/get_lessons_by_filter.sql
 extern const userver::storages::postgres::Query get_lessons_by_filter;
-
-// Generated from: src/sql/token/get_user_id_by_token.sql
-extern const userver::storages::postgres::Query get_user_id_by_token;
 
 // Generated from: src/sql/token/add_token_to_user.sql
 extern const userver::storages::postgres::Query add_token_to_user;
 
-// Generated from: src/sql/user/drop_user_by_login.sql
-extern const userver::storages::postgres::Query drop_user_by_login;
+// Generated from: src/sql/token/get_user_id_by_token.sql
+extern const userver::storages::postgres::Query get_user_id_by_token;
+
+// Generated from: src/sql/user/add_user.sql
+extern const userver::storages::postgres::Query add_user;
+
+// Generated from: src/sql/user/create_admin_request.sql
+extern const userver::storages::postgres::Query create_admin_request;
 
 // Generated from: src/sql/user/create_teacher_request.sql
 extern const userver::storages::postgres::Query create_teacher_request;
+
+// Generated from: src/sql/user/drop_user_by_id.sql
+extern const userver::storages::postgres::Query drop_user_by_id;
+
+// Generated from: src/sql/user/drop_user_by_login.sql
+extern const userver::storages::postgres::Query drop_user_by_login;
+
+// Generated from: src/sql/user/get_user_by_credentials.sql
+extern const userver::storages::postgres::Query get_user_by_credentials;
 
 // Generated from: src/sql/user/get_user_by_token.sql
 extern const userver::storages::postgres::Query get_user_by_token;
 
 // Generated from: src/sql/user/internal_add_user.sql
 extern const userver::storages::postgres::Query internal_add_user;
-
-// Generated from: src/sql/user/create_admin_request.sql
-extern const userver::storages::postgres::Query create_admin_request;
-
-// Generated from: src/sql/user/drop_user_by_id.sql
-extern const userver::storages::postgres::Query drop_user_by_id;
-
-// Generated from: src/sql/user/add_user.sql
-extern const userver::storages::postgres::Query add_user;
-
-// Generated from: src/sql/user/get_user_by_credentials.sql
-extern const userver::storages::postgres::Query get_user_by_credentials;
-
-// Generated from: src/sql/admin/get_admins_by_filter.sql
-extern const userver::storages::postgres::Query get_admins_by_filter;
-
-// Generated from: src/sql/admin/get_admin_account_by_admin_id.sql
-extern const userver::storages::postgres::Query get_admin_account_by_admin_id;
 
 }  // namespace sql

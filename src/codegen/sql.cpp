@@ -5,6 +5,45 @@
 
 namespace sql
 {
+// Generated from: src/sql/admin/get_admin_account_by_admin_id.sql
+const userver::storages::postgres::Query get_admin_account_by_admin_id = {
+    R"-(
+SELECT 
+    u.id AS user_id,
+    a.id AS admin_id,
+    u.login AS user_login
+FROM  timetable_vsu."admin" AS a
+LEFT JOIN timetable_vsu."user" AS u ON u.id = a.id_user
+WHERE a.id = $1
+;
+)-",
+    userver::storages::postgres::Query::Name("get_admin_account_by_admin_id"),
+    userver::storages::postgres::Query::LogMode::kFull};
+
+// Generated from: src/sql/admin/get_admins_by_filter.sql
+const userver::storages::postgres::Query get_admins_by_filter = {
+    R"-(
+WITH admin_info as (SELECT
+        a.id AS admin_id,
+        a.id_user AS user_id,
+        u.login AS login
+    FROM timetable_vsu.admin AS a
+        LEFT JOIN timetable_vsu.user AS u ON a.id_user = u.id
+    )
+    SELECT 
+        user_id,
+        admin_id,
+        login
+    FROM admin_info
+    WHERE 
+    ($1.admin_ids IS null OR admin_id::text ILIKE ANY($1.admin_ids)) and
+	($1.user_ids IS null OR user_id::text ILIKE ANY($1.user_ids)) and
+	($1.logins IS null OR login ILIKE ANY($1.logins))
+ ;
+)-",
+    userver::storages::postgres::Query::Name("get_admins_by_filter"),
+    userver::storages::postgres::Query::LogMode::kFull};
+
 // Generated from: src/sql/get_lessons_by_filter.sql
 const userver::storages::postgres::Query get_lessons_by_filter = {
     R"-(
@@ -100,6 +139,14 @@ WHERE
     userver::storages::postgres::Query::Name("get_lessons_by_filter"),
     userver::storages::postgres::Query::LogMode::kFull};
 
+// Generated from: src/sql/token/add_token_to_user.sql
+const userver::storages::postgres::Query add_token_to_user = {
+    R"-(
+insert into timetable_vsu."token" (id_user, expire_time) values ($1, $2) RETURNING id
+)-",
+    userver::storages::postgres::Query::Name("add_token_to_user"),
+    userver::storages::postgres::Query::LogMode::kFull};
+
 // Generated from: src/sql/token/get_user_id_by_token.sql
 const userver::storages::postgres::Query get_user_id_by_token = {
     R"-(
@@ -117,12 +164,40 @@ LEFT OUTER JOIN found_token ON id_user = "user".id
     userver::storages::postgres::Query::Name("get_user_id_by_token"),
     userver::storages::postgres::Query::LogMode::kFull};
 
-// Generated from: src/sql/token/add_token_to_user.sql
-const userver::storages::postgres::Query add_token_to_user = {
+// Generated from: src/sql/user/add_user.sql
+const userver::storages::postgres::Query add_user = {
     R"-(
-insert into timetable_vsu."token" (id_user, expire_time) values ($1, $2) RETURNING id
+insert into timetable_vsu."user"
+           (   login,    password) 
+    values ($1.login, $1.password) 
+ON CONFLICT DO NOTHING 
+RETURNING id
 )-",
-    userver::storages::postgres::Query::Name("add_token_to_user"),
+    userver::storages::postgres::Query::Name("add_user"),
+    userver::storages::postgres::Query::LogMode::kFull};
+
+// Generated from: src/sql/user/create_admin_request.sql
+const userver::storages::postgres::Query create_admin_request = {
+    R"-(
+INSERT INTO timetable_vsu."admin_requests"(id_user, description) values ($1, $2) ON CONFLICT DO NOTHING
+)-",
+    userver::storages::postgres::Query::Name("create_admin_request"),
+    userver::storages::postgres::Query::LogMode::kFull};
+
+// Generated from: src/sql/user/create_teacher_request.sql
+const userver::storages::postgres::Query create_teacher_request = {
+    R"-(
+INSERT INTO timetable_vsu."teacher_requests"(id_user, description) values ($1, $2) ON CONFLICT DO NOTHING
+)-",
+    userver::storages::postgres::Query::Name("create_teacher_request"),
+    userver::storages::postgres::Query::LogMode::kFull};
+
+// Generated from: src/sql/user/drop_user_by_id.sql
+const userver::storages::postgres::Query drop_user_by_id = {
+    R"-(
+DELETE FROM timetable_vsu."user" WHERE id=$1;
+)-",
+    userver::storages::postgres::Query::Name("drop_user_by_id"),
     userver::storages::postgres::Query::LogMode::kFull};
 
 // Generated from: src/sql/user/drop_user_by_login.sql
@@ -133,12 +208,31 @@ DELETE FROM timetable_vsu."user" WHERE login=$1;
     userver::storages::postgres::Query::Name("drop_user_by_login"),
     userver::storages::postgres::Query::LogMode::kFull};
 
-// Generated from: src/sql/user/create_teacher_request.sql
-const userver::storages::postgres::Query create_teacher_request = {
+// Generated from: src/sql/user/get_user_by_credentials.sql
+const userver::storages::postgres::Query get_user_by_credentials = {
     R"-(
-INSERT INTO timetable_vsu."teacher_requests"(id_user, description) values ($1, $2) ON CONFLICT DO NOTHING
+WITH all_user AS 
+( 
+    SELECT 
+        u.id AS user_id,
+        a.id AS admin_id,
+        tl.id_teacher AS teacher_id
+    from 
+        timetable_vsu.user AS u
+        left join timetable_vsu.admin AS a on u.id = a.id_user
+        left join timetable_vsu.teacher_link AS tl on u.id = tl.id_user
+    where u.login = $1.login and u."password" = $1.password
+)
+SELECT 
+    user_id, 
+    CASE 
+        WHEN admin_id IS NOT NULL THEN 'admin'::timetable_vsu.user_type
+        WHEN teacher_id IS NOT NULL THEN 'teacher'::timetable_vsu.user_type
+        ELSE 'user' 
+    END AS type 
+FROM all_user;
 )-",
-    userver::storages::postgres::Query::Name("create_teacher_request"),
+    userver::storages::postgres::Query::Name("get_user_by_credentials"),
     userver::storages::postgres::Query::LogMode::kFull};
 
 // Generated from: src/sql/user/get_user_by_token.sql
@@ -175,100 +269,6 @@ const userver::storages::postgres::Query internal_add_user = {
 insert into timetable_vsu."user"(id, login, password) values ($1, $2.login, $2.password)
 )-",
     userver::storages::postgres::Query::Name("internal_add_user"),
-    userver::storages::postgres::Query::LogMode::kFull};
-
-// Generated from: src/sql/user/create_admin_request.sql
-const userver::storages::postgres::Query create_admin_request = {
-    R"-(
-INSERT INTO timetable_vsu."admin_requests"(id_user, description) values ($1, $2) ON CONFLICT DO NOTHING
-)-",
-    userver::storages::postgres::Query::Name("create_admin_request"),
-    userver::storages::postgres::Query::LogMode::kFull};
-
-// Generated from: src/sql/user/drop_user_by_id.sql
-const userver::storages::postgres::Query drop_user_by_id = {
-    R"-(
-DELETE FROM timetable_vsu."user" WHERE id=$1;
-)-",
-    userver::storages::postgres::Query::Name("drop_user_by_id"),
-    userver::storages::postgres::Query::LogMode::kFull};
-
-// Generated from: src/sql/user/add_user.sql
-const userver::storages::postgres::Query add_user = {
-    R"-(
-insert into timetable_vsu."user"
-           (   login,    password) 
-    values ($1.login, $1.password) 
-ON CONFLICT DO NOTHING 
-RETURNING id
-)-",
-    userver::storages::postgres::Query::Name("add_user"),
-    userver::storages::postgres::Query::LogMode::kFull};
-
-// Generated from: src/sql/user/get_user_by_credentials.sql
-const userver::storages::postgres::Query get_user_by_credentials = {
-    R"-(
-WITH all_user AS 
-( 
-    SELECT 
-        u.id AS user_id,
-        a.id AS admin_id,
-        tl.id_teacher AS teacher_id
-    from 
-        timetable_vsu.user AS u
-        left join timetable_vsu.admin AS a on u.id = a.id_user
-        left join timetable_vsu.teacher_link AS tl on u.id = tl.id_user
-    where u.login = $1.login and u."password" = $1.password
-)
-SELECT 
-    user_id, 
-    CASE 
-        WHEN admin_id IS NOT NULL THEN 'admin'::timetable_vsu.user_type
-        WHEN teacher_id IS NOT NULL THEN 'teacher'::timetable_vsu.user_type
-        ELSE 'user' 
-    END AS type 
-FROM all_user;
-)-",
-    userver::storages::postgres::Query::Name("get_user_by_credentials"),
-    userver::storages::postgres::Query::LogMode::kFull};
-
-// Generated from: src/sql/admin/get_admins_by_filter.sql
-const userver::storages::postgres::Query get_admins_by_filter = {
-    R"-(
-WITH admin_info as (SELECT
-        a.id AS admin_id,
-        a.id_user AS user_id,
-        u.login AS login
-    FROM timetable_vsu.admin AS a
-        LEFT JOIN timetable_vsu.user AS u ON a.id_user = u.id
-    )
-    SELECT 
-        user_id,
-        admin_id,
-        login
-    FROM admin_info
-    WHERE 
-    ($1.admin_ids IS null OR admin_id::text ILIKE ANY($1.admin_ids)) and
-	($1.user_ids IS null OR user_id::text ILIKE ANY($1.user_ids)) and
-	($1.logins IS null OR login ILIKE ANY($1.logins))
- ;
-)-",
-    userver::storages::postgres::Query::Name("get_admins_by_filter"),
-    userver::storages::postgres::Query::LogMode::kFull};
-
-// Generated from: src/sql/admin/get_admin_account_by_admin_id.sql
-const userver::storages::postgres::Query get_admin_account_by_admin_id = {
-    R"-(
-SELECT 
-    u.id AS user_id,
-    a.id AS admin_id,
-    u.login AS user_login
-FROM  timetable_vsu."admin" AS a
-LEFT JOIN timetable_vsu."user" AS u ON u.id = a.id_user
-WHERE a.id = $1
-;
-)-",
-    userver::storages::postgres::Query::Name("get_admin_account_by_admin_id"),
     userver::storages::postgres::Query::LogMode::kFull};
 
 }  // namespace sql

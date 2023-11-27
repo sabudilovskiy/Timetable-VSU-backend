@@ -16,10 +16,14 @@ def read_sql(result: dict, sql_file, directory_path):
     }
 def read_sqls(directory_path):
     result = {}
+    os_paths = []
     for root, dir, files in os.walk(directory_path):
         for file in files:
             if file.endswith(".sql"):
-                read_sql(result, os.path.join(root, file), directory_path)
+                os_paths.append(os.path.join(root, file))
+    os_paths.sort()
+    for os_path in os_paths:
+        read_sql(result, os_path, directory_path)
     return result
 
 
