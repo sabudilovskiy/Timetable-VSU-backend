@@ -42,3 +42,4 @@ git
 postgresql-15
 redis-server
 libnghttp2-dev
+clang-format-11

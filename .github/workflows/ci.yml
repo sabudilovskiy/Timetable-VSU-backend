@@ -40,7 +40,8 @@ jobs:
             run: |
               sudo apt update
               sudo apt install --allow-downgrades -y pep8 $(cat dependencies/${{matrix.os}}.md | tr '\n' ' ')
-              sudo apt install clang-format-11
+          - name: Install python packages
+            run: |
               sudo pip install $(cat dependencies/python.md) | tr  '\n' ' '
           - name: install g++11
             run: |
