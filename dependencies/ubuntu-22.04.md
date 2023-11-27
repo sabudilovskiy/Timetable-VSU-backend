@@ -41,3 +41,4 @@ ccache
 git
 postgresql-15
 redis-server
+libnghttp2-dev
