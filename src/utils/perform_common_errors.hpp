@@ -1,5 +1,5 @@
 #pragma once
-#include "common_errors.hpp"
+#include <utils/common_errors.hpp>
 namespace utils::common_errors
 {
 [[nodiscard]] Response400 PerformLoginTaken();
