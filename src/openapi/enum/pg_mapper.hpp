@@ -18,4 +18,15 @@ requires HasIntrospector<T> struct PgMapper
         create_enumerator_func<T>();
 };
 
+template <typename T, utils::ConstexprString schema,
+          utils::ConstexprString name>
+requires HasIntrospector<T> struct PgMapperFixed
+    : userver::storages::postgres::io::EnumMappingBase<T>
+{
+    static constexpr userver::storages::postgres::DBTypeName postgres_name{
+        schema.AsStringView(), name.AsStringView()};
+    static constexpr userver::utils::TrivialBiMap enumerators =
+        create_enumerator_func<T>();
+};
+
 }  // namespace openapi

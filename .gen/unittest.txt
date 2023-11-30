@@ -1,3 +1,4 @@
+utests/test_ct.cpp
 utests/remove_namespace.cpp
 utests/openapi/raw/to_tuple.cpp
 utests/openapi/raw/from_tuple.cpp

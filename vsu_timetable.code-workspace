@@ -19,12 +19,12 @@
     },
     "settings": {
         "files.exclude": { 
-            "third_party": true,
-            "build*": true,
-            ".*" : true,
-            "dependencies" : true, 
-            "compile_commands.json" : true,
-            "configs/static_config.yaml" : true
+            // "third_party": true,
+            // "build*": true,
+            // ".*" : true,
+            // "dependencies" : true, 
+            // "compile_commands.json" : true,
+            // "configs/static_config.yaml" : true
         },
         "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
     },

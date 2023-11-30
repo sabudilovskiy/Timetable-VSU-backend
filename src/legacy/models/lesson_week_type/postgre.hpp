@@ -7,8 +7,8 @@ namespace userver::storages::postgres::io
 {
 template <>
 struct CppToUserPg<::legacy::models::LessonWeekType>
-    : openapi::PgMapper<::legacy::models::LessonWeekType,
-                        "timetable_vsu.type_of_week">
+    : openapi::PgMapperFixed<::legacy::models::LessonWeekType, "timetable_vsu",
+                             "type_of_week">
 {
 };
 }  // namespace userver::storages::postgres::io
