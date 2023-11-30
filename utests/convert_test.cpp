@@ -8,12 +8,11 @@
 #include <userver/logging/log.hpp>
 #include <userver/server/http/http_request.hpp>
 #include <userver/utest/utest.hpp>
+#include <utils/convert/base.hpp>
+#include <utils/convert/json_parse.hpp>
+#include <utils/convert/json_serialize.hpp>
 
-#include "utils/convert/base.hpp"
-#include "utils/convert/json_parse.hpp"
-#include "utils/convert/json_serialize.hpp"
-
-namespace magic = timetable_vsu_backend::utils::convert;
+namespace magic = ::utils::convert;
 struct TestStruct
 {
     static constexpr auto kPolicyFields = magic::PolicyFields::ConvertAll;

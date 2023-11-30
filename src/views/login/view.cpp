@@ -2,81 +2,66 @@
 
 #include <chrono>
 #include <exception>
+#include <openapi/all.hpp>
+#include <userver/components/component_context.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/formats/parse/to.hpp>
 #include <userver/storages/postgres/component.hpp>
 #include <userver/utils/datetime.hpp>
 
-#include "Request.hpp"
-#include "Responses.hpp"
-#include "components/controllers/postgres/token/controller.hpp"
-#include "components/controllers/postgres/user/controller.hpp"
-#include "http/handler_parsed.hpp"
-#include "models/auth_token/serialize.hpp"
-#include "models/user/serialize.hpp"
-#include "models/user_type/serialize.hpp"
+#include "controllers/token/controller.hpp"
+#include "controllers/user/controller.hpp"
+#include "declarations.hpp"
+#include "models/error_v1/type.hpp"
 
-namespace timetable_vsu_backend::views::login
+namespace views::login
 {
-static_assert(
-    userver::formats::common::impl::kHasSerialize<
-        userver::formats::json::Value, timetable_vsu_backend::models::User>);
 namespace
 {
-namespace pg = components::controllers::postgres;
-class Handler final
-    : public http::HandlerParsed<Request, Response200, Response401, Response500>
+using Resp200 = Resp<Response, 200>;
+using Resp401 = Resp<models::ResponseErrorV1, 401>;
+using Base =
+    openapi::http::OpenApiHandler<"login-view", Request, Resp200, Resp401>;
+struct View final : Base
 {
-    static Response401 PerformInvalidCredentials()
+    View(const userver::components::ComponentConfig& cfg,
+         const userver::components::ComponentContext& ctx)
+        : Base(cfg, ctx),
+          token_controller(ctx.FindComponent<controllers::token::Controller>()),
+          user_controller(ctx.FindComponent<controllers::user::Controller>())
     {
-        Response401 resp;
-        resp.description = "Account not founded: login or password invalid";
-        resp.machine_id = "INVALID_CREDENTIALS";
+    }
+    static Resp401 PerformInvalidCredentials()
+    {
+        Resp401 resp;
+        resp().body().description() =
+            "Account not founded: login or password invalid";
+        resp().body().machine_id() = "INVALID_CREDENTIALS";
         return resp;
     }
-
-   public:
-    [[maybe_unused]] static constexpr std::string_view kName = "handler-login";
-    Handler(const userver::components::ComponentConfig& config,
-            const userver::components::ComponentContext& context)
-        : HandlerParsed(config, context),
-          user_controller(context.FindComponent<pg::user::Controller>()),
-          token_controller(context.FindComponent<pg::token::Controller>())
+    Resps Handle(Request&& req) const override
     {
-    }
-
-    Response Handle(Request&& request) const override
-    {
-        auto user = user_controller.GetByCredentials(request);
+        auto user = user_controller.GetByCredentials(req.body());
         if (!user)
         {
             return PerformInvalidCredentials();
         }
-        auto id = token_controller.CreateNew(
-            user->id(),
-            userver::utils::datetime::Now() + std::chrono::hours(24));
-        if (!id)
-        {
-            LOG_WARNING() << fmt::format(
-                "Failed to create token for user, id: {}",
-                boost::uuids::to_string(user->id()));
-            return Response500{};
-        }
-        Response200 resp;
-        resp.id() = *id;
-        resp.user() = *user;
+        auto id = token_controller.CreateNew(user->id());
+        Resp200 resp;
+        resp().body().token() = id;
+        resp().body().user() = user.value();
         return resp;
     }
 
-   private:
-    const pg::user::Controller& user_controller;
-    const pg::token::Controller& token_controller;
+   protected:
+    controllers::token::Controller& token_controller;
+    controllers::user::Controller& user_controller;
 };
 }  // namespace
 
 void Append(userver::components::ComponentList& component_list)
 {
-    component_list.Append<Handler>();
+    component_list.Append<View>();
 }
 
-}  // namespace timetable_vsu_backend::views::login
+}  // namespace views::login

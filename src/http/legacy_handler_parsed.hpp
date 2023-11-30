@@ -10,7 +10,7 @@
 #include <userver/server/handlers/http_handler_base.hpp>
 #include <userver/server/http/http_status.hpp>
 
-namespace timetable_vsu_backend::http
+namespace http
 {
 template <typename Request, typename Response>
 class LegacyHandlerParsed : public userver::server::handlers::HttpHandlerBase
@@ -71,4 +71,4 @@ class LegacyHandlerParsed : public userver::server::handlers::HttpHandlerBase
         }
     }
 };
-}  // namespace timetable_vsu_backend::http
+}  // namespace http

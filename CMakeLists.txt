@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.12)
 set(CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_COMPILER g++) 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(USERVER_FEATURE_GRPC OFF)
 project(timetable_vsu_backend CXX)
 message("Compiler version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -19,8 +22,11 @@ file(STRINGS ${PROJECT_SOURCE_DIR}/.gen/unittest.txt unittest_src)
 add_library(${PROJECT_NAME}_objs OBJECT
 	${objs_src}
 )
+target_compile_options(${PROJECT_NAME}_objs PRIVATE -Wno-missing-field-initializers
+)
 target_include_directories(${PROJECT_NAME}_objs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql)
+# target_compile_options(${PROJECT_NAME}_objs PRIVATE -Wfatal-errors)
 
 
 # The Service

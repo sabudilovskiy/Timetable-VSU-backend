@@ -1,17 +1,14 @@
 #pragma once
-#include <string>
+#include <openapi/types/all.hpp>
 
-#include "utils/convert/base.hpp"
-namespace timetable_vsu_backend::models
+namespace models
 {
-using namespace utils::convert;
+using namespace openapi::types;
+using namespace openapi::preferences;
 struct UserCredentials
 {
-    Property<std::string, "login"> login;
-    Property<std::string, "password"> password;
-    static constexpr TypeOfBody kTypeOfBody =
-        TypeOfBody::Json;  //открываем возможность использовать структуру, как
-                           //запрос
-    static constexpr PolicyFields kPolicyFields = PolicyFields::ConvertAll;
+    String<Name<"login">> login;
+    String<Name<"password">> password;
+    auto operator<=>(const UserCredentials&) const = default;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

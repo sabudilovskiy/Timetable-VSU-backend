@@ -2,6 +2,9 @@ CMAKE_COMMON_FLAGS ?= -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 CMAKE_DEBUG_FLAGS ?= -DUSERVER_SANITIZE='addr ub'
 CMAKE_RELEASE_FLAGS ?=
 CMAKE_OS_FLAGS ?= -DUSERVER_FEATURE_CRYPTOPP_BLAKE2=0 -DUSERVER_FEATURE_REDIS_HI_MALLOC=1
+FORMAT_INCLUDES_FLAGS ?= userver boost gtest openapi utils codegen
+GENERATE_SQL_QUERIES_FLAGS ?= src/sql src/codegen sql sql
+GENERATE_ALL_HEADERS_FLAGS ?= src/openapi openapi
 NPROCS ?= $(shell nproc)
 CLANG_FORMAT ?= clang-format-11
 
@@ -49,6 +52,12 @@ test-debug test-release: test-%: build-%
 testsuite-debug testsuite-release: testsuite-%: build-%
 	@rm -rf tests/results
 	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 PYTEST_ADDOPTS="--color=yes $(if $(F),-k $(F))" ctest -V -R "testsuite"))
+
+.PHONY: utest-debug utest-release
+utest-debug utest-release: utest-%: build-%
+	@rm -rf tests/results
+	@cmake --build build_$* -j $(NPROCS) --target timetable_vsu_backend_unittest
+	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 ctest -V -R "unittest"))
 
 # Start the service (via testsuite service runner)
 .PHONY: service-start-debug service-start-release
@@ -98,8 +107,14 @@ run-debug run-release: run-%: nothing-%
 install-run-debug install-run-release: install-run-%: install-%
 	$(MAKE) run-$*
 
+.PHONY: format-includes
+format-includes:
+	@python3 scripts/format_includes.py src $(FORMAT_INCLUDES_FLAGS)
+	@python3 scripts/format_includes.py utests $(FORMAT_INCLUDES_FLAGS)
+	@python3 scripts/format_includes.py service $(FORMAT_INCLUDES_FLAGS)
+
 .PHONY: format-cpp
-format-cpp:
+format-cpp: format-includes
 	@find benchs -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
 	@find service -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
 	@find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
@@ -148,8 +163,9 @@ check-format-cpp:
 	@find service -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
 	@find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
 	@find utests -name '*pp' -type f | xargs $(CLANG_FORMAT) -i --dry-run --Werror
-.PHONY: gen
-gen:
+
+.PHONY: gen-sources
+gen-sources:
 	@rm -rf .gen
 	@mkdir -p .gen
 
@@ -169,6 +185,24 @@ gen:
 .PHONY: unite-api
 unite-api:
 	@python3 scripts/merge_yaml.py api/api.yaml united_api.yaml
+
+.PHONY: gen-queries
+gen-queries:
+	@python3 scripts/generate_sql_queries.py $(GENERATE_SQL_QUERIES_FLAGS)
+
+.PHONY: gen-all-headers
+gen-all-headers:
+	@python3 scripts/generate_all_headers.py $(GENERATE_ALL_HEADERS_FLAGS)
+
+.PHONY: gen
+gen:
+	$(MAKE) gen-queries
+	$(MAKE) gen-sources
+	$(MAKE) gen-all-headers
+
+.PHONY: log-build
+log-build:
+	$(MAKE) -s test-debug > log_build.txt 2>&1
 
 # # Internal hidden targets that are used only in docker environment
 # --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%

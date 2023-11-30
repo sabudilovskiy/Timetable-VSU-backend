@@ -3,10 +3,10 @@
 #include <type_traits>
 #include <utility>
 // #include "utlis/convert/constexpr_string.hpp"
-#include "utils/constexpr_string.hpp"
-#include "utils/meta.hpp"
+#include <utils/constexpr_string.hpp>
+#include <utils/meta.hpp>
 
-namespace timetable_vsu_backend::utils::convert
+namespace utils::convert
 {
 //В данный момент поддерживаются только конвертация всех полей
 enum struct PolicyFields
@@ -102,4 +102,4 @@ concept IsConvertAll = requires
 {
     requires T::kPolicyFields == PolicyFields::ConvertAll;
 };
-}  // namespace timetable_vsu_backend::utils::convert
+}  // namespace utils::convert

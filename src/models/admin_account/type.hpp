@@ -1,18 +1,16 @@
 #pragma once
-#include <boost/uuid/uuid.hpp>
+#include <openapi/types/string.hpp>
+#include <openapi/types/uuid.hpp>
 
-#include "utils/convert/base.hpp"
-#include "utils/convert/json_serialize.hpp"
-
-namespace timetable_vsu_backend::models
+namespace models
 {
-using namespace utils::convert;
+using namespace openapi::types;
+using namespace openapi::preferences;
 struct AdminAccount
 {
-    Property<boost::uuids::uuid, "user_id"> user_id;
-    Property<boost::uuids::uuid, "admin_id"> admin_id;
-    Property<std::string, "login"> credentials;
-    static constexpr auto kPolicyFields = PolicyFields::ConvertAll;
+    Uuid<Name<"user_id">> user_id;
+    Uuid<Name<"admin_id">> admin_id;
+    String<Name<"login">> credentials;
+    auto operator<=>(const AdminAccount&) const = default;
 };
-static_assert(JsonSeriazable<AdminAccount>);
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

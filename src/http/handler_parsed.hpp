@@ -10,10 +10,9 @@
 #include <userver/server/handlers/http_handler_base.hpp>
 #include <userver/server/http/http_status.hpp>
 #include <utility>
+#include <utils/convert/http_response_base.hpp>
 
-#include "../utils/convert/http_response_base.hpp"
-
-namespace timetable_vsu_backend::http
+namespace http
 {
 template <typename Request, typename... TResponse>
 class HandlerParsed : public userver::server::handlers::HttpHandlerBase
@@ -60,7 +59,7 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase
         const userver::server::http::HttpRequest& raw_request)
     {
         std::string body;
-        timetable_vsu_backend::utils::convert::HttpResponse convert_response{
+        ::utils::convert::HttpResponse convert_response{
             raw_request.GetHttpResponse(), body};
         Serialize(some_response, convert_response);
         return body;
@@ -95,4 +94,4 @@ class HandlerParsed : public userver::server::handlers::HttpHandlerBase
         }
     }
 };
-}  // namespace timetable_vsu_backend::http
+}  // namespace http

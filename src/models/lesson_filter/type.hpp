@@ -1,48 +1,49 @@
 #pragma once
-#include <boost/uuid/uuid.hpp>
-#include <optional>
-#include <type_traits>
+#include <openapi/base/field.hpp>
+#include <openapi/base/properties/datetime.hpp>
+#include <openapi/base/property_base.hpp>
+#include <openapi/types/array.hpp>
+#include <openapi/types/datetime.hpp>
+#include <openapi/types/optional.hpp>
+#include <vector>
 
-#include "models/day/type.hpp"
-#include "models/education_type/type.hpp"
-#include "models/lesson_type/type.hpp"
-#include "models/lesson_week_type/type.hpp"
-#include "models/subgroup/type.hpp"
-#include "models/substring/type.hpp"
-#include "models/timestring/type.hpp"
-#include "utils/convert/additional_properties.hpp"
+#include "legacy/models/day/type.hpp"
+#include "legacy/models/education_type/type.hpp"
+#include "legacy/models/lesson_type/type.hpp"
+#include "legacy/models/lesson_week_type/type.hpp"
+#include "legacy/models/subgroup/type.hpp"
+#include "legacy/models/substring/type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
-namespace convert = utils::convert;
+using namespace openapi::types;
+using namespace openapi::preferences;
+
 struct LessonFilter
 {
-    convert::OptionalArrayProperty<SubString, "lesson_ids"> lesson_ids;
-    convert::OptionalProperty<TimeString, "begin"> begin;
-    convert::OptionalProperty<TimeString, "end"> end;
-    convert::OptionalArrayProperty<Day, "days"> days;
-    convert::OptionalArrayProperty<SubString, "department_ids"> department_ids;
-    convert::OptionalArrayProperty<SubString, "department_names">
-        department_names;
-    convert::OptionalArrayProperty<SubString, "faculty_ids"> faculty_ids;
-    convert::OptionalArrayProperty<SubString, "faculty_names"> faculty_names;
-    convert::OptionalArrayProperty<SubString, "group_ids"> group_ids;
-    convert::OptionalArrayProperty<SubString, "group_names"> group_names;
-    convert::OptionalArrayProperty<std::int16_t, "group_courses"> group_courses;
-    convert::OptionalArrayProperty<models::EducationType, "group_types">
-        group_types;
-    convert::OptionalArrayProperty<SubString, "room_ids"> room_ids;
-    convert::OptionalArrayProperty<SubString, "room_names"> room_names;
-    convert::OptionalProperty<Subgroup, "subgroup"> subgroup;
-    convert::OptionalArrayProperty<SubString, "subject_ids"> subject_ids;
-    convert::OptionalArrayProperty<SubString, "subject_names"> subject_names;
-    convert::OptionalArrayProperty<SubString, "teacher_ids"> teacher_ids;
-    convert::OptionalArrayProperty<SubString, "teacher_fios"> teacher_fios;
-    convert::OptionalArrayProperty<SubString, "teacher_bios"> teacher_bios;
-    convert::OptionalProperty<LessonWeekType, "week_type"> week;
-    convert::OptionalProperty<LessonType, "lesson_type"> type;
-    convert::OptionalArrayProperty<std::int16_t, "numbers"> numbers;
-    static constexpr utils::convert::PolicyFields kPolicyFields =
-        utils::convert::PolicyFields::ConvertAll;
+    FIELD(lesson_ids, Optional<Array<legacy::models::SubString>>);
+    FIELD(begin, Optional<Datetime<>>);
+    FIELD(end, Optional<Datetime<>>);
+    FIELD(days, Optional<Array<legacy::models::Day>>);
+    FIELD(department_ids, Optional<Array<legacy::models::SubString>>);
+    FIELD(department_names, Optional<Array<legacy::models::SubString>>);
+    FIELD(faculty_ids, Optional<Array<legacy::models::SubString>>);
+    FIELD(faculty_names, Optional<Array<legacy::models::SubString>>);
+    FIELD(group_ids, Optional<Array<legacy::models::SubString>>);
+    FIELD(group_names, Optional<Array<legacy::models::SubString>>);
+    FIELD(group_courses, Optional<Array<short>>);
+    FIELD(group_types, Optional<Array<legacy::models::EducationType>>);
+    FIELD(room_ids, Optional<Array<legacy::models::SubString>>);
+    FIELD(room_names, Optional<Array<legacy::models::SubString>>);
+    FIELD(subgroup, Optional<legacy::models::Subgroup>);
+    FIELD(subject_ids, Optional<Array<legacy::models::SubString>>);
+    FIELD(subject_names, Optional<Array<legacy::models::SubString>>);
+    FIELD(teacher_ids, Optional<Array<legacy::models::SubString>>);
+    FIELD(teacher_fios, Optional<Array<legacy::models::SubString>>);
+    FIELD(teacher_bios, Optional<Array<legacy::models::SubString>>);
+    Optional<legacy::models::LessonWeekType, Name<"week_type">> week;
+    Optional<legacy::models::LessonType, Name<"lesson_type">> type;
+    FIELD(numbers, Optional<Array<short>>);
+    auto operator<=>(const LessonFilter&) const = default;
 };
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

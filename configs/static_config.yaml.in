@@ -53,18 +53,6 @@ components_manager:
             path: /tests/{action}
             method: POST
             task_processor: main-task-processor
-        handler-login: 
-            path: /login
-            method: POST
-            task_processor: main-task-processor
-        handler-register: 
-            path: /register
-            method: POST                
-            task_processor: main-task-processor  
-        handler-timetable-get: 
-            path: /timetable/get
-            method: POST                
-            task_processor: main-task-processor
         handler-admin-create:
             path: /admin/create
             method: POST
@@ -100,6 +88,28 @@ components_manager:
         handler-group-stage-list:
             path: /group-stage/list
             method: POST
+            task_processor: main-task-processor
+        login-view:
+            path: /login
+            method: POST
+            task_processor: main-task-processor
+        register-view:
+            path: /register
+            method: POST
+            task_processor: main-task-processor
+        openapi-descriptor:
+            servers:
+                - description: dev
+                  url: http://158.160.44.177:8080
+                - description: stable
+                  url: http://51.250.86.220
+            load-enabled: true
+            path: /openapi
+            info:
+                title: Some Server Doc
+                description: Some server
+                version: 1.0.0
+            method: GET,POST
             task_processor: main-task-processor     
         postgres-db-1:
             dbconnection: $dbconnection
@@ -115,8 +125,19 @@ components_manager:
                 password: $root_password
                 id: $root_id
         token_controller: {}
+        new-token-controller: {}
+        new-user-controller:
+            root:
+                login: $root_login
+                password: $root_password
+                id: $root_id
         lesson_details_controller : {}
         teacher_controller : {}
+        new-lesson-controller: {}
+        timetable-view:
+            path: /timetable/get
+            method: POST                
+            task_processor: main-task-processor
         handler-ping:
             path: /ping
             method: GET

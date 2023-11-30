@@ -1,0 +1,11 @@
+#pragma once
+#include <openapi/as_tuple/all.hpp>
+#include <openapi/base/all.hpp>
+#include <openapi/doc/all.hpp>
+#include <openapi/enum/all.hpp>
+#include <openapi/from_tuple/all.hpp>
+#include <openapi/http/all.hpp>
+#include <openapi/json/all.hpp>
+#include <openapi/postgres/all.hpp>
+#include <openapi/to_tuple/all.hpp>
+#include <openapi/types/all.hpp>

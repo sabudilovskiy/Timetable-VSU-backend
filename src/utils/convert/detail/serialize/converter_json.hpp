@@ -1,10 +1,9 @@
 #pragma once
 #include <boost/pfr/core.hpp>
 #include <userver/formats/json/value_builder.hpp>
+#include <utils/convert/base.hpp>
 
-#include "utils/convert/base.hpp"
-
-namespace timetable_vsu_backend::utils::convert::detail::serialize
+namespace utils::convert::detail::serialize
 {
 template <typename T>
 struct ConverterJson
@@ -55,4 +54,4 @@ struct ConverterJson
         (SerializeField(value, std::get<Indexes>(tuple)), ...);
     }
 };
-}  // namespace timetable_vsu_backend::utils::convert::detail::serialize
+}  // namespace utils::convert::detail::serialize

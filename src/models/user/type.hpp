@@ -1,20 +1,19 @@
 #pragma once
-#include <boost/uuid/uuid.hpp>
-#include <userver/utils/strong_typedef.hpp>
+#include <openapi/base/field.hpp>
+#include <openapi/base/named_traits.hpp>
+#include <openapi/types/uuid.hpp>
 
-#include "models/user_type/type.hpp"
-#include "utils/convert/base.hpp"
+#include "legacy/models/user_type/type.hpp"
 
-namespace timetable_vsu_backend::models
+namespace models
 {
-namespace convert = utils::convert;
+using namespace openapi::types;
+using namespace openapi::preferences;
 struct User
 {
-    convert::Property<boost::uuids::uuid, "id"> id;
-    convert::Property<models::UserType, "type"> type;
-    static constexpr convert::PolicyFields kPolicyFields =
-        convert::PolicyFields::ConvertAll;
+    Uuid<Name<"id">> id;
+    FIELD(type, legacy::models::UserType);
+    auto operator<=>(const User&) const = default;
 };
 
-static_assert(utils::convert::IsConvertAll<User>);
-}  // namespace timetable_vsu_backend::models
+}  // namespace models

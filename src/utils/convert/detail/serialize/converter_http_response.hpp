@@ -3,11 +3,10 @@
 #include <userver/formats/json.hpp>
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/server/http/http_response.hpp>
+#include <utils/convert/base.hpp>
+#include <utils/convert/http_response_base.hpp>
 
-#include "utils/convert/base.hpp"
-#include "utils/convert/http_response_base.hpp"
-
-namespace timetable_vsu_backend::utils::convert::detail::serialize
+namespace utils::convert::detail::serialize
 {
 template <typename T>
 struct ConverterHttpResponse
@@ -148,4 +147,4 @@ struct ConverterHttpResponse
         (SerializeField(response, body, std::get<Indexes>(tuple)), ...);
     }
 };
-}  // namespace timetable_vsu_backend::utils::convert::detail::serialize
+}  // namespace utils::convert::detail::serialize

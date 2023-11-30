@@ -1,6 +1,6 @@
 #pragma once
-#include "common_errors.hpp"
-namespace timetable_vsu_backend::utils::common_errors
+#include <utils/common_errors.hpp>
+namespace utils::common_errors
 {
 [[nodiscard]] Response400 PerformLoginTaken();
 
@@ -9,4 +9,4 @@ namespace timetable_vsu_backend::utils::common_errors
 [[nodiscard]] Response403 PerformForbidden();
 
 [[nodiscard]] Response400 PerformInvalidData(std::string_view message);
-}  // namespace timetable_vsu_backend::utils::common_errors
+}  // namespace utils::common_errors

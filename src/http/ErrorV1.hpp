@@ -1,11 +1,10 @@
 #pragma once
 #include <userver/server/http/http_status.hpp>
+#include <utils/convert/base.hpp>
 
-#include "../utils/convert/base.hpp"
-
-namespace timetable_vsu_backend::http
+namespace http
 {
-namespace convert = timetable_vsu_backend::utils::convert;
+namespace convert = ::utils::convert;
 template <userver::server::http::HttpStatus code>
 struct ErrorV1
 {
@@ -17,4 +16,4 @@ struct ErrorV1
     convert::Property<std::string, "description"> description;
     convert::Property<std::string, "machine_id"> machine_id;
 };
-}  // namespace timetable_vsu_backend::http
+}  // namespace http
