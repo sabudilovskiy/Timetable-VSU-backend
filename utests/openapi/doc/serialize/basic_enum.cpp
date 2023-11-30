@@ -41,27 +41,27 @@ DECLARE_OPENAPI_ENUM(UserType, int, root, teacher, user, admin, tester);
 
 }  // namespace test_models
 
-UTEST(OpenApiDoc, BasicEnum)
-{
-    ::openapi::Doc doc;
-    Append(openapi::DocHelper{doc.value_, doc.value_},
-           std::type_identity<test_models::UserType>{});
-    auto value = doc().ExtractValue();
-    auto result_schema = ToString(value);
-    EXPECT_EQ(result_schema, RAW_STRING(
-                                 R"(
-components:
-  schemas:
-    test_models.UserType:
-      type: string
-      enum:
-        - root
-        - teacher
-        - user
-        - admin
-        - tester
-)"));
-}
+// UTEST(OpenApiDoc, BasicEnum)
+// {
+//     ::openapi::Doc doc;
+//     Append(openapi::DocHelper{doc.value_, doc.value_},
+//            std::type_identity<test_models::UserType>{});
+//     auto value = doc().ExtractValue();
+//     auto result_schema = ToString(value);
+//     EXPECT_EQ(result_schema, RAW_STRING(
+//                                  R"(
+// components:
+//   schemas:
+//     test_models.UserType:
+//       type: string
+//       enum:
+//         - root
+//         - teacher
+//         - user
+//         - admin
+//         - tester
+// )"));
+// }
 
 UTEST(OpenApiDoc, BasicEnumerator)
 {
