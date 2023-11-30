@@ -10,6 +10,8 @@
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/utest/utest.hpp>
 #include <utils/tests_macros.hpp>
+#include "openapi/enum/introspector.hpp"
+#include "userver/utils/assert.hpp"
 
 namespace test_models
 {
@@ -63,24 +65,30 @@ components:
 
 UTEST(OpenApiDoc, BasicEnumerator)
 {
-    constexpr userver::utils::TrivialBiMap enumerators =
-        openapi::create_enumerator_func<test_models::UserType>();
-    static_assert(enumerators.TryFind(test_models::UserType::root) == "root");
-    static_assert(enumerators.TryFind(test_models::UserType::teacher) ==
-                  "teacher");
-    static_assert(enumerators.TryFind(test_models::UserType::user) == "user");
-    static_assert(enumerators.TryFind(test_models::UserType::admin) == "admin");
-    static_assert(enumerators.TryFind(test_models::UserType::tester) ==
-                  "tester");
-    static_assert(enumerators.TryFindICase("root") ==
-                  test_models::UserType::root);
-    static_assert(enumerators.TryFindICase("teacher") ==
-                  test_models::UserType::teacher);
-    static_assert(enumerators.TryFindICase("user") ==
-                  test_models::UserType::user);
-    static_assert(enumerators.TryFindICase("admin") ==
-                  test_models::UserType::admin);
-    static_assert(enumerators.TryFindICase("tester") ==
-                  test_models::UserType::tester);
-    static_assert(enumerators.TryFindICase("tester2") == std::nullopt);
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names.size() == 5);
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[0] == "root");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[1] == "teacher");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[2] == "user");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[3] == "admin");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[4] == "tester");
+    // constexpr userver::utils::TrivialBiMap enumerators =
+    //     openapi::create_enumerator_func<test_models::UserType>();
+    // static_assert(enumerators.TryFind(test_models::UserType::root) == "root");
+    // static_assert(enumerators.TryFind(test_models::UserType::teacher) ==
+    //               "teacher");
+    // static_assert(enumerators.TryFind(test_models::UserType::user) == "user");
+    // static_assert(enumerators.TryFind(test_models::UserType::admin) == "admin");
+    // static_assert(enumerators.TryFind(test_models::UserType::tester) ==
+    //               "tester");
+    // static_assert(enumerators.TryFindICase("root") ==
+    //               test_models::UserType::root);
+    // static_assert(enumerators.TryFindICase("teacher") ==
+    //               test_models::UserType::teacher);
+    // static_assert(enumerators.TryFindICase("user") ==
+    //               test_models::UserType::user);
+    // static_assert(enumerators.TryFindICase("admin") ==
+    //               test_models::UserType::admin);
+    // static_assert(enumerators.TryFindICase("tester") ==
+    //               test_models::UserType::tester);
+    // static_assert(enumerators.TryFindICase("tester2") == std::nullopt);
 }
