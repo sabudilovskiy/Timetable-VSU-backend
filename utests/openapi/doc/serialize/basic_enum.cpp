@@ -4,14 +4,14 @@
 #include <openapi/all.hpp>
 #include <openapi/doc/base.hpp>
 #include <openapi/enum/enumerator_func.hpp>
+#include <openapi/enum/introspector.hpp>
 #include <openapi/json/serialize/enum.hpp>
 #include <optional>
 #include <type_traits>
 #include <userver/formats/json/value_builder.hpp>
 #include <userver/utest/utest.hpp>
+#include <userver/utils/assert.hpp>
 #include <utils/tests_macros.hpp>
-#include "openapi/enum/introspector.hpp"
-#include "userver/utils/assert.hpp"
 
 namespace test_models
 {
@@ -65,19 +65,27 @@ components:
 
 UTEST(OpenApiDoc, BasicEnumerator)
 {
-    UASSERT(openapi::enum_introspector<test_models::UserType>::names.size() == 5);
-    UASSERT(openapi::enum_introspector<test_models::UserType>::names[0] == "root");
-    UASSERT(openapi::enum_introspector<test_models::UserType>::names[1] == "teacher");
-    UASSERT(openapi::enum_introspector<test_models::UserType>::names[2] == "user");
-    UASSERT(openapi::enum_introspector<test_models::UserType>::names[3] == "admin");
-    UASSERT(openapi::enum_introspector<test_models::UserType>::names[4] == "tester");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names.size() ==
+            5);
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[0] ==
+            "root");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[1] ==
+            "teacher");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[2] ==
+            "user");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[3] ==
+            "admin");
+    UASSERT(openapi::enum_introspector<test_models::UserType>::names[4] ==
+            "tester");
     // constexpr userver::utils::TrivialBiMap enumerators =
     //     openapi::create_enumerator_func<test_models::UserType>();
-    // static_assert(enumerators.TryFind(test_models::UserType::root) == "root");
+    // static_assert(enumerators.TryFind(test_models::UserType::root) ==
+    // "root");
     // static_assert(enumerators.TryFind(test_models::UserType::teacher) ==
     //               "teacher");
-    // static_assert(enumerators.TryFind(test_models::UserType::user) == "user");
-    // static_assert(enumerators.TryFind(test_models::UserType::admin) == "admin");
+    // static_assert(enumerators.TryFind(test_models::UserType::user) ==
+    // "user"); static_assert(enumerators.TryFind(test_models::UserType::admin)
+    // == "admin");
     // static_assert(enumerators.TryFind(test_models::UserType::tester) ==
     //               "tester");
     // static_assert(enumerators.TryFindICase("root") ==
