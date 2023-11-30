@@ -23,8 +23,5 @@ namespace legacy::models
 //     static constexpr std::array<Subgroup, 3> values = {all, first, second};
 // };
 
-DECLARE_OPENAPI_ENUM(Subgroup, int, 
-    all,
-    even,
-    odd);
+DECLARE_OPENAPI_ENUM(Subgroup, int, all, even, odd);
 }  // namespace legacy::models

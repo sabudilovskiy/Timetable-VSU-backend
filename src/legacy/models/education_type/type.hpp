@@ -24,9 +24,6 @@ namespace legacy::models
 //     static constexpr std::array<EducationType, 4> values = {
 //         undergraduate, magistracy, postgraduate, specialty};
 // };
-DECLARE_OPENAPI_ENUM(EducationType, int,     
-    undergraduate,
-    magistracy,
-    postgraduate,
-    specialty);
+DECLARE_OPENAPI_ENUM(EducationType, int, undergraduate, magistracy,
+                     postgraduate, specialty);
 }  // namespace legacy::models

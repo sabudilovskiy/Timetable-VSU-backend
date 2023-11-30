@@ -7,7 +7,8 @@ namespace userver::storages::postgres::io
 {
 template <>
 struct CppToUserPg<::legacy::models::EducationType>
-    : openapi::PgMapper<::legacy::models::EducationType, "timetable_vsu.grouptype">
+    : openapi::PgMapper<::legacy::models::EducationType,
+                        "timetable_vsu.grouptype">
 {
 };
 }  // namespace userver::storages::postgres::io
