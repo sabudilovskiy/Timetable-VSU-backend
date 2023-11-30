@@ -10,7 +10,7 @@ namespace userver::storages::postgres::io
 {
 template <>
 struct CppToUserPg<legacy::models::UserType>
-    : openapi::PgMapper<legacy::models::UserType, "timetable_vsu.user_type">
+    : openapi::PgMapperFixed<legacy::models::UserType, "timetable_vsu", "user_type">
 {
 };
 }  // namespace userver::storages::postgres::io

@@ -7,7 +7,7 @@ namespace userver::storages::postgres::io
 {
 template <>
 struct CppToUserPg<::legacy::models::Day>
-    : openapi::PgMapper<::legacy::models::Day, "timetable_vsu.day">
+    : openapi::PgMapperFixed<::legacy::models::Day, "timetable_vsu", "day">
 {
 };
 }  // namespace userver::storages::postgres::io

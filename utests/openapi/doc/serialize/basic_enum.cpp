@@ -13,7 +13,27 @@
 
 namespace test_models
 {
-DECLARE_OPENAPI_ENUM(UserType, int, root, teacher, user, admin, tester);
+//DECLARE_OPENAPI_ENUM(UserType, int, root, teacher, user, admin, tester);
+enum struct UserType : int
+{
+    root,
+    teacher,
+    user,
+    admin,
+    tester
+};
+struct enum_introspector_UserType;
+consteval enum_introspector_UserType* get_enum_introspector(
+    std ::type_identity<UserType>)
+{
+    return nullptr;
+}
+struct enum_introspector_UserType
+{
+    using enum UserType;
+    static constexpr std::array<std::string_view, 5> names = {"root", "teacher", "user", "admin", "tester"};
+    static constexpr std::array<UserType, 5> values = {root, teacher, user, admin, tester};
+};
 
 }  // namespace test_models
 
